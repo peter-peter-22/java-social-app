@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: demo
+
+springdoc:
+  # Set the default response type to JSON, required by the React client
+  default-produces-media-type: application/json
