@@ -1,4 +1,4 @@
-package com.example.demo.posts.internal;
+package com.example.demo.posts.internal.post_service;
 
 import com.example.demo.posts.Post;
 import com.example.demo.posts.PostId;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Service
 class PostServiceImpl implements PostService {
@@ -22,18 +21,22 @@ class PostServiceImpl implements PostService {
         this.postRepository = postRepository;
     }
 
+    private static @NotNull Post entityToDTO(PostEntity e) {
+        return new Post(
+                new PostId(e.id()),
+                new UserId(e.authorId()),
+                e.body(),
+                Instant.now()
+        );
+    }
+
     public @NotNull PostId insertAndReturnId(@NotNull UserId authorId, @NotNull String text) {
-        return postRepository.create(authorId.id(),text);
+        return new PostId(postRepository.insertAndReturnId(authorId.id(), text));
     }
 
     public @Nullable Post getPost(@NotNull PostId id) {
-        return postRepository.findById(id)
-                .map(found -> new Post(
-                        found.id(),
-                        found.authorId(),
-                        found.body(),
-                        Instant.now()
-                ))
+        return postRepository.findById(id.id())
+                .map(PostServiceImpl::entityToDTO)
                 .orElse(null);
     }
 }

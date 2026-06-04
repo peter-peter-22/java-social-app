@@ -14,6 +14,7 @@ import org.testcontainers.containers.CockroachContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,12 +42,24 @@ public class PostServiceIT {
     @Autowired
     private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
+    private final UserId authorId = new UserId(UUID.randomUUID());
+    private final String text = "Hello, world!";
+
     @Test
     void testCreatePost() {
-        UserId authorId = new UserId(UUID.randomUUID());
-        String text = "Hello, world!";
+        // Test if
         PostId id = postService.insertAndReturnId(authorId, text);
-        System.out.println(id);
         assertThat(id).isNotNull();
+    }
+
+    @Test
+    void testReadPost() {
+        PostId id = postService.insertAndReturnId(authorId, text);
+        Post post = postService.getPost(id);
+
+        assertThat(post).isNotNull();
+        assertThat(post.authorId() == authorId);
+        assertThat(Objects.equals(post.text(), text));
+        assertThat(post.id() == id);
     }
 }
