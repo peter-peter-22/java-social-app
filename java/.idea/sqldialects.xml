@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/demo/src/main/resources/db/changelog/001-create-posts-table.sql" dialect="GenericSQL" />
   </component>
 </project>

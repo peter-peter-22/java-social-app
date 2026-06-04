@@ -13,6 +13,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
-    // openapi UI
+    // openapi annotations and others
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 }

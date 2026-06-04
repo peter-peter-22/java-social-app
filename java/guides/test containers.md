@@ -1,4 +1,9 @@
+# Test container guide and rules
 
+Test containers are typically shared between tests (static) 
+and defined as Gradle test fixtures.
+
+#### Useful links
 
 * [Java test container guide](https://testcontainers.com/guides/getting-started-with-testcontainers-for-java/)
 * [Spring test container guide by test containers (not complete)](https://testcontainers.com/guides/testing-spring-boot-rest-api-using-testcontainers/)

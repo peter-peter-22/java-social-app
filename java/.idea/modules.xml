@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" filepath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" filepath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" filepath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" filepath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" />
     </modules>
   </component>
 </project>

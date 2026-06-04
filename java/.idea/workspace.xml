@@ -5,17 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustomImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/guides/tests.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/posts/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/posts/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/posts/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/posts/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/DatabaseInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/api/CreatePost.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/PostEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/PostRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/PostServiceIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/HydratedPostDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/Post.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/PostId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/PostService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/api/PostController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/example/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/users/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/example/users/UserId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostServiceIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/liquibase.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/liquibase.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/test containers.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/test containers.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +60,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="503" />
+    <option name="cachedIndexableFilesCount" value="530" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -101,6 +138,7 @@
     &quot;Gradle.Build java.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostServiceIT (1).executor&quot;: &quot;Run&quot;,
     &quot;Gradle.PostServiceIT.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.PostServiceIT.testCreatePost.executor&quot;: &quot;Debug&quot;,
     &quot;Gradle.java [:application:build].executor&quot;: &quot;Run&quot;,
@@ -128,7 +166,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/peter/IdeaProjects/java_social_app/java/demo/src/main/resources/db/changelog&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/peter/IdeaProjects/java_social_app/java/cockroach_db/src/testFixtures&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -138,65 +176,28 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;junie.application.models&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cockroach_db/src/testFixtures" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/users/src/main/java/com/example/users" />
       <recent name="$PROJECT_DIR$/demo/src/main/resources/db/changelog" />
       <recent name="$PROJECT_DIR$/buildSrc/src/main/kotlin" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/gradle" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts" />
+      <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog" />
+      <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users" />
+      <recent name="$PROJECT_DIR$/cockroach_db/src/main/java/com/example/cockroach_db" />
       <recent name="$PROJECT_DIR$/guides" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/application" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PostServiceIT">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="java.application.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PostServiceIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":demo:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.demo.PostServiceIT&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="java" />
       <method v="2">
@@ -207,6 +208,20 @@
       <module name="java" />
       <option name="filePath" />
       <method v="2" />
+    </configuration>
+    <configuration name="DemoApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="java.cockroach_db.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="java.cockroach_db.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cockroach_db.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="java.demo.main" />
@@ -231,9 +246,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PostServiceIT" />
         <item itemvalue="Docker.compose.yaml: Compose Deployment" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -272,7 +285,11 @@
       <workItem from="1780500156076" duration="9361000" />
       <workItem from="1780540790069" duration="4405000" />
       <workItem from="1780545386028" duration="1683000" />
-      <workItem from="1780563537605" duration="3216000" />
+      <workItem from="1780563537605" duration="3223000" />
+      <workItem from="1780587129062" duration="6285000" />
+      <workItem from="1780598479631" duration="2616000" />
+      <workItem from="1780601109827" duration="2896000" />
+      <workItem from="1780610205746" duration="4585000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -290,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780547067668</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="wip">
+      <option name="closed" value="true" />
+      <created>1780567212833</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1780567212833</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,5 +347,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

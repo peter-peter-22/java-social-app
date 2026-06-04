@@ -1,0 +1,8 @@
+databaseChangeLog:
+  # All file paths must be relative to the resources directory
+
+  - include:
+      - file: db/changelog/users/000-create-users-table.sql
+
+  - include:
+      - file: db/changelog/posts/000-create-posts-table.sql

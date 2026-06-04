@@ -7,5 +7,8 @@ rootProject.name = "java"
 
 include(
     "application",
-    "demo"
+    "demo",
+    "posts",
+    "users",
+    "cockroach_db"
 )
