@@ -19,12 +19,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/cockroach_db" />
-            <option value="$PROJECT_DIR$/demo" />
-            <option value="$PROJECT_DIR$/posts" />
-            <option value="$PROJECT_DIR$/users" />
+            <option value="$PROJECT_DIR$/modules" />
+            <option value="$PROJECT_DIR$/modules/application" />
+            <option value="$PROJECT_DIR$/modules/cockroach_db" />
+            <option value="$PROJECT_DIR$/modules/demo" />
+            <option value="$PROJECT_DIR$/modules/posts" />
+            <option value="$PROJECT_DIR$/modules/users" />
           </set>
         </option>
       </GradleProjectSettings>

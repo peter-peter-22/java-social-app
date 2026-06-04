@@ -19,9 +19,6 @@ public class PostServiceIT extends CockroachIntegrationTest {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
-
     private final UserId authorId = new UserId(UUID.randomUUID());
     private final String text = "Hello, world!";
 

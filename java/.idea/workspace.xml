@@ -5,54 +5,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guides/tests.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/posts/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/posts/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/posts/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/posts/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/HydratedPostDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/Post.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/PostId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/PostService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/api/PostController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/example/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/users/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/example/users/UserId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostServiceIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/liquibase.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/liquibase.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/test containers.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/test containers.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/org/example/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/src/main/java/org/example/TestClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/test_containers/TestContainerImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/java/com/example/demo/test_containers/TestContainerImages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/changelog/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/changelog/000-create-users-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/changelog/001-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/changelog/001-create-posts-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/test/java/com/example/demo/DemoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/HydratedPostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/HydratedPostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/PostId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/api/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/api/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostServiceIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostsTestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostsTestApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/example/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/example/users/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/UserId.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,11 +199,11 @@
       <recent name="$PROJECT_DIR$/buildSrc/src/main/kotlin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/java/com/example/cockroach_db" />
-      <recent name="$PROJECT_DIR$/guides" />
     </key>
   </component>
   <component name="RunManager">
@@ -224,7 +233,7 @@
       </method>
     </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="java.demo.main" />
+      <module name="java.modules.demo.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -289,7 +298,7 @@
       <workItem from="1780587129062" duration="6285000" />
       <workItem from="1780598479631" duration="2616000" />
       <workItem from="1780601109827" duration="2896000" />
-      <workItem from="1780610205746" duration="4585000" />
+      <workItem from="1780610205746" duration="5073000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -315,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780567212833</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="wip">
+      <option name="closed" value="true" />
+      <created>1780614818136</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1780614818137</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

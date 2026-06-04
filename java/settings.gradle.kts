@@ -6,9 +6,9 @@ pluginManagement {
 rootProject.name = "java"
 
 include(
-    "application",
-    "demo",
-    "posts",
-    "users",
-    "cockroach_db"
+    "modules:application",
+    "modules:demo",
+    "modules:posts",
+    "modules:users",
+    "modules:cockroach_db"
 )

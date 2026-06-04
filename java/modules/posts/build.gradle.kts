@@ -14,6 +14,6 @@ dependencies {
 	testImplementation("org.testcontainers:testcontainers-junit-jupiter")
 
 	// modules
-	implementation(project(":users"))
-	testImplementation(testFixtures(project(":cockroach_db")))
+	implementation(project(":modules:users"))
+	testImplementation(testFixtures(project(":modules:cockroach_db")))
 }
