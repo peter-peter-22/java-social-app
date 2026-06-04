@@ -1,3 +1,5 @@
 package com.example.demo.posts;
 
-public record PostId(String id){}
+import java.util.UUID;
+
+public record PostId(UUID id){}

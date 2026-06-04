@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/posts")
@@ -28,6 +28,6 @@ class PostController {
     @GetMapping
     @Operation(summary = "Get all users")
     public ResponseEntity<Post> example() {
-        return ResponseEntity.ok(postService.getPost(new PostId("1")));
+        return ResponseEntity.ok(postService.getPost(new PostId(UUID.randomUUID())));
     }
 }

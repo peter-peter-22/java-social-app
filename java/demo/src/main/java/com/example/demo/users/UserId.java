@@ -1,4 +1,6 @@
 package com.example.demo.users;
 
-public record UserId(String id) {
+import java.util.UUID;
+
+public record UserId(UUID id) {
 }

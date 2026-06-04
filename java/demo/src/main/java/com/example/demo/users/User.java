@@ -1,5 +1,7 @@
 package com.example.demo.users;
 
-public interface User {
-    public UserId getId();
-}
+import org.springframework.data.annotation.Id;
+
+public record User (
+    @Id UserId id
+) {}
