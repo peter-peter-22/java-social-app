@@ -1,8 +1,17 @@
 databaseChangeLog:
-  # All file paths must be relative to the resources directory
 
   - include:
-      - file: db/changelog/users/000-create-users-table.sql
+      path: changelog/users
+      relativeToChangelogFile: true
 
   - include:
-      - file: db/changelog/posts/000-create-posts-table.sql
+      file: db/changelog/posts
+      relativeToChangelogFile: true
+
+  - include:
+      file: db/changelog/uploads
+      relativeToChangelogFile: true
+
+  - include:
+      file: db/changelog/upload_variants
+      relativeToChangelogFile: true

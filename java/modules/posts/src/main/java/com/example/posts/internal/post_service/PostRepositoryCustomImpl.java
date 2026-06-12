@@ -17,7 +17,7 @@ class PostRepositoryCustomImpl implements PostRepositoryCustom {
     @Override
     public @NotNull UUID insertAndReturnId(@NotNull UUID authorId, @NotNull String body) {
         return jdbc.sql("""
-                        INSERT INTO posts(author_id,body)
+                        INSERT INTO posts (author_id,body)
                         VALUES (:author_id,:body)
                         RETURNING id
                         """)

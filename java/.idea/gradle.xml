@@ -24,8 +24,11 @@
             <option value="$PROJECT_DIR$/modules/application" />
             <option value="$PROJECT_DIR$/modules/cockroach_db" />
             <option value="$PROJECT_DIR$/modules/demo" />
+            <option value="$PROJECT_DIR$/modules/minio" />
             <option value="$PROJECT_DIR$/modules/posts" />
+            <option value="$PROJECT_DIR$/modules/uploads" />
             <option value="$PROJECT_DIR$/modules/users" />
+            <option value="$PROJECT_DIR$/modules/utils" />
           </set>
         </option>
       </GradleProjectSettings>

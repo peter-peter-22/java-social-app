@@ -10,5 +10,8 @@ include(
     "modules:demo",
     "modules:posts",
     "modules:users",
-    "modules:cockroach_db"
+    "modules:cockroach_db",
+    "modules:minio",
+    "modules:uploads",
+    "modules:utils"
 )

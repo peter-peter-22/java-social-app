@@ -19,12 +19,12 @@ The artifact names can be found on this site:
 * ```./gradlew :app:run``` Run the "app" module.
 * ```./gradlew :spring_boot_app:bootRun``` Run the "spring_boot_app" module with spring boot.
 
-#### The version catalog
-Defining the versions in buildSrc is prioritized, 
-the version catalog is used only to define the version of the
-dependencies that are imported from the modules.
+#### Dependency versions
+Defining the versions in buildSrc is prioritized.
 
-#### The spring modulith package.
+The version catalog is used for libraries those are imported in multiple modules.
+
+#### The spring modulith package
 This is for preventing the usage of some spring beans outside a folder. 
 It's not for Gradle modules and it's not used in this project.
 

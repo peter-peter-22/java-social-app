@@ -5,5 +5,4 @@ create table if not exists users (
     id uuid primary key default gen_random_uuid()
 );
 
---rollback
-drop table users;
+--rollback drop table if exists users;

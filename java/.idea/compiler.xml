@@ -9,14 +9,20 @@
         </processorPath>
         <module name="java.modules.application.test" />
         <module name="java.modules.cockroach_db.main" />
+        <module name="java.modules.minio.main" />
+        <module name="java.modules.uploads.main" />
+        <module name="java.modules.utils.test" />
+        <module name="java.modules.application.main" />
+        <module name="java.modules.users.main" />
+        <module name="java.modules.uploads.test" />
+        <module name="java.modules.demo.test" />
         <module name="java.modules.posts.main" />
         <module name="java.modules.demo.main" />
         <module name="java.modules.cockroach_db.test" />
+        <module name="java.modules.utils.main" />
         <module name="java.modules.users.test" />
+        <module name="java.modules.minio.test" />
         <module name="java.modules.posts.test" />
-        <module name="java.modules.application.main" />
-        <module name="java.modules.users.main" />
-        <module name="java.modules.demo.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21" />
@@ -40,18 +46,30 @@
       <module name="java.modules.demo" options="-parameters" />
       <module name="java.modules.demo.main" options="-parameters" />
       <module name="java.modules.demo.test" options="-parameters" />
+      <module name="java.modules.media.main" options="-parameters -parameters" />
+      <module name="java.modules.media.test" options="-parameters -parameters" />
+      <module name="java.modules.minio" options="-parameters -parameters" />
+      <module name="java.modules.minio.main" options="-parameters -parameters" />
+      <module name="java.modules.minio.test" options="-parameters -parameters" />
       <module name="java.modules.posts" options="-parameters -parameters" />
       <module name="java.modules.posts.main" options="-parameters -parameters" />
       <module name="java.modules.posts.test" options="-parameters -parameters" />
+      <module name="java.modules.uploads" options="-parameters -parameters" />
+      <module name="java.modules.uploads.main" options="-parameters -parameters" />
+      <module name="java.modules.uploads.test" options="-parameters -parameters" />
       <module name="java.modules.users" options="-parameters -parameters" />
       <module name="java.modules.users.main" options="-parameters -parameters" />
       <module name="java.modules.users.test" options="-parameters -parameters" />
+      <module name="java.modules.utils" options="-parameters -parameters" />
+      <module name="java.modules.utils.main" options="-parameters -parameters" />
+      <module name="java.modules.utils.test" options="-parameters -parameters" />
       <module name="java.posts" options="-parameters -parameters" />
       <module name="java.posts.main" options="-parameters -parameters" />
       <module name="java.posts.test" options="-parameters -parameters" />
       <module name="java.users" options="-parameters -parameters" />
       <module name="java.users.main" options="-parameters -parameters" />
       <module name="java.users.test" options="-parameters -parameters" />
+      <module name="uploads" options="-parameters -parameters" />
     </option>
   </component>
 </project>

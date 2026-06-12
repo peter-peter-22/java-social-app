@@ -3,7 +3,7 @@
 The following concepts are used while designing the code.
 
 - SOLID principles
-- Modules
+- Gradle modules
 - DRY
 - Java packages
 

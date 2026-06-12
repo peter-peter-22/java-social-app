@@ -7,4 +7,4 @@ create table if not exists posts (
     body text not null
 );
 
---rollback drop table posts;
+--rollback drop if exists table posts;

@@ -4,8 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.test.iml" />
     </modules>

@@ -5,63 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/cockroach_db/java.cockroach_db.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/demo/java.demo.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/demo/java.demo.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/posts/java.posts.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/users/java.users.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/upload_variants/000-create-upload-variants-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/uploads/001-index-timestamp.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/guides/minio.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/MinioConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/MinioProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/PropertyContants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/migrations/ApplyMigrationsOnStart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/migrations/MigrationManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/java/com/example/minio/migrations/MigrationProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/minio/src/test/java/com/example/media/TestApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/UploadId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/InsertUpload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/MediaType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/Upload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/UploadCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/UploadEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/UploadRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/UploadRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload/UploadStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload_variant/UploadVariantEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload_variant/UploadVariantEntityId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload_variant/UploadVariantKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload_variant/UploadVariantRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/registry/upload_variant/UploadVariantStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/storage/ObjectStorageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/storage/ObjectStorageServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/test/java/com/example/media/TestApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/utils/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/org/example/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/application/src/main/java/org/example/TestClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/test/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/DemoApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/test_containers/TestContainerImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/java/com/example/demo/test_containers/TestContainerImages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/changelog/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/changelog/000-create-users-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/changelog/001-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/changelog/001-create-posts-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/demo/src/test/java/com/example/demo/DemoApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/HydratedPostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/HydratedPostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/PostId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/api/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/api/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostServiceIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/src/test/java/com/example/posts/PostsTestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostsTestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/clean code policies.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/clean code policies.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/liquibase.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/guides/liquibase.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/modules.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/modules.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/UserId.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/example/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/example/users/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/UserId.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +67,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="530" />
+    <option name="cachedIndexableFilesCount" value="553" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -111,10 +109,12 @@
       <list>
         <option value="AnnotationType" />
         <option value="Spring Component" />
-        <option value="Record" />
-        <option value="Class" />
         <option value="Spring Repository" />
+        <option value="Spring Service" />
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -140,73 +140,77 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build java.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PostServiceIT (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PostServiceIT.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PostServiceIT.testCreatePost.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.java [:application:build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.java [:application:org.example.Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.java [generateOpenApiDocs].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;New/updated database configurations found&quot;,
-    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/peter/IdeaProjects/java_social_app/java/cockroach_db/src/testFixtures&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/home/peter/IdeaProjects/java_social_app/java/application/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;junie.application.models&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.compose.yaml: Compose Deployment.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build java.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.PostServiceIT (1).executor": "Run",
+    "Gradle.PostServiceIT.executor": "Run",
+    "Gradle.PostServiceIT.testCreatePost.executor": "Debug",
+    "Gradle.java [:application:build].executor": "Run",
+    "Gradle.java [:application:org.example.Main.main()].executor": "Run",
+    "Gradle.java [generateOpenApiDocs].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "New/updated database configurations found",
+    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.DemoApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/peter/IdeaProjects/java_social_app/java/modules/cockroach_db/src/main/resources/db/changelog/upload_variants",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/home/peter/IdeaProjects/java_social_app/java/application/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "junie.application.models",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/upload_variants" />
+      <recent name="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/uploads" />
+      <recent name="$PROJECT_DIR$/modules/minio/src/main" />
+      <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/testFixtures" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/users/src/main/java/com/example/users" />
-      <recent name="$PROJECT_DIR$/demo/src/main/resources/db/changelog" />
-      <recent name="$PROJECT_DIR$/buildSrc/src/main/kotlin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/cockroach_db/guides" />
       <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/posts" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog" />
       <recent name="$PROJECT_DIR$/cockroach_db/src/main/resources/db/changelog/users" />
-      <recent name="$PROJECT_DIR$/cockroach_db/src/main/java/com/example/cockroach_db" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.uploads.registry" />
+      <recent name="com.example.minio" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.compose.yaml: Compose Deployment">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="java" />
       <method v="2">
@@ -298,7 +302,11 @@
       <workItem from="1780587129062" duration="6285000" />
       <workItem from="1780598479631" duration="2616000" />
       <workItem from="1780601109827" duration="2896000" />
-      <workItem from="1780610205746" duration="5073000" />
+      <workItem from="1780610205746" duration="5137000" />
+      <workItem from="1780626425056" duration="203000" />
+      <workItem from="1780924913181" duration="37000" />
+      <workItem from="1781170857197" duration="18403000" />
+      <workItem from="1781239714728" duration="30530000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -332,7 +340,23 @@
       <option name="project" value="LOCAL" />
       <updated>1780614818137</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="wip">
+      <option name="closed" value="true" />
+      <created>1780615307255</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780615307255</updated>
+    </task>
+    <task id="LOCAL-00006" summary="wip">
+      <option name="closed" value="true" />
+      <created>1780615325735</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1780615325735</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
