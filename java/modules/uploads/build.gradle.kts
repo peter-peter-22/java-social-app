@@ -14,5 +14,6 @@ dependencies {
 	// modules
 	implementation(project(":modules:minio"))
 	implementation(project(":modules:users"))
+	implementation(project(":modules:cockroach_db"))
 	testImplementation(testFixtures(project(":modules:cockroach_db")))
 }

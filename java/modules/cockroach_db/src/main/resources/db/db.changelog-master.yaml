@@ -1,17 +1,17 @@
 databaseChangeLog:
 
-  - include:
+  - includeAll:
       path: changelog/users
       relativeToChangelogFile: true
 
-  - include:
-      file: db/changelog/posts
+  - includeAll:
+      path: changelog/posts
       relativeToChangelogFile: true
 
-  - include:
-      file: db/changelog/uploads
+  - includeAll:
+      path: changelog/uploads
       relativeToChangelogFile: true
 
-  - include:
-      file: db/changelog/upload_variants
+  - includeAll:
+      path: changelog/upload_variants
       relativeToChangelogFile: true

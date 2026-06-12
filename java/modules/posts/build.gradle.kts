@@ -8,7 +8,6 @@ dependencies {
 
 	// jdbc
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-	runtimeOnly("org.postgresql:postgresql")
 
 	// test container usage
 	testImplementation("org.testcontainers:testcontainers-junit-jupiter")

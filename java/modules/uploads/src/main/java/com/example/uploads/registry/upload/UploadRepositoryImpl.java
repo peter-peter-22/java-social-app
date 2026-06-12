@@ -7,9 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+@Repository
 @RequiredArgsConstructor
 class UploadRepositoryImpl implements UploadRepository {
     private final UploadCrudRepository crud;
