@@ -62,10 +62,10 @@ class UploadRepositoryImpl implements UploadRepository {
                         """)
                 .param("created_by", upload.createdBy().get())
                 .param("bucket_name", upload.bucketName())
-                .param("media_type", upload.mediaType())
+                .param("media_type", upload.mediaType().name())
                 .param("transformation_group", upload.transformationGroup())
                 .param("transformation_version", upload.transformationVersion())
-                .param("status", upload.status())
+                .param("status", upload.status().name())
                 .param("file_extension", upload.fileExtension())
                 .query(UUID.class)
                 .single();

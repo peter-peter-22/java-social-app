@@ -59,7 +59,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
                 UploadStatus.READY,
                 "extension 2"
         );
-        uploadRepository.update(found);
+        uploadRepository.update(update);
         var updated = uploadRepository.getById(id);
         assertThat(updated).isEqualTo(update);
     }

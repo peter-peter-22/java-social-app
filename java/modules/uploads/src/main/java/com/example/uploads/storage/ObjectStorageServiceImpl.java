@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 class ObjectStorageServiceImpl {
     @NotNull private final UploadRepository uploadRepository;
-    @NotNull private final UploadVariantRepository uploadVariantRepository;
+
 
 }

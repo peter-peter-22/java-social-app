@@ -1,3 +1,0 @@
-minio:
-  migrations:
-    apply-on-startup: true
