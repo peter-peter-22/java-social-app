@@ -2,16 +2,20 @@ package com.example.uploads;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.uploads.upload_repository.*;
+import com.example.users.repository.InsertUser;
 import com.example.users.repository.UserId;
+import com.example.users.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest
 @Testcontainers
@@ -19,12 +23,15 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
 
     @Autowired
     private UploadRepository uploadRepository;
-    // TODO: check the user id foreign key constraint when the user repository is implemented
+    @Autowired
+    private UserRepository userRepository;
 
-    @Test
-    void testUploadCRUD() {
+    private UploadId initUpload() {
+        InsertUser insertUser = new InsertUser();
+        var user = userRepository.create(insertUser);
+
         InsertUpload upload = new InsertUpload(
-                new UserId(UUID.randomUUID()),
+                user.id(),
                 "bucket",
                 MediaType.IMAGE,
                 "group",
@@ -32,10 +39,39 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
                 UploadStatus.UPLOADING,
                 "jpg"
         );
+        return uploadRepository.create(upload);
+    }
 
-        // The created upload should return its id
-        var id = uploadRepository.create(upload);
+    /**
+     * The created upload should return its id
+     */
+    @Test
+    void createUpload() {
+        var id = initUpload();
         assertThat(id).isNotNull();
+    }
+
+    /**
+     * The created upload should be found and have the same fields as the inserted one
+     */
+    @Test
+    void testUploadCRUD() {
+
+        // Insert user
+        InsertUser insertUser = new InsertUser();
+        var user = userRepository.create(insertUser);
+
+        // Insert upload
+        InsertUpload upload = new InsertUpload(
+                user.id(),
+                "bucket",
+                MediaType.IMAGE,
+                "group",
+                0,
+                UploadStatus.UPLOADING,
+                "jpg"
+        );
+        var id = uploadRepository.create(upload);
 
         // The created upload should be found and have the same fields
         var found = uploadRepository.getById(id);
@@ -49,14 +85,25 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
 
         // Check generated fields
         assertThat(found.createdAt()).isNotNull();
+    }
+
+    /**
+     * All fields should be updated
+     */
+    @Test
+    void testUploadUpdate() {
+        var id = initUpload();
+        var original = uploadRepository.getById(id);
+        assertThat(original).isNotNull();
 
         // All fields should be updated
+        var otherUser = userRepository.create(new InsertUser());
         var update = new Upload(
                 id,
-                new UserId(UUID.randomUUID()),
+                otherUser.id(),
                 "bucket 2",
                 MediaType.VIDEO,
-                found.createdAt().plus(1, ChronoUnit.DAYS),
+                original.createdAt().plus(1, ChronoUnit.DAYS),
                 "group 2",
                 1,
                 UploadStatus.READY,
@@ -69,6 +116,20 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
 
     @Test
     void testUserForeignKey() {
-        System.out.println("not implemented yet");
+        InsertUpload upload = new InsertUpload(
+                new UserId(UUID.randomUUID()),
+                "bucket",
+                MediaType.IMAGE,
+                "group",
+                0,
+                UploadStatus.UPLOADING,
+                "jpg"
+        );
+        try {
+            uploadRepository.create(upload);
+        } catch (DataIntegrityViolationException e) {
+            return;
+        }
+        fail("The foreign key constraint should have been violated.");
     }
 }

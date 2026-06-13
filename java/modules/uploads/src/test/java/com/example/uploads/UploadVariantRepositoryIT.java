@@ -3,7 +3,8 @@ package com.example.uploads;
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.uploads.upload_repository.*;
 import com.example.uploads.upload_variant_repository.*;
-import com.example.users.repository.UserId;
+import com.example.users.repository.InsertUser;
+import com.example.users.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,13 +25,15 @@ public class UploadVariantRepositoryIT extends CockroachIntegrationTest {
     private UploadRepository uploadRepo;
     @Autowired
     private UploadVariantRepository uploadVariantRepo;
+    @Autowired
+    private UserRepository userRepository;
 
-    // TODO: check the user id foreign key constraint when the user repository is implemented
+    private UploadId initUpload() {
+        InsertUser insertUser = new InsertUser();
+        var user = userRepository.create(insertUser);
 
-    @Test
-    void testUploadVariantCRUD() {
         InsertUpload upload = new InsertUpload(
-                new UserId(UUID.randomUUID()),
+                user.id(),
                 "bucket",
                 MediaType.IMAGE,
                 "group",
@@ -38,9 +41,33 @@ public class UploadVariantRepositoryIT extends CockroachIntegrationTest {
                 UploadStatus.UPLOADING,
                 "jpg"
         );
+        return uploadRepo.create(upload);
+    }
 
-        // The created upload variant should return its id
-        var uploadId = uploadRepo.create(upload);
+    private UploadVariantId initVariant(){
+        var uploadId = initUpload();
+        var insert = new InsertUploadVariant(
+                new UploadVariantId(uploadId, "variant"),
+                "bucket",
+                "jpg",
+                UploadVariantStatus.READY
+        );
+        return uploadVariantRepo.create(insert);
+    }
+
+    /**
+     * The created upload variant should return its id
+     */
+    @Test
+    void testUploadCreation() {
+        var variantId = initVariant();
+        assertThat(variantId).isNotNull();
+    }
+
+    /** The found upload variant should have the same fields as the inserted one */
+    @Test
+    void testUploadVariantRead(){
+        var uploadId = initUpload();
 
         var insert = new InsertUploadVariant(
                 new UploadVariantId(uploadId, "variant"),
@@ -48,31 +75,35 @@ public class UploadVariantRepositoryIT extends CockroachIntegrationTest {
                 "jpg",
                 UploadVariantStatus.READY
         );
-
         var variantId = uploadVariantRepo.create(insert);
-        assertThat(variantId).isNotNull();
-
-        // The created upload should be found and have the same fields
         var found = uploadVariantRepo.getById(variantId);
+
         assertThat(found).isNotNull();
         assertThat(found.key().originId()).isEqualTo(uploadId);
         assertThat(found.bucketName()).isEqualTo(insert.bucketName());
         assertThat(found.status()).isEqualTo(insert.status());
-        assertThat(found.fileExtension()).isEqualTo(upload.fileExtension());
+        assertThat(found.fileExtension()).isEqualTo(insert.fileExtension());
 
         // Check generated fields
         assertThat(found.createdAt()).isNotNull();
+    }
 
-        // All fields should be updated
+    /** The all fields should be updated */
+    @Test
+    void testUploadVariantUpdate(){
+        var id = initVariant();
+        var original = uploadVariantRepo.getById(id);
+        assertThat(original).isNotNull();
+
         var update = new UploadVariant(
-                found.key(),
+                original.key(),
                 "bucket 2",
                 "extension 2",
-                found.createdAt().plus(1, ChronoUnit.DAYS),
+                original.createdAt().plus(1, ChronoUnit.DAYS),
                 UploadVariantStatus.CREATING
         );
         uploadVariantRepo.update(update);
-        var updated = uploadVariantRepo.getById(variantId);
+        var updated = uploadVariantRepo.getById(id);
         assertThat(updated).isEqualTo(update);
     }
 
