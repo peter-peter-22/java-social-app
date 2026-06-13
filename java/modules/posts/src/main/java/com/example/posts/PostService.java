@@ -1,6 +1,6 @@
 package com.example.posts;
 
-import com.example.users.UserId;
+import com.example.users.repository.UserId;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

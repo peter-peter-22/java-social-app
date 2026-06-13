@@ -1,7 +1,6 @@
 package com.example.uploads.storage;
 
-import com.example.uploads.registry.upload.UploadRepository;
-import com.example.uploads.registry.upload_variant.UploadVariantRepository;
+import com.example.uploads.upload_repository.UploadRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -12,7 +12,7 @@ dependencies {
 	testImplementation("org.testcontainers:testcontainers-junit-jupiter")
 
 	// modules
-	implementation(project(":modules:minio"))
+	implementation(project(":modules:object_storage"))
 	implementation(project(":modules:users"))
 	implementation(project(":modules:cockroach_db"))
 	testImplementation(testFixtures(project(":modules:cockroach_db")))

@@ -7,6 +7,9 @@ version = "0.0.1-SNAPSHOT"
 
 dependencies {
 
+	// driver
+	runtimeOnly("org.postgresql:postgresql")
+
 	// liquibase
 	implementation("org.springframework.boot:spring-boot-starter-liquibase")
 

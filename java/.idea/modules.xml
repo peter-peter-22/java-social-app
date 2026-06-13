@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/demo/java.modules.demo.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/minio/java.modules.minio.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.modules.posts.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/java.modules.uploads.main.iml" />

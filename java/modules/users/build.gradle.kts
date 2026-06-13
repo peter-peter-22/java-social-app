@@ -8,13 +8,11 @@ dependencies {
 
 	// jdbc
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-	runtimeOnly("org.postgresql:postgresql")
-
-	// liquibase
-	implementation("org.springframework.boot:spring-boot-starter-liquibase")
 
 	// test containers
 	testImplementation("org.testcontainers:testcontainers-junit-jupiter")
-	testImplementation("org.testcontainers:testcontainers-cockroachdb")
-	testImplementation("org.testcontainers:testcontainers-postgresql")
+
+	// modules
+	implementation(project(":modules:cockroach_db"))
+	testImplementation(testFixtures(project(":modules:cockroach_db")))
 }

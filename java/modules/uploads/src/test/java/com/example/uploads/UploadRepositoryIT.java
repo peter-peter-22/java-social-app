@@ -1,8 +1,8 @@
 package com.example.uploads;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.uploads.registry.upload.*;
-import com.example.users.UserId;
+import com.example.uploads.upload_repository.*;
+import com.example.users.repository.UserId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,18 +21,18 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
     private UploadRepository uploadRepository;
     // TODO: check the user id foreign key constraint when the user repository is implemented
 
-    private final InsertUpload upload = new InsertUpload(
-            new UserId(UUID.fromString("00000000-0000-0000-0000-000000000000")),
-            "bucket",
-            MediaType.IMAGE,
-            "group",
-            0,
-            UploadStatus.UPLOADING,
-            "jpg"
-    );
-
     @Test
-    void testCreateUpload() {
+    void testUploadCRUD() {
+        InsertUpload upload = new InsertUpload(
+                new UserId(UUID.randomUUID()),
+                "bucket",
+                MediaType.IMAGE,
+                "group",
+                0,
+                UploadStatus.UPLOADING,
+                "jpg"
+        );
+
         // The created upload should return its id
         var id = uploadRepository.create(upload);
         assertThat(id).isNotNull();
@@ -47,10 +47,13 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         assertThat(found.transformationVersion()).isEqualTo(upload.transformationVersion());
         assertThat(found.fileExtension()).isEqualTo(upload.fileExtension());
 
+        // Check generated fields
+        assertThat(found.createdAt()).isNotNull();
+
         // All fields should be updated
         var update = new Upload(
                 id,
-                new UserId(UUID.fromString("00000000-0000-0000-0000-000000000001")),
+                new UserId(UUID.randomUUID()),
                 "bucket 2",
                 MediaType.VIDEO,
                 found.createdAt().plus(1, ChronoUnit.DAYS),

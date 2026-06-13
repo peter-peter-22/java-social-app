@@ -9,7 +9,6 @@
         </processorPath>
         <module name="java.modules.application.test" />
         <module name="java.modules.cockroach_db.main" />
-        <module name="java.modules.minio.main" />
         <module name="java.modules.uploads.main" />
         <module name="java.modules.utils.test" />
         <module name="java.modules.application.main" />
@@ -18,10 +17,12 @@
         <module name="java.modules.demo.test" />
         <module name="java.modules.posts.main" />
         <module name="java.modules.demo.main" />
+        <module name="java.modules.cockroach_db.test" />
+        <module name="java.modules.object_storage.test" />
         <module name="java.modules.utils.main" />
         <module name="java.modules.users.test" />
-        <module name="java.modules.minio.test" />
         <module name="java.modules.posts.test" />
+        <module name="java.modules.object_storage.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21" />
@@ -47,9 +48,11 @@
       <module name="java.modules.demo.test" options="-parameters" />
       <module name="java.modules.media.main" options="-parameters -parameters" />
       <module name="java.modules.media.test" options="-parameters -parameters" />
-      <module name="java.modules.minio" options="-parameters -parameters" />
       <module name="java.modules.minio.main" options="-parameters -parameters" />
       <module name="java.modules.minio.test" options="-parameters -parameters" />
+      <module name="java.modules.object_storage" options="-parameters -parameters" />
+      <module name="java.modules.object_storage.main" options="-parameters -parameters" />
+      <module name="java.modules.object_storage.test" options="-parameters -parameters" />
       <module name="java.modules.posts" options="-parameters -parameters" />
       <module name="java.modules.posts.main" options="-parameters -parameters" />
       <module name="java.modules.posts.test" options="-parameters -parameters" />

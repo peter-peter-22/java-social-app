@@ -25,23 +25,22 @@ The default visibility modifier is prioritized.
 
 Typically, only interfaces and records are exported.
 
-## Interfaces
-
-### Data interfaces
-
-#### References
-
-For data class interfaces, the id of the
-referenced entity is stored in the interface, 
-not the object itself.
-
-#### Ids
-
-The type of the id is defined as a separate interface to make
-it easier to change the id type.
-
-### Data classes and DTOs
+## Data classes and DTOs
 
 The usage of java records is prioritized.
 
 The java.time.Instant is used as the date type.
+
+### Ids
+
+The type of the id is defined as a separate interface to make
+it easier to change the id type.
+
+Id types are considered database logic, they aren't visible to the business logic.
+
+
+## Service vs. Repository
+
+The service layer should not see database entities and other database-dependent types.
+
+The repository beans expose only business types, not database entities.

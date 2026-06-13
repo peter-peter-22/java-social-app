@@ -11,7 +11,7 @@ include(
     "modules:posts",
     "modules:users",
     "modules:cockroach_db",
-    "modules:minio",
+    "modules:object_storage",
     "modules:uploads",
     "modules:utils"
 )
