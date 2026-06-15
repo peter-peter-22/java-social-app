@@ -107,9 +107,9 @@ public class UploadVariantRepositoryIT extends CockroachIntegrationTest {
         assertThat(updated).isEqualTo(update);
     }
 
+    /** The upload variant should create a foreign key error if the upload does not exist */
     @Test
     void testUploadForeignKey() {
-        // The upload variant should not be created if the upload does not exist
         var insert = new InsertUploadVariant(
                 new UploadVariantId(new UploadId(UUID.randomUUID()), "variant"),
                 "bucket",

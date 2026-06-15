@@ -6,6 +6,16 @@
 - Check if the excepted errors are raised.
 - Simulate complete practical scenario.
 
+## Rules
+
+All tests should have one Javadoc at the top of the class.
+
+## Tools
+
+- JUnit
+- AssertJ
+- MockMvc
+
 ## Spring boot tests
 
 In library modules, there is no @SpringBootApplication bean is the main folder.

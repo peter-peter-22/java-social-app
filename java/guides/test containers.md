@@ -1,7 +1,14 @@
 # Test container guide and rules
 
-Test containers are typically shared between tests (static) 
-and defined as Gradle test fixtures.
+The testcontainers are static, and they are used only in the repository tests.
+
+The exported test containers are test fixtures.
+
+## Service connections
+
+Spring boot service connections are used where possible.
+
+[List of compatile containers](https://docs.spring.io/spring-boot/reference/testing/testcontainers.html)
 
 #### Useful links
 

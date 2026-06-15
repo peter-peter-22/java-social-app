@@ -14,24 +14,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Testcontainers
-public class PostServiceIT extends CockroachIntegrationTest {
-
+public class PostRepositoryIT extends CockroachIntegrationTest {
+    // TODO: replace with repository, implement other tests
     @Autowired
     private PostService postService;
 
     private final UserId authorId = new UserId(UUID.randomUUID());
     private final String text = "Hello, world!";
 
+    /** The created post should return its id */
     @Test
-    void testCreatePost() {
-        // The created post should return its id
+    void testCreate() {
         PostId id = postService.insertAndReturnId(authorId, text);
         assertThat(id).isNotNull();
     }
 
+    /** The created post should be found */
     @Test
-    void testReadPost() {
-        // The created post should be found
+    void testRead() {
         PostId id = postService.insertAndReturnId(authorId, text);
         Post post = postService.getPost(id);
 
@@ -39,5 +39,23 @@ public class PostServiceIT extends CockroachIntegrationTest {
         assertThat(post.authorId() == authorId);
         assertThat(Objects.equals(post.text(), text));
         assertThat(post.id() == id);
+    }
+
+    /** The update should change the data of the post */
+    @Test
+    void testUpdate(){
+
+    }
+
+    /** The deletion should mark the post as deleted */
+    @Test
+    void testDelete(){
+
+    }
+
+    /** Creating a post with an invalid author id should throw an error */
+    @Test
+    void testUserForeignKey(){
+
     }
 }

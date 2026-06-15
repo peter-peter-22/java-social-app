@@ -23,7 +23,7 @@ The default visibility modifier is prioritized.
 
 ### Exports
 
-Typically, only interfaces and records are exported.
+Typically, only business logic interfaces and records are public.
 
 ## Data classes and DTOs
 
@@ -33,11 +33,9 @@ The java.time.Instant is used as the date type.
 
 ### Ids
 
-The type of the id is defined as a separate interface to make
-it easier to change the id type.
+The id types are considered database logic, they aren't visible to the business logic.
 
-Id types are considered database logic, they aren't visible to the business logic.
-
+The id types are wrapped in records.
 
 ## Service vs. Repository
 

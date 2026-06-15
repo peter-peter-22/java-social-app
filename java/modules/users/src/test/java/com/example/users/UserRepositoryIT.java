@@ -7,14 +7,12 @@ import com.example.users.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Testcontainers
 public class UserRepositoryIT extends CockroachIntegrationTest {
 
     @Autowired
@@ -22,25 +20,25 @@ public class UserRepositoryIT extends CockroachIntegrationTest {
 
     private static final InsertUser insert = new InsertUser();
 
+    /** The created user should be returned */
     @Test
     void createUser() {
-        // The created user should be returned
         var created = userRepository.create(insert);
         assertThat(created).isNotNull();
     }
 
+    /** The inserted user should be found */
     @Test
     void readUser() {
-        // The inserted user should be found
         var created = userRepository.create(insert);
         var found = userRepository.findById(created.id());
         assertThat(found).isNotNull();
         assertThat(Objects.equals(found.id(), created.id()));
     }
 
+    /** The update should change the data of the user */
     @Test
     void updateUser() {
-        // The update should change the data of the user
         var created = userRepository.create(insert);
         var update = new User(
                 created.id()

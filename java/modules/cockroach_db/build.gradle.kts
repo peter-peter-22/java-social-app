@@ -15,7 +15,7 @@ dependencies {
 
 	// test fixtures
 	testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-	testFixturesImplementation("org.testcontainers:testcontainers-junit-jupiter")
+	testFixturesApi("org.testcontainers:testcontainers-junit-jupiter")
 	testFixturesImplementation("org.testcontainers:testcontainers-cockroachdb")
 	testFixturesImplementation("org.springframework.boot:spring-boot-testcontainers")
 }
