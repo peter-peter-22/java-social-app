@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public interface ObjectStorageRepository {
+interface ObjectStorageRepository {
     @NotNull String getDownloadUrl(String bucket, String objectPath);
 
     @NotNull String getPreSignedDownloadUrl();

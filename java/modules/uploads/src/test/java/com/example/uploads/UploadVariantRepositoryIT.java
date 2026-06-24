@@ -118,7 +118,7 @@ public class UploadVariantRepositoryIT extends CockroachIntegrationTest {
         );
         try {
             uploadVariantRepo.create(insert);
-        } catch (DataIntegrityViolationException e) {
+        } catch (UploadVariantMissingUploadException e) {
             return;
         }
         fail("The foreign key constraint should have been violated.");

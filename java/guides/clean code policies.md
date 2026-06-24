@@ -42,3 +42,6 @@ The id types are wrapped in records.
 The service layer should not see database entities and other database-dependent types.
 
 The repository beans expose only business types, not database entities.
+
+The meaningful errors are converted to business exceptions before they leave the repository, 
+the others are rethrown as runtime exceptions.

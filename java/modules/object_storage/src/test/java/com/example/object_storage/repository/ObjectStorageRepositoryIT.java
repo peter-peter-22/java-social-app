@@ -1,6 +1,6 @@
-package com.example.object_storage;
+package com.example.object_storage.repository;
 
-import com.example.object_storage.repository.ObjectStorageRepository;
+import com.example.object_storage.MinioIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,16 +54,15 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
     @Test
     void should_download_object() throws IOException, InterruptedException {
         var objectPath = initObject();
+
         Path path = Paths.get(filePath);
         byte[] expectedContent = Files.readAllBytes(path);
 
-        HttpClient client = HttpClient.newHttpClient();
-
+        HttpClient client = HttpClient.newHttpClient(); // TODO: why warning
         HttpRequest request =
                 HttpRequest.newBuilder(URI.create(objectStorageRepository.getDownloadUrl(bucket, objectPath)))
                         .GET()
                         .build();
-
         HttpResponse<byte[]> response =
                 client.send(request, HttpResponse.BodyHandlers.ofByteArray());
 

@@ -1,12 +1,16 @@
 package com.example.uploads.upload_variant_repository;
 
+import com.example.cockroach_db.SQLErrorCodes;
 import com.example.uploads.upload_repository.*;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+
+import java.sql.SQLException;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +21,7 @@ class UploadVariantRepositoryImpl implements UploadVariantRepository {
 
     private static @NotNull UploadVariant entityToDomain(@NotNull UploadVariantEntity entity) {
         return new UploadVariant(
-                new UploadVariantId(new UploadId(entity.key().originId()),entity.key().variantName()),
+                new UploadVariantId(new UploadId(entity.key().originId()), entity.key().variantName()),
                 entity.bucketName(),
                 entity.fileExtension(),
                 entity.createdAt(),
@@ -44,19 +48,34 @@ class UploadVariantRepositoryImpl implements UploadVariantRepository {
 
     @Override
     public @NotNull UploadVariantId create(@NotNull InsertUploadVariant upload) {
-        var id = jdbc.sql("""
-                        INSERT INTO upload_variants (origin_id, bucket_name, file_extension, variant_name, status)
-                        VALUES (:origin_id, :bucket_name, :file_extension, :variant_name, :status)
-                        RETURNING origin_id, variant_name
-                        """)
-                .param("origin_id", upload.key().originId().get())
-                .param("bucket_name", upload.bucketName())
-                .param("file_extension", upload.fileExtension())
-                .param("variant_name", upload.key().variantName())
-                .param("status", upload.status().name())
-                .query(UploadVariantEntityId.class)
-                .single();
-        return new UploadVariantId(new UploadId(id.originId()), id.variantName());
+        try {
+            var id = jdbc.sql("""
+                            
+                                INSERT INTO upload_variants (origin_id, bucket_name, file_extension, variant_name, status)
+                            VALUES (:origin_id, :bucket_name, :file_extension, :variant_name, :status)
+                            RETURNING origin_id, variant_name
+                            
+                            """)
+                    .param("origin_id", upload.key().originId(
+                    ).get())
+                    .param(
+                            "bucket_name", upload.bucketName())
+                    .param
+                            ("file_extension", upload.fileExtension())
+                    .param("variant_name", upload.key().variantName(
+                    ))
+                    .param("status", upload.status().
+                            name())
+                    .query(UploadVariantEntityId.class)
+                            .
+                    single();
+            return new UploadVariantId(new UploadId(id.originId()), id.variantName());
+        } catch (DataIntegrityViolationException e) {
+            if (e.getCause() instanceof SQLException cause && cause.getSQLState().equals(SQLErrorCodes.FOREIGN_KEY_VIOLATION)) {
+                throw new UploadVariantMissingUploadException(cause.getMessage());
+            }
+            throw e;
+        }
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.example.users.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.temporal.ChronoUnit;
@@ -114,6 +113,9 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         assertThat(updated).isEqualTo(update);
     }
 
+    /**
+     * The upload should create a foreign key error if the user does not exist
+     */
     @Test
     void testUserForeignKey() {
         InsertUpload upload = new InsertUpload(
@@ -127,7 +129,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         );
         try {
             uploadRepository.create(upload);
-        } catch (DataIntegrityViolationException e) {
+        } catch (UploadMissingUserException e) {
             return;
         }
         fail("The foreign key constraint should have been violated.");

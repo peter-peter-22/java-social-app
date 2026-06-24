@@ -1,13 +1,16 @@
 package com.example.uploads.upload_repository;
 
+import com.example.cockroach_db.SQLErrorCodes;
 import com.example.users.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 @Repository
@@ -53,22 +56,39 @@ class UploadRepositoryImpl implements UploadRepository {
     }
 
     @Override
-    public @NotNull UploadId create(@NotNull InsertUpload upload) {
-        var id = jdbc.sql("""
-                        INSERT INTO uploads (created_by, bucket_name, media_type, transformation_group, transformation_version, status, file_extension)
+    public @NotNull UploadId create(@NotNull InsertUpload upload) throws UploadMissingUserException {
+        try {
+            var id = jdbc.sql("""
+                        
+                            INSERT INTO uploads (created_by, bucket_name, media_type, transformation_group, transformation_version, status, file_extension)
                         VALUES (:created_by, :bucket_name, :media_type, :transformation_group, :transformation_version, :status, :file_extension)
                         RETURNING id
+   
                         """)
-                .param("created_by", upload.createdBy().get())
-                .param("bucket_name", upload.bucketName())
-                .param("media_type", upload.mediaType().name())
-                .param("transformation_group", upload.transformationGroup())
-                .param("transformation_version", upload.transformationVersion())
-                .param("status", upload.status().name())
+                .param("created_by", upload.createdBy(
+                    ).get())
+                .param(
+                    "bucket_name", upload.bucketName())
+                .
+                    param("media_type", upload.mediaType().name())
+                .
+                    param("transformation_group", upload.transformationGroup())
+                .param("transformation_version", upload.
+                    transformationVersion())
+                .param(
+                    "status", upload.status
+                    ()
+            .name())
                 .param("file_extension", upload.fileExtension())
                 .query(UUID.class)
                 .single();
         return new UploadId(id);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getCause() instanceof SQLException cause && cause.getSQLState().equals(SQLErrorCodes.FOREIGN_KEY_VIOLATION)) {
+                throw new UploadMissingUserException(cause.getMessage());
+            }
+            throw e;
+        }
     }
 
     @Override

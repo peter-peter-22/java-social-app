@@ -13,7 +13,7 @@ public abstract class CockroachIntegrationTest {
 
     @Container
     @ServiceConnection
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // the deprecation warning is suppressed because I didn't find the replacement
     private static final CockroachContainer COCKROACH_CONTAINER = new CockroachContainer("cockroachdb/cockroach:v25.3.2");
 
     @Test

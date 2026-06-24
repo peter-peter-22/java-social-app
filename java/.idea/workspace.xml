@@ -5,40 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/guides/s3 bucket policy.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/configuration/ApplyReconciliation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/configuration/ConfigurationManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/configuration/MinioConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/configuration/ReconciliationProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/configuration/reconciliations/buckets/Public.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/test/java/com/example/object_storage/ObjectStorageRepositoryIT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/test/resources/test.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/testFixtures/java/com/example/object_storage/MinioIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/object_storage/java.modules.object_storage.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach_db/guides/error codes.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/java/com/example/cockroach_db/SQLErrorCodes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/repository/PublicBucketRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/repository/PublicBucketRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_repository/UploadMissingUserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_variant_repository/UploadVariantMissingUploadException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roadmap.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/spring-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/spring-library-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/spring-project-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/spring-project-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-library-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/web-project-conventions.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guides/clean code policies.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/clean code policies.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/test containers.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/test containers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/tests.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/tests.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/object_storage/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/guides/minio.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/object_storage/guides/minio.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/PropertyContants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/migrations/ApplyMigrationsOnStart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/migrations/MigrationManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/migrations/MigrationProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/object_storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/src/test/java/com/example/uploads/UploadVariantRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/src/test/java/com/example/uploads/UploadVariantRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/src/test/java/com/example/users/UserRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/src/test/java/com/example/users/UserRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/object_storage/src/test/java/com/example/object_storage/ObjectStorageRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/object_storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_repository/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_repository/UploadRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_repository/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_repository/UploadRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_variant_repository/UploadVariantRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/src/main/java/com/example/uploads/upload_variant_repository/UploadVariantRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/src/test/java/com/example/uploads/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/src/test/java/com/example/uploads/UploadRepositoryIT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +28,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="585" />
+    <option name="cachedIndexableFilesCount" value="591" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -90,10 +72,11 @@
         <option value="Spring Component" />
         <option value="Spring Repository" />
         <option value="Spring Service" />
-        <option value="Enum" />
         <option value="Record" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Exception" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -133,6 +116,8 @@
     "Gradle.PostServiceIT.executor": "Run",
     "Gradle.PostServiceIT.testCreatePost.executor": "Debug",
     "Gradle.UploadRepositoryIT.executor": "Run",
+    "Gradle.UploadRepositoryIT.testUploadUpdate.executor": "Debug",
+    "Gradle.UploadRepositoryIT.testUserForeignKey.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.testMissingUpdate.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.testUploadForeignKey.executor": "Run",
@@ -201,7 +186,7 @@
       <recent name="com.example.minio" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ObjectStorageRepositoryIT">
+  <component name="RunManager" selected="Gradle.UploadRepositoryIT.testUserForeignKey">
     <configuration name="ObjectStorageRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -256,7 +241,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="PostRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UploadRepositoryIT.testUploadUpdate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -267,9 +252,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":modules:posts:test" />
+            <option value=":modules:uploads:test" />
             <option value="--tests" />
-            <option value="&quot;com.example.posts.PostRepositoryIT&quot;" />
+            <option value="&quot;com.example.uploads.UploadRepositoryIT.testUploadUpdate&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -283,7 +268,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="UserRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UploadRepositoryIT.testUserForeignKey" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -294,9 +279,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":modules:users:test" />
+            <option value=":modules:uploads:test" />
             <option value="--tests" />
-            <option value="&quot;com.example.users.UserRepositoryIT&quot;" />
+            <option value="&quot;com.example.uploads.UploadRepositoryIT.testUserForeignKey&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -310,20 +295,32 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="MinioIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java.modules.object_storage.testFixtures" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.object_storage.configuration.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.object_storage" />
-      <option name="MAIN_CLASS_NAME" value="com.example.object_storage.MinioIntegrationTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="UploadVariantRepositoryIT.testUploadForeignKey" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":modules:uploads:test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.uploads.UploadVariantRepositoryIT.testUploadForeignKey&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="java" />
@@ -365,11 +362,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UploadRepositoryIT.testUserForeignKey" />
+        <item itemvalue="Gradle.UploadVariantRepositoryIT.testUploadForeignKey" />
+        <item itemvalue="Gradle.UploadRepositoryIT.testUploadUpdate" />
         <item itemvalue="Gradle.ObjectStorageRepositoryIT" />
         <item itemvalue="Gradle.ObjectStorageRepositoryIT.should_upload_from_path" />
-        <item itemvalue="JUnit.MinioIntegrationTest" />
-        <item itemvalue="Gradle.UserRepositoryIT" />
-        <item itemvalue="Gradle.PostRepositoryIT" />
       </list>
     </recent_temporary>
   </component>
@@ -423,7 +420,13 @@
       <workItem from="1781359543429" duration="10216000" />
       <workItem from="1781376702646" duration="438000" />
       <workItem from="1781418405824" duration="102000" />
-      <workItem from="1781509520472" duration="29655000" />
+      <workItem from="1781509520472" duration="29754000" />
+      <workItem from="1781553112200" duration="1579000" />
+      <workItem from="1781696813666" duration="79000" />
+      <workItem from="1781770849865" duration="1184000" />
+      <workItem from="1781772948020" duration="2000" />
+      <workItem from="1782049040167" duration="29000" />
+      <workItem from="1782302171170" duration="3318000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -513,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781373292115</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="wip">
+      <option name="closed" value="true" />
+      <created>1781548610565</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1781548610565</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,6 +556,11 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="e.getCause()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
