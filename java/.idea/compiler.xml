@@ -7,22 +7,22 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="java.modules.application.test" />
         <module name="java.modules.cockroach_db.main" />
-        <module name="java.modules.uploads.main" />
-        <module name="java.modules.utils.test" />
-        <module name="java.modules.application.main" />
+        <module name="java.modules.media.common.test" />
         <module name="java.modules.users.main" />
-        <module name="java.modules.uploads.test" />
-        <module name="java.modules.demo.test" />
+        <module name="java.modules.media.common.main" />
+        <module name="java.modules.media.object_storage.test" />
         <module name="java.modules.posts.main" />
-        <module name="java.modules.demo.main" />
         <module name="java.modules.cockroach_db.test" />
-        <module name="java.modules.object_storage.test" />
-        <module name="java.modules.utils.main" />
         <module name="java.modules.users.test" />
         <module name="java.modules.posts.test" />
-        <module name="java.modules.object_storage.main" />
+        <module name="java.modules.media.object_storage.main" />
+        <module name="java.modules.media.transformations.test" />
+        <module name="java.modules.media.image_transformer.main" />
+        <module name="java.modules.media.uploads.test" />
+        <module name="java.modules.media.transformations.main" />
+        <module name="java.modules.media.image_transformer.test" />
+        <module name="java.modules.media.uploads.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21" />
@@ -40,11 +40,30 @@
       <module name="java.modules.cockroach_db.main" options="-parameters -parameters" />
       <module name="java.modules.cockroach_db.test" options="-parameters -parameters" />
       <module name="java.modules.cockroach_db.testFixtures" options="-parameters -parameters" />
+      <module name="java.modules.common" options="-parameters -parameters" />
+      <module name="java.modules.common.main" options="-parameters -parameters" />
+      <module name="java.modules.common.test" options="-parameters -parameters" />
       <module name="java.modules.demo" options="-parameters" />
       <module name="java.modules.demo.main" options="-parameters" />
       <module name="java.modules.demo.test" options="-parameters" />
+      <module name="java.modules.media.common" options="-parameters -parameters" />
+      <module name="java.modules.media.common.main" options="-parameters -parameters" />
+      <module name="java.modules.media.common.test" options="-parameters -parameters" />
+      <module name="java.modules.media.image_transformer" options="-parameters -parameters" />
+      <module name="java.modules.media.image_transformer.main" options="-parameters -parameters" />
+      <module name="java.modules.media.image_transformer.test" options="-parameters -parameters" />
       <module name="java.modules.media.main" options="-parameters -parameters" />
+      <module name="java.modules.media.object_storage" options="-parameters -parameters" />
+      <module name="java.modules.media.object_storage.main" options="-parameters -parameters" />
+      <module name="java.modules.media.object_storage.test" options="-parameters -parameters" />
+      <module name="java.modules.media.object_storage.testFixtures" options="-parameters -parameters" />
       <module name="java.modules.media.test" options="-parameters -parameters" />
+      <module name="java.modules.media.transformations" options="-parameters -parameters" />
+      <module name="java.modules.media.transformations.main" options="-parameters -parameters" />
+      <module name="java.modules.media.transformations.test" options="-parameters -parameters" />
+      <module name="java.modules.media.uploads" options="-parameters -parameters" />
+      <module name="java.modules.media.uploads.main" options="-parameters -parameters" />
+      <module name="java.modules.media.uploads.test" options="-parameters -parameters" />
       <module name="java.modules.minio.main" options="-parameters -parameters" />
       <module name="java.modules.minio.test" options="-parameters -parameters" />
       <module name="java.modules.object_storage" options="-parameters -parameters" />
@@ -54,6 +73,8 @@
       <module name="java.modules.posts" options="-parameters -parameters" />
       <module name="java.modules.posts.main" options="-parameters -parameters" />
       <module name="java.modules.posts.test" options="-parameters -parameters" />
+      <module name="java.modules.upload_variants.main" options="-parameters -parameters" />
+      <module name="java.modules.upload_variants.test" options="-parameters -parameters" />
       <module name="java.modules.uploads" options="-parameters -parameters" />
       <module name="java.modules.uploads.main" options="-parameters -parameters" />
       <module name="java.modules.uploads.test" options="-parameters -parameters" />

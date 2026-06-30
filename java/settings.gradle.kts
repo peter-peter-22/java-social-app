@@ -6,12 +6,13 @@ pluginManagement {
 rootProject.name = "java"
 
 include(
-    "modules:application",
-    "modules:demo",
     "modules:posts",
     "modules:users",
     "modules:cockroach_db",
-    "modules:object_storage",
-    "modules:uploads",
-    "modules:utils"
+    // media
+    "modules:media:object_storage",
+    "modules:media:uploads",
+    "modules:media:common",
+    "modules:media:transformations",
+    "modules:media:image_transformer"
 )
