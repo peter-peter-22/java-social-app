@@ -17,10 +17,8 @@
         <module name="java.modules.users.test" />
         <module name="java.modules.posts.test" />
         <module name="java.modules.media.object_storage.main" />
-        <module name="java.modules.media.transformations.test" />
         <module name="java.modules.media.image_transformer.main" />
         <module name="java.modules.media.uploads.test" />
-        <module name="java.modules.media.transformations.main" />
         <module name="java.modules.media.image_transformer.test" />
         <module name="java.modules.media.uploads.main" />
       </profile>

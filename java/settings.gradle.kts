@@ -13,6 +13,5 @@ include(
     "modules:media:object_storage",
     "modules:media:uploads",
     "modules:media:common",
-    "modules:media:transformations",
     "modules:media:image_transformer"
 )

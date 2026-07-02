@@ -26,7 +26,6 @@
             <option value="$PROJECT_DIR$/modules/media/common" />
             <option value="$PROJECT_DIR$/modules/media/image_transformer" />
             <option value="$PROJECT_DIR$/modules/media/object_storage" />
-            <option value="$PROJECT_DIR$/modules/media/transformations" />
             <option value="$PROJECT_DIR$/modules/media/uploads" />
             <option value="$PROJECT_DIR$/modules/posts" />
             <option value="$PROJECT_DIR$/modules/users" />
