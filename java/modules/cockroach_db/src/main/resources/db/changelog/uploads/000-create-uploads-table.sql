@@ -2,15 +2,14 @@
 
 --changeset me:1
 create table if not exists uploads (
-    id uuid primary key default gen_random_uuid(),
+    object_path varchar(64) not null,
     created_by uuid not null references users (id) ON DELETE CASCADE,
-    bucket_name varchar(32) not null,
-    media_type varchar(32) not null,
+    bucket varchar(16) not null,
+    file_type varchar(16) not null,
     created_at timestamptz not null default now(),
-    transformation_group varchar(32) not null,
-    transformation_version smallint not null,
-    status varchar(32) not null,
-    file_extension varchar(32) not null
+    status varchar(16) not null,
+
+    PRIMARY KEY (object_path, bucket)
 );
 
 --rollback drop table if exists uploads; drop index if exists uploads_timestamp;

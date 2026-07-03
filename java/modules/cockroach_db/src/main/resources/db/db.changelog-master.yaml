@@ -11,7 +11,3 @@ databaseChangeLog:
   - includeAll:
       path: changelog/uploads
       relativeToChangelogFile: true
-
-  - includeAll:
-      path: changelog/upload_variants
-      relativeToChangelogFile: true
