@@ -13,7 +13,8 @@ dependencies {
 
 	// modules
 	implementation(project(":modules:media:object_storage"))
-	implementation(project(":modules:users"))
+	implementation(project(":modules:users:api"))
+	implementation(project(":modules:users:persistence"))
 	implementation(project(":modules:cockroach_db"))
 	testImplementation(testFixtures(project(":modules:cockroach_db")))
 	implementation(project(":modules:media:common"))

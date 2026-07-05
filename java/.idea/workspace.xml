@@ -5,61 +5,85 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/UploadId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/SignedUploadDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadEntityId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/media/image_transformer/java.modules.media.image_transformer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/users/api/java.modules.users.api.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/users/api/java.modules.users.api.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/users/persistence/java.modules.users.persistence.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/users/persistence/java.modules.users.persistence.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/api/MediaTransformerEndpoints.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/api/UploadTransformationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/common/src/test/java/com/example/media/common/transformations/TransformationFiltersTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/common/src/test/java/com/example/media/common/transformations/UploadTransformationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/TransformationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer/TransformationServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/BlockingTransformationApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/ImageTransformerRestApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/LazyTransformationApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/ParralelTransformationApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationApiSelector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/VideoTransformerRestApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/ParralelTransformationApiTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationApiSelectorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceApplyTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceMarkAsReadyTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/users/persistence/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/users/persistence/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/users/persistence/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/users/java.modules.users.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/clean code policies.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/guides/production.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/production.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/upload_variants/000-create-upload-variants-table.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach_db/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/TransformationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/TransformationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/TransformationFilters.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/TransformationFilters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/UploadTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/UploadTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/UploadTransformationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/UploadTransformationDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/configurations/UserAvatarTransformations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/configurations/UserAvatarTransformations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/operations/AspectRatio.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/AspectRatio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/operations/LimitResolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/LimitResolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/operations/UploadTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/UploadTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/uploads/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/FileType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/uploads/MediaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/MediaType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/uploads/Upload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/Upload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/uploads/UploadId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/uploads/UploadStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/UploadStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/common/src/test/java/com/example/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/test/java/com/example/media/common/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/MinioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/MinioConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/MinioProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/MinioProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/configuration/ApplyReconciliation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/configuration/ApplyReconciliation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/configuration/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/configuration/ConfigurationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/configuration/MinioConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/configuration/MinioConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/configuration/ReconciliationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/configuration/ReconciliationProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/configuration/reconciliations/buckets/Public.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/configuration/reconciliations/buckets/Public.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/repository/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/templates/spring-library/src/test/java/com/example/java-library/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/repository/ObjectStorageRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/media/object_storage/repository/ObjectStorageRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/testFixtures/java/com/example/object_storage/MinioIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/testFixtures/java/com/example/media/object_storage/MinioIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/transformations/BlockingTransformationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/BlockingTransformationProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/transformations/BlockingTransformationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/BlockingTransformationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/transformations/LazyTransformationEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/LazyTransformationEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/transformations/LazyTransformationSessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/LazyTransformationSessionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/transformations/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_repository/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/InsertUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_repository/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_repository/UploadMissingUserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadMissingUserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_repository/UploadRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_repository/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_service/UploadService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/upload_service/UploadServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/UploadRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/UploadServiceUT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/upload_service/UploadServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/java-library/src/test/java/com/example/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/media/object_storage/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/spring-library/src/test/java/com/example/TestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/TransformationFilters.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/TransformationFilters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/UploadTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/UploadTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/UploadTransformationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/configurations/UserAvatarTransformations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/configurations/UserAvatarTransformations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/AspectRatio.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/transformations/operations/AspectRatio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/FileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/Upload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/common/src/main/java/com/example/media/common/uploads/Upload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer/TestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/BlockingTransformationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/BlockingTransformationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/LazyTransformationEventRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/transformations/TransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/InsertUpload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/UploadRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_service/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/UploadRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/HydratedPostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/HydratedPostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/api/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/api/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/InsertUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/main/java/com/example/users/persistence/repository/InsertUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/api/src/main/java/com/example/users.api/repository/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/UserCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/main/java/com/example/users/persistence/repository/UserCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/main/java/com/example/users/persistence/repository/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/api/src/main/java/com/example/users.api/repository/UserId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/main/java/com/example/users/persistence/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/main/java/com/example/users/persistence/repository/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/main/java/com/example/users/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/test/java/com/example/users/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/test/java/com/example/users/persistence/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/src/test/java/com/example/users/UserRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/persistence/src/test/java/com/example/users/persistence/repository/UserRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +91,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="597" />
+    <option name="cachedIndexableFilesCount" value="616" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -97,6 +121,32 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="modules" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="modules" type="2d1252cf:ModuleNode" />
+                <item name="media" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="modules" type="2d1252cf:ModuleNode" />
+                <item name="media" type="2d1252cf:ModuleNode" />
+                <item name="image_transformer" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="modules" type="2d1252cf:ModuleNode" />
+                <item name="media" type="2d1252cf:ModuleNode" />
+                <item name="image_transformer" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -113,9 +163,9 @@
         <option value="Exception" />
         <option value="Enum" />
         <option value="Spring Service" />
-        <option value="Interface" />
         <option value="package-info" />
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -127,6 +177,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="2.1106732226809237" />
+      <entry key="MS500" value="4.410074781063568" />
+      <entry key="S2" value="5.525659104689534" />
+      <entry key="S5" value="5.893214276691501" />
+      <entry key="S10" value="6.879642515214243" />
+      <entry key="S30" value="19.85857041124858" />
+      <entry key="S60" value="55.425372267768346" />
+      <entry key="M2" value="136.70647041271863" />
+      <entry key="M5" value="280.5914393501833" />
+      <entry key="M10" value="371.4563264175621" />
+      <entry key="M15" value="413.5183379952024" />
+      <entry key="M30" value="492.0311868606758" />
+      <entry key="H1" value="626.0466445880917" />
+      <entry key="H2" value="796.186744220585" />
+      <entry key="H4" value="940.7281565828675" />
+      <entry key="D1" value="1110.9023773706267" />
+      <entry key="W1" value="1145.9648582676462" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.5809562507637257E-117" />
+      <entry key="S5" value="2.93428977768823E-47" />
+      <entry key="S10" value="8.795288138725775E-24" />
+      <entry key="S30" value="6.707932735425489E-8" />
+      <entry key="S60" value="8.199119050334209E-4" />
+      <entry key="M2" value="0.09724380190193224" />
+      <entry key="M5" value="1.8208724786736892" />
+      <entry key="M10" value="5.146365573050293" />
+      <entry key="M15" value="7.522556714595462" />
+      <entry key="M30" value="12.091937363353455" />
+      <entry key="H1" value="17.375210522717612" />
+      <entry key="H2" value="22.379188894495204" />
+      <entry key="H4" value="26.068454386114656" />
+      <entry key="D1" value="30.071463507881496" />
+      <entry key="W1" value="30.864420778459003" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.989209493716852" />
+      <entry key="MS500" value="4.358417898507164" />
+      <entry key="S2" value="5.509406310950883" />
+      <entry key="S5" value="5.886321672920616" />
+      <entry key="S10" value="6.875869760123367" />
+      <entry key="S30" value="19.856119599104886" />
+      <entry key="S60" value="55.423202422515324" />
+      <entry key="M2" value="136.79864776071017" />
+      <entry key="M5" value="282.397306628399" />
+      <entry key="M10" value="376.5814773742337" />
+      <entry key="M15" value="421.01889899835203" />
+      <entry key="M30" value="504.10252567116794" />
+      <entry key="H1" value="643.4051716883598" />
+      <entry key="H2" value="818.5545440954097" />
+      <entry key="H4" value="966.7898137089683" />
+      <entry key="D1" value="1140.972512351297" />
+      <entry key="W1" value="1176.829083784015" />
+    </decayedShown>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -145,6 +254,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Docker.compose.yaml: Compose Deployment.executor": "Run",
+    "Docker.image_transformer/Dockerfile.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build java.executor": "Run",
     "Gradle.Download Sources.executor": "Run",
@@ -152,13 +262,21 @@
     "Gradle.ObjectStorageRepositoryIT (1).executor": "Run",
     "Gradle.ObjectStorageRepositoryIT.executor": "Run",
     "Gradle.ObjectStorageRepositoryIT.should_upload_from_path.executor": "Run",
+    "Gradle.ParralelTransformationApiTest.executor": "Run",
     "Gradle.PostRepositoryIT.executor": "Run",
     "Gradle.PostServiceIT (1).executor": "Run",
     "Gradle.PostServiceIT.executor": "Run",
     "Gradle.PostServiceIT.testCreatePost.executor": "Debug",
+    "Gradle.TransformationApiSelectorTest.executor": "Run",
+    "Gradle.TransformationFiltersTests.executor": "Run",
+    "Gradle.TransformationServiceApplyTests.executor": "Run",
+    "Gradle.TransformationServiceMarkAsReadyTests.executor": "Run",
+    "Gradle.TransformationServiceMarkTests.executor": "Run",
+    "Gradle.TransformationServiceTests.executor": "Run",
     "Gradle.UploadRepositoryIT.executor": "Run",
     "Gradle.UploadRepositoryIT.testUploadUpdate.executor": "Debug",
     "Gradle.UploadRepositoryIT.testUserForeignKey.executor": "Run",
+    "Gradle.UploadTransformationTests.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.testMissingUpdate.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.testUploadForeignKey.executor": "Run",
@@ -183,13 +301,15 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Application.executor": "Run",
     "Spring Boot.DemoApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/media/image_transformer/src/main/java/com/example",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/media/image_transformer/src/test/java/com/example/media/image_transformer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -199,32 +319,33 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "ml.llm.agents.accounts",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "ml.llm.AcpAgentsConfigurable",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer" />
+      <recent name="$PROJECT_DIR$/modules/media/image_transformer" />
+      <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example" />
       <recent name="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example" />
-      <recent name="$PROJECT_DIR$/templates/spring-library/src/test/java/com/example" />
-      <recent name="$PROJECT_DIR$/templates/spring-library/src/main/java/com/example" />
-      <recent name="$PROJECT_DIR$/templates/java-library/src/test/java/com/example" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/users" />
       <recent name="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/image_transformer" />
       <recent name="$PROJECT_DIR$/templates/spring-library/src/test/java/com/example/java-library" />
       <recent name="$PROJECT_DIR$/templates/java-library/src/test/java/com/example/java-library" />
       <recent name="$PROJECT_DIR$/modules/media" />
-      <recent name="$PROJECT_DIR$/modules/media/transformations" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.media.uploads.transformations" />
+      <recent name="com.example.media.common.transformations.api" />
       <recent name="com.example.uploads" />
       <recent name="com.example.transformations" />
       <recent name="com.example" />
-      <recent name="com.example.users" />
-      <recent name="com.example.uploads.upload_variant_repository" />
     </key>
   </component>
   <component name="RunManager">
@@ -363,6 +484,13 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="java.modules.media.image_transformer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.media.image_transformer.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DemoApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="java.cockroach_db.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
@@ -403,8 +531,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.26222.65" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.26222.65" />
       </set>
     </attachedChunks>
   </component>
@@ -472,7 +600,15 @@
       <workItem from="1782952199490" duration="21103000" />
       <workItem from="1782979019224" duration="49000" />
       <workItem from="1782984842221" duration="593000" />
-      <workItem from="1783031048755" duration="22147000" />
+      <workItem from="1783031048755" duration="22288000" />
+      <workItem from="1783107358497" duration="21579000" />
+      <workItem from="1783147100768" duration="13634000" />
+      <workItem from="1783161912852" duration="5106000" />
+      <workItem from="1783174381868" duration="709000" />
+      <workItem from="1783175107981" duration="1000" />
+      <workItem from="1783214236810" duration="663000" />
+      <workItem from="1783227639094" duration="717000" />
+      <workItem from="1783238130799" duration="5667000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -594,7 +730,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782978133380</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="wip">
+      <option name="closed" value="true" />
+      <created>1783054390985</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1783054390985</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

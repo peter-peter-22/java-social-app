@@ -1,6 +1,7 @@
 package com.example.media.uploads.transformations;
 
 import com.example.media.common.transformations.UploadTransformation;
+import com.example.media.common.transformations.api.UploadTransformationDTO;
 import com.example.media.common.uploads.Upload;
 import com.example.media.common.uploads.UploadId;
 import lombok.RequiredArgsConstructor;
@@ -9,18 +10,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 @RequiredArgsConstructor
 public class TransformationService {
     private final LazyTransformationSessionRepository lazyTransformationSessionRepository;
-    private final LazyTransformationEventRepository lazyTransformationEventRepository;
-    private final BlockingTransformationRepository blockingTransformationRepository;
+    private final LazyTransformationApi lazyTransformationApi;
+    private final BlockingTransformationApi blockingTransformationApi;
     private final List<UploadTransformation> transformations;
 
     /**
      * Completes or queues all matching transformations for the upload.
-     * Optimization: the lazy and the blocking transformations could be applied in parallel.
      *
      * @return True if there is at least one lazy transformation in progress.
      */
@@ -30,23 +33,47 @@ public class TransformationService {
                 .filter(transformation -> transformation.isApplicable(upload))
                 .toList();
 
-        // wait for blocking transformations to complete
-        applyBlockingTransformations(applicableTransformations, upload.id());
+        // execute
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+        try (executor) {
 
-        // queue lazy transformations if any, return true if there is at least one
-        return applyLazyTransformations(applicableTransformations, upload.id());
+            var blockingFuture = CompletableFuture.runAsync(
+                    () -> applyBlockingTransformations(applicableTransformations, upload.id()),
+                    executor
+            );
+
+            var lazyFuture = CompletableFuture.supplyAsync(
+                    () -> applyLazyTransformations(applicableTransformations, upload.id()),
+                    executor
+            );
+
+            CompletableFuture.allOf(blockingFuture, lazyFuture).join();
+
+            return lazyFuture.join();
+        }
+    }
+
+    private static void throwUnchecked(Throwable throwable) {
+        if (throwable instanceof RuntimeException runtimeException) throw runtimeException;
+        if (throwable instanceof Error error) throw error;
+        throw new IllegalStateException("Failed to apply transformations", throwable);
     }
 
     private void applyBlockingTransformations(@NotNull Collection<UploadTransformation> applicableTransformations, UploadId uploadId) {
         var blockingTransformations = applicableTransformations.stream()
                 .filter(transformation -> !transformation.isLazy())
+                .map(transformation -> UploadTransformationDTO.toDTO(transformation, uploadId))
                 .toList();
 
-        blockingTransformationRepository.applyTransformations(uploadId, blockingTransformations);
+        if (blockingTransformations.isEmpty()) return;
+
+        blockingTransformationApi.transform(blockingTransformations);
     }
 
     /**
      * Creates lazy transformation session and events if necessary.
+     * Optimization: lazyTransformationSessionRepository.createLazyTransformationSession and lazyTransformationApi.transform
+     * could be executed in parallel.
      *
      * @return True if there is at least one lazy transformation.
      */
@@ -54,6 +81,7 @@ public class TransformationService {
         // get the list of the lazy transformations
         var lazyTransformations = applicableTransformations.stream()
                 .filter(UploadTransformation::isLazy)
+                .map(transformation -> UploadTransformationDTO.toDTO(transformation, uploadId))
                 .toList();
 
         // if no lazy transformations found, exit
@@ -61,17 +89,18 @@ public class TransformationService {
 
         // if lazy transformations are required, create the lazy transformation session and events
         var names = lazyTransformations.stream()
-                .map(UploadTransformation::getName)
+                .map(UploadTransformationDTO::name)
                 .toList();
         lazyTransformationSessionRepository.createLazyTransformationSession(uploadId, names);
-        lazyTransformationEventRepository.queueLazyUploadTransformations(uploadId, applicableTransformations);
+        lazyTransformationApi.transform(lazyTransformations);
 
         return true;
     }
 
-    /** Marks a lazy transformation as ready and deletes the session if no more transformations are required. */
-    public void markLazyTransformationAsComplete(UploadId uploadId, String transformationName)
-    {
+    /**
+     * Marks a lazy transformation as ready and deletes the session if no more transformations are required.
+     */
+    public void markLazyTransformationAsComplete(UploadId uploadId, String transformationName) {
         boolean ready = lazyTransformationSessionRepository.markLazyTransformationAsReady(uploadId, transformationName);
         if (ready)
             lazyTransformationSessionRepository.deleteLazyTransformationSession(uploadId);

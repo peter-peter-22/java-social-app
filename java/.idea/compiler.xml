@@ -8,13 +8,15 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
         <module name="java.modules.cockroach_db.main" />
+        <module name="java.modules.users.persistence.main" />
+        <module name="java.modules.users.api.main" />
         <module name="java.modules.media.common.test" />
-        <module name="java.modules.users.main" />
+        <module name="java.modules.users.api.test" />
         <module name="java.modules.media.common.main" />
         <module name="java.modules.media.object_storage.test" />
         <module name="java.modules.posts.main" />
         <module name="java.modules.cockroach_db.test" />
-        <module name="java.modules.users.test" />
+        <module name="java.modules.users.persistence.test" />
         <module name="java.modules.posts.test" />
         <module name="java.modules.media.object_storage.main" />
         <module name="java.modules.media.image_transformer.main" />
@@ -23,7 +25,7 @@
         <module name="java.modules.media.uploads.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21" />
+    <bytecodeTargetLevel target="24" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -47,9 +49,9 @@
       <module name="java.modules.media.common" options="-parameters -parameters" />
       <module name="java.modules.media.common.main" options="-parameters -parameters" />
       <module name="java.modules.media.common.test" options="-parameters -parameters" />
-      <module name="java.modules.media.image_transformer" options="-parameters -parameters" />
-      <module name="java.modules.media.image_transformer.main" options="-parameters -parameters" />
-      <module name="java.modules.media.image_transformer.test" options="-parameters -parameters" />
+      <module name="java.modules.media.image_transformer" options="-parameters" />
+      <module name="java.modules.media.image_transformer.main" options="-parameters" />
+      <module name="java.modules.media.image_transformer.test" options="-parameters" />
       <module name="java.modules.media.main" options="-parameters -parameters" />
       <module name="java.modules.media.object_storage" options="-parameters -parameters" />
       <module name="java.modules.media.object_storage.main" options="-parameters -parameters" />
@@ -76,8 +78,10 @@
       <module name="java.modules.uploads" options="-parameters -parameters" />
       <module name="java.modules.uploads.main" options="-parameters -parameters" />
       <module name="java.modules.uploads.test" options="-parameters -parameters" />
-      <module name="java.modules.users" options="-parameters -parameters" />
       <module name="java.modules.users.main" options="-parameters -parameters" />
+      <module name="java.modules.users.persistence" options="-parameters -parameters" />
+      <module name="java.modules.users.persistence.main" options="-parameters -parameters" />
+      <module name="java.modules.users.persistence.test" options="-parameters -parameters" />
       <module name="java.modules.users.test" options="-parameters -parameters" />
       <module name="java.modules.utils" options="-parameters -parameters" />
       <module name="java.modules.utils.main" options="-parameters -parameters" />

@@ -6,7 +6,7 @@ import com.example.media.common.uploads.UploadStatus;
 import com.example.media.object_storage.repository.ObjectStorageRepository;
 import com.example.media.uploads.transformations.TransformationService;
 import com.example.media.uploads.upload_repository.InsertUpload;
-import com.example.users.repository.UserId;
+import com.example.users.persistence.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import com.example.media.uploads.upload_repository.UploadRepository;

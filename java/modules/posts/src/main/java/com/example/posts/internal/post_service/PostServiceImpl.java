@@ -3,7 +3,7 @@ package com.example.posts.internal.post_service;
 import com.example.posts.Post;
 import com.example.posts.PostId;
 import com.example.posts.PostService;
-import com.example.users.repository.UserId;
+import com.example.users.persistence.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

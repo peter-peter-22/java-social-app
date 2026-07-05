@@ -1,0 +1,10 @@
+package com.example.media.uploads.transformations;
+
+import com.example.media.common.transformations.api.UploadTransformationDTO;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+
+interface TransformationApi {
+    void transform(@NotNull Collection<UploadTransformationDTO> transformations);
+}

@@ -8,6 +8,7 @@ public record AspectRatio(
         @NotNull Mode mode
 ) {
     public static enum Mode {
-        FILL
+        FILL,
+        CONTAIN
     }
 }

@@ -7,8 +7,10 @@ rootProject.name = "java"
 
 include(
     "modules:posts",
-    "modules:users",
     "modules:cockroach_db",
+    // users
+    "modules:users:api",
+    "modules:users:persistence",
     // media
     "modules:media:object_storage",
     "modules:media:uploads",

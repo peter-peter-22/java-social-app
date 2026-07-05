@@ -15,7 +15,7 @@ public class UserAvatarTransformations {
     public UploadTransformation avatarTransformation() {
         return UploadTransformation.builder()
                 .name("avatar_fullscreen")
-                .bucketName("transformations")
+                .outputBucket("transformations")
                 .filters(new TransformationFilter[]{new TransformationFilters.PathPrefix("a")})
                 .operations(
                         ImageTransformationOperations.builder()

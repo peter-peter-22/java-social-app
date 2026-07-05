@@ -2,17 +2,17 @@ package com.example.media.uploads.upload_repository;
 
 import com.example.media.common.uploads.FileType;
 import com.example.media.common.uploads.UploadStatus;
-import com.example.users.repository.UserId;
+import com.example.users.api.repository.UserId;
 import lombok.Builder;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 @Builder
-public record InsertUpload(
-        @NotNull String bucket,
-        @NotNull String objectPath,
-        @NotNull FileType fileType,
-        @Builder.Default(UploadStatus.UPLOADING)
-        @NotNull UploadStatus status,
-        @NotNull UserId createdBy
-) {
+@Getter
+public class InsertUpload {
+    private final @NotNull String bucket;
+    private final @NotNull String objectPath;
+    private final @NotNull FileType fileType;
+    private final @Builder.Default @NotNull UploadStatus status = UploadStatus.UPLOADING;
+    private final @NotNull UserId createdBy;
 }

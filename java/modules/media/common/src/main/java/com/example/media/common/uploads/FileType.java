@@ -7,7 +7,8 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 @Getter
 public enum FileType {
-    JPEG(new String[]{"jpg","jpeg"}, new String[]{"image/jpeg","image/jpg"}, "application/image", MediaType.IMAGE);
+    JPEG(new String[]{"jpg", "jpeg"}, new String[]{"image/jpeg", "image/jpg"}, "application/image", MediaType.IMAGE),
+    MP4(new String[]{"mp4"}, new String[]{"video/mp4"}, "application/image", MediaType.VIDEO);
 
     @NotNull
     private final String[] extensions;

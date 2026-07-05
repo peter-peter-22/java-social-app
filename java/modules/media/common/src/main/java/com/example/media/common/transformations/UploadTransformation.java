@@ -5,7 +5,6 @@ import com.example.media.common.transformations.operations.UploadTransformationO
 import com.example.media.common.transformations.operations.VideoTransformationOperations;
 import com.example.media.common.uploads.MediaType;
 import com.example.media.common.uploads.Upload;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -16,10 +15,12 @@ import org.jetbrains.annotations.Nullable;
 @Getter
 public class UploadTransformation {
     @NotNull final private String name;
+    /** If true, the transformation will be executed asynchronously, otherwise it will block the request. */
     @Builder.Default private final boolean lazy = false;
+    /** Called after the transformation is completed, works only with lazy transformations. */
     @Nullable final private String webhookUrl;
-    @NotNull final private String bucketName;
-    @Getter(AccessLevel.NONE) @NotNull final private TransformationFilter @Nullable [] filters;
+    @NotNull final private String outputBucket;
+    @Builder.Default @NotNull final private TransformationFilter[] filters = new TransformationFilter[0];
     @NotNull final private UploadTransformationOperations operations;
 
     public MediaType getMediaType(){
@@ -34,7 +35,7 @@ public class UploadTransformation {
         if (filters == null) return true;
 
         // check if the operations are compatible with the file upload
-        if (!getMediaType().equals(upload.fileType().mediaType())) return false;
+        if (!getMediaType().equals(upload.fileType().getMediaType())) return false;
 
         // check if all filters are applicable.
         for (var filter : filters) {

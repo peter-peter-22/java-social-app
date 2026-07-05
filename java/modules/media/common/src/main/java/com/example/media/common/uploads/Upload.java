@@ -1,6 +1,6 @@
 package com.example.media.common.uploads;
 
-import com.example.users.repository.UserId;
+import com.example.users.api.repository.UserId;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;

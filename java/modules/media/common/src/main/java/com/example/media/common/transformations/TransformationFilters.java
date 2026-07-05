@@ -12,7 +12,17 @@ public class TransformationFilters {
 
         @Override
         public boolean isApplicable(@NotNull Upload upload) {
-            return false;
+            return upload.id().objectPath().startsWith(prefix);
+        }
+    }
+
+    @AllArgsConstructor
+    public static class BucketFilter implements TransformationFilter {
+        private final String bucket;
+
+        @Override
+        public boolean isApplicable(@NotNull Upload upload) {
+            return upload.id().bucket().equals(bucket);
         }
     }
 

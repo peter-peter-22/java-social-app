@@ -22,3 +22,5 @@ the api module of these services to prevent unnecessary imported data.
 ## Webflux
 Use webflux instead of spring webmvc for IO bound servers.
 
+## Micro optimizations
+Some minor optimizations are marked with "optimization:" in the javadoc.

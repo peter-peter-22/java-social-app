@@ -4,7 +4,7 @@ import com.example.cockroach_db.SQLErrorCodes;
 import com.example.media.common.uploads.Upload;
 import com.example.media.common.uploads.UploadId;
 import com.example.media.common.uploads.UploadStatus;
-import com.example.users.repository.UserId;
+import com.example.users.persistence.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,11 +56,11 @@ public class UploadRepository {
                             VALUES (:created_by, :object_path, :bucket, :file_type, :status)
                             RETURNING object_path, bucket
                             """)
-                    .param("object_path", upload.objectPath())
-                    .param("created_by", upload.createdBy().get())
-                    .param("bucket", upload.bucket())
-                    .param("file_type", upload.fileType().name())
-                    .param("status", upload.status().name())
+                    .param("object_path", upload.getObjectPath())
+                    .param("created_by", upload.getCreatedBy().get())
+                    .param("bucket", upload.getBucket())
+                    .param("file_type", upload.getFileType().name())
+                    .param("status", upload.getStatus().name())
                     .query(UploadEntityId.class)
                     .single();
             return new UploadId(id.objectPath(), id.bucket());

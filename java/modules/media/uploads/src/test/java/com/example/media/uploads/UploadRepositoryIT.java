@@ -2,9 +2,9 @@ package com.example.media.uploads;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.media.common.uploads.*;
-import com.example.users.repository.InsertUser;
-import com.example.users.repository.UserId;
-import com.example.users.repository.UserRepository;
+import com.example.users.api.repository.UserId;
+import com.example.users.persistence.repository.InsertUser;
+import com.example.users.persistence.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,13 +32,12 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         InsertUser insertUser = new InsertUser();
         var user = userRepository.create(insertUser);
 
-        return new InsertUpload(
-                "bucket",
-                UUID.randomUUID() + ".jpg",
-                FileType.JPEG,
-                UploadStatus.UPLOADING,
-                user.id()
-        );
+        return InsertUpload.builder()
+                .objectPath(UUID.randomUUID() + ".jpg")
+                .bucket("bucket")
+                .fileType(FileType.JPEG)
+                .createdBy(user.id())
+                .build();
     }
 
     private UploadId insertUpload() {
@@ -69,8 +68,8 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         var found = uploadRepository.getById(id);
         assertThat(found).isNotNull();
         assertThat(found.id()).isEqualTo(id);
-        assertThat(found.status()).isEqualTo(upload.status());
-        assertThat(found.fileType()).isEqualTo(upload.fileType());
+        assertThat(found.status()).isEqualTo(upload.getStatus());
+        assertThat(found.fileType()).isEqualTo(upload.getFileType());
 
         // Check generated fields
         assertThat(found.createdAt()).isNotNull();
@@ -104,13 +103,12 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
      */
     @Test
     void testUserForeignKey() {
-        InsertUpload upload = new InsertUpload(
-                "bucket",
-                UUID.randomUUID() + ".jpg",
-                FileType.JPEG,
-                UploadStatus.UPLOADING,
-                new UserId(UUID.randomUUID())
-        );
+        var upload = InsertUpload.builder()
+                .objectPath(UUID.randomUUID() + ".jpg")
+                .bucket("bucket")
+                .fileType(FileType.JPEG)
+                .createdBy(new UserId(UUID.randomUUID()))
+                .build();
         try {
             uploadRepository.create(upload);
         } catch (UploadMissingUserException e) {
