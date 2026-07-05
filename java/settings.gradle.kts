@@ -14,6 +14,6 @@ include(
     // media
     "modules:media:object_storage",
     "modules:media:uploads",
-    "modules:media:common",
+    "modules:media:media_api",
     "modules:media:image_transformer"
 )

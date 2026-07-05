@@ -1,6 +1,6 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.common.transformations.api.UploadTransformationDTO;
+import com.example.media.api.transformations.api.UploadTransformationDTO;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 

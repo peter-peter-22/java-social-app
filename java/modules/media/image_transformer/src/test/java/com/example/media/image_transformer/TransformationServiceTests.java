@@ -1,9 +1,9 @@
 package com.example.media.image_transformer;
 
-import com.example.media.common.transformations.api.UploadTransformationDTO;
-import com.example.media.common.transformations.operations.ImageTransformationOperations;
-import com.example.media.common.transformations.operations.LimitResolution;
-import com.example.media.common.uploads.UploadId;
+import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.operations.LimitResolution;
+import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

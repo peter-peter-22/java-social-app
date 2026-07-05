@@ -17,5 +17,5 @@ dependencies {
 	implementation(project(":modules:users:persistence"))
 	implementation(project(":modules:cockroach_db"))
 	testImplementation(testFixtures(project(":modules:cockroach_db")))
-	implementation(project(":modules:media:common"))
+	implementation(project(":modules:media:media_api"))
 }

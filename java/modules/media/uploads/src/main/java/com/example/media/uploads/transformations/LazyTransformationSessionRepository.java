@@ -1,6 +1,6 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.common.uploads.UploadId;
+import com.example.media.api.uploads.UploadId;
 import org.springframework.stereotype.Repository;
 
 @Repository

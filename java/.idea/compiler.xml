@@ -10,11 +10,11 @@
         <module name="java.modules.cockroach_db.main" />
         <module name="java.modules.users.persistence.main" />
         <module name="java.modules.users.api.main" />
-        <module name="java.modules.media.common.test" />
+        <module name="java.modules.media.media_api.test" />
         <module name="java.modules.users.api.test" />
-        <module name="java.modules.media.common.main" />
         <module name="java.modules.media.object_storage.test" />
         <module name="java.modules.posts.main" />
+        <module name="java.modules.media.media_api.main" />
         <module name="java.modules.cockroach_db.test" />
         <module name="java.modules.users.persistence.test" />
         <module name="java.modules.posts.test" />
@@ -46,13 +46,17 @@
       <module name="java.modules.demo" options="-parameters" />
       <module name="java.modules.demo.main" options="-parameters" />
       <module name="java.modules.demo.test" options="-parameters" />
-      <module name="java.modules.media.common" options="-parameters -parameters" />
+      <module name="java.modules.media.api.main" options="-parameters -parameters" />
+      <module name="java.modules.media.api.test" options="-parameters -parameters" />
       <module name="java.modules.media.common.main" options="-parameters -parameters" />
       <module name="java.modules.media.common.test" options="-parameters -parameters" />
       <module name="java.modules.media.image_transformer" options="-parameters" />
       <module name="java.modules.media.image_transformer.main" options="-parameters" />
       <module name="java.modules.media.image_transformer.test" options="-parameters" />
       <module name="java.modules.media.main" options="-parameters -parameters" />
+      <module name="java.modules.media.media_api" options="-parameters -parameters" />
+      <module name="java.modules.media.media_api.main" options="-parameters -parameters" />
+      <module name="java.modules.media.media_api.test" options="-parameters -parameters" />
       <module name="java.modules.media.object_storage" options="-parameters -parameters" />
       <module name="java.modules.media.object_storage.main" options="-parameters -parameters" />
       <module name="java.modules.media.object_storage.test" options="-parameters -parameters" />

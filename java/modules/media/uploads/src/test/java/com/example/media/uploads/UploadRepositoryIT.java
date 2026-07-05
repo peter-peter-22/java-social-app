@@ -1,7 +1,6 @@
 package com.example.media.uploads;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.media.common.uploads.*;
 import com.example.users.api.repository.UserId;
 import com.example.users.persistence.repository.InsertUser;
 import com.example.users.persistence.repository.UserRepository;

@@ -3,9 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach_db/java.modules.cockroach_db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach_db/java.modules.cockroach_db.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/common/java.modules.media.common.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image_transformer/java.modules.media.image_transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image_transformer/java.modules.media.image_transformer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image_transformer/java.modules.media.image_transformer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image_transformer/java.modules.media.image_transformer.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media_api/java.modules.media.media_api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media_api/java.modules.media.media_api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media_api/java.modules.media.media_api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media_api/java.modules.media.media_api.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object_storage/java.modules.media.object_storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object_storage/java.modules.media.object_storage.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object_storage/java.modules.media.object_storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object_storage/java.modules.media.object_storage.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.modules.media.uploads.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.modules.media.uploads.main.iml" />

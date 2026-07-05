@@ -1,8 +1,8 @@
 package com.example.media.uploads.upload_service;
 
-import com.example.media.common.uploads.FileType;
-import com.example.media.common.uploads.UploadId;
-import com.example.media.common.uploads.UploadStatus;
+import com.example.media.api.uploads.FileType;
+import com.example.media.api.uploads.UploadId;
+import com.example.media.api.uploads.UploadStatus;
 import com.example.media.object_storage.repository.ObjectStorageRepository;
 import com.example.media.uploads.transformations.TransformationService;
 import com.example.media.uploads.upload_repository.InsertUpload;

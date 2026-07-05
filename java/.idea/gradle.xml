@@ -23,8 +23,8 @@
             <option value="$PROJECT_DIR$/modules" />
             <option value="$PROJECT_DIR$/modules/cockroach_db" />
             <option value="$PROJECT_DIR$/modules/media" />
-            <option value="$PROJECT_DIR$/modules/media/common" />
             <option value="$PROJECT_DIR$/modules/media/image_transformer" />
+            <option value="$PROJECT_DIR$/modules/media/media_api" />
             <option value="$PROJECT_DIR$/modules/media/object_storage" />
             <option value="$PROJECT_DIR$/modules/media/uploads" />
             <option value="$PROJECT_DIR$/modules/posts" />

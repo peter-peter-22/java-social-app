@@ -1,9 +1,9 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.common.transformations.UploadTransformation;
-import com.example.media.common.transformations.api.UploadTransformationDTO;
-import com.example.media.common.uploads.Upload;
-import com.example.media.common.uploads.UploadId;
+import com.example.media.api.transformations.UploadTransformation;
+import com.example.media.api.transformations.api.UploadTransformationDTO;
+import com.example.media.api.uploads.Upload;
+import com.example.media.api.uploads.UploadId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;

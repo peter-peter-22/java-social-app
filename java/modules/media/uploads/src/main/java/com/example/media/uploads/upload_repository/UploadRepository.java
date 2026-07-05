@@ -1,9 +1,9 @@
 package com.example.media.uploads.upload_repository;
 
 import com.example.cockroach_db.SQLErrorCodes;
-import com.example.media.common.uploads.Upload;
-import com.example.media.common.uploads.UploadId;
-import com.example.media.common.uploads.UploadStatus;
+import com.example.media.api.uploads.Upload;
+import com.example.media.api.uploads.UploadId;
+import com.example.media.api.uploads.UploadStatus;
 import com.example.users.persistence.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;

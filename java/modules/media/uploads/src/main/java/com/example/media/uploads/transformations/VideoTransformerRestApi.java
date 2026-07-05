@@ -1,7 +1,7 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.common.transformations.api.MediaTransformerEndpoints;
-import com.example.media.common.transformations.api.UploadTransformationDTO;
+import com.example.media.api.transformations.api.MediaTransformerEndpoints;
+import com.example.media.api.transformations.api.UploadTransformationDTO;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

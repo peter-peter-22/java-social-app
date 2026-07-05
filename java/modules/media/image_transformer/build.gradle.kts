@@ -9,5 +9,5 @@ dependencies {
 	implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
 	// modules
-	implementation(project(":modules:media:common"))
+	implementation(project(":modules:media:media_api"))
 }
