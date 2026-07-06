@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/AspectRatioTransformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/ImageTransformationPipeline.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/LimitResolutionTransformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/TransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/AspectRatioTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/AspectRatioTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/ImageTransformationPipeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/ImageTransformationPipeline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/LimitResolutionTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/LimitResolutionTransformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer/TransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/test/java/com/example/media/image_transformer/TransformationServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,61 +149,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8601721683428043" />
-      <entry key="MS500" value="5.5417054141102025" />
-      <entry key="S2" value="19.050667718739252" />
-      <entry key="S5" value="39.9428025476633" />
-      <entry key="S10" value="63.45869739587318" />
-      <entry key="S30" value="127.68788136867575" />
-      <entry key="S60" value="208.20248564325328" />
-      <entry key="M2" value="335.0261459156529" />
-      <entry key="M5" value="516.834399405763" />
-      <entry key="M10" value="619.6944945470053" />
-      <entry key="M15" value="670.7246780420523" />
-      <entry key="M30" value="780.3414291313657" />
-      <entry key="H1" value="989.6346730961475" />
-      <entry key="H2" value="1386.4423329501133" />
-      <entry key="H4" value="1959.4855814947507" />
-      <entry key="D1" value="3140.09878376625" />
-      <entry key="W1" value="3480.3783379040165" />
+      <entry key="MS100" value="1.3454403405477842" />
+      <entry key="MS500" value="3.783188125737949" />
+      <entry key="S2" value="6.565288926715205" />
+      <entry key="S5" value="14.393358349776713" />
+      <entry key="S10" value="25.69475248698357" />
+      <entry key="S30" value="45.34750210129043" />
+      <entry key="S60" value="55.030555173160074" />
+      <entry key="M2" value="65.40726968825514" />
+      <entry key="M5" value="153.2375539027604" />
+      <entry key="M10" value="342.65110490436683" />
+      <entry key="M15" value="511.923470064842" />
+      <entry key="M30" value="913.6072711344428" />
+      <entry key="H1" value="1426.9681782485336" />
+      <entry key="H2" value="2060.0569187742863" />
+      <entry key="H4" value="2817.180464421175" />
+      <entry key="D1" value="4311.640004781721" />
+      <entry key="W1" value="4745.775952127026" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="1.907587475530515E-179" />
-      <entry key="S30" value="6.05377497504355E-60" />
-      <entry key="S60" value="4.844293477716329E-30" />
-      <entry key="M2" value="4.384403869533859E-15" />
-      <entry key="M5" value="4.145554896063482E-6" />
-      <entry key="M10" value="0.004071474904621533" />
-      <entry key="M15" value="0.04047375020035971" />
-      <entry key="M30" value="0.4031425400207611" />
-      <entry key="H1" value="1.3968395422298467" />
-      <entry key="H2" value="4.172841643800166" />
-      <entry key="H4" value="10.73461632759096" />
-      <entry key="D1" value="29.019820211362305" />
-      <entry key="W1" value="34.8988126900309" />
+      <entry key="S10" value="4.0512865399173704E-294" />
+      <entry key="S30" value="3.6118450174187985E-98" />
+      <entry key="S60" value="3.741811127907748E-49" />
+      <entry key="M2" value="1.2185300973390097E-24" />
+      <entry key="M5" value="6.239545468103805E-10" />
+      <entry key="M10" value="4.995016232623714E-5" />
+      <entry key="M15" value="0.002152931480049962" />
+      <entry key="M30" value="0.09297945758895723" />
+      <entry key="H1" value="0.6708272731579208" />
+      <entry key="H2" value="2.8917716718940656" />
+      <entry key="H4" value="8.936193706283275" />
+      <entry key="D1" value="28.14636997877134" />
+      <entry key="W1" value="34.74678326843793" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.8027171067160292" />
-      <entry key="MS500" value="5.494958486905971" />
-      <entry key="S2" value="19.016693295896776" />
-      <entry key="S5" value="39.916213490339594" />
-      <entry key="S10" value="63.43807685227641" />
-      <entry key="S30" value="127.67427450800432" />
-      <entry key="S60" value="208.19131344695967" />
-      <entry key="M2" value="335.01682395640205" />
-      <entry key="M5" value="516.8282227337044" />
-      <entry key="M10" value="619.6946369281225" />
-      <entry key="M15" value="670.7620659859774" />
-      <entry key="M30" value="780.7419491950918" />
-      <entry key="H1" value="991.0289579959131" />
-      <entry key="H2" value="1390.6123284092803" />
-      <entry key="H4" value="1970.2169885102485" />
-      <entry key="D1" value="3169.117243734213" />
-      <entry key="W1" value="3515.2769183536325" />
+      <entry key="MS100" value="1.3173515530206734" />
+      <entry key="MS500" value="3.7667032084435914" />
+      <entry key="S2" value="6.558004295002573" />
+      <entry key="S5" value="14.386697647539668" />
+      <entry key="S10" value="25.68865076591455" />
+      <entry key="S30" value="45.34381062442506" />
+      <entry key="S60" value="55.028287651332356" />
+      <entry key="M2" value="65.40589334117217" />
+      <entry key="M5" value="153.23610709875393" />
+      <entry key="M10" value="342.64943655569584" />
+      <entry key="M15" value="511.923838697736" />
+      <entry key="M30" value="913.6983549991046" />
+      <entry key="H1" value="1427.6369225905455" />
+      <entry key="H2" value="2062.9462174373775" />
+      <entry key="H4" value="2826.1137146675255" />
+      <entry key="D1" value="4339.785006826146" />
+      <entry key="W1" value="4780.522497132929" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -566,7 +565,7 @@
       <workItem from="1783282737951" duration="5362000" />
       <workItem from="1783292912623" duration="6960000" />
       <workItem from="1783301709646" duration="1604000" />
-      <workItem from="1783305273185" duration="1144000" />
+      <workItem from="1783305273185" duration="4274000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -712,7 +711,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783294015347</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="wip">
+      <option name="closed" value="true" />
+      <created>1783306420029</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1783306420029</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

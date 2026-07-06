@@ -6,14 +6,16 @@ import app.photofox.vipsffm.enums.VipsCompassDirection;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-class AspectRatioTransformation {
+@Order(1)
+class AspectRatioTransformation implements ImageTransformation {
     @NotNull
-    VImage apply(@NotNull VImage image, @NotNull ImageTransformationOperations operations) {
+    public VImage apply(@NotNull VImage image, @NotNull ImageTransformationOperations operations) {
         var aspectRatio = operations.getAspectRatio();
         if (aspectRatio == null) {
             return image;
@@ -62,7 +64,7 @@ class AspectRatioTransformation {
                 VipsCompassDirection.COMPASS_DIRECTION_CENTRE,
                 targetWidth,
                 targetHeight,
-                VipsOption.ArrayDouble("background", List.of(255.0, 255.0, 255.0))
+                VipsOption.ArrayDouble("background", List.of(0.0, 0.0, 0.0))
         );
     }
 

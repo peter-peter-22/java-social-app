@@ -13,8 +13,7 @@ import java.nio.file.Path;
 @Component
 @RequiredArgsConstructor
 class ImageTransformationPipeline {
-    private final AspectRatioTransformation aspectRatioTransformation;
-    private final LimitResolutionTransformation limitResolutionTransformation;
+    private final ImageTransformation[] transformations;
 
     @NotNull
     VImage apply(
@@ -27,6 +26,10 @@ class ImageTransformationPipeline {
                 input.toString(),
                 VipsOption.Boolean("autorotate", true)
         );
-        return limitResolutionTransformation.apply(aspectRatioTransformation.apply(image, operations), operations);
+
+        for (var transformation : transformations) {
+            image = transformation.apply(image, operations);
+        }
+        return image;
     }
 }
