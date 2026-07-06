@@ -1,12 +1,12 @@
 package com.example.media.uploads.upload_service;
 
-import com.example.media.api.uploads.FileType;
-import com.example.media.api.uploads.UploadId;
-import com.example.media.api.uploads.UploadStatus;
 import com.example.media.object_storage.repository.ObjectStorageRepository;
 import com.example.media.uploads.transformations.TransformationService;
 import com.example.media.uploads.upload_repository.InsertUpload;
-import com.example.users.persistence.repository.UserId;
+import com.example.media_api.uploads.FileType;
+import com.example.media_api.uploads.UploadId;
+import com.example.media_api.uploads.UploadStatus;
+import com.example.users.api.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import com.example.media.uploads.upload_repository.UploadRepository;

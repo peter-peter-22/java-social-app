@@ -1,6 +1,6 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.api.uploads.UploadId;
+import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

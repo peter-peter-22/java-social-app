@@ -1,17 +1,17 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.api.transformations.TransformationFilter;
-import com.example.media.api.transformations.TransformationFilters;
-import com.example.media.api.transformations.UploadTransformation;
-import com.example.media.api.transformations.api.UploadTransformationDTO;
-import com.example.media.api.transformations.operations.AspectRatio;
-import com.example.media.api.transformations.operations.ImageTransformationOperations;
-import com.example.media.api.transformations.operations.LimitResolution;
-import com.example.media.api.uploads.FileType;
-import com.example.media.api.uploads.Upload;
-import com.example.media.api.uploads.UploadId;
-import com.example.media.api.uploads.UploadStatus;
-import com.example.users.persistence.repository.UserId;
+import com.example.media_api.transformations.TransformationFilter;
+import com.example.media_api.transformations.TransformationFilters;
+import com.example.media_api.transformations.UploadTransformation;
+import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.operations.AspectRatio;
+import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.operations.LimitResolution;
+import com.example.media_api.uploads.FileType;
+import com.example.media_api.uploads.Upload;
+import com.example.media_api.uploads.UploadId;
+import com.example.media_api.uploads.UploadStatus;
+import com.example.users.api.repository.UserId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -68,7 +68,7 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto=UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
+        var dto= UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 

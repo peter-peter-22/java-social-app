@@ -1,7 +1,7 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.api.transformations.api.UploadTransformationDTO;
-import com.example.media.api.uploads.MediaType;
+import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.uploads.MediaType;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;

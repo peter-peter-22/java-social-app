@@ -1,6 +1,6 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.api.UploadTransformationDTO;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-abstract class ParralelTransformationApi implements TransformationApi {
+abstract class ParallelTransformationApi implements TransformationApi {
     public abstract void call(@NotNull UploadTransformationDTO body);
 
     /**

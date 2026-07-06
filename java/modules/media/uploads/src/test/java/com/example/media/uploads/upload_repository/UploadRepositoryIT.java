@@ -1,6 +1,10 @@
-package com.example.media.uploads;
+package com.example.media.uploads.upload_repository;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
+import com.example.media_api.uploads.FileType;
+import com.example.media_api.uploads.Upload;
+import com.example.media_api.uploads.UploadId;
+import com.example.media_api.uploads.UploadStatus;
 import com.example.users.api.repository.UserId;
 import com.example.users.persistence.repository.InsertUser;
 import com.example.users.persistence.repository.UserRepository;
@@ -8,9 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import com.example.media.uploads.upload_repository.InsertUpload;
-import com.example.media.uploads.upload_repository.UploadMissingUserException;
-import com.example.media.uploads.upload_repository.UploadRepository;
 
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;

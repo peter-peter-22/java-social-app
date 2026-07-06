@@ -1,11 +1,11 @@
 package com.example.media.uploads.transformations;
 
-import com.example.media.api.transformations.api.UploadTransformationDTO;
-import com.example.media.api.transformations.operations.ImageTransformationOperations;
-import com.example.media.api.transformations.operations.UploadTransformationOperations;
-import com.example.media.api.transformations.operations.VideoTransformationOperations;
-import com.example.media.api.uploads.MediaType;
-import com.example.media.api.uploads.UploadId;
+import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.operations.UploadTransformationOperations;
+import com.example.media_api.transformations.operations.VideoTransformationOperations;
+import com.example.media_api.uploads.MediaType;
+import com.example.media_api.uploads.UploadId;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 

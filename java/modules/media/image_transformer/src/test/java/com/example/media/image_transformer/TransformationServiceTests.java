@@ -1,5 +1,6 @@
 package com.example.media.image_transformer;
 
+import com.example.media.image_transformer.transformation.TransformationService;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
