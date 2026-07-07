@@ -1,23 +1,22 @@
 package com.example.media.object_storage.repository;
 
 import com.example.media.object_storage.MinioIntegrationTest;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okio.Buffer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestClient;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
-import java.util.Base64;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.charset.StandardCharsets;
 import java.time.temporal.ChronoUnit;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,47 +24,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
-    @Autowired
-    private ObjectStorageRepository objectStorageRepository;
-
-    private static final String filePath = "src/test/resources/test.txt";
-    private static final String bucket = "public";
-    private static final String contentType = "text/plain";
-
+    private static final Path TEST_FILE_PATH = Path.of("src/test/resources/test.txt");
+    private static final String BUCKET = "public";
+    private static final String CONTENT_TYPE = "text/plain";
     private static final RestClient restClient = RestClient.create();
 
-    private record MultipartBody(byte[] bytes, String boundary) {}
+    @Autowired
+    private ObjectStorageRepository objectStorageRepository;
 
     private String initObject() {
         String objectPath = UUID.randomUUID().toString();
         objectStorageRepository.uploadObject(
-                filePath,
+                TEST_FILE_PATH.toString(),
                 objectPath,
-                bucket,
-                contentType
+                BUCKET,
+                CONTENT_TYPE
         );
         return objectPath;
     }
 
-    /**
-     * The existing and non-existing objects should return the correct value
-     */
     @Test
     void testObjectExists() {
         var objectPath = initObject();
-        assertThat(objectStorageRepository.objectExists(bucket, objectPath)).isTrue();
-        assertThat(objectStorageRepository.objectExists(bucket, "nothing")).isFalse();
+        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
+        assertThat(objectStorageRepository.objectExists(BUCKET, "nothing")).isFalse();
     }
 
     @Test
     void testGetPreSignedDownloadUrl() throws IOException {
         var objectPath = initObject();
-        Path path = Paths.get(filePath);
-        byte[] expectedContent = Files.readAllBytes(path);
+        byte[] expectedContent = readTestContent();
 
         var url = objectStorageRepository.getPreSignedDownloadUrl(
                 GetPreSignedDownloadUrlArgs.builder()
-                        .bucket(bucket)
+                        .bucket(BUCKET)
                         .objectPath(objectPath)
                         .expiresIn(300)
                         .build()
@@ -83,70 +75,58 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
     @Test
     void testGetPreSignedUploadForm() throws IOException {
         var objectPath = UUID.randomUUID().toString();
-        byte[] content = Files.readAllBytes(Paths.get(filePath));
+        byte[] content = readTestContent();
 
         Map<String, String> formData = objectStorageRepository.getPreSignedUploadForm(
                 GetPreSignedUploadFormArgs.builder()
-                        .bucket(bucket)
+                        .bucket(BUCKET)
                         .objectPath(objectPath)
                         .expiration(10)
                         .timeUnit(ChronoUnit.MINUTES)
                         .build()
         );
 
-        String policyJson = new String(Base64.getDecoder().decode(formData.get("policy")), StandardCharsets.UTF_8);
-        assertThat(policyJson).contains(bucket, objectPath);
+        assertThat(formData).containsKeys(
+                "policy",
+                "x-amz-algorithm",
+                "x-amz-credential",
+                "x-amz-date",
+                "x-amz-signature"
+        );
 
-        Map<String, String> uploadFormData = new LinkedHashMap<>(formData);
-        uploadFormData.put("bucket", bucket);
-        uploadFormData.put("key", objectPath);
-
-        var requestBody = buildMultipartBody(uploadFormData, "file", objectPath, contentType, content);
-        String uploadUrl = objectStorageRepository.getBucketUrl(bucket);
-
+        var requestBody = buildUploadForm(formData, objectPath, content);
+        var requestBuffer = new Buffer();
+        requestBody.writeTo(requestBuffer);
         var response = restClient.post()
-                .uri(URI.create(uploadUrl))
-                .header("Content-Type", "multipart/form-data; boundary=" + requestBody.boundary())
-                .body(requestBody.bytes())
+                .uri(URI.create(objectStorageRepository.getBucketUrl(BUCKET)))
+                .header("Content-Type", requestBody.contentType().toString())
+                .body(requestBuffer.readByteArray())
                 .retrieve()
                 .toBodilessEntity();
 
         assertThat(response.getStatusCode().value()).isIn(200, 201, 204);
-        assertThat(objectStorageRepository.objectExists(bucket, objectPath)).isTrue();
-
-        try (InputStream inputStream = objectStorageRepository.getObject(bucket, objectPath)) {
-            assertThat(inputStream.readAllBytes()).isEqualTo(content);
-        }
+        assertStoredContent(objectPath, content);
     }
 
     @Test
     void testPutObject() throws IOException {
         var objectPath = UUID.randomUUID().toString();
-        byte[] content = Files.readAllBytes(Paths.get(filePath));
+        byte[] content = readTestContent();
 
         try (InputStream inputStream = new ByteArrayInputStream(content)) {
-            objectStorageRepository.putObject(bucket, objectPath, inputStream, content.length, contentType);
+            objectStorageRepository.putObject(BUCKET, objectPath, inputStream, content.length, CONTENT_TYPE);
         }
 
-        assertThat(objectStorageRepository.objectExists(bucket, objectPath)).isTrue();
-
-        try (InputStream inputStream = objectStorageRepository.getObject(bucket, objectPath)) {
-            assertThat(inputStream.readAllBytes()).isEqualTo(content);
-        }
+        assertStoredContent(objectPath, content);
     }
 
-    /**
-     * The downloaded content should match the original content
-     */
     @Test
     void testDownloadObject() throws IOException {
         var objectPath = initObject();
-
-        Path path = Paths.get(filePath);
-        byte[] expectedContent = Files.readAllBytes(path);
+        byte[] expectedContent = readTestContent();
 
         byte[] responseBody = restClient.get()
-                .uri(URI.create(objectStorageRepository.getDownloadUrl(bucket, objectPath)))
+                .uri(URI.create(objectStorageRepository.getDownloadUrl(BUCKET, objectPath)))
                 .retrieve()
                 .body(byte[].class);
 
@@ -155,47 +135,37 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
     @Test
     void testDeleteObject() {
-        var objectPath = initObject(); // Create and upload an object
-        assertThat(objectStorageRepository.objectExists(bucket, objectPath)).isTrue();
+        var objectPath = initObject();
+        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
 
-        objectStorageRepository.deleteObject(bucket, objectPath); // Delete the object
+        objectStorageRepository.deleteObject(BUCKET, objectPath);
 
-        assertThat(objectStorageRepository.objectExists(bucket, objectPath)).isFalse(); // Verify deletion
+        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isFalse();
     }
 
-    private static MultipartBody buildMultipartBody(
-            Map<String, String> formData,
-            String fileFieldName,
-            String fileName,
-            String fileContentType,
-            byte[] fileContent
-    ) throws IOException {
-        String boundary = "----ObjectStorageRepositoryIT" + UUID.randomUUID().toString().replace("-", "");
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private static byte[] readTestContent() throws IOException {
+        return Files.readAllBytes(TEST_FILE_PATH);
+    }
 
-        for (var entry : new LinkedHashMap<>(formData).entrySet()) {
-            if ("url".equals(entry.getKey())) {
-                continue;
-            }
-            writeLine(outputStream, "--" + boundary);
-            writeLine(outputStream, "Content-Disposition: form-data; name=\"" + entry.getKey() + "\"");
-            writeLine(outputStream, "");
-            writeLine(outputStream, entry.getValue());
+    private void assertStoredContent(String objectPath, byte[] expectedContent) throws IOException {
+        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
+        try (InputStream inputStream = objectStorageRepository.getObject(BUCKET, objectPath)) {
+            assertThat(inputStream.readAllBytes()).isEqualTo(expectedContent);
         }
-
-        writeLine(outputStream, "--" + boundary);
-        writeLine(outputStream, "Content-Disposition: form-data; name=\"" + fileFieldName + "\"; filename=\"" + fileName + "\"");
-        writeLine(outputStream, "Content-Type: " + fileContentType);
-        writeLine(outputStream, "");
-        outputStream.write(fileContent);
-        writeLine(outputStream, "");
-        writeLine(outputStream, "--" + boundary + "--");
-
-        return new MultipartBody(outputStream.toByteArray(), boundary);
     }
 
-    private static void writeLine(ByteArrayOutputStream outputStream, String value) throws IOException {
-        outputStream.write(value.getBytes(StandardCharsets.UTF_8));
-        outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
+    private static MultipartBody buildUploadForm(Map<String, String> formData, String objectPath, byte[] content) {
+        var builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+
+        formData.forEach(builder::addFormDataPart);
+        builder.addFormDataPart("bucket", BUCKET);
+        builder.addFormDataPart("key", objectPath);
+        builder.addFormDataPart(
+                "file",
+                objectPath,
+                RequestBody.create(content, MediaType.parse(CONTENT_TYPE))
+        );
+        return builder.build();
     }
 }

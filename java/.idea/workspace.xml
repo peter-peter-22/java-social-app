@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/webhook/WebhookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/GetPreSignedDownloadUrlArgs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/GetPreSignedUploadFormArgs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/transformation/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/transformation/TransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media_api/src/main/java/com/example/media_api/transformations/api/WebhookEndpoints.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/guides/minio.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/guides/minio.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/main/java/com/example/media/object_storage/repository/ObjectStorageRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/media/object_storage/repository/ObjectStorageRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object_storage/src/test/java/com/example/media/object_storage/repository/ObjectStorageRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_repository/SignedUploadDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/upload_service/UploadService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,61 +146,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="7.032279430823427E-116" />
-      <entry key="MS500" value="1.5494662797800407E-23" />
-      <entry key="S2" value="7.768337106365518E-6" />
-      <entry key="S5" value="0.03597664995788681" />
-      <entry key="S10" value="0.9708772682470845" />
-      <entry key="S30" value="21.58176101197271" />
-      <entry key="S60" value="57.31076127150243" />
-      <entry key="M2" value="96.15179171473314" />
-      <entry key="M5" value="136.06161359342155" />
-      <entry key="M10" value="166.96927614052595" />
-      <entry key="M15" value="188.19112070565106" />
-      <entry key="M30" value="229.17045525085223" />
-      <entry key="H1" value="287.11115945452633" />
-      <entry key="H2" value="451.43210595892697" />
-      <entry key="H4" value="1017.0113867210389" />
-      <entry key="D1" value="4135.283831420398" />
-      <entry key="W1" value="5647.044403226392" />
+      <entry key="MS100" value="1.8632695425963752" />
+      <entry key="MS500" value="3.2440197032215994" />
+      <entry key="S2" value="3.9657943228629957" />
+      <entry key="S5" value="5.071442423402821" />
+      <entry key="S10" value="6.109274188844992" />
+      <entry key="S30" value="7.2392378376417605" />
+      <entry key="S60" value="7.602896343237161" />
+      <entry key="M2" value="8.52052055021759" />
+      <entry key="M5" value="36.64057644803092" />
+      <entry key="M10" value="129.7093848401824" />
+      <entry key="M15" value="217.29400556671942" />
+      <entry key="M30" value="389.1645739414948" />
+      <entry key="H1" value="555.8696891808252" />
+      <entry key="H2" value="780.3229851017929" />
+      <entry key="H4" value="1358.8774830077048" />
+      <entry key="D1" value="4526.904708665525" />
+      <entry key="W1" value="6093.070079068537" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0" />
-      <entry key="S60" value="1.000000000040458" />
-      <entry key="M2" value="1.000015860765302" />
-      <entry key="M5" value="1.0446597318923732" />
-      <entry key="M10" value="1.731341643206465" />
-      <entry key="M15" value="2.9738672609625207" />
-      <entry key="M30" value="7.044899562041406" />
-      <entry key="H1" value="13.500407460848121" />
-      <entry key="H2" value="22.93870117234637" />
-      <entry key="H4" value="36.20397512411654" />
-      <entry key="D1" value="78.05849825108801" />
-      <entry key="W1" value="97.05716650842828" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="6.885120189327663E-188" />
+      <entry key="S5" value="1.365100451660755E-75" />
+      <entry key="S10" value="3.6947265821177433E-38" />
+      <entry key="S30" value="3.3306388958902426E-13" />
+      <entry key="S60" value="5.774130883020857E-7" />
+      <entry key="M2" value="7.768953152406064E-4" />
+      <entry key="M5" value="0.06950786413572559" />
+      <entry key="M10" value="0.43075177595356157" />
+      <entry key="M15" value="1.0725964803149441" />
+      <entry key="M30" value="4.0100128700755855" />
+      <entry key="H1" value="10.15282396963104" />
+      <entry key="H2" value="19.993030635430877" />
+      <entry key="H4" value="33.98304406302261" />
+      <entry key="D1" value="77.86829491831892" />
+      <entry key="W1" value="97.84472171442044" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="6.541586075050616E-5" />
-      <entry key="MS500" value="0.14559169830855695" />
-      <entry key="S2" value="0.6177164332336157" />
-      <entry key="S5" value="0.8598520643815114" />
-      <entry key="S10" value="1.8724616972571484" />
-      <entry key="S30" value="22.534373696386176" />
-      <entry key="S60" value="58.28046750294197" />
-      <entry key="M2" value="97.1337661299987" />
-      <entry key="M5" value="137.0975156855122" />
-      <entry key="M10" value="168.69162173544808" />
-      <entry key="M15" value="191.1530768062105" />
-      <entry key="M30" value="236.1988881235334" />
-      <entry key="H1" value="300.59506144404145" />
-      <entry key="H2" value="474.35687203209477" />
-      <entry key="H4" value="1053.2044775843538" />
-      <entry key="D1" value="4213.338487952208" />
-      <entry key="W1" value="5744.100891656519" />
+      <entry key="MS100" value="1.770746275280821" />
+      <entry key="MS500" value="3.2109226902730583" />
+      <entry key="S2" value="3.9553690179948586" />
+      <entry key="S5" value="5.0657654101694405" />
+      <entry key="S10" value="6.105722212540492" />
+      <entry key="S30" value="7.237794820285776" />
+      <entry key="S60" value="7.602133731343135" />
+      <entry key="M2" value="8.52080806677804" />
+      <entry key="M5" value="36.7072378123051" />
+      <entry key="M10" value="130.13358135842685" />
+      <entry key="M15" value="218.35784919363303" />
+      <entry key="M30" value="393.1617831862097" />
+      <entry key="H1" value="566.0079447339123" />
+      <entry key="H2" value="800.3026457541779" />
+      <entry key="H4" value="1392.8496559150801" />
+      <entry key="D1" value="4604.7690554053825" />
+      <entry key="W1" value="6190.914100463697" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -328,7 +317,7 @@
       <recent name="com.example.uploads" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.compose-test.yaml: Compose Deployment">
     <configuration name="ObjectStorageRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -577,7 +566,7 @@
       <workItem from="1783305273185" duration="4945000" />
       <workItem from="1783314677340" duration="18165000" />
       <workItem from="1783381425890" duration="13944000" />
-      <workItem from="1783401237918" duration="156000" />
+      <workItem from="1783401237918" duration="2090000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -747,7 +736,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783332039319</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="wip">
+      <option name="closed" value="true" />
+      <created>1783401409632</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1783401409632</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
