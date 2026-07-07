@@ -10,4 +10,5 @@ dependencies {
 
 	// modules
 	implementation(project(":modules:media:media_api"))
+	implementation(project(":modules:media:object_storage"))
 }

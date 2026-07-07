@@ -21,6 +21,8 @@
         <module name="java.modules.media.object_storage.main" />
         <module name="java.modules.media.image_transformer.main" />
         <module name="java.modules.media.uploads.test" />
+        <module name="java.modules.utils.spring-web-utils.test" />
+        <module name="java.modules.utils.spring-web-utils.main" />
         <module name="java.modules.media.image_transformer.test" />
         <module name="java.modules.media.uploads.main" />
       </profile>
@@ -68,6 +70,7 @@
       <module name="java.modules.media.uploads" options="-parameters -parameters" />
       <module name="java.modules.media.uploads.main" options="-parameters -parameters" />
       <module name="java.modules.media.uploads.test" options="-parameters -parameters" />
+      <module name="java.modules.media.uploads.testFixtures" options="-parameters -parameters" />
       <module name="java.modules.minio.main" options="-parameters -parameters" />
       <module name="java.modules.minio.test" options="-parameters -parameters" />
       <module name="java.modules.object_storage" options="-parameters -parameters" />
@@ -87,8 +90,10 @@
       <module name="java.modules.users.persistence.main" options="-parameters -parameters" />
       <module name="java.modules.users.persistence.test" options="-parameters -parameters" />
       <module name="java.modules.users.test" options="-parameters -parameters" />
-      <module name="java.modules.utils" options="-parameters -parameters" />
       <module name="java.modules.utils.main" options="-parameters -parameters" />
+      <module name="java.modules.utils.spring-web-utils" options="-parameters -parameters" />
+      <module name="java.modules.utils.spring-web-utils.main" options="-parameters -parameters" />
+      <module name="java.modules.utils.spring-web-utils.test" options="-parameters -parameters" />
       <module name="java.modules.utils.test" options="-parameters -parameters" />
       <module name="java.posts" options="-parameters -parameters" />
       <module name="java.posts.main" options="-parameters -parameters" />

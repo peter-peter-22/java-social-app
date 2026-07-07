@@ -31,6 +31,8 @@
             <option value="$PROJECT_DIR$/modules/users" />
             <option value="$PROJECT_DIR$/modules/users/api" />
             <option value="$PROJECT_DIR$/modules/users/persistence" />
+            <option value="$PROJECT_DIR$/modules/utils" />
+            <option value="$PROJECT_DIR$/modules/utils/spring-web-utils" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -9,12 +9,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Utility for applying transformation calls in parallel.
+ */
 abstract class ParallelTransformationApi implements TransformationApi {
     public abstract void call(@NotNull UploadTransformationDTO body);
 
-    /**
-     * Apply the given transformations in parallel.
-     */
     @Override
     public void transform(@NonNull Collection<UploadTransformationDTO> transformations) {
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();

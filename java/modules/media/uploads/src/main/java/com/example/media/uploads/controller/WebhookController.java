@@ -18,4 +18,4 @@ public class WebhookController {
     void markAsReady(@RequestParam WebhookDTO webhook) {
         transformationService.markLazyTransformationAsComplete(webhook.uploadId(), webhook.transformationName());
     }
-}
+}// TODO: write webmvc test

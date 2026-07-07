@@ -15,5 +15,7 @@ include(
     "modules:media:object_storage",
     "modules:media:uploads",
     "modules:media:media_api",
-    "modules:media:image_transformer"
+    "modules:media:image_transformer",
+    // utils
+    "modules:utils:spring-web-utils"
 )
