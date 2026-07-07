@@ -24,7 +24,13 @@ public class ImageTransformerRestApi extends ParallelTransformationApi {
     }
 
     @Override
-    @Retryable(value = HttpServerErrorException.InternalServerError.class, maxRetries = 3, delay = 1, timeUnit = TimeUnit.SECONDS)
+    @Retryable(
+            value = HttpServerErrorException.InternalServerError.class,
+            maxRetries = 3,
+            delay = 1,
+            maxDelay = 1,
+            timeUnit = TimeUnit.SECONDS
+    )
     public void call(@NonNull UploadTransformationDTO body) {
         restClient.post()
                 .uri(MediaTransformerEndpoints.TRANSFORM)

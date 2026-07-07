@@ -12,4 +12,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     // openapi annotations and others
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    // mock web server
+    testImplementation("com.squareup.okhttp3:mockwebserver3:5.0.0-alpha.12")
 }
