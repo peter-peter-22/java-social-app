@@ -1,20 +1,17 @@
 package com.example.media.object_storage.repository;
 
 import com.example.media.object_storage.MinioProperties;
-import io.minio.MinioClient;
-import io.minio.PostPolicy;
-import io.minio.StatObjectArgs;
-import io.minio.UploadObjectArgs;
+import io.minio.*;
 import io.minio.errors.*;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,44 +20,79 @@ public class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     private final MinioProperties minioProperties;
 
     @Override
-    public @NotNull String getDownloadUrl(String bucket, String objectPath) {
+    public @NotNull String getDownloadUrl(@NotNull String bucket, @NotNull String objectPath) {
         return String.format("%s/%s/%s", minioProperties.endpoint(), bucket, objectPath);
     }
 
     @Override
-    public @NotNull String getPreSignedDownloadUrl() {
-        return "not implemented yet";
+    public @NotNull String getBucketUrl(@NotNull String bucket) {
+        return String.format("%s/%s", minioProperties.endpoint(), bucket);
     }
 
     @Override
-    public @NotNull Map<String, String> getPreSignedUploadUrl(String bucket, String objectPath, Integer expirationSeconds) {
-        PostPolicy postPolicy = new PostPolicy(
-                "uploads",
-                ZonedDateTime.now().plusSeconds(expirationSeconds)
-        );
-        postPolicy.addEqualsCondition("key", objectPath);
-        postPolicy.addContentLengthRangeCondition(1, 10 * 1024 * 1024);
+    public @NotNull String getPreSignedDownloadUrl(@NotNull GetPreSignedDownloadUrlArgs args) {
         try {
-            return minioClient.getPresignedPostFormData(postPolicy);
-        } catch (InvalidResponseException | ErrorResponseException | InsufficientDataException | InternalException |
-                 InvalidKeyException | IOException | NoSuchAlgorithmException | ServerException |
-                 XmlParserException e) {
-            throw new RuntimeException(e);
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .method(Method.GET)
+                            .bucket(args.getBucket())
+                            .object(args.getObjectPath())
+                            .expiry(args.getExpiresIn(), TimeUnit.MINUTES)
+                            .build());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create signed download URL", e);
         }
     }
 
     @Override
-    public void deleteObject(String path) {
+    public @NotNull Map<String, String> getPreSignedUploadForm(@NotNull GetPreSignedUploadFormArgs args) {
+        PostPolicy postPolicy = new PostPolicy(
+                args.getBucket(),
+                ZonedDateTime.now().plus(args.getExpiration(),args.getTimeUnit())
+        );
 
+        if (args.getObjectPath() != null)
+            postPolicy.addEqualsCondition("key", args.getObjectPath());
+        if (args.getContentType() != null)
+            postPolicy.addEqualsCondition("Content-Type", args.getContentType());
+        if (args.getContentLengthRange() != null)
+            postPolicy.addContentLengthRangeCondition(args.getContentLengthRange().minBytes(), args.getContentLengthRange().maxBytes());
+
+        try {
+            return minioClient.getPresignedPostFormData(postPolicy);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create signed upload URL", e);
+        }
     }
 
     @Override
-    public void downloadObject(String path) {
-
+    public void deleteObject(@NotNull String bucket, @NotNull String objectPath) {
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucket)
+                    .object(objectPath)
+                    .build());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete object from MinIO", e);
+        }
     }
 
     @Override
-    public void uploadObject(String filePath, String objectPath, String bucketName, String contentType) {
+    public @NotNull InputStream getObject(@NotNull String bucket, @NotNull String objectPath) {
+        try {
+            return minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(bucket)
+                            .object(objectPath)
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read object from MinIO", e);
+        }
+    }
+
+    @Override
+    public void uploadObject(@NotNull String filePath, @NotNull String objectPath, @NotNull String bucketName, @NotNull String contentType) {
         try {
             var args = UploadObjectArgs.builder()
                     .bucket(bucketName)
@@ -75,7 +107,7 @@ public class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public boolean objectExists(String bucket, String objectPath) {
+    public boolean objectExists(@NotNull String bucket, @NotNull String objectPath) {
         try {
             var args = StatObjectArgs.builder()
                     .bucket(bucket)
@@ -89,9 +121,23 @@ public class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                 return false;
             }
             throw new RuntimeException(e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void putObject(@NotNull String bucket, @NotNull String objectPath, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType) {
+        try {
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(bucket)
+                            .object(objectPath)
+                            .stream(inputStream, contentLength, -1)
+                            .contentType(contentType)
+                            .build());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload input stream", e);
         }
     }
 }

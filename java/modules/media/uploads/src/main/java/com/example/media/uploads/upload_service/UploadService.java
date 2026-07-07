@@ -28,7 +28,8 @@ public class UploadService {
                 .createdBy(createdBy)
                 .build();
         uploadRepository.create(insertUpload);
-        return objectStorageRepository.getPreSignedUploadUrl(UPLOAD_BUCKET, "test.txt", 60);
+        // not implemented yet
+        return Map.of();
     }
 
     /** After a file is uploaded to object storage, mark the upload as complete
