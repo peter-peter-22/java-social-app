@@ -8,6 +8,7 @@ import okio.Buffer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestClient;
 
 import java.io.ByteArrayInputStream;
@@ -106,6 +107,43 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         assertThat(response.getStatusCode().value()).isIn(200, 201, 204);
         assertStoredContent(objectPath, content);
+    }
+
+    /** The signed upload form should fail when the form arguments don't match what was specified during signing. */
+    @Test
+    void testGetPreSignedUploadFormRejectsMismatchingObjectKey() throws IOException {
+        var signedObjectPath = UUID.randomUUID().toString();
+        var uploadedObjectPath = UUID.randomUUID().toString();
+        byte[] content = readTestContent();
+
+        Map<String, String> formData = objectStorageRepository.getPreSignedUploadForm(
+                GetPreSignedUploadFormArgs.builder()
+                        .bucket(BUCKET)
+                        .objectPath(signedObjectPath)
+                        .expiration(10)
+                        .timeUnit(ChronoUnit.MINUTES)
+                        .build()
+        );
+
+        var requestBody = buildUploadForm(formData, uploadedObjectPath, content);
+        var requestBuffer = new Buffer();
+        requestBody.writeTo(requestBuffer);
+
+        try {
+            restClient.post()
+                    .uri(URI.create(objectStorageRepository.getBucketUrl(BUCKET)))
+                    .header("Content-Type", requestBody.contentType().toString())
+                    .body(requestBuffer.readByteArray())
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (RestClientResponseException e) {
+            assertThat(e.getStatusCode().is4xxClientError()).isTrue();
+            assertThat(objectStorageRepository.objectExists(BUCKET, signedObjectPath)).isFalse();
+            assertThat(objectStorageRepository.objectExists(BUCKET, uploadedObjectPath)).isFalse();
+            return;
+        }
+
+        throw new AssertionError("Expected mismatching object key upload to fail");
     }
 
     @Test
