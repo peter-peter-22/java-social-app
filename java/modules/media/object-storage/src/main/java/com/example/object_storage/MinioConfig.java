@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties(MinioProperties.class)
-public class MinioConfig {
+class MinioConfig {
     @Bean
     public MinioClient minioClient(
              MinioProperties minioProperties

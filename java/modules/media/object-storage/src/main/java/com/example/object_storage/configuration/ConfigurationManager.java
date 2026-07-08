@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ConfigurationManager {
+class ConfigurationManager {
     private final MinioConfiguration[] configurations;
 
     public void applyReconciliation() throws Exception {

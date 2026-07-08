@@ -1,18 +1,18 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.storage;
 
 import app.photofox.vipsffm.VImage;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
+import java.lang.foreign.Arena;
 
-interface TransformationImageStorage {
-    @NotNull Path input(@NotNull UploadTransformationDTO upload);
-
+public interface TransformationImageStorage {
     void write(
             @NotNull VImage image,
             @NotNull UploadTransformationDTO upload,
             @NotNull ImageTransformationOperations operations
     );
+
+    @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationDTO upload);
 }

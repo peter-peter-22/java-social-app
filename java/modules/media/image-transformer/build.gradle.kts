@@ -1,16 +1,16 @@
 plugins {
+	idea
 	id("web-project-conventions")
 }
 
 version = "0.0.1-SNAPSHOT"
 
-val integrationTest by sourceSets.creating
-
-integrationTest.compileClasspath += sourceSets.main.get().output
-integrationTest.runtimeClasspath += sourceSets.main.get().output
-
-configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.testImplementation.get())
-configurations[integrationTest.runtimeOnlyConfigurationName].extendsFrom(configurations.testRuntimeOnly.get())
+idea {
+	module {
+		testSources.from(file("src/integrationTest/java"))
+		testResources.from(file("src/integrationTest/resources"))
+	}
+}
 
 dependencies {
 	// lipvips
@@ -21,12 +21,24 @@ dependencies {
 	implementation(project(":object-storage"))
 }
 
-tasks.register<Test>("integrationTest") {
-	description = "Runs integration tests that require libvips."
-	group = LifecycleBasePlugin.VERIFICATION_GROUP
+testing {
+	suites {
+		register<JvmTestSuite>("integrationTest") {
+			dependencies {
+				implementation(project())
+				implementation(project(":media-api"))
+				implementation("org.springframework.boot:spring-boot-starter-test")
+			}
 
-	testClassesDirs = integrationTest.output.classesDirs
-	classpath = integrationTest.runtimeClasspath
-	shouldRunAfter(tasks.test)
-	useJUnitPlatform()
+			targets {
+				all {
+					testTask.configure {
+						description = "Runs integration tests that require libvips."
+						group = LifecycleBasePlugin.VERIFICATION_GROUP
+						shouldRunAfter(tasks.test)
+					}
+				}
+			}
+		}
+	}
 }

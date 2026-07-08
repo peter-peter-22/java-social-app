@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
-public class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
+class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
 

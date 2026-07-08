@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 @EnableConfigurationProperties(ReconciliationProperties.class)
-public class ApplyReconciliation implements ApplicationRunner {
+class ApplyReconciliation implements ApplicationRunner {
     private final ConfigurationManager configurationManager;
 
     @Override

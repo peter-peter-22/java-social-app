@@ -1,4 +1,4 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.storage;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
@@ -7,24 +7,13 @@ import com.example.media_api.transformations.operations.ImageTransformationOpera
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
+import java.lang.foreign.Arena;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Component
 class LocalImageTransformationStorage implements TransformationImageStorage {
     private static final String DEFAULT_TEST_IMAGE = "image.jpg";
-
-    @Override
-    @NotNull
-    public Path input(@NotNull UploadTransformationDTO upload) {
-        var resources = testResourcesDirectory();
-        var objectFileName = Path.of(upload.original().objectPath()).getFileName();
-        var requestedFile = objectFileName == null ? null : resources.resolve(objectFileName);
-
-        return requestedFile != null && Files.exists(requestedFile)
-                ? requestedFile
-                : resources.resolve(DEFAULT_TEST_IMAGE);
-    }
 
     @Override
     public void write(
@@ -37,6 +26,15 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
                         "output_" + sanitize(upload.outputBucket()) + "_" + sanitize(upload.name()) + ".jpg"
                 ).toString(),
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
+        );
+    }
+
+    @Override
+    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationDTO upload) {
+        return VImage.newFromFile(
+                arena,
+                testResourcesDirectory().resolve(DEFAULT_TEST_IMAGE).toString(),
+                VipsOption.Boolean("autorotate", true)
         );
     }
 

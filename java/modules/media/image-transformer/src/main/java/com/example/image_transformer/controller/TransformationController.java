@@ -1,7 +1,6 @@
 package com.example.image_transformer.controller;
 
 import com.example.image_transformer.transformation.TransformationService;
-import com.example.media_api.transformations.api.MediaTransformerEndpoints;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(MediaTransformerEndpoints.TRANSFORM)
+@RequestMapping("/transform")
 @RequiredArgsConstructor
 public class TransformationController {
     private final TransformationService transformationService;

@@ -1,6 +1,5 @@
-package com.example.image_transformer;
+package com.example.image_transformer.transformation;
 
-import com.example.image_transformer.transformation.TransformationService;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
@@ -24,7 +23,7 @@ class TransformationServiceIT {
     private static final String BUCKET = "transformations";
 
     @Autowired
-    private TransformationService transformationService;
+    private TransformationOperationsHandler transformationOperationsHandler;
 
     @Test
     void aspectFillProducesSquare() throws IOException {
@@ -71,7 +70,7 @@ class TransformationServiceIT {
             String name,
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) {
-        transformationService.applyTransformations(upload(name, customize));
+        transformationOperationsHandler.applyTransformationOperations(upload(name, customize));
     }
 
     private UploadTransformationDTO upload(
@@ -80,7 +79,7 @@ class TransformationServiceIT {
     ) {
         var builder = ImageTransformationOperations.builder();
         customize.accept(builder);
-        return new UploadTransformationDTO(name, BUCKET, INPUT, null, builder.build());
+        return new UploadTransformationDTO(name, BUCKET, INPUT, false, builder.build());
     }
 
     private Path output(String name) {

@@ -17,8 +17,6 @@ public class UploadTransformation {
     @NotNull final private String name;
     /** If true, the transformation will be executed asynchronously, otherwise it will block the request. */
     @Builder.Default private final boolean lazy = false;
-    /** Called after the transformation is completed, works only with lazy transformations. */
-    @Nullable final private String webhookUrl;
     @NotNull final private String outputBucket;
     @Builder.Default @NotNull final private TransformationFilter[] filters = new TransformationFilter[0];
     @NotNull final private UploadTransformationOperations operations;

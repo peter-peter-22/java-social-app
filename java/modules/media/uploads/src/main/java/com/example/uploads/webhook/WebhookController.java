@@ -1,4 +1,4 @@
-package com.example.uploads.controller;
+package com.example.uploads.webhook;
 
 import com.example.uploads.transformations.TransformationService;
 import com.example.media_api.transformations.api.WebhookDTO;

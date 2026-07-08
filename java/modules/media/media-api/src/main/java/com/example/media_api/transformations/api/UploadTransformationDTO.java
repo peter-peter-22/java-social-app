@@ -13,14 +13,14 @@ public record UploadTransformationDTO(
         @NotNull String name,
         @NotNull String outputBucket,
         @NotNull UploadId original,
-        @Nullable String webhookUrl,
+        @NotNull Boolean webhook,
         @NotNull UploadTransformationOperations operations
 ) {
     public static UploadTransformationDTO toDTO(UploadTransformation transformation, UploadId original) {
         return new UploadTransformationDTO(
                 transformation.getName(),
                 transformation.getOutputBucket(),
-                original, transformation.getWebhookUrl(),
+                original, transformation.isLazy(),
                 transformation.getOperations()
         );
     }
