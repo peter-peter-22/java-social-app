@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class TransformationServiceTests {
+class TransformationServiceIT {
     private static final UploadId INPUT = new UploadId("image.jpg", "uploads");
     private static final String BUCKET = "transformations";
 
@@ -84,6 +84,6 @@ class TransformationServiceTests {
     }
 
     private Path output(String name) {
-        return Path.of("src/test/resources/output_" + BUCKET + "_" + name + ".jpg");
+        return Path.of("src/integrationTest/resources/output_" + BUCKET + "_" + name + ".jpg");
     }
 }

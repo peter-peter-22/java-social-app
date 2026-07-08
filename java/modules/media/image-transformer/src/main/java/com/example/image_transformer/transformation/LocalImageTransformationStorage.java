@@ -41,10 +41,22 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
     }
 
     private Path testResourcesDirectory() {
-        var moduleRelative = Path.of("src/test/resources");
-        return Files.isDirectory(moduleRelative)
-                ? moduleRelative
-                : Path.of("modules/media/image_transformer/src/test/resources");
+        var integrationRelative = Path.of("src/integrationTest/resources");
+        if (Files.isDirectory(integrationRelative)) {
+            return integrationRelative;
+        }
+
+        var testRelative = Path.of("src/test/resources");
+        if (Files.isDirectory(testRelative)) {
+            return testRelative;
+        }
+
+        var moduleIntegrationRelative = Path.of("modules/media/image-transformer/src/integrationTest/resources");
+        if (Files.isDirectory(moduleIntegrationRelative)) {
+            return moduleIntegrationRelative;
+        }
+
+        return Path.of("modules/media/image-transformer/src/test/resources");
     }
 
     private String sanitize(String value) {

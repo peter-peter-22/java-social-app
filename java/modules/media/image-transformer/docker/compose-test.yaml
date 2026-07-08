@@ -1,9 +1,9 @@
 services:
   image-transformer:
     build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: image-transformer-dev
+      context: ../../../../
+      dockerfile: modules/media/image-transformer/docker/Dockerfile
+    container_name: image-transformer-tests
     working_dir: /workspace
     user: "${UID:-1000}:${GID:-1000}"
     ports:
@@ -12,8 +12,9 @@ services:
       - JAVA_OPTS=-Xmx512m -XX:+UseContainerSupport
       - GRADLE_USER_HOME=/gradle-cache
     volumes:
-      - .:/workspace
+      - ../../../../:/workspace
       - gradle-cache:/gradle-cache
+    command: ["./gradlew", "--no-daemon", ":image-transformer:integrationTest"]
 
 volumes:
   gradle-cache:

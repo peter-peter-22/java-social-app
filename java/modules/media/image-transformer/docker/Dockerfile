@@ -29,4 +29,4 @@ ENV GRADLE_USER_HOME=/gradle-cache
 
 RUN mkdir -p "${GRADLE_USER_HOME}" && chmod 0777 "${GRADLE_USER_HOME}"
 
-CMD ["./gradlew", "--no-daemon", ":modules:media:image_transformer:test"]
+CMD ["./gradlew", "--no-daemon", ":image-transformer:integrationTest"]

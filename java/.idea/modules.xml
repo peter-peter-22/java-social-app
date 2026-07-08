@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" />
     </modules>
   </component>
 </project>

@@ -41,6 +41,7 @@
       <module name="java.demo.main" options="-parameters" />
       <module name="java.demo.test" options="-parameters" />
       <module name="java.image-transformer" options="-parameters -parameters" />
+      <module name="java.image-transformer.integrationTest" options="-parameters -parameters" />
       <module name="java.image-transformer.main" options="-parameters -parameters" />
       <module name="java.image-transformer.test" options="-parameters -parameters" />
       <module name="java.media-api" options="-parameters -parameters" />
