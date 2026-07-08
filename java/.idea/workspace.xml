@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/controller/WebhookControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/controller/TransformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image_transformer/src/main/java/com/example/media/image_transformer/controller/TransformationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/controller/WebhookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/media/uploads/controller/WebhookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/ImageTransformerRestApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/ImageTransformerRestApiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceApplyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/transformations/TransformationServiceApplyTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/controller/WebhookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/media/uploads/controller/WebhookControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="648" />
+    <option name="cachedIndexableFilesCount" value="646" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -110,61 +103,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="2.9994156012227087E-138" />
-      <entry key="S2" value="2.7437271316126852E-34" />
-      <entry key="S5" value="2.6873106723371237E-13" />
-      <entry key="S10" value="3.7698822226051773E-6" />
-      <entry key="S30" value="0.35382579520633617" />
-      <entry key="S60" value="7.507602741014014" />
-      <entry key="M2" value="37.076038302304966" />
-      <entry key="M5" value="111.14885533235606" />
-      <entry key="M10" value="191.65459674884045" />
-      <entry key="M15" value="247.6703649901657" />
-      <entry key="M30" value="352.08048805777474" />
-      <entry key="H1" value="528.9725531867873" />
-      <entry key="H2" value="946.8240690781646" />
-      <entry key="H4" value="1737.4748690794743" />
-      <entry key="D1" value="5591.002407561702" />
-      <entry key="W1" value="7713.522319239514" />
+      <entry key="MS100" value="1.8187236548783026" />
+      <entry key="MS500" value="5.255253463237978" />
+      <entry key="S2" value="14.042421279512563" />
+      <entry key="S5" value="26.203096953296804" />
+      <entry key="S10" value="45.22576895884284" />
+      <entry key="S30" value="112.22130991525385" />
+      <entry key="S60" value="179.18978717929525" />
+      <entry key="M2" value="243.12486543272232" />
+      <entry key="M5" value="299.89081673984435" />
+      <entry key="M10" value="324.10601765076433" />
+      <entry key="M15" value="339.06912512384963" />
+      <entry key="M30" value="409.2618526401185" />
+      <entry key="H1" value="599.2826630092909" />
+      <entry key="H2" value="1020.0296514275428" />
+      <entry key="H4" value="1829.3790275552815" />
+      <entry key="D1" value="5892.573158406138" />
+      <entry key="W1" value="8228.432366753763" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000207545083" />
-      <entry key="S2" value="1.0120026768220898" />
-      <entry key="S5" value="1.1704948421177257" />
-      <entry key="S10" value="1.4129102107210787" />
-      <entry key="S30" value="1.7446494518997004" />
-      <entry key="S60" value="1.8629321664100564" />
-      <entry key="M2" value="1.930137432652467" />
-      <entry key="M5" value="2.0387774126969815" />
-      <entry key="M10" value="2.2642581853522996" />
-      <entry key="M15" value="2.5513481583330324" />
-      <entry key="M30" value="3.9462932954790593" />
-      <entry key="H1" value="7.264359065079145" />
-      <entry key="H2" value="14.557255950755936" />
-      <entry key="H4" value="28.98535919844188" />
-      <entry key="D1" value="85.48168453453712" />
-      <entry key="W1" value="113.91393060907441" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="1.1695613427111858E-248" />
+      <entry key="S10" value="1.0814625942265337E-124" />
+      <entry key="S30" value="4.764351930287769E-42" />
+      <entry key="S60" value="2.1827395705398385E-21" />
+      <entry key="M2" value="4.672740553506993E-11" />
+      <entry key="M5" value="7.809012161603566E-5" />
+      <entry key="M10" value="0.012456798490850867" />
+      <entry key="M15" value="0.0815628574331534" />
+      <entry key="M30" value="0.7246473967500721" />
+      <entry key="H1" value="3.1252306426119714" />
+      <entry key="H2" value="9.512431943309268" />
+      <entry key="H4" value="23.41785800795701" />
+      <entry key="D1" value="83.46454515150404" />
+      <entry key="W1" value="115.13740967051933" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.693068652447273E-5" />
-      <entry key="MS500" value="0.11110533784655771" />
-      <entry key="S2" value="0.5845516915682042" />
-      <entry key="S5" value="0.9417800976198916" />
-      <entry key="S10" value="1.268844209923061" />
-      <entry key="S30" value="2.0375840901033255" />
-      <entry key="S60" value="9.33719628899611" />
-      <entry key="M2" value="38.986504602867264" />
-      <entry key="M5" value="113.17282962894126" />
-      <entry key="M10" value="193.90456750796108" />
-      <entry key="M15" value="250.20841745273611" />
-      <entry key="M30" value="356.0154899409323" />
-      <entry key="H1" value="536.2267963318714" />
-      <entry key="H2" value="961.3709443179472" />
-      <entry key="H4" value="1766.4499720010797" />
-      <entry key="D1" value="5676.479396473482" />
-      <entry key="W1" value="7827.435375574392" />
+      <entry key="MS100" value="1.7567763848080629" />
+      <entry key="MS500" value="5.218976599485441" />
+      <entry key="S2" value="14.010588441228974" />
+      <entry key="S5" value="26.1756268207261" />
+      <entry key="S10" value="45.202820070985524" />
+      <entry key="S30" value="112.20358219109599" />
+      <entry key="S60" value="179.1756164627885" />
+      <entry key="M2" value="243.11514660605687" />
+      <entry key="M5" value="299.8860477064694" />
+      <entry key="M10" value="324.11575188298417" />
+      <entry key="M15" value="339.14844251610947" />
+      <entry key="M30" value="409.9835221445717" />
+      <entry key="H1" value="602.4030747036663" />
+      <entry key="H2" value="1029.5350895843994" />
+      <entry key="H4" value="1852.7884937286701" />
+      <entry key="D1" value="5976.033093945107" />
+      <entry key="W1" value="8343.568888853304" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -282,7 +275,7 @@
       <recent name="com.example.uploads" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.compose-test.yaml: Compose Deployment">
+  <component name="RunManager">
     <configuration name="ObjectStorageRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -541,6 +534,8 @@
       <workItem from="1783476973147" duration="4283000" />
       <workItem from="1783482875364" duration="66000" />
       <workItem from="1783483388624" duration="1424000" />
+      <workItem from="1783484828162" duration="25000" />
+      <workItem from="1783494020525" duration="4591000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -742,7 +737,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783415336105</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="wip">
+      <option name="closed" value="true" />
+      <created>1783484842799</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1783484842799</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
