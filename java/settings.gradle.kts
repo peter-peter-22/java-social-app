@@ -6,16 +6,23 @@ pluginManagement {
 rootProject.name = "java"
 
 include(
-    "modules:posts",
-    "modules:cockroach_db",
+    ":posts",
+    ":cockroach-db",
     // users
-    "modules:users:api",
-    "modules:users:persistence",
+    ":users-api",
+    ":users-persistence",
     // media
-    "modules:media:object_storage",
-    "modules:media:uploads",
-    "modules:media:media_api",
-    "modules:media:image_transformer",
-    // utils
-    "modules:utils:spring-web-utils"
+    ":object-storage",
+    ":uploads",
+    ":media-api",
+    ":image-transformer",
 )
+
+project(":users-api").projectDir = file("modules/users/users-api")
+project(":users-persistence").projectDir = file("modules/users/users-persistence")
+project(":object-storage").projectDir = file("modules/media/object-storage")
+project(":uploads").projectDir = file("modules/media/uploads")
+project(":media-api").projectDir = file("modules/media/media-api")
+project(":image-transformer").projectDir = file("modules/media/image-transformer")
+project(":posts").projectDir = file("modules/posts")
+project(":cockroach-db").projectDir = file("modules/cockroach-db")

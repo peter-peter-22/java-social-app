@@ -20,19 +20,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/modules" />
-            <option value="$PROJECT_DIR$/modules/cockroach_db" />
-            <option value="$PROJECT_DIR$/modules/media" />
-            <option value="$PROJECT_DIR$/modules/media/image_transformer" />
-            <option value="$PROJECT_DIR$/modules/media/media_api" />
-            <option value="$PROJECT_DIR$/modules/media/object_storage" />
+            <option value="$PROJECT_DIR$/modules/cockroach-db" />
+            <option value="$PROJECT_DIR$/modules/media/image-transformer" />
+            <option value="$PROJECT_DIR$/modules/media/media-api" />
+            <option value="$PROJECT_DIR$/modules/media/object-storage" />
             <option value="$PROJECT_DIR$/modules/media/uploads" />
             <option value="$PROJECT_DIR$/modules/posts" />
-            <option value="$PROJECT_DIR$/modules/users" />
-            <option value="$PROJECT_DIR$/modules/users/api" />
-            <option value="$PROJECT_DIR$/modules/users/persistence" />
-            <option value="$PROJECT_DIR$/modules/utils" />
-            <option value="$PROJECT_DIR$/modules/utils/spring-web-utils" />
+            <option value="$PROJECT_DIR$/modules/users/users-api" />
+            <option value="$PROJECT_DIR$/modules/users/users-persistence" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -12,10 +12,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	// modules
-	implementation(project(":modules:media:object_storage"))
-	implementation(project(":modules:users:api"))
-	implementation(project(":modules:users:persistence"))
-	implementation(project(":modules:cockroach_db"))
-	testImplementation(testFixtures(project(":modules:cockroach_db")))
-	implementation(project(":modules:media:media_api"))
+	implementation(project(":object-storage"))
+	implementation(project(":users-api"))
+	implementation(project(":users-persistence"))
+	implementation(project(":cockroach-db"))
+	testImplementation(testFixtures(project(":cockroach-db")))
+	implementation(project(":media-api"))
 }
