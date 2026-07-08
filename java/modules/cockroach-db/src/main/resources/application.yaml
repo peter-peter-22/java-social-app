@@ -4,5 +4,5 @@ spring:
     enabled: true
 
 minio:
-  migrations:
-    apply-on-start: true
+  reconciliation:
+    enabled: true

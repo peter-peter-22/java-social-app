@@ -53,12 +53,6 @@ public class TransformationService {
         }
     }
 
-    private static void throwUnchecked(Throwable throwable) {
-        if (throwable instanceof RuntimeException runtimeException) throw runtimeException;
-        if (throwable instanceof Error error) throw error;
-        throw new IllegalStateException("Failed to apply transformations", throwable);
-    }
-
     private void applyBlockingTransformations(@NotNull Collection<UploadTransformation> applicableTransformations, UploadId uploadId) {
         var blockingTransformations = applicableTransformations.stream()
                 .filter(transformation -> !transformation.isLazy())

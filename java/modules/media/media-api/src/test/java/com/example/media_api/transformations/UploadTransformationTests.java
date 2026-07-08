@@ -6,7 +6,7 @@ import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
-import com.example.users.persistence.repository.UserId;
+import com.example.users.api.repository.UserId;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;

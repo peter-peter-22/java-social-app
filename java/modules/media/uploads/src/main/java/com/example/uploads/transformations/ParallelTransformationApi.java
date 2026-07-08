@@ -20,9 +20,7 @@ abstract class ParallelTransformationApi implements TransformationApi {
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try (executor) {
             var futures = transformations.stream()
-                    .map(transformation -> CompletableFuture.runAsync(() -> {
-                        call(transformation);
-                    }, executor))
+                    .map(transformation -> CompletableFuture.runAsync(() -> call(transformation), executor))
                     .toArray(CompletableFuture[]::new);
 
             CompletableFuture.allOf(futures).join();
