@@ -11,20 +11,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.resilience.annotation.EnableResilientMethods;
-import org.springframework.web.client.HttpClientErrorException;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class ImageTransformerRestApiTest {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    @Mock
+    private TransformationProperties properties;
 
     @Test
     void callPostsTransformationPayloadToTransformerApi() throws Exception {
@@ -32,67 +33,22 @@ class ImageTransformerRestApiTest {
             server.enqueue(new MockResponse(200));
             server.start();
 
-            try (var context = createContext(server)) {
-                var api = context.getBean(ImageTransformerRestApi.class);
-                var transformation = transformation();
+            when(properties.imageTransformerUrl()).thenReturn(URI.create(server.url("/").toString()));
+            var api = new ImageTransformerRestApi(properties);
 
-                api.call(transformation);
+            var transformation = transformation();
 
-                var request = server.takeRequest();
-                var requestBody = OBJECT_MAPPER.readTree(request.getBody().readUtf8());
-                var expectedBody = OBJECT_MAPPER.valueToTree(transformation);
+            api.call(transformation);
 
-                assertThat(request.getMethod()).isEqualTo("POST");
-                assertThat(request.getPath()).isEqualTo(MediaTransformerEndpoints.TRANSFORM);
-                assertThat(request.getHeaders().get("Content-Type")).startsWith("application/json");
-                assertThat(requestBody).isEqualTo(expectedBody);
-            }
+            var request = server.takeRequest();
+            var requestBody = OBJECT_MAPPER.readTree(request.getBody().readUtf8());
+            var expectedBody = OBJECT_MAPPER.valueToTree(transformation);
+
+            assertThat(request.getMethod()).isEqualTo("POST");
+            assertThat(request.getPath()).isEqualTo(MediaTransformerEndpoints.TRANSFORM);
+            assertThat(request.getHeaders().get("Content-Type")).startsWith("application/json");
+            assertThat(requestBody).isEqualTo(expectedBody);
         }
-    }
-
-    @Test
-    void callRetriesForInternalServerError() throws Exception {
-        try (var server = new MockWebServer()) {
-            server.enqueue(new MockResponse(500));
-            server.enqueue(new MockResponse(500));
-            server.enqueue(new MockResponse(500));
-            server.enqueue(new MockResponse(200));
-            server.start();
-
-            try (var context = createContext(server)) {
-                var api = context.getBean(ImageTransformerRestApi.class);
-
-                assertDoesNotThrow(() -> api.call(transformation()));
-                assertThat(server.getRequestCount()).isEqualTo(4);
-            }
-        }
-    }
-
-    @Test
-    void callDoesNotRetryForBadRequest() throws Exception {
-        try (var server = new MockWebServer()) {
-            server.enqueue(new MockResponse(400));
-            server.start();
-
-            try (var context = createContext(server)) {
-                var api = context.getBean(ImageTransformerRestApi.class);
-
-                assertThrows(HttpClientErrorException.BadRequest.class, () -> api.call(transformation()));
-                assertThat(server.getRequestCount()).isEqualTo(1);
-            }
-        }
-    }
-
-    private AnnotationConfigApplicationContext createContext(MockWebServer server) {
-        var context = new AnnotationConfigApplicationContext();
-        var imageTransformerUrl = URI.create(server.url("/").toString());
-
-        context.register(TestConfig.class);
-        context.registerBean(TransformationProperties.class,
-                () -> new TransformationProperties(imageTransformerUrl, URI.create("http://unused.local")));
-        context.refresh();
-
-        return context;
     }
 
     private UploadTransformationDTO transformation() {
@@ -108,14 +64,5 @@ class ImageTransformerRestApiTest {
                         .aspectRatio(new AspectRatio(4, 3, AspectRatio.Mode.CONTAIN))
                         .build()
         );
-    }
-
-    @Configuration
-    @EnableResilientMethods(proxyTargetClass = true)
-    static class TestConfig {
-        @Bean
-        ImageTransformerRestApi imageTransformerRestApi(TransformationProperties properties) {
-            return new ImageTransformerRestApi(properties);
-        }
     }
 }

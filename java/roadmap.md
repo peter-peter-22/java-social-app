@@ -8,3 +8,5 @@ build transformation service with test docker images
 replace crud repository to aggregate template
 
 replace post service with repository
+
+do something with the retry testing

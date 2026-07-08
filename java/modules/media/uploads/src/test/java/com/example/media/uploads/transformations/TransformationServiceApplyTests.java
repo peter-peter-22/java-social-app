@@ -68,7 +68,7 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto= UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
+        var dto = UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
@@ -95,7 +95,7 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto=UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
+        var dto = UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
@@ -104,12 +104,14 @@ public class TransformationServiceApplyTests {
         verifyNoInteractions(lazyTransformationApi);
     }
 
-    /** No transformations should be created if the filter is not applicable */
+    /**
+     * No transformations should be created if the filter is not applicable
+     */
     @Test
     void testFiltering() {
         var simpleFilter = new TransformationFilter[]{new TransformationFilters.BucketFilter("pass")};
 
-        var shouldFail= new Upload(
+        var shouldFail = new Upload(
                 new UploadId("posts/1.jpg", "fail"),
                 new UserId(UUID.randomUUID()),
                 FileType.JPEG,
