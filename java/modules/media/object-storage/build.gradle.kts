@@ -8,7 +8,7 @@ version = "0.0.1-SNAPSHOT"
 dependencies {
 
 	// minio
-	implementation("io.minio:minio:8.6.0")
+	implementation("io.minio:minio:8.6.0") // PRODUCTION: upgrade
 
 	// validation
 	implementation("org.springframework.boot:spring-boot-starter-validation")

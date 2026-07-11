@@ -1,6 +1,5 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.MediaTransformerEndpoints;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
@@ -33,7 +32,7 @@ public class ImageTransformerRestApi extends ParallelTransformationApi {
     )
     public void call(@NonNull UploadTransformationDTO body) {
         restClient.post()
-                .uri(MediaTransformerEndpoints.TRANSFORM)
+                .uri("/transform")
                 .body(body)
                 .retrieve()
                 .toBodilessEntity();

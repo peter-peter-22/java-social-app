@@ -16,6 +16,8 @@ include(
     ":uploads",
     ":media-api",
     ":image-transformer",
+    // utils
+    ":spring-utils"
 )
 
 project(":users-api").projectDir = file("modules/users/users-api")
@@ -26,3 +28,4 @@ project(":media-api").projectDir = file("modules/media/media-api")
 project(":image-transformer").projectDir = file("modules/media/image-transformer")
 project(":posts").projectDir = file("modules/posts")
 project(":cockroach-db").projectDir = file("modules/cockroach-db")
+project(":spring-utils").projectDir = file("modules/utils/spring-utils")

@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/modules/posts" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />
+            <option value="$PROJECT_DIR$/modules/utils/spring-utils" />
           </set>
         </option>
       </GradleProjectSettings>

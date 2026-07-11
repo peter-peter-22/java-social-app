@@ -1,5 +1,9 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
 	idea
+	`java-test-fixtures`
+	`jvm-test-suite`
 	id("web-project-conventions")
 }
 
@@ -26,8 +30,6 @@ testing {
 		register<JvmTestSuite>("integrationTest") {
 			dependencies {
 				implementation(project())
-				implementation(project(":media-api"))
-				implementation("org.springframework.boot:spring-boot-starter-test")
 			}
 
 			targets {
@@ -41,4 +43,40 @@ testing {
 			}
 		}
 	}
+}
+
+// copy main deps to integration test
+
+configurations.named("integrationTestImplementation") {
+	extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+}
+
+configurations.named("integrationTestRuntimeOnly") {
+	extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
+}
+
+configurations.named("integrationTestAnnotationProcessor") {
+	extendsFrom(configurations.annotationProcessor.get())
+}
+
+configurations.named("integrationTestCompileOnly") {
+	extendsFrom(configurations.compileOnly.get())
+}
+
+// copy main deps to test fixture
+
+configurations.named("testFixturesImplementation") {
+	extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+}
+
+configurations.named("testFixturesRuntimeOnly") {
+	extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
+}
+
+configurations.named("testFixturesAnnotationProcessor") {
+	extendsFrom(configurations.annotationProcessor.get())
+}
+
+configurations.named("testFixturesCompileOnly") {
+	extendsFrom(configurations.compileOnly.get())
 }

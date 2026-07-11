@@ -8,6 +8,7 @@ import org.springframework.web.client.RestClient;
 
 @Component
 class WebhookApi {
+    // TODO read url from config
     private final RestClient restClient = RestClient.create("/api/media/callback");
 
     @Retryable

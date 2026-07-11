@@ -10,7 +10,7 @@ import java.net.URI;
 @ConfigurationProperties(prefix = "transformations.blocking")
 @Validated
 record TransformationProperties(
-        @DefaultValue("http://localhost:9000") @NotNull URI imageTransformerUrl,
-        @DefaultValue("http://localhost:9000") @NotNull URI videoTransformerUrl
+        @NotNull URI imageTransformerUrl,
+        @NotNull URI videoTransformerUrl
 ) {
 }

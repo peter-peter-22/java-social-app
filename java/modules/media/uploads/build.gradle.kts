@@ -1,4 +1,5 @@
 plugins {
+	`java-test-fixtures`
 	id("web-library-conventions")
 }
 
@@ -13,6 +14,7 @@ dependencies {
 
 	// modules
 	implementation(project(":object-storage"))
+	testImplementation(testFixtures(project(":object-storage")))
 	implementation(project(":users-api"))
 	implementation(project(":users-persistence"))
 	implementation(project(":cockroach-db"))

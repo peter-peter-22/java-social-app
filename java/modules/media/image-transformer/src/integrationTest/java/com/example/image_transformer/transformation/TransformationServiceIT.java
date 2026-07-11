@@ -1,5 +1,6 @@
 package com.example.image_transformer.transformation;
 
+import com.example.image_transformer.TestApplication;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
@@ -8,6 +9,7 @@ import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -17,7 +19,8 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
+@SpringBootTest(classes = TestApplication.class)
+@ActiveProfiles({"local"})
 class TransformationServiceIT {
     private static final UploadId INPUT = new UploadId("image.jpg", "uploads");
     private static final String BUCKET = "transformations";

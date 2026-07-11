@@ -11,9 +11,12 @@
         <module name="java.image-transformer.main" />
         <module name="java.object-storage.test" />
         <module name="java.users-api.test" />
+        <module name="java.spring-utils.test" />
         <module name="java.image-transformer.test" />
         <module name="java.posts.test" />
+        <module name="java.spring-utils.main" />
         <module name="java.uploads.test" />
+        <module name="java.image-transformer.integrationTest" />
         <module name="java.media-api.test" />
         <module name="java.object-storage.main" />
         <module name="java.users-api.main" />
@@ -21,6 +24,7 @@
         <module name="java.media-api.main" />
         <module name="java.users-persistence.test" />
         <module name="java.uploads.main" />
+        <module name="java.image-transformer.testFixtures" />
         <module name="java.cockroach-db.test" />
         <module name="java.users-persistence.main" />
       </profile>
@@ -44,6 +48,7 @@
       <module name="java.image-transformer.integrationTest" options="-parameters -parameters" />
       <module name="java.image-transformer.main" options="-parameters -parameters" />
       <module name="java.image-transformer.test" options="-parameters -parameters" />
+      <module name="java.image-transformer.testFixtures" options="-parameters -parameters" />
       <module name="java.media-api" options="-parameters -parameters" />
       <module name="java.media-api.main" options="-parameters -parameters" />
       <module name="java.media-api.test" options="-parameters -parameters" />
@@ -113,9 +118,14 @@
       <module name="java.posts" options="-parameters -parameters" />
       <module name="java.posts.main" options="-parameters -parameters" />
       <module name="java.posts.test" options="-parameters -parameters" />
+      <module name="java.spring-utils" options="-parameters -parameters" />
+      <module name="java.spring-utils.main" options="-parameters -parameters" />
+      <module name="java.spring-utils.test" options="-parameters -parameters" />
+      <module name="java.spring-utils.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads" options="-parameters -parameters" />
       <module name="java.uploads.main" options="-parameters -parameters" />
       <module name="java.uploads.test" options="-parameters -parameters" />
+      <module name="java.uploads.testFixtures" options="-parameters -parameters" />
       <module name="java.users" options="-parameters -parameters" />
       <module name="java.users-persistence" options="-parameters -parameters" />
       <module name="java.users-persistence.main" options="-parameters -parameters" />

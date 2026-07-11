@@ -1,6 +1,6 @@
 package com.example.posts;
 
-import com.example.users.persistence.repository.UserId;
+import com.example.users.api.repository.UserId;
 
 import java.time.Instant;
 

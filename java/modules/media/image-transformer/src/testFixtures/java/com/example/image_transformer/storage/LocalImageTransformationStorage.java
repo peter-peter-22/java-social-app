@@ -5,6 +5,7 @@ import app.photofox.vipsffm.VipsOption;
 import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.lang.foreign.Arena;
@@ -12,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Component
+@Profile("local")
 class LocalImageTransformationStorage implements TransformationImageStorage {
     private static final String DEFAULT_TEST_IMAGE = "image.jpg";
 
@@ -38,6 +40,7 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
         );
     }
 
+    // TODO too long?
     private Path testResourcesDirectory() {
         var integrationRelative = Path.of("src/integrationTest/resources");
         if (Files.isDirectory(integrationRelative)) {

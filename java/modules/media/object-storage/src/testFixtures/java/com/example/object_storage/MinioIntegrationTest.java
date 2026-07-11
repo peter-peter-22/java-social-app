@@ -3,6 +3,7 @@ package com.example.object_storage;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.MinIOContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -10,6 +11,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
+@TestPropertySource(locations = "classpath:object-storage-test.properties")
 public abstract class MinioIntegrationTest {
     @Container
     private static final MinIOContainer MINIO_CONTAINER =
@@ -20,7 +22,6 @@ public abstract class MinioIntegrationTest {
         registry.add("minio.endpoint", MINIO_CONTAINER::getS3URL);
         registry.add("minio.access-key", MINIO_CONTAINER::getUserName);
         registry.add("minio.secret-key", MINIO_CONTAINER::getPassword);
-        registry.add("minio.reconciliation.enabled", () -> "true");
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.example.posts;
 
-import com.example.users.persistence.repository.User;
+import com.example.users.api.repository.User;
 
 public record HydratedPostDTO(
         Post post,

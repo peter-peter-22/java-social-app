@@ -1,11 +1,10 @@
 package com.example.posts;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.users.persistence.repository.UserId;
+import com.example.users.api.repository.UserId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -13,7 +12,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Testcontainers
 public class PostRepositoryIT extends CockroachIntegrationTest {
     // TODO: replace with repository, implement other tests
     @Autowired
