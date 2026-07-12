@@ -1,6 +1,6 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.MediaType;
 import org.jspecify.annotations.NonNull;
 
@@ -15,7 +15,7 @@ public abstract class TransformationApiSelector implements TransformationApi {
     abstract @NonNull TransformationApi getImageApi();
 
     @Override
-    public void transform(@NonNull Collection<UploadTransformationDTO> transformations) {
+    public void transform(@NonNull Collection<UploadTransformationTask> transformations) {
         var images = transformations.stream()
                 .filter(t -> t.getMediaType().equals(MediaType.IMAGE))
                 .toList();

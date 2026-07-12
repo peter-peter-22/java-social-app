@@ -1,12 +1,13 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.TransformationFilter;
-import com.example.media_api.transformations.TransformationFilters;
+import com.example.media_api.transformations.source.TransformationFilter;
+import com.example.media_api.transformations.source.TransformationFilters;
 import com.example.media_api.transformations.UploadTransformation;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
+import com.example.media_api.transformations.source.UploadTransformationSource;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
@@ -54,7 +55,7 @@ public class TransformationServiceApplyTests {
      */
     @Test
     void testLazyTransformation() {
-        var transformation = UploadTransformation.builder()
+        var transformation = UploadTransformationSource.builder()
                 .name("lazy")
                 .lazy(true)
                 .outputBucket("bucket")
@@ -68,7 +69,7 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto = UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
+        var dto = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
@@ -82,7 +83,7 @@ public class TransformationServiceApplyTests {
      */
     @Test
     void testBlockingTransformation() {
-        var transformation = UploadTransformation.builder()
+        var transformation = UploadTransformationSource.builder()
                 .name("blocking")
                 .outputBucket("bucket")
                 .operations(exampleOperations)
@@ -95,7 +96,7 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto = UploadTransformationDTO.toDTO(transformation, exampleUpload.id());
+        var dto = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
@@ -119,7 +120,7 @@ public class TransformationServiceApplyTests {
                 UploadStatus.UPLOADING
         );
 
-        var transformation = UploadTransformation.builder()
+        var transformation = UploadTransformationSource.builder()
                 .name("test")
                 .outputBucket("bucket")
                 .filters(simpleFilter)

@@ -1,5 +1,6 @@
 package com.example.media_api.transformations;
 
+import com.example.media_api.transformations.source.TransformationFilters;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;

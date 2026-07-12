@@ -1,10 +1,9 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.MediaTransformerEndpoints;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.UploadId;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,24 +44,24 @@ class ImageTransformerRestApiTest {
             var expectedBody = OBJECT_MAPPER.valueToTree(transformation);
 
             assertThat(request.getMethod()).isEqualTo("POST");
-            assertThat(request.getPath()).isEqualTo(MediaTransformerEndpoints.TRANSFORM);
+            assertThat(request.getPath()).isEqualTo("/transform");
             assertThat(request.getHeaders().get("Content-Type")).startsWith("application/json");
             assertThat(requestBody).isEqualTo(expectedBody);
         }
     }
 
-    private UploadTransformationDTO transformation() {
-        return new UploadTransformationDTO(
-                "preview",
-                "transformed",
-                new UploadId("image.jpg", "uploads"),
-                "https://example.test/webhook",
-                ImageTransformationOperations.builder()
-                        .limitWidth(new LimitResolution(640, LimitResolution.Mode.KEEP_ASPECT_RATIO))
-                        .format(FileType.JPEG)
-                        .quality(85)
-                        .aspectRatio(new AspectRatio(4, 3, AspectRatio.Mode.CONTAIN))
-                        .build()
-        );
+    private UploadTransformationTask transformation() {
+        return UploadTransformationTask.builder()
+                .original(new UploadId("file.jpg", "uploads"))
+                .outputBucket("transformations")
+                .operations(
+                        ImageTransformationOperations.builder()
+                                .limitWidth(new LimitResolution(640, LimitResolution.Mode.KEEP_ASPECT_RATIO))
+                                .format(FileType.JPEG)
+                                .quality(85)
+                                .aspectRatio(new AspectRatio(4, 3, AspectRatio.Mode.CONTAIN))
+                                .build()
+                )
+                .build();
     }
 }

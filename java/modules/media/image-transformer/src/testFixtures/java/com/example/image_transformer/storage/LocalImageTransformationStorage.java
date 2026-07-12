@@ -2,8 +2,8 @@ package com.example.image_transformer.storage;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -20,19 +20,19 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
     @Override
     public void write(
             @NotNull VImage image,
-            @NotNull UploadTransformationDTO upload,
+            @NotNull UploadTransformationTask upload,
             @NotNull ImageTransformationOperations operations
     ) {
         image.jpegsave(
                 testResourcesDirectory().resolve(
-                        "output_" + sanitize(upload.outputBucket()) + "_" + sanitize(upload.name()) + ".jpg"
+                        "output_" + sanitize(upload.getOutputBucket()) + "_" + sanitize(upload.getName()) + ".jpg"
                 ).toString(),
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
         );
     }
 
     @Override
-    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationDTO upload) {
+    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationTask upload) {
         return VImage.newFromFile(
                 arena,
                 testResourcesDirectory().resolve(DEFAULT_TEST_IMAGE).toString(),

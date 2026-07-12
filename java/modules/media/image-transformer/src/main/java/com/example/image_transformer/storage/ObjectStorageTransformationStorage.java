@@ -2,12 +2,11 @@ package com.example.image_transformer.storage;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -21,14 +20,14 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
     private final ObjectStorageRepository objectStorageRepository;
 
     @Override
-    public void write(@NotNull VImage image, @NotNull UploadTransformationDTO upload, @NotNull ImageTransformationOperations operations) {
+    public void write(@NotNull VImage image, @NotNull UploadTransformationTask upload, @NotNull ImageTransformationOperations operations) {
         var jpegData = image.jpegsaveBuffer(
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
         );
 
         try (var inputStream = new ByteArrayInputStream(jpegData.getBytes())) {
             objectStorageRepository.putObject(
-                    upload.outputBucket(),
+                    upload.getOutputBucket(),
                     outputObjectPath(upload),
                     inputStream,
                     jpegData.byteSize(),
@@ -40,10 +39,10 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
     }
 
     @Override
-    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationDTO upload) {
+    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationTask upload) {
         try (var inputStream = objectStorageRepository.getObject(
-                upload.original().bucket(),
-                upload.original().objectPath()
+                upload.getOriginal().bucket(),
+                upload.getOriginal().objectPath()
         )) {
             return VImage.newFromStream(
                     arena,
@@ -55,8 +54,8 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
         }
     }
 
-    private String outputObjectPath(@NotNull UploadTransformationDTO upload) {
-        return "output_" + sanitize(upload.outputBucket()) + "_" + sanitize(upload.name()) + ".jpg";
+    private String outputObjectPath(@NotNull UploadTransformationTask upload) {
+        return "output_" + sanitize(upload.getOutputBucket()) + "_" + sanitize(upload.getName()) + ".jpg"; // TODO: make the name predictable
     }
 
     private String sanitize(String value) {

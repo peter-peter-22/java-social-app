@@ -1,9 +1,10 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.UploadTransformationOperations;
 import com.example.media_api.transformations.operations.VideoTransformationOperations;
+import com.example.media_api.transformations.source.UploadTransformationSource;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.MediaType;
 import com.example.media_api.uploads.UploadId;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +45,7 @@ class TransformationApiSelectorTest {
             }
         };
 
-        List<UploadTransformationDTO> imageTransformations = List.of(
+        List<UploadTransformationTask> imageTransformations = List.of(
                 transformation(MediaType.IMAGE),
                 transformation(MediaType.IMAGE)
         );
@@ -76,7 +77,7 @@ class TransformationApiSelectorTest {
             }
         };
 
-        List<UploadTransformationDTO> videoTransformations = List.of(
+        List<UploadTransformationTask> videoTransformations = List.of(
                 transformation(MediaType.VIDEO),
                 transformation(MediaType.VIDEO)
         );
@@ -108,18 +109,18 @@ class TransformationApiSelectorTest {
             }
         };
 
-        List<UploadTransformationDTO> transformations = List.of(
+        List<UploadTransformationTask> transformations = List.of(
                 transformation(MediaType.IMAGE),
                 transformation(MediaType.VIDEO),
                 transformation(MediaType.IMAGE),
                 transformation(MediaType.VIDEO)
         );
 
-        List<UploadTransformationDTO> imageTransformations = transformations.stream()
+        List<UploadTransformationTask> imageTransformations = transformations.stream()
                 .filter(t -> t.getMediaType().equals(MediaType.IMAGE))
                 .toList();
 
-        List<UploadTransformationDTO> videoTransformations = transformations.stream()
+        List<UploadTransformationTask> videoTransformations = transformations.stream()
                 .filter(t -> t.getMediaType().equals(MediaType.VIDEO))
                 .toList();
 
@@ -150,7 +151,7 @@ class TransformationApiSelectorTest {
             }
         };
 
-        List<UploadTransformationDTO> emptyTransformations = List.of();
+        List<UploadTransformationTask> emptyTransformations = List.of();
 
         // Act & Assert
         assertDoesNotThrow(() -> selector.transform(emptyTransformations));
@@ -159,18 +160,16 @@ class TransformationApiSelectorTest {
         verify(mockVideoApi, never()).transform(anyCollection());
     }
 
-    private UploadTransformationDTO transformation(MediaType mediaType) {
+    private UploadTransformationTask transformation(MediaType mediaType) {
         UploadTransformationOperations operations = switch (mediaType) {
             case IMAGE -> ImageTransformationOperations.builder().build();
             case VIDEO -> VideoTransformationOperations.builder().build();
         };
 
-        return new UploadTransformationDTO(
-                mediaType.name().toLowerCase(),
-                "transformations",
-                new UploadId("original", "uploads"),
-                null,
-                operations
-        );
+        return UploadTransformationTask.builder()
+                .original(new UploadId("file.jpg", "uploads"))
+                .outputBucket("transformations")
+                .operations(operations)
+                .build();
     }
 }

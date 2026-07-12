@@ -1,10 +1,10 @@
 package com.example.media_api.transformations.configurations;
 
-import com.example.media_api.transformations.UploadTransformation;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
-import com.example.media_api.transformations.TransformationFilter;
-import com.example.media_api.transformations.TransformationFilters;
+import com.example.media_api.transformations.source.TransformationFilter;
+import com.example.media_api.transformations.source.TransformationFilters;
+import com.example.media_api.transformations.source.UploadTransformationSource;
 import com.example.media_api.uploads.FileType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UserAvatarTransformations {
     @Bean
-    public UploadTransformation avatarTransformation() {
-        return UploadTransformation.builder()
+    public UploadTransformationSource avatarTransformation() {
+        return UploadTransformationSource.builder()
                 .name("avatar_fullscreen")
                 .outputBucket("transformations")
                 .filters(new TransformationFilter[]{new TransformationFilters.PathPrefix("a")})

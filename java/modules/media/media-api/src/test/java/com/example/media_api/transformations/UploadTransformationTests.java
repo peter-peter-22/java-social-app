@@ -1,7 +1,10 @@
 package com.example.media_api.transformations;
 
+import com.example.media_api.transformations.source.TransformationFilter;
+import com.example.media_api.transformations.source.TransformationFilters;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.VideoTransformationOperations;
+import com.example.media_api.transformations.source.UploadTransformationSource;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
@@ -31,13 +34,13 @@ public class UploadTransformationTests {
     @Test
     void testMediaTypeFiltering() {
         // create transformations
-        var imageTransformation = UploadTransformation.builder()
+        var imageTransformation = UploadTransformationSource.builder()
                 .name("images")
                 .outputBucket("bucket")
                 .operations(ImageTransformationOperations.builder().build())
                 .build();
 
-        var videoTransformation = UploadTransformation.builder()
+        var videoTransformation = UploadTransformationSource.builder()
                 .name("videos")
                 .outputBucket("bucket")
                 .operations(VideoTransformationOperations.builder().build())
@@ -60,7 +63,7 @@ public class UploadTransformationTests {
     @Test
     void testFilterCombination() {
         // create transformation
-        var transformation = UploadTransformation.builder()
+        var transformation = UploadTransformationSource.builder()
                 .name("images")
                 .outputBucket("bucket")
                 .filters(new TransformationFilter[]{

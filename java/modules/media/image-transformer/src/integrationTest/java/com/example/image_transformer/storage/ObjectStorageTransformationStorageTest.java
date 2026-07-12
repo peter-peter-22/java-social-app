@@ -1,7 +1,7 @@
 package com.example.image_transformer.storage;
 
 import app.photofox.vipsffm.VImage;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.uploads.UploadId;
 import com.example.object_storage.repository.ObjectStorageRepository;
@@ -11,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 import java.io.InputStream;
 import java.lang.foreign.Arena;
@@ -36,13 +33,13 @@ class ObjectStorageTransformationStorageTest {
     @Test
     void readAndWriteRoundTripPreservesImageResolution() throws Exception {
         var storage = new ObjectStorageTransformationStorage(objectStorageRepository);
-        var upload = new UploadTransformationDTO(
-                "duplicate",
-                OUTPUT_BUCKET,
-                ORIGINAL,
-                false,
-                ImageTransformationOperations.builder().quality(100).build()
-        );
+        var upload = UploadTransformationTask.builder()
+                .name("duplicate")
+                .outputBucket(OUTPUT_BUCKET)
+                .original(ORIGINAL)
+                .lazy(false)
+                .operations(ImageTransformationOperations.builder().quality(100).build())
+                .build();
 
         when(objectStorageRepository.getObject(eq(ORIGINAL.bucket()), eq(ORIGINAL.objectPath())))
                 .thenReturn(testImageStream());

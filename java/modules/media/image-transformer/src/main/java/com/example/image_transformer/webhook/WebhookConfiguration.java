@@ -1,4 +1,4 @@
-package com.example.uploads.transformations;
+package com.example.image_transformer.webhook;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,8 +8,8 @@ import java.net.URI;
 
 @ConfigurationProperties(prefix = "transformations.blocking")
 @Validated
-record TransformationProperties(
-        @NotNull URI imageTransformerUrl,
-        @NotNull URI videoTransformerUrl
+public record WebhookConfiguration(
+        @NotNull
+        URI webhookUrl
 ) {
 }

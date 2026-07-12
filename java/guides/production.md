@@ -1,4 +1,4 @@
-# Required changes for production
+# Changes for production
 
 ## Object storage:
 The object storage is not configured for multi region usage.
@@ -8,7 +8,7 @@ the source region.
 ## CDN
 Using CDN for the object storage.
 
-# Useful optimizations
+# Useful optional optimizations
 
 ## Internal communication
 Replace json with protocol buffer for faster serialization in the internal communication.
@@ -24,3 +24,6 @@ Use webflux instead of spring webmvc for IO bound servers.
 
 ## Micro optimizations
 Some minor optimizations are marked with "optimization:" in the javadoc.
+
+# Update packages
+Some are outdated and insecure.

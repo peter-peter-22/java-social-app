@@ -1,10 +1,10 @@
 package com.example.image_transformer.transformation;
 
 import com.example.image_transformer.TestApplication;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +76,18 @@ class TransformationServiceIT {
         transformationOperationsHandler.applyTransformationOperations(upload(name, customize));
     }
 
-    private UploadTransformationDTO upload(
+    private UploadTransformationTask upload(
             String name,
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) {
         var builder = ImageTransformationOperations.builder();
         customize.accept(builder);
-        return new UploadTransformationDTO(name, BUCKET, INPUT, false, builder.build());
+        return UploadTransformationTask.builder()
+                .name(name)
+                .outputBucket(BUCKET)
+                .original(INPUT)
+                .lazy(false)
+                .build();
     }
 
     private Path output(String name) {

@@ -1,6 +1,6 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ImageTransformerRestApi extends ParallelTransformationApi {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void call(@NonNull UploadTransformationDTO body) {
+    public void call(@NonNull UploadTransformationTask body) {
         restClient.post()
                 .uri("/transform")
                 .body(body)

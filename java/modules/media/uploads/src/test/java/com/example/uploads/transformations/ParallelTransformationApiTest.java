@@ -1,7 +1,7 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.api.UploadTransformationDTO;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 
@@ -28,13 +28,11 @@ class ParallelTransformationApiTest {
         verify(api, times(2)).call(any());
     }
 
-    private UploadTransformationDTO transformation(String name) {
-        return new UploadTransformationDTO(
-                name,
-                "transformations",
-                new UploadId(name + ".jpg", "uploads"),
-                null,
-                ImageTransformationOperations.builder().build()
-        );
+    private UploadTransformationTask transformation(String name) {
+        return UploadTransformationTask.builder()
+                .original(new UploadId("file.jpg", "uploads"))
+                .outputBucket("transformations")
+                .operations(ImageTransformationOperations.builder().build())
+                .build();
     }
 }

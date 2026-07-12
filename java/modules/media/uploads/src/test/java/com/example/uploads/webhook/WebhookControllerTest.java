@@ -1,7 +1,7 @@
 package com.example.uploads.webhook;
 
 import com.example.uploads.transformations.TransformationService;
-import com.example.media_api.transformations.api.WebhookDTO;
+import com.example.media_api.transformations.webhook.WebhookCall;
 import com.example.media_api.uploads.UploadId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class WebhookControllerTest {
     @Test
     void markAsReadyCallsServiceWithRequestBody() throws Exception {
         var uploadId = new UploadId("image.jpg", "bucket");
-        var webhook = new WebhookDTO("resize", uploadId);
+        var webhook = new WebhookCall("resize", uploadId);
 
         mockMvc().perform(post("/api/media/callback/mark_as_ready")
                         .contentType(MediaType.APPLICATION_JSON)

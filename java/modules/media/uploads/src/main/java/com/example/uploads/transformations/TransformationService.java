@@ -1,7 +1,8 @@
 package com.example.uploads.transformations;
 
 import com.example.media_api.transformations.UploadTransformation;
-import com.example.media_api.transformations.api.UploadTransformationDTO;
+import com.example.media_api.transformations.source.UploadTransformationSource;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TransformationService {
     private final LazyTransformationSessionRepository lazyTransformationSessionRepository;
     private final LazyTransformationApi lazyTransformationApi;
     private final BlockingTransformationApi blockingTransformationApi;
-    private final List<UploadTransformation> transformations;
+    private final List<UploadTransformationSource> transformations;
 
     /**
      * Completes or queues all matching transformations for the upload.
@@ -53,10 +54,10 @@ public class TransformationService {
         }
     }
 
-    private void applyBlockingTransformations(@NotNull Collection<UploadTransformation> applicableTransformations, UploadId uploadId) {
+    private void applyBlockingTransformations(@NotNull Collection<UploadTransformationSource> applicableTransformations, UploadId uploadId) {
         var blockingTransformations = applicableTransformations.stream()
                 .filter(transformation -> !transformation.isLazy())
-                .map(transformation -> UploadTransformationDTO.toDTO(transformation, uploadId))
+                .map(transformation -> UploadTransformationTask.fromTransformation(transformation, uploadId))
                 .toList();
 
         if (blockingTransformations.isEmpty()) return;
@@ -71,11 +72,11 @@ public class TransformationService {
      *
      * @return True if there is at least one lazy transformation.
      */
-    private boolean applyLazyTransformations(@NotNull Collection<UploadTransformation> applicableTransformations, UploadId uploadId) {
+    private boolean applyLazyTransformations(@NotNull Collection<UploadTransformationSource> applicableTransformations, UploadId uploadId) {
         // get the list of the lazy transformations
         var lazyTransformations = applicableTransformations.stream()
                 .filter(UploadTransformation::isLazy)
-                .map(transformation -> UploadTransformationDTO.toDTO(transformation, uploadId))
+                .map(transformation -> UploadTransformationTask.fromTransformation(transformation, uploadId))
                 .toList();
 
         // if no lazy transformations found, exit
@@ -83,7 +84,7 @@ public class TransformationService {
 
         // if lazy transformations are required, create the lazy transformation session and events
         var names = lazyTransformations.stream()
-                .map(UploadTransformationDTO::name)
+                .map(UploadTransformationTask::getName)
                 .toList();
         lazyTransformationSessionRepository.createLazyTransformationSession(uploadId, names);
         lazyTransformationApi.transform(lazyTransformations);
