@@ -33,8 +33,16 @@ public class UploadTransformation {
         else throw new IllegalArgumentException("Unsupported transformation type");
     }
 
+    private String getOutputExtension(){
+        if (operations instanceof ImageTransformationOperations)
+            return ((ImageTransformationOperations) operations).getFormat().getExtensions()[0];
+        else if (operations instanceof VideoTransformationOperations)
+            return ((VideoTransformationOperations) operations).getFormat().getExtensions()[0];
+        else throw new IllegalArgumentException("Unsupported transformation type");
+    }
+
     public @NotNull UploadId getOutputId(@NotNull UploadId originalId) {
-        var extension = originalId.objectPath().substring(originalId.objectPath().lastIndexOf(".") + 1);
+        var extension = getOutputExtension();
         return new UploadId(originalId.bucket() + "/" + originalId.objectPath() + "/" + name + "." + extension, outputBucket);
     }
 }

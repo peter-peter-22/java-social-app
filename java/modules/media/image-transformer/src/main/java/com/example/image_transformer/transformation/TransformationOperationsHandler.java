@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 class TransformationOperationsHandler {
-    private final TransformationImageStorage imageStorage; // TODO select with profile
+    private final TransformationImageStorage imageStorage;
     private final ImageTransformationPipeline transformationPipeline;
     private final VImageStreamConverter vImageStreamConverter;
 
@@ -22,7 +22,7 @@ class TransformationOperationsHandler {
                 var input = vImageStreamConverter.fromStream(arena, inputStream);
                 var image = transformationPipeline.apply(input, operations);
 
-                try (var outputStream = vImageStreamConverter.toJpegStream(image, operations)) {
+                try (var outputStream = vImageStreamConverter.toStream(image, operations)) {
                     imageStorage.write(outputStream, upload);
                 }
             } catch (Exception e) {

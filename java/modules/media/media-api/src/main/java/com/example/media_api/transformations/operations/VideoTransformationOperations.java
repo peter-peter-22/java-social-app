@@ -3,6 +3,7 @@ package com.example.media_api.transformations.operations;
 import com.example.media_api.uploads.FileType;
 import lombok.Builder;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Builder
@@ -12,8 +13,8 @@ public class VideoTransformationOperations extends UploadTransformationOperation
     private final LimitResolution limitWidth;
     @Nullable
     private final LimitResolution limitHeight;
-    @Nullable
-    private final FileType format;
+    @NotNull @Builder.Default
+    private final FileType format = FileType.MP4;
     @Builder.Default
     private final Integer quality = 100;
     @Nullable

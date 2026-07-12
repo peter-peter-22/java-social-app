@@ -5,6 +5,7 @@ import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
 import com.example.media_api.transformations.task.UploadTransformationTask;
+import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.UploadId;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,11 @@ class TransformationServiceIT {
     @Test
     void quality50Executes() {
         transform("quality-50", ops -> ops.quality(50));
+    }
+
+    @Test
+    void quality50WebpExecutes() {
+        transform("quality-50-webp", ops -> {ops.quality(50);ops.format(FileType.WEBP);});
     }
 
     private void assertSize(

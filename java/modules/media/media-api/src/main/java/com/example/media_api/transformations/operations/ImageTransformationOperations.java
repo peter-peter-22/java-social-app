@@ -3,6 +3,7 @@ package com.example.media_api.transformations.operations;
 import com.example.media_api.uploads.FileType;
 import lombok.Builder;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Builder
@@ -12,8 +13,11 @@ public class ImageTransformationOperations extends UploadTransformationOperation
     private final LimitResolution limitWidth;
     @Nullable
     private final LimitResolution limitHeight;
-    @Nullable
-    private final FileType format;
+    /** Output format, defaults to JPEG. */
+    @NotNull
+    @Builder.Default
+    private final FileType format = FileType.JPEG;
+    /** Output quality, defaults to 100. Applicable only when the format supports it. */
     @Builder.Default
     private final Integer quality = 100;
     @Nullable

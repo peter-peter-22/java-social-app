@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="fix test path error">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor transformation storage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/java/com/example/image_transformer/storage/ObjectStorageTransformationStorageTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageTransformationStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageTransformationStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/storage/TransformationImageStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/storage/TransformationImageStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/java/com/example/image_transformer/transformation/TransformationServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/java/com/example/image_transformer/transformation/TransformationServiceIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/transformation/TransformationOperationsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/transformation/TransformationOperationsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalImageTransformationStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalImageTransformationStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/transformation/VImageStreamConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/transformation/VImageStreamConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/UploadTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/UploadTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/uploads/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media_api/uploads/FileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media_api/transformations/UploadTransformationGetOutputIdTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media_api/transformations/UploadTransformationGetOutputIdTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,61 +99,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.4659785593279562" />
-      <entry key="MS500" value="5.5322032887783825" />
-      <entry key="S2" value="17.047950457171797" />
-      <entry key="S5" value="32.22326209434017" />
-      <entry key="S10" value="51.892333007128286" />
-      <entry key="S30" value="105.44443011213336" />
-      <entry key="S60" value="148.67265642072903" />
-      <entry key="M2" value="187.54133742120663" />
-      <entry key="M5" value="226.77153816217043" />
-      <entry key="M10" value="323.47291972411625" />
-      <entry key="M15" value="481.3220185589739" />
-      <entry key="M30" value="940.4383653413176" />
-      <entry key="H1" value="1471.617694458128" />
-      <entry key="H2" value="1976.5743598418899" />
-      <entry key="H4" value="2732.6565274706904" />
-      <entry key="D1" value="9014.62541374939" />
-      <entry key="W1" value="14702.167901371928" />
+      <entry key="MS100" value="1.1615441135928781" />
+      <entry key="MS500" value="1.7194763218938593" />
+      <entry key="S2" value="2.312708114375724" />
+      <entry key="S5" value="2.822682691170526" />
+      <entry key="S10" value="3.5303738858767053" />
+      <entry key="S30" value="5.177313024201778" />
+      <entry key="S60" value="6.837827780617183" />
+      <entry key="M2" value="9.75800049004287" />
+      <entry key="M5" value="18.12476139373259" />
+      <entry key="M10" value="53.647731561895114" />
+      <entry key="M15" value="105.74033876100098" />
+      <entry key="M30" value="323.44574422042257" />
+      <entry key="H1" value="829.0731450817325" />
+      <entry key="H2" value="1550.1966245961753" />
+      <entry key="H4" value="2517.428952207835" />
+      <entry key="D1" value="9071.319152198226" />
+      <entry key="W1" value="15046.6021539562" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="3.8895124728412054E-170" />
-      <entry key="S30" value="3.504852593875109E-57" />
-      <entry key="S60" value="7.734147598301193E-29" />
-      <entry key="M2" value="1.7111543796010095E-14" />
-      <entry key="M5" value="9.68591720183846E-6" />
-      <entry key="M10" value="0.009835713840787366" />
-      <entry key="M15" value="0.11108541923724607" />
-      <entry key="M30" value="1.5661208565299651" />
-      <entry key="H1" value="8.040915611034464" />
-      <entry key="H2" value="26.04068920840878" />
-      <entry key="H4" value="58.70740096857205" />
-      <entry key="D1" value="186.8215922895795" />
-      <entry key="W1" value="273.7570505036409" />
+      <entry key="MS100" value="6.51628818142992E-194" />
+      <entry key="MS500" value="2.3140888768256293E-39" />
+      <entry key="S2" value="2.729704222415916E-10" />
+      <entry key="S5" value="2.1544912274315572E-4" />
+      <entry key="S10" value="0.021264011401002" />
+      <entry key="S30" value="0.5575449975436721" />
+      <entry key="S60" value="1.6300066710564811" />
+      <entry key="M2" value="3.4495573108277653" />
+      <entry key="M5" value="6.229629039318159" />
+      <entry key="M10" value="8.018395879711484" />
+      <entry key="M15" value="9.017897545068216" />
+      <entry key="M30" value="10.884552077234366" />
+      <entry key="H1" value="14.969115848597792" />
+      <entry key="H2" value="28.682030112053567" />
+      <entry key="H4" value="59.11567430202624" />
+      <entry key="D1" value="193.07619542555213" />
+      <entry key="W1" value="286.11338797725233" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4199566838985662" />
-      <entry key="MS500" value="5.497312374578487" />
-      <entry key="S2" value="17.022324832080134" />
-      <entry key="S5" value="32.20408735099178" />
-      <entry key="S10" value="51.87688060725669" />
-      <entry key="S30" value="105.4327692808956" />
-      <entry key="S60" value="148.65976095699364" />
-      <entry key="M2" value="187.5279328901488" />
-      <entry key="M5" value="226.76224297109803" />
-      <entry key="M10" value="323.47645142730545" />
-      <entry key="M15" value="481.427464769716" />
-      <entry key="M30" value="941.9976919339765" />
-      <entry key="H1" value="1479.649003211675" />
-      <entry key="H2" value="2002.6026747149926" />
-      <entry key="H4" value="2791.3505920937673" />
-      <entry key="D1" value="9201.438924739505" />
-      <entry key="W1" value="14975.923177801014" />
+      <entry key="MS100" value="0.1817466161997401" />
+      <entry key="MS500" value="0.7512268795646991" />
+      <entry key="S2" value="1.6223324440957803" />
+      <entry key="S5" value="2.428594561380355" />
+      <entry key="S10" value="3.305703408455883" />
+      <entry key="S30" value="5.598029382136192" />
+      <entry key="S60" value="8.356727224825239" />
+      <entry key="M2" value="13.114476241634673" />
+      <entry key="M5" value="24.29308619415972" />
+      <entry key="M10" value="61.62597073162686" />
+      <entry key="M15" value="114.72645397706236" />
+      <entry key="M30" value="334.3083706731041" />
+      <entry key="H1" value="844.0258157387486" />
+      <entry key="H2" value="1578.8638504996795" />
+      <entry key="H4" value="2576.530339534697" />
+      <entry key="D1" value="9264.386906420892" />
+      <entry key="W1" value="15332.713678735252" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -956,7 +958,8 @@
     <MESSAGE value="implement real image path geneartor" />
     <MESSAGE value="fix test properties error" />
     <MESSAGE value="fix test path error" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix test path error" />
+    <MESSAGE value="refractor transformation storage" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor transformation storage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
