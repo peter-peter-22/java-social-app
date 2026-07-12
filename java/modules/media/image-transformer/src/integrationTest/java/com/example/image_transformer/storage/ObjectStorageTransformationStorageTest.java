@@ -53,9 +53,10 @@ class ObjectStorageTransformationStorageTest {
 
             var streamCaptor = ArgumentCaptor.forClass(InputStream.class);
             var lengthCaptor = ArgumentCaptor.forClass(Long.class);
+            var exceptedOutputId = upload.getOutputId();
             verify(objectStorageRepository).putObject(
-                    eq(OUTPUT_BUCKET),
-                    eq("output_output-bucket_duplicate.jpg"),
+                    eq(exceptedOutputId.bucket()),
+                    eq(exceptedOutputId.objectPath()),
                     streamCaptor.capture(),
                     lengthCaptor.capture(),
                     eq("image/jpeg")

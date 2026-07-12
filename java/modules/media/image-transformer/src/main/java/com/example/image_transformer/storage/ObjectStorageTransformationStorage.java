@@ -25,10 +25,12 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
         );
 
+        var outputId = upload.getOutputId();
+
         try (var inputStream = new ByteArrayInputStream(jpegData.getBytes())) {
             objectStorageRepository.putObject(
-                    upload.getOutputBucket(),
-                    outputObjectPath(upload),
+                    outputId.bucket(),
+                    outputId.objectPath(),
                     inputStream,
                     jpegData.byteSize(),
                     "image/jpeg"
@@ -52,13 +54,5 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
         } catch (Exception e) {
             throw new RuntimeException("Failed to read source image from object storage", e);
         }
-    }
-
-    private String outputObjectPath(@NotNull UploadTransformationTask upload) {
-        return "output_" + sanitize(upload.getOutputBucket()) + "_" + sanitize(upload.getName()) + ".jpg"; // TODO: make the name predictable
-    }
-
-    private String sanitize(String value) {
-        return value.replaceAll("[^a-zA-Z0-9._-]", "_");
     }
 }

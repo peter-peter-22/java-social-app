@@ -66,7 +66,7 @@ configurations.named("integrationTestCompileOnly") {
 // copy main deps to test fixture
 
 configurations.named("testFixturesImplementation") {
-	extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+	extendsFrom(configurations.implementation.get())
 }
 
 configurations.named("testFixturesRuntimeOnly") {

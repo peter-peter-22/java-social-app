@@ -10,11 +10,12 @@ import org.springframework.web.client.RestClient;
 
 @Component
 @EnableConfigurationProperties(WebhookConfiguration.class)
-@RequiredArgsConstructor
 class WebhookApi {
-    private final WebhookConfiguration configuration;
-    // TODO read url from config
-    private final RestClient restClient = RestClient.create(configuration.webhookUrl());
+    private final RestClient restClient;
+
+    public WebhookApi(WebhookConfiguration configuration) {
+        this.restClient = RestClient.create(configuration.webhookUrl());
+    }
 
     @Retryable
     public void call(@NotNull WebhookCall body) {

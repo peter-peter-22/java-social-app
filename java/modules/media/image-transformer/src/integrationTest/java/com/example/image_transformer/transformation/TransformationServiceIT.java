@@ -62,18 +62,20 @@ class TransformationServiceIT {
             int expectedHeight,
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) throws IOException {
-        transform(name, customize);
-        var image = ImageIO.read(output(name).toFile());
+        var transformation = transform(name, customize);
+        var image = ImageIO.read(Path.of(transformation.getOutputId().objectPath()).toFile());
         assertNotNull(image);
         assertEquals(expectedWidth, image.getWidth());
         assertEquals(expectedHeight, image.getHeight());
     }
 
-    private void transform(
+    private UploadTransformationTask transform(
             String name,
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) {
-        transformationOperationsHandler.applyTransformationOperations(upload(name, customize));
+        var transformation = upload(name, customize);
+        transformationOperationsHandler.applyTransformationOperations(transformation);
+        return transformation;
     }
 
     private UploadTransformationTask upload(
@@ -88,9 +90,5 @@ class TransformationServiceIT {
                 .original(INPUT)
                 .lazy(false)
                 .build();
-    }
-
-    private Path output(String name) {
-        return Path.of("src/integrationTest/resources/output_" + BUCKET + "_" + name + ".jpg");
     }
 }

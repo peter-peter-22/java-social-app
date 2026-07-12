@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UploadTransformationTests {
+public class UploadTransformationApplicableTests {
     private Upload createUploadFromFileType(FileType fileType) {
         return new Upload(
                 new UploadId("1.jpg", "bucket"),

@@ -23,9 +23,11 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
             @NotNull UploadTransformationTask upload,
             @NotNull ImageTransformationOperations operations
     ) {
+        var outputId = upload.getOutputId();
+
         image.jpegsave(
                 testResourcesDirectory().resolve(
-                        "output_" + sanitize(upload.getOutputBucket()) + "_" + sanitize(upload.getName()) + ".jpg"
+                        outputId.objectPath()
                 ).toString(),
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
         );
@@ -40,7 +42,7 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
         );
     }
 
-    // TODO too long?
+    // TODO overcomplicated?
     private Path testResourcesDirectory() {
         var integrationRelative = Path.of("src/integrationTest/resources");
         if (Files.isDirectory(integrationRelative)) {
@@ -58,9 +60,5 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
         }
 
         return Path.of("modules/media/image-transformer/src/test/resources");
-    }
-
-    private String sanitize(String value) {
-        return value.replaceAll("[^a-zA-Z0-9._-]", "_");
     }
 }
