@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = TestApplication.class)
 @ActiveProfiles({"local"})
+@TestPropertySource(locations = "classpath:image-transformation-test.properties")
 class TransformationServiceIT {
     private static final UploadId INPUT = new UploadId("image.jpg", "uploads");
     private static final String BUCKET = "transformations";
@@ -52,7 +54,7 @@ class TransformationServiceIT {
     }
 
     @Test
-    void quality70Executes() {
+    void quality50Executes() {
         transform("quality-50", ops -> ops.quality(50));
     }
 
@@ -88,6 +90,7 @@ class TransformationServiceIT {
                 .name(name)
                 .outputBucket(BUCKET)
                 .original(INPUT)
+                .operations(builder.build())
                 .lazy(false)
                 .build();
     }

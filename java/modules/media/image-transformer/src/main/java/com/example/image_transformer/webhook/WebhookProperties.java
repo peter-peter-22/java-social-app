@@ -8,7 +8,7 @@ import java.net.URI;
 
 @ConfigurationProperties(prefix = "transformations.blocking")
 @Validated
-public record WebhookConfiguration(
+public record WebhookProperties(
         @NotNull
         URI webhookUrl
 ) {

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.lang.foreign.Arena;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -24,11 +25,19 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
             @NotNull ImageTransformationOperations operations
     ) {
         var outputId = upload.getOutputId();
+        var outputPath = testResourcesDirectory().resolve(outputId.objectPath());
+
+        try {
+            var parent = outputPath.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create output directories for " + outputPath, e);
+        }
 
         image.jpegsave(
-                testResourcesDirectory().resolve(
-                        outputId.objectPath()
-                ).toString(),
+                outputPath.toString(),
                 VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
         );
     }

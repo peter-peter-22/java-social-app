@@ -6,6 +6,7 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../modules/media/image-transformer/src/testFixtures" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../modules/media/image-transformer/src/testFixtures/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../modules/media/image-transformer/src/testFixtures/resources" type="java-test-resource" />
     </content>
   </component>
 </module>
