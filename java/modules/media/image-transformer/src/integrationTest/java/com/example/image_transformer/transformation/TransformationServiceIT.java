@@ -6,6 +6,7 @@ import com.example.media_api.transformations.operations.ImageTransformationOpera
 import com.example.media_api.transformations.operations.LimitResolution;
 import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.UploadId;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -65,7 +66,8 @@ class TransformationServiceIT {
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) throws IOException {
         var transformation = transform(name, customize);
-        var image = ImageIO.read(Path.of(transformation.getOutputId().objectPath()).toFile());
+        var path = resourcesDirectory().resolve(transformation.getOutputId().objectPath()).toFile();
+        var image = ImageIO.read(path);
         assertNotNull(image);
         assertEquals(expectedWidth, image.getWidth());
         assertEquals(expectedHeight, image.getHeight());
@@ -82,7 +84,7 @@ class TransformationServiceIT {
 
     private UploadTransformationTask upload(
             String name,
-            Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
+            @NonNull Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) {
         var builder = ImageTransformationOperations.builder();
         customize.accept(builder);
@@ -93,5 +95,20 @@ class TransformationServiceIT {
                 .operations(builder.build())
                 .lazy(false)
                 .build();
+    }
+
+    // TODO: the same as LocalImageTransformationStorage
+    private @NonNull Path resourcesDirectory() {
+        var integrationRelative = Path.of("src/integrationTest/resources");
+        if (java.nio.file.Files.isDirectory(integrationRelative)) {
+            return integrationRelative;
+        }
+
+        var moduleIntegrationRelative = Path.of("modules/media/image-transformer/src/integrationTest/resources");
+        if (java.nio.file.Files.isDirectory(moduleIntegrationRelative)) {
+            return moduleIntegrationRelative;
+        }
+
+        throw new IllegalStateException("Cannot locate image-transformer integration test resources");
     }
 }
