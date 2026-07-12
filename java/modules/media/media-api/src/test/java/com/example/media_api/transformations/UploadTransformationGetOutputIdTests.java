@@ -5,7 +5,6 @@ import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UploadTransformationGetOutputIdTests {
