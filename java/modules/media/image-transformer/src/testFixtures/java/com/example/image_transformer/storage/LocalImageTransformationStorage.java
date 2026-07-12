@@ -1,28 +1,23 @@
 package com.example.image_transformer.storage;
 
-import app.photofox.vipsffm.VImage;
-import app.photofox.vipsffm.VipsOption;
-import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.task.UploadTransformationTask;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.lang.foreign.Arena;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.Path;
 
 @Component
 @Profile("local")
 class LocalImageTransformationStorage implements TransformationImageStorage {
-    private static final String DEFAULT_TEST_IMAGE = "image.jpg";
-
     @Override
     public void write(
-            @NotNull VImage image,
-            @NotNull UploadTransformationTask upload,
-            @NotNull ImageTransformationOperations operations
+            @NotNull InputStream inputStream,
+            @NotNull UploadTransformationTask upload
     ) {
         var outputId = upload.getOutputId();
         var outputPath = testResourcesDirectory().resolve(outputId.objectPath());
@@ -36,19 +31,21 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
             throw new RuntimeException("Failed to create output directories for " + outputPath, e);
         }
 
-        image.jpegsave(
-                outputPath.toString(),
-                VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
-        );
+        try {
+            Files.copy(inputStream, outputPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write transformed image to " + outputPath, e);
+        }
     }
 
     @Override
-    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationTask upload) {
-        return VImage.newFromFile(
-                arena,
-                testResourcesDirectory().resolve(DEFAULT_TEST_IMAGE).toString(),
-                VipsOption.Boolean("autorotate", true)
-        );
+    public @NotNull InputStream read(@NotNull UploadTransformationTask upload) {
+        var inputPath = testResourcesDirectory().resolve(upload.getOriginal().objectPath());
+        try {
+            return Files.newInputStream(inputPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read source image from " + inputPath, e);
+        }
     }
 
     // TODO overcomplicated?

@@ -1,8 +1,5 @@
 package com.example.image_transformer.storage;
 
-import app.photofox.vipsffm.VImage;
-import app.photofox.vipsffm.VipsOption;
-import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
-import java.lang.foreign.Arena;
+import java.io.InputStream;
 
 @Component
 @Profile("!local")
@@ -20,19 +17,16 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
     private final ObjectStorageRepository objectStorageRepository;
 
     @Override
-    public void write(@NotNull VImage image, @NotNull UploadTransformationTask upload, @NotNull ImageTransformationOperations operations) {
-        var jpegData = image.jpegsaveBuffer(
-                VipsOption.Int("Q", operations.getQuality() == null ? 100 : operations.getQuality())
-        );
-
+    public void write(@NotNull InputStream inputStream, @NotNull UploadTransformationTask upload) {
         var outputId = upload.getOutputId();
 
-        try (var inputStream = new ByteArrayInputStream(jpegData.getBytes())) {
+        try {
+            var bytes = inputStream.readAllBytes();
             objectStorageRepository.putObject(
                     outputId.bucket(),
                     outputId.objectPath(),
-                    inputStream,
-                    jpegData.byteSize(),
+                    new ByteArrayInputStream(bytes),
+                    bytes.length,
                     "image/jpeg"
             );
         } catch (Exception e) {
@@ -41,15 +35,11 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
     }
 
     @Override
-    public @NotNull VImage read(@NotNull Arena arena, @NotNull UploadTransformationTask upload) {
-        try (var inputStream = objectStorageRepository.getObject(
-                upload.getOriginal().bucket(),
-                upload.getOriginal().objectPath()
-        )) {
-            return VImage.newFromStream(
-                    arena,
-                    inputStream,
-                    VipsOption.Boolean("autorotate", true)
+    public @NotNull InputStream read(@NotNull UploadTransformationTask upload) {
+        try {
+            return objectStorageRepository.getObject(
+                    upload.getOriginal().bucket(),
+                    upload.getOriginal().objectPath()
             );
         } catch (Exception e) {
             throw new RuntimeException("Failed to read source image from object storage", e);

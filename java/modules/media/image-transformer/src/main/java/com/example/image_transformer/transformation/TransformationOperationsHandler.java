@@ -2,8 +2,8 @@ package com.example.image_transformer.transformation;
 
 import app.photofox.vipsffm.Vips;
 import com.example.image_transformer.storage.TransformationImageStorage;
-import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.media_api.transformations.task.UploadTransformationTask;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -13,13 +13,21 @@ import org.springframework.stereotype.Component;
 class TransformationOperationsHandler {
     private final TransformationImageStorage imageStorage; // TODO select with profile
     private final ImageTransformationPipeline transformationPipeline;
+    private final VImageStreamConverter vImageStreamConverter;
 
     public void applyTransformationOperations(@NotNull UploadTransformationTask upload) {
         var operations = (ImageTransformationOperations) upload.getOperations();
         Vips.run(arena -> {
-            var input = imageStorage.read(arena, upload);
-            var image = transformationPipeline.apply(input, operations);
-            imageStorage.write(image, upload, operations);
+            try (var inputStream = imageStorage.read(upload)) {
+                var input = vImageStreamConverter.fromStream(arena, inputStream);
+                var image = transformationPipeline.apply(input, operations);
+
+                try (var outputStream = vImageStreamConverter.toJpegStream(image, operations)) {
+                    imageStorage.write(outputStream, upload);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to transform image", e);
+            }
         });
     }
 }
