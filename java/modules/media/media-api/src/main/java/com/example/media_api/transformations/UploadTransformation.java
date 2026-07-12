@@ -3,6 +3,7 @@ package com.example.media_api.transformations;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.UploadTransformationOperations;
 import com.example.media_api.transformations.operations.VideoTransformationOperations;
+import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.MediaType;
 import com.example.media_api.uploads.UploadId;
 import lombok.Builder;
@@ -25,18 +26,22 @@ public class UploadTransformation {
     @NotNull
     final private UploadTransformationOperations operations;
 
-    public MediaType getMediaType() {
-        if (operations instanceof ImageTransformationOperations) return MediaType.IMAGE;
-        else if (operations instanceof VideoTransformationOperations) return MediaType.VIDEO;
-        else throw new IllegalArgumentException("Unsupported transformation type");
+    private FileType getOutputFileType() {
+        if (operations instanceof ImageTransformationOperations imageOperations) {
+            return imageOperations.getFormat();
+        }
+        if (operations instanceof VideoTransformationOperations videoOperations) {
+            return videoOperations.getFormat();
+        }
+        throw new IllegalArgumentException("Unsupported transformation type");
     }
 
-    private String getOutputExtension(){
-        if (operations instanceof ImageTransformationOperations)
-            return ((ImageTransformationOperations) operations).getFormat().getExtensions()[0];
-        else if (operations instanceof VideoTransformationOperations)
-            return ((VideoTransformationOperations) operations).getFormat().getExtensions()[0];
-        else throw new IllegalArgumentException("Unsupported transformation type");
+    public MediaType getMediaType() {
+        return getOutputFileType().getMediaType();
+    }
+
+    private String getOutputExtension() {
+        return getOutputFileType().getExtensions()[0];
     }
 
     public @NotNull UploadId getOutputId(@NotNull UploadId originalId) {
