@@ -24,7 +24,7 @@ public class VideoTransformerRestApi extends ParallelTransformationApi {
     @Override
     @Retryable(
             value = HttpServerErrorException.InternalServerError.class,
-            maxRetries = 3,
+            maxRetries = 2,
             delay = 1,
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
