@@ -5,6 +5,7 @@ import com.example.media_api.transformations.operations.UploadTransformationOper
 import com.example.media_api.transformations.operations.VideoTransformationOperations;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.MediaType;
+import com.example.media_api.uploads.ObjectPath;
 import com.example.media_api.uploads.UploadId;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,8 +45,8 @@ public class UploadTransformation {
         return getOutputFileType().getExtensions()[0];
     }
 
-    public @NotNull UploadId getOutputId(@NotNull UploadId originalId) {
+    public @NotNull ObjectPath getOutputObject(@NotNull UploadId originalId) {
         var extension = getOutputExtension();
-        return new UploadId(originalId.bucket() + "/" + originalId.objectPath() + "/" + name + "." + extension, outputBucket);
+        return new ObjectPath(originalId.get() + "/" + name + "." + extension, outputBucket);
     }
 }

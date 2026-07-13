@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/lazy_transformation_sessions/000-create-lazy-transformations-sessions-table.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/pending_lazy_transformations/000-create-pending-lazy-transformations-table.sql" dialect="GenericSQL" />
+  </component>
+</project>

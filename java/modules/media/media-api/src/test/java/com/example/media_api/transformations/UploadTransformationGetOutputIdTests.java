@@ -23,7 +23,7 @@ public class UploadTransformationGetOutputIdTests {
                 .operations(ImageTransformationOperations.builder().format(FileType.WEBP).build())
                 .build();
 
-        var outputId = transformation.getOutputId(original);
+        var outputId = transformation.getOutputObject(original);
         var exceptedOutputId = new UploadId("bucket/posts/original.123.jpg/name.webp", outputBucket);
 
         assertEquals(outputId, exceptedOutputId);

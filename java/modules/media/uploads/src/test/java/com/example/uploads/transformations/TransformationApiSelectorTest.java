@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
@@ -167,7 +168,8 @@ class TransformationApiSelectorTest {
         };
 
         return UploadTransformationTask.builder()
-                .original(new UploadId("file.jpg", "uploads"))
+                .name("transformation")
+                .original(new UploadId(UUID.randomUUID()))
                 .outputBucket("transformations")
                 .operations(operations)
                 .build();

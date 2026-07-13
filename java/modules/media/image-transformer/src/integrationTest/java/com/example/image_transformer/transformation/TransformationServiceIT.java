@@ -72,7 +72,7 @@ class TransformationServiceIT {
             Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
     ) throws IOException {
         var transformation = transform(name, customize);
-        var path = resourcesDirectory().resolve(transformation.getOutputId().objectPath()).toFile();
+        var path = resourcesDirectory().resolve(transformation.getOutputObject().path()).toFile();
         var image = ImageIO.read(path);
         assertNotNull(image);
         assertEquals(expectedWidth, image.getWidth());

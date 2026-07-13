@@ -1,7 +1,7 @@
 package com.example.media_api.transformations.task;
 
 import com.example.media_api.transformations.UploadTransformation;
-import com.example.media_api.uploads.Upload;
+import com.example.media_api.uploads.ObjectPath;
 import com.example.media_api.uploads.UploadId;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -22,7 +22,7 @@ public class UploadTransformationTask extends UploadTransformation {
                 .build();
     }
 
-    public @NotNull UploadId getOutputId() {
-        return getOutputId(original);
+    public @NotNull ObjectPath getOutputObject() {
+        return getOutputObject(original);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,7 +24,9 @@ public class UploadRepository {
 
     private static Upload entityToDomain(@NotNull UploadEntity entity) {
         return new Upload(
-                new UploadId(entity.id().objectPath(), entity.id().bucket()),
+                new UploadId(entity.id()),
+                entity.objectPath(),
+                entity.bucket(),
                 new UserId(entity.createdBy()),
                 entity.fileType(),
                 entity.createdAt(),
@@ -33,7 +36,9 @@ public class UploadRepository {
 
     private static UploadEntity domainToEntity(@NotNull Upload domain) {
         return new UploadEntity(
-                new UploadEntityId(domain.id().objectPath(), domain.id().bucket()),
+                domain.id().get(),
+                domain.objectPath(),
+                domain.bucket(),
                 domain.createdBy().get(),
                 domain.fileType(),
                 domain.createdAt(),
@@ -42,7 +47,7 @@ public class UploadRepository {
     }
 
     public @Nullable Upload getById(@NotNull UploadId id) {
-        var entity = template.findById(new UploadEntityId(id.objectPath(), id.bucket()), UploadEntity.class);
+        var entity = template.findById(id.get(), UploadEntity.class);
         if (entity == null) {
             return null;
         }
@@ -54,16 +59,16 @@ public class UploadRepository {
             var id = jdbc.sql("""
                             INSERT INTO uploads (created_by, object_path, bucket, file_type, status)
                             VALUES (:created_by, :object_path, :bucket, :file_type, :status)
-                            RETURNING object_path, bucket
+                            RETURNING id
                             """)
                     .param("object_path", upload.getObjectPath())
                     .param("created_by", upload.getCreatedBy().get())
                     .param("bucket", upload.getBucket())
                     .param("file_type", upload.getFileType().name())
                     .param("status", upload.getStatus().name())
-                    .query(UploadEntityId.class)
+                    .query(UUID.class)
                     .single();
-            return new UploadId(id.objectPath(), id.bucket());
+            return new UploadId(id);
         } catch (DataIntegrityViolationException e) {
             if (e.getCause() instanceof SQLException cause && cause.getSQLState().equals(SQLErrorCodes.FOREIGN_KEY_VIOLATION)) {
                 throw new UploadMissingUserException(cause.getMessage());
@@ -80,16 +85,16 @@ public class UploadRepository {
     /**
      * Updates the status field of an upload if it matches the previous status.
      * Returns the updated upload or null if the upload was not found.
+     * TODO make retriable
      */
     public @Nullable Upload updateStatus(@NotNull UploadId uploadId, @NotNull UploadStatus status, @NotNull UploadStatus previousStatus) {
         var updated = jdbc.sql("""
                         UPDATE uploads
                         SET status = :status
-                        WHERE object_path = :object_path AND bucket = :bucket AND status = :previous_status
+                        WHERE id = :id AND status = :previous_status
                         RETURNING *
                         """)
-                .param("object_path", uploadId.objectPath())
-                .param("bucket", uploadId.bucket())
+                .param("id", uploadId.get())
                 .param("status", status.name())
                 .param("previous_status", previousStatus.name())
                 .query(UploadEntity.class)

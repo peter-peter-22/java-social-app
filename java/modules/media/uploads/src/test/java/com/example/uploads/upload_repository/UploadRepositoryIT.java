@@ -11,6 +11,7 @@ import com.example.users_persistence.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.temporal.ChronoUnit;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest
-@Testcontainers
+@TestPropertySource(locations = "classpath:uploads-test.properties")
 public class UploadRepositoryIT extends CockroachIntegrationTest {
 
     @Autowired
@@ -88,6 +89,8 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         var otherUser = userRepository.create(new InsertUser());
         var update = new Upload(
                 id,
+                "path 2",
+                "bucket 2",
                 otherUser.id(),
                 FileType.JPEG,
                 original.createdAt().plus(1, ChronoUnit.DAYS),

@@ -10,11 +10,13 @@ import java.util.UUID;
 
 @Table("uploads")
 record UploadEntity(
-        @Id UploadEntityId id,
+        @Id UUID id,
+        String objectPath,
+        String bucket,
         UUID createdBy,
         FileType fileType,
         Instant createdAt,
         UploadStatus status
-        // region
+        // source region?
 ) {
 }

@@ -7,6 +7,8 @@ import java.time.Instant;
 
 public record Upload(
         @NotNull UploadId id,
+        @NotNull String objectPath,
+        @NotNull String bucket,
         @NotNull UserId createdBy,
         @NotNull FileType fileType,
         @NotNull Instant createdAt,

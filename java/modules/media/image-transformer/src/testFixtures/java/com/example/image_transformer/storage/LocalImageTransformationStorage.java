@@ -19,7 +19,7 @@ class LocalImageTransformationStorage implements TransformationImageStorage {
             @NotNull InputStream inputStream,
             @NotNull UploadTransformationTask upload
     ) {
-        var outputId = upload.getOutputId();
+        var outputId = upload.getOutputObject();
         var outputPath = testResourcesDirectory().resolve(outputId.objectPath());
 
         try {

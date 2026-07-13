@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -21,7 +23,7 @@ public class TransformationServiceMarkAsReadyTests {
     /** The session should be updated but not deleted */
     @Test
     void testMarkAsReadyIncomplete() {
-        var uploadId=new UploadId("image.jpg","bucket");
+        var uploadId=new UploadId(UUID.randomUUID());
         var transformationName="test";
 
         // not ready yet
@@ -36,7 +38,7 @@ public class TransformationServiceMarkAsReadyTests {
     /** The session should be updated and deleted */
     @Test
     void testMarkAsReadyComplete() {
-        var uploadId=new UploadId("image.jpg","bucket");
+        var uploadId=new UploadId(UUID.randomUUID());
         var transformationName="test";
 
         // ready, delete session

@@ -14,7 +14,7 @@ public class ConnectionTest extends CockroachIntegrationTest {
 
     @Test
     void testConnection() {
-        Integer result = jdbcClient.sql("select 1 as result").query(Integer.class).single();
+        Integer result = jdbcClient.sql("select 1").query(Integer.class).single();
         assertThat(result).isEqualTo(1);
     }
 }

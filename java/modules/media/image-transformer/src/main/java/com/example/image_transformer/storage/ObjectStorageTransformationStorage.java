@@ -18,7 +18,7 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
 
     @Override
     public void write(@NotNull InputStream inputStream, @NotNull UploadTransformationTask upload) {
-        var outputId = upload.getOutputId();
+        var outputId = upload.getOutputObject();
 
         try {
             var bytes = inputStream.readAllBytes();

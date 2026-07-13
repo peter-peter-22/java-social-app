@@ -12,7 +12,7 @@ public class TransformationFilters {
 
         @Override
         public boolean isApplicable(@NotNull Upload upload) {
-            return upload.id().objectPath().startsWith(prefix);
+            return upload.objectPath().startsWith(prefix);
         }
     }
 
@@ -22,7 +22,7 @@ public class TransformationFilters {
 
         @Override
         public boolean isApplicable(@NotNull Upload upload) {
-            return upload.id().bucket().equals(bucket);
+            return upload.bucket().equals(bucket);
         }
     }
 

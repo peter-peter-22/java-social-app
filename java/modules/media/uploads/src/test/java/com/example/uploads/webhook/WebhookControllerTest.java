@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.UUID;
+
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +33,7 @@ class WebhookControllerTest {
 
     @Test
     void markAsReadyCallsServiceWithRequestBody() throws Exception {
-        var uploadId = new UploadId("image.jpg", "bucket");
+        var uploadId = new UploadId(UUID.randomUUID());
         var webhook = new WebhookCall("resize", uploadId);
 
         mockMvc().perform(post("/api/media/callback/mark_as_ready")

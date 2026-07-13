@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.URI;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -52,7 +53,8 @@ class ImageTransformerRestApiTest {
 
     private UploadTransformationTask transformation() {
         return UploadTransformationTask.builder()
-                .original(new UploadId("file.jpg", "uploads"))
+                .name("transformation")
+                .original(new UploadId(UUID.randomUUID()))
                 .outputBucket("transformations")
                 .operations(
                         ImageTransformationOperations.builder()

@@ -34,8 +34,9 @@ public class UploadService {
 
     /** After a file is uploaded to object storage, mark the upload as complete
      * @return True if the upload is awaiting lazy transformations, false if ready or the upload is already complete and nothing happened. */
-    boolean markUploadAsComplete(@NotNull String objectPath){
-        var updated = uploadRepository.updateStatus(new UploadId(objectPath,UPLOAD_BUCKET), UploadStatus.UPLOADING, UploadStatus.PROCESSING);
+    boolean markUploadAsComplete(@NotNull UploadId id){
+        // TODO make retriable
+        var updated = uploadRepository.updateStatus(id, UploadStatus.UPLOADING, UploadStatus.PROCESSING);
         if (updated == null) return false;
         return transformationService.applyTransformations(updated);
     }

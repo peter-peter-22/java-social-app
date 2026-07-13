@@ -6,6 +6,7 @@ import com.example.media_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.any;
@@ -30,7 +31,8 @@ class ParallelTransformationApiTest {
 
     private UploadTransformationTask transformation(String name) {
         return UploadTransformationTask.builder()
-                .original(new UploadId("file.jpg", "uploads"))
+                .name("name")
+                .original(new UploadId(UUID.randomUUID()))
                 .outputBucket("transformations")
                 .operations(ImageTransformationOperations.builder().build())
                 .build();

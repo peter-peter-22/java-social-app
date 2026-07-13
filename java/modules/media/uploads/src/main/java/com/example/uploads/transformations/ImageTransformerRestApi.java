@@ -12,6 +12,7 @@ import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.concurrent.TimeUnit;
 
+// OPTIMIZATION: should this be parallel on the worker server instead?
 @Component
 @EnableConfigurationProperties(TransformationProperties.class)
 public class ImageTransformerRestApi extends ParallelTransformationApi {

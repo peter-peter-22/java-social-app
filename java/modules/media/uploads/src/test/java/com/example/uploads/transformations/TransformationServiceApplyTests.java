@@ -2,7 +2,6 @@ package com.example.uploads.transformations;
 
 import com.example.media_api.transformations.source.TransformationFilter;
 import com.example.media_api.transformations.source.TransformationFilters;
-import com.example.media_api.transformations.UploadTransformation;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
@@ -13,12 +12,15 @@ import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
 import com.example.users.api.repository.UserId;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +45,9 @@ public class TransformationServiceApplyTests {
             .build();
 
     private final Upload exampleUpload = new Upload(
-            new UploadId("posts/1.jpg", "public"),
+            new UploadId(UUID.randomUUID()),
+            "image.jpg",
+            "uploads",
             new UserId(UUID.randomUUID()),
             FileType.JPEG,
             Instant.now(),
@@ -69,11 +73,13 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
+        var task = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
-        verify(lazyTransformationApi).transform(List.of(dto));
+        var tasksCaptor = ArgumentCaptor.forClass(Collection.class);
+        verify(lazyTransformationApi).transform(tasksCaptor.capture());
+        assertTaskMatchesTransformation(tasksCaptor.getValue(), task);
         verify(lazyTransformationSessionRepository).createLazyTransformationSession(exampleUpload.id(), List.of(transformation.getName()));
         verifyNoInteractions(blockingTransformationApi);
     }
@@ -96,11 +102,13 @@ public class TransformationServiceApplyTests {
                 List.of(transformation)
         );
 
-        var dto = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
+        var task = UploadTransformationTask.fromTransformation(transformation, exampleUpload.id());
 
         service.applyTransformations(exampleUpload);
 
-        verify(blockingTransformationApi).transform(List.of(dto));
+        var tasksCaptor = ArgumentCaptor.forClass(Collection.class);
+        verify(blockingTransformationApi).transform(tasksCaptor.capture());
+        assertTaskMatchesTransformation(tasksCaptor.getValue(), task);
         verifyNoInteractions(lazyTransformationSessionRepository);
         verifyNoInteractions(lazyTransformationApi);
     }
@@ -113,7 +121,9 @@ public class TransformationServiceApplyTests {
         var simpleFilter = new TransformationFilter[]{new TransformationFilters.BucketFilter("pass")};
 
         var shouldFail = new Upload(
-                new UploadId("posts/1.jpg", "fail"),
+                new UploadId(UUID.randomUUID()),
+                "image.jpg",
+                "uploads",
                 new UserId(UUID.randomUUID()),
                 FileType.JPEG,
                 Instant.now(),
@@ -138,5 +148,26 @@ public class TransformationServiceApplyTests {
         verifyNoInteractions(blockingTransformationApi);
         verifyNoInteractions(lazyTransformationApi);
         verifyNoInteractions(lazyTransformationSessionRepository);
+    }
+
+    // TODO simplify
+    private static void assertTaskMatchesTransformation(Collection<UploadTransformationTask> actualTasks, UploadTransformationTask expectedTask) {
+        Assertions.assertEquals(1, actualTasks.size());
+
+        var actualTask = actualTasks.iterator().next();
+        var expectedOperations = (ImageTransformationOperations) expectedTask.getOperations();
+        var actualOperations = (ImageTransformationOperations) actualTask.getOperations();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(expectedTask.getName(), actualTask.getName()),
+                () -> Assertions.assertEquals(expectedTask.getOutputBucket(), actualTask.getOutputBucket()),
+                () -> Assertions.assertEquals(expectedTask.isLazy(), actualTask.isLazy()),
+                () -> Assertions.assertEquals(expectedTask.getOriginal(), actualTask.getOriginal()),
+                () -> Assertions.assertEquals(expectedOperations.getAspectRatio(), actualOperations.getAspectRatio()),
+                () -> Assertions.assertEquals(expectedOperations.getFormat(), actualOperations.getFormat()),
+                () -> Assertions.assertEquals(expectedOperations.getQuality(), actualOperations.getQuality()),
+                () -> Assertions.assertEquals(expectedOperations.getLimitHeight(), actualOperations.getLimitHeight()),
+                () -> Assertions.assertEquals(expectedOperations.getLimitWidth(), actualOperations.getLimitWidth())
+        );
     }
 }
