@@ -1,0 +1,63 @@
+package com.example.media_api.transformations.sources;
+
+import com.example.media_api.transformations.filters.TransformationFilter;
+import com.example.media_api.transformations.filters.TransformationFilters;
+import com.example.media_api.uploads.*;
+
+import static com.example.media_api.utils.TestTransformationCreator.*;
+
+import org.junit.jupiter.api.Test;
+
+import static com.example.media_api.utils.TestTransformationCreator.createImageTransformation;
+import static com.example.media_api.utils.TestUploadCreator.createUploadFromFileType;
+import static com.example.media_api.utils.TestUploadCreator.createUploadFromLocation;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class UploadTransformationApplicableTests {
+
+    /**
+     * The transformation should only apply to uploads those match the operation's media type
+     */
+    @Test
+    void testMediaTypeFiltering() {
+        // create transformations
+        var imageTransformation = createImageTransformation();
+        var videoTransformation = createVideoTransformation();
+
+        // create uploads
+        var imageUpload = createUploadFromFileType(FileType.JPEG);
+        var videoUpload = createUploadFromFileType(FileType.MP4);
+
+        // check image filtering
+        assertThat(imageTransformation.isApplicable(imageUpload)).isTrue();
+        assertThat(imageTransformation.isApplicable(videoUpload)).isFalse();
+
+        // check video filtering
+        assertThat(videoTransformation.isApplicable(imageUpload)).isFalse();
+        assertThat(videoTransformation.isApplicable(videoUpload)).isTrue();
+    }
+
+    /**
+     * The transformation should only apply to uploads that match all filters
+     */
+    @Test
+    void testFilterCombination() {
+        // create transformation
+        var transformation = createImageTransformation(
+                ops -> ops.filters(new TransformationFilter[]{
+                        new TransformationFilters.PathPrefix("avatars/"),
+                        new TransformationFilters.BucketFilter("uploads")
+                })
+        );
+
+        // create uploads
+        var bucketMatches = createUploadFromLocation(new ObjectLocation("posts/1.jpg", "uploads"));
+        var pathMatches = createUploadFromLocation(new ObjectLocation("avatars/1.jpg", "others"));
+        var bothMatches = createUploadFromLocation(new ObjectLocation("avatars/1.jpg", "uploads"));
+
+        // check filtering
+        assertThat(transformation.isApplicable(bucketMatches)).isFalse();
+        assertThat(transformation.isApplicable(pathMatches)).isFalse();
+        assertThat(transformation.isApplicable(bothMatches)).isTrue();
+    }
+}

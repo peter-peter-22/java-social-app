@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Builder
 @Getter
-public class ImageTransformationOperations extends UploadTransformationOperations {
+public class ImageTransformationOperations implements TransformationOperations {
     @Nullable
     private final LimitResolution limitWidth;
     @Nullable
@@ -18,7 +18,7 @@ public class ImageTransformationOperations extends UploadTransformationOperation
     @Builder.Default
     private final FileType format = FileType.JPEG;
     /** Output quality, defaults to 100. Applicable only when the format supports it. */
-    @Builder.Default
+    @NotNull @Builder.Default
     private final Integer quality = 100;
     @Nullable
     private final AspectRatio aspectRatio;

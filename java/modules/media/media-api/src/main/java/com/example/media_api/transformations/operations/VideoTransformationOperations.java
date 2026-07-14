@@ -8,14 +8,14 @@ import org.jetbrains.annotations.Nullable;
 
 @Builder
 @Getter
-public class VideoTransformationOperations extends UploadTransformationOperations {
+public class VideoTransformationOperations implements TransformationOperations {
     @Nullable
     private final LimitResolution limitWidth;
     @Nullable
     private final LimitResolution limitHeight;
     @NotNull @Builder.Default
     private final FileType format = FileType.MP4;
-    @Builder.Default
+    @NotNull @Builder.Default
     private final Integer quality = 100;
     @Nullable
     private final AspectRatio aspectRatio;

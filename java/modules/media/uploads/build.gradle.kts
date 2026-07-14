@@ -20,4 +20,5 @@ dependencies {
 	implementation(project(":cockroach-db"))
 	testImplementation(testFixtures(project(":cockroach-db")))
 	implementation(project(":media-api"))
+	testImplementation(testFixtures(project(":media-api")))
 }

@@ -1,6 +1,7 @@
 package com.example.uploads.upload_repository;
 
 import com.example.cockroach_db.SQLErrorCodes;
+import com.example.media_api.uploads.ObjectLocation;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
@@ -25,8 +26,10 @@ public class UploadRepository {
     private static Upload entityToDomain(@NotNull UploadEntity entity) {
         return new Upload(
                 new UploadId(entity.id()),
-                entity.objectPath(),
-                entity.bucket(),
+                new ObjectLocation(
+                        entity.objectPath(),
+                        entity.bucket()
+                ),
                 new UserId(entity.createdBy()),
                 entity.fileType(),
                 entity.createdAt(),
@@ -37,8 +40,8 @@ public class UploadRepository {
     private static UploadEntity domainToEntity(@NotNull Upload domain) {
         return new UploadEntity(
                 domain.id().get(),
-                domain.objectPath(),
-                domain.bucket(),
+                domain.objectLocation().path(),
+                domain.objectLocation().bucket(),
                 domain.createdBy().get(),
                 domain.fileType(),
                 domain.createdAt(),

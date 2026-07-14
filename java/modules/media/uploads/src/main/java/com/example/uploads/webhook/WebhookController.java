@@ -1,6 +1,6 @@
 package com.example.uploads.webhook;
 
-import com.example.uploads.transformations.TransformationService;
+import com.example.uploads.lazy_transformation_session_service.LazyTransformationSessionService;
 import com.example.media_api.transformations.webhook.WebhookCall;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/media/callback")
 @RequiredArgsConstructor
 public class WebhookController {
-    private final TransformationService transformationService;
+    private final LazyTransformationSessionService service;
 
     @PostMapping("/mark_as_ready")
     void markAsReady(@RequestBody WebhookCall webhook) {
-        transformationService.markLazyTransformationAsComplete(webhook.uploadId(), webhook.transformationName());
+        service.markLazyTransformationAsComplete(webhook.uploadId(), webhook.transformationName());
     }
 }

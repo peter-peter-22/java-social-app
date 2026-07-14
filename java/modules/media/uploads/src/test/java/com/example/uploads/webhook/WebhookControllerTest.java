@@ -1,6 +1,6 @@
 package com.example.uploads.webhook;
 
-import com.example.uploads.transformations.TransformationService;
+import com.example.uploads.lazy_transformation_session_service.LazyTransformationSessionService;
 import com.example.media_api.transformations.webhook.WebhookCall;
 import com.example.media_api.uploads.UploadId;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,17 +18,16 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// CLEANING: This looks a little weird
 @ExtendWith(MockitoExtension.class)
 class WebhookControllerTest {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Mock
-    private TransformationService transformationService;
+    private LazyTransformationSessionService sessions;
 
     private MockMvc mockMvc() {
-        return MockMvcBuilders.standaloneSetup(new WebhookController(transformationService)).build();
+        return MockMvcBuilders.standaloneSetup(new WebhookController(sessions)).build();
     }
 
     @Test
@@ -41,6 +40,6 @@ class WebhookControllerTest {
                         .content(objectMapper.writeValueAsString(webhook)))
                 .andExpect(status().isOk());
 
-        verify(transformationService).markLazyTransformationAsComplete(uploadId, "resize");
+        verify(sessions).markLazyTransformationAsComplete(uploadId, "resize");
     }
 }

@@ -23,6 +23,7 @@ dependencies {
 
     // jetbrains annotations
     compileOnly("org.jetbrains:annotations:26.0.2")
+    testCompileOnly("org.jetbrains:annotations:26.0.2")
 
     // assertj
     testImplementation("org.assertj:assertj-core:3.27.7")

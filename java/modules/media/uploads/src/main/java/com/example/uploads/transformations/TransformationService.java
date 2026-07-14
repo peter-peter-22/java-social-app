@@ -1,27 +1,31 @@
 package com.example.uploads.transformations;
 
-import com.example.media_api.transformations.UploadTransformation;
-import com.example.media_api.transformations.source.UploadTransformationSource;
-import com.example.media_api.transformations.task.UploadTransformationTask;
+import com.example.media_api.transformations.sources.ImageTransformationSource;
+import com.example.media_api.transformations.sources.TransformationSource;
+import com.example.media_api.transformations.sources.VideoTransformationSource;
 import com.example.media_api.uploads.Upload;
-import com.example.media_api.uploads.UploadId;
+import com.example.uploads.lazy_transformation_session_service.LazyTransformationSessionService;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class TransformationService {
-    private final LazyTransformationSessionRepository lazyTransformationSessionRepository;
-    private final LazyTransformationApi lazyTransformationApi;
-    private final BlockingTransformationApi blockingTransformationApi;
-    private final List<UploadTransformationSource> transformations;
+    private final BlockingTransformationService blockingTransformationService;
+    private final LazyTransformationService lazyTransformationService;
+    private final List<ImageTransformationSource> imageTransformations;
+    private final List<VideoTransformationSource> videoTransformations;
+    private final LazyTransformationSessionService lazyTransformationSessionService;
 
     /**
      * Completes or queues all matching transformations for the upload.
@@ -29,75 +33,71 @@ public class TransformationService {
      * @return True if there is at least one lazy transformation in progress.
      */
     public boolean applyTransformations(@NotNull Upload upload) {
+
         // get which transformations are applicable based on their filters and the upload
-        var applicableTransformations = transformations.stream()
-                .filter(transformation -> transformation.isApplicable(upload))
+        var applicableImageTransformations = filterApplicable(imageTransformations, upload);
+        var applicableVideoTransformations = filterApplicable(videoTransformations, upload);
+
+        // group by laziness
+        var lazyImageTransformations = filterLazy(applicableImageTransformations);
+        var blockingImageTransformations = filterBlocking(applicableImageTransformations);
+        var lazyVideoTransformations = filterLazy(applicableVideoTransformations);
+        var blockingVideoTransformations = filterBlocking(applicableVideoTransformations);
+
+        // get lazy name list
+        var lazyNames = Stream.concat(lazyImageTransformations.stream(), lazyVideoTransformations.stream())
+                .map(TransformationSource::getName)
                 .toList();
+
+        // collect jobs
+        ArrayList<Runnable> jobs = new ArrayList<>();
+
+        if (!blockingImageTransformations.isEmpty())
+            jobs.add(() -> blockingTransformationService.transformImages(createTasks(blockingImageTransformations, upload)));
+        if (!blockingVideoTransformations.isEmpty())
+            jobs.add(() -> blockingTransformationService.transformVideos(createTasks(blockingVideoTransformations, upload)));
+        if (!lazyImageTransformations.isEmpty())
+            jobs.add(() -> lazyTransformationService.queueImageTransformations(createTasks(lazyImageTransformations, upload)));
+        if (!lazyVideoTransformations.isEmpty())
+            jobs.add(() -> lazyTransformationService.queueVideoTransformations(createTasks(lazyVideoTransformations, upload)));
+        if (!lazyNames.isEmpty())
+            jobs.add(() -> lazyTransformationSessionService.createLazyTransformationSession(upload.id(), lazyNames));
 
         // execute
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try (executor) {
+            var futures = jobs.stream()
+                    .map(runnable -> CompletableFuture.runAsync(runnable, executor))
+                    .toArray(CompletableFuture[]::new);
 
-            var blockingFuture = CompletableFuture.runAsync(
-                    () -> applyBlockingTransformations(applicableTransformations, upload.id()),
-                    executor
-            );
-
-            var lazyFuture = CompletableFuture.supplyAsync(
-                    () -> applyLazyTransformations(applicableTransformations, upload.id()),
-                    executor
-            );
-
-            CompletableFuture.allOf(blockingFuture, lazyFuture).join();
-
-            return lazyFuture.join();
+            CompletableFuture.allOf(futures).join();
         }
+
+        // return true if awaiting lazy transformations
+        return !lazyNames.isEmpty();
     }
 
-    private void applyBlockingTransformations(@NotNull Collection<UploadTransformationSource> applicableTransformations, UploadId uploadId) {
-        var blockingTransformations = applicableTransformations.stream()
-                .filter(transformation -> !transformation.isLazy())
-                .map(transformation -> UploadTransformationTask.fromTransformation(transformation, uploadId))
+    private <DTO, Transformation extends TransformationSource<DTO>> @Unmodifiable @NonNull List<DTO> createTasks(@NotNull List<Transformation> transformations, @NotNull Upload upload) {
+        return transformations.stream()
+                .map(transformation -> transformation.createTaskDTO(upload))
                 .toList();
-
-        if (blockingTransformations.isEmpty()) return;
-
-        blockingTransformationApi.transform(blockingTransformations);
     }
 
-    /**
-     * Creates lazy transformation session and events if necessary.
-     * Optimization: lazyTransformationSessionRepository.createLazyTransformationSession and lazyTransformationApi.transform
-     * could be executed in parallel.
-     *
-     * @return True if there is at least one lazy transformation.
-     */
-    private boolean applyLazyTransformations(@NotNull Collection<UploadTransformationSource> applicableTransformations, UploadId uploadId) {
-        // get the list of the lazy transformations
-        var lazyTransformations = applicableTransformations.stream()
-                .filter(UploadTransformation::isLazy)
-                .map(transformation -> UploadTransformationTask.fromTransformation(transformation, uploadId))
+    private <Transformation extends TransformationSource<?>> @Unmodifiable @NonNull List<Transformation> filterApplicable(@NotNull List<Transformation> transformations, @NotNull Upload upload) {
+        return transformations.stream()
+                .filter(transformation -> transformation.isApplicable(upload))
                 .toList();
-
-        // if no lazy transformations found, exit
-        if (lazyTransformations.isEmpty()) return false;
-
-        // if lazy transformations are required, create the lazy transformation session and events
-        var names = lazyTransformations.stream()
-                .map(UploadTransformationTask::getName)
-                .toList();
-        lazyTransformationSessionRepository.createLazyTransformationSession(uploadId, names);
-        lazyTransformationApi.transform(lazyTransformations);
-
-        return true;
     }
 
-    /**
-     * Marks a lazy transformation as ready and deletes the session if no more transformations are required.
-     */
-    public void markLazyTransformationAsComplete(UploadId uploadId, String transformationName) {
-        boolean ready = lazyTransformationSessionRepository.markLazyTransformationAsReady(uploadId, transformationName);
-        if (ready)
-            lazyTransformationSessionRepository.deleteLazyTransformationSession(uploadId);
+    private <Transformation extends TransformationSource<?>> @Unmodifiable @NonNull List<Transformation> filterLazy(@NotNull List<Transformation> transformations) {
+        return transformations.stream()
+                .filter(Transformation::isLazy)
+                .toList();
+    }
+
+    private <Transformation extends TransformationSource<?>> @Unmodifiable @NonNull List<Transformation> filterBlocking(@NotNull List<Transformation> transformations) {
+        return transformations.stream()
+                .filter(t -> !t.isLazy())
+                .toList();
     }
 }
