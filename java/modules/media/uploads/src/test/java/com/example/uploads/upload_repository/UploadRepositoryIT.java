@@ -2,12 +2,14 @@ package com.example.uploads.upload_repository;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.media_api.uploads.FileType;
+import com.example.media_api.uploads.ObjectLocation;
 import com.example.media_api.uploads.Upload;
-import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
-import com.example.users.api.repository.UserId;
-import com.example.users_persistence.repository.InsertUser;
-import com.example.users_persistence.repository.UserRepository;
+import com.example.media_api.utils.TestUploadCreator;
+import com.example.uploads.TestApplication;
+import com.example.uploads.utils.TestUploadPersistence;
+import com.example.users_api.repository.UserId;
+import com.example.users_persistence.utils.TestUserPersistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,38 +21,24 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-@SpringBootTest
+@SpringBootTest(classes = TestApplication.class)
 @TestPropertySource(locations = "classpath:uploads-test.properties")
 public class UploadRepositoryIT extends CockroachIntegrationTest {
+    @Autowired
+    private TestUploadPersistence testUploadPersistence;
+
+    @Autowired
+    private TestUserPersistence testUserPersistence;
 
     @Autowired
     private UploadRepository uploadRepository;
-    @Autowired
-    private UserRepository userRepository;
-
-    private InsertUpload prepareUpload() {
-        InsertUser insertUser = new InsertUser();
-        var user = userRepository.create(insertUser);
-
-        return InsertUpload.builder()
-                .objectPath(UUID.randomUUID() + ".jpg")
-                .bucket("bucket")
-                .fileType(FileType.JPEG)
-                .createdBy(user.id())
-                .build();
-    }
-
-    private UploadId insertUpload() {
-        var insert = prepareUpload();
-        return uploadRepository.create(insert);
-    }
 
     /**
      * The created upload should return its id
      */
     @Test
     void createUpload() {
-        var id = insertUpload();
+        var id = testUploadPersistence.insertUpload();
         assertThat(id).isNotNull();
     }
 
@@ -61,7 +49,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
     void testUploadRead() {
 
         // Insert upload
-        var upload = prepareUpload();
+        var upload = testUploadPersistence.prepareUploadInsert();
         var id = uploadRepository.create(upload);
 
         // The created upload should be found and have the same fields
@@ -80,22 +68,25 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
      */
     @Test
     void testUploadUpdate() {
-        var id = insertUpload();
+        var id = testUploadPersistence.insertUpload();
         var original = uploadRepository.getById(id);
         assertThat(original).isNotNull();
 
         // All fields should be updated
-        var otherUser = userRepository.create(new InsertUser());
-        var update = new Upload(
-                id,
-                "path 2",
-                "bucket 2",
-                otherUser.id(),
-                FileType.JPEG,
-                original.createdAt().plus(1, ChronoUnit.DAYS),
-                UploadStatus.READY
+        var otherUser = testUserPersistence.insertUser();
+        var update = TestUploadCreator.createUpload(
+                c->{
+                    c.id(id);
+                    c.objectLocation(new ObjectLocation("path 2", "bucket 2"));
+                    c.createdBy(otherUser.id());
+                    c.fileType(FileType.JPEG);
+                    c.createdAt(original.createdAt().plus(1, ChronoUnit.DAYS));
+                    c.status(UploadStatus.READY);
+                }
         );
+
         uploadRepository.update(update);
+
         var updated = uploadRepository.getById(id);
         assertThat(updated).isEqualTo(update);
     }

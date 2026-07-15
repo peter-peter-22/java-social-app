@@ -1,4 +1,4 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.operations;
 
 import app.photofox.vipsffm.VImage;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;

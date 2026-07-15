@@ -1,7 +1,7 @@
 package com.example.users_persistence.repository;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.users.api.repository.User;
+import com.example.users_api.repository.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

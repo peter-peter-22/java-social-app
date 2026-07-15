@@ -27,12 +27,12 @@ public class ImageTransformationSource extends TransformationSourceBase implemen
                 TransformationPathManager.getOutputObject(original, this),
                 getName(),
                 isLazy(),
-                getOutputBucket(),
                 operations.getLimitWidth(),
                 operations.getLimitHeight(),
                 operations.getFormat(),
                 operations.getQuality(),
-                operations.getAspectRatio()
+                operations.getAspectRatio(),
+                original.id()
         );
     }
 }

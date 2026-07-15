@@ -6,7 +6,7 @@ import com.example.uploads.upload_repository.InsertUpload;
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
-import com.example.users.api.repository.UserId;
+import com.example.users_api.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import com.example.uploads.upload_repository.UploadRepository;
@@ -36,7 +36,7 @@ public class UploadService {
      * @return True if the upload is awaiting lazy transformations, false if ready or the upload is already complete and nothing happened. */
     boolean markUploadAsComplete(@NotNull UploadId id){
         // TODO make retriable
-        var updated = uploadRepository.updateStatus(id, UploadStatus.UPLOADING, UploadStatus.PROCESSING);
+        var updated = uploadRepository.updateStatus(id, UploadStatus.PROCESSING);
         if (updated == null) return false;
         return transformationService.applyTransformations(updated);
     }

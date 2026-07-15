@@ -4,7 +4,7 @@ import com.example.media_api.uploads.UploadId;
 import org.jetbrains.annotations.NotNull;
 
 public record WebhookCall(
-        @NotNull String transformationName,
-        @NotNull UploadId uploadId
+        @NotNull UploadId uploadId,
+        @NotNull String transformationName
 ) {
 }

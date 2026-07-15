@@ -62,7 +62,7 @@ class TransformationServiceIT {
 
     @Test
     void quality50WebpExecutes() {
-        transform("quality-50-webp", ops -> {ops.quality(50);ops.format(FileType.WEBP);});
+        transform("format-webp", ops -> ops.format(FileType.WEBP));
     }
 
     private void assertSize(

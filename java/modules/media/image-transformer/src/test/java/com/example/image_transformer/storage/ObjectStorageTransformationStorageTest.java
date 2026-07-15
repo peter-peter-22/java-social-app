@@ -31,7 +31,7 @@ class ObjectStorageTransformationStorageTest {
 
     @Test
     void readReturnsObjectStorageStream() {
-        var storage = new ObjectStorageTransformationStorage(objectStorageRepository);
+        var storage = new ObjectStorageStream(objectStorageRepository);
         var upload = uploadTask();
         var expectedStream = new ByteArrayInputStream(new byte[]{1, 2, 3});
 
@@ -45,7 +45,7 @@ class ObjectStorageTransformationStorageTest {
 
     @Test
     void writeUploadsInputStreamAsJpeg() throws Exception {
-        var storage = new ObjectStorageTransformationStorage(objectStorageRepository);
+        var storage = new ObjectStorageStream(objectStorageRepository);
         var upload = uploadTask();
         var payload = new byte[]{10, 20, 30, 40};
 

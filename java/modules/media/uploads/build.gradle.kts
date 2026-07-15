@@ -15,10 +15,36 @@ dependencies {
 	// modules
 	implementation(project(":object-storage"))
 	testImplementation(testFixtures(project(":object-storage")))
+
 	implementation(project(":users-api"))
-	implementation(project(":users-persistence"))
+
+	testImplementation(testFixtures(project(":users-persistence")))
+
 	implementation(project(":cockroach-db"))
 	testImplementation(testFixtures(project(":cockroach-db")))
+
 	implementation(project(":media-api"))
 	testImplementation(testFixtures(project(":media-api")))
+
+	// test fixtures
+	testFixturesImplementation(testFixtures(project(":users-persistence")))
+}
+
+
+configurations {
+	testFixturesImplementation {
+		extendsFrom(implementation.get())
+	}
+
+	testFixturesRuntimeOnly {
+		extendsFrom(testRuntimeOnly.get())
+	}
+
+	testFixturesCompileOnly {
+		extendsFrom(compileOnly.get())
+	}
+
+	testFixturesAnnotationProcessor {
+		extendsFrom(annotationProcessor.get())
+	}
 }

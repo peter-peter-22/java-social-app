@@ -5,11 +5,12 @@ import com.example.media_api.transformations.filters.TransformationFilters;
 
 import com.example.media_api.transformations.sources.ImageTransformationSource;
 import com.example.media_api.transformations.sources.VideoTransformationSource;
-import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.Upload;
 
 import com.example.uploads.lazy_transformation_session_service.LazyTransformationSessionService;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -36,21 +37,28 @@ public class TransformationServiceTests {
     private final VideoTransformationSource blockingVideoTransformation = createVideoTransformation(ops -> ops.lazy(false));
     private final VideoTransformationSource lazyVideoTransformation = createVideoTransformation(ops -> ops.lazy(true));
 
-    private final Upload image = createUploadFromFileType(FileType.JPEG);
-    private final Upload video = createUploadFromFileType(FileType.MP4);
+    private final Upload image = createImage();
+    private final Upload video = createVideo();
 
-    private final TransformationService service = new TransformationService(
-            blockingTransformationService,
-            lazyTransformationService,
-            List.of(blockingImageTransformation, lazyImageTransformation),
-            List.of(blockingVideoTransformation, lazyVideoTransformation),
-            lazyTransformationSessionService
-    );
+    private TransformationService service;
 
+    @NotNull TransformationService createService(){
+        return new TransformationService(
+                blockingTransformationService,
+                lazyTransformationService,
+                List.of(blockingImageTransformation, lazyImageTransformation),
+                List.of(blockingVideoTransformation, lazyVideoTransformation),
+                lazyTransformationSessionService
+        );
+    }
 
-    /** A blocking and a lazy image transformation should be applied. */
+    /**
+     * A blocking and a lazy image transformation should be applied.
+     */
     @Test
     void testImageTransformation() {
+        var service = createService();
+
         var expectedBlockingTask = blockingImageTransformation.createTaskDTO(image);
         var expectedLazyTask = lazyImageTransformation.createTaskDTO(image);
         var exceptedLazyNames = List.of(lazyImageTransformation.getName());
@@ -66,19 +74,23 @@ public class TransformationServiceTests {
         verifyNoMoreInteractions(lazyTransformationSessionService);
     }
 
-    /** A blocking and a lazy video transformation should be applied. */
+    /**
+     * A blocking and a lazy video transformation should be applied.
+     */
     @Test
     void testVideoTransformation() {
+        var service = createService();
+
         var expectedBlockingTask = blockingVideoTransformation.createTaskDTO(video);
         var expectedLazyTask = lazyVideoTransformation.createTaskDTO(video);
         var exceptedLazyNames = List.of(lazyVideoTransformation.getName());
 
-        service.applyTransformations(image);
+        service.applyTransformations(video);
 
         verify(blockingTransformationService).transformVideos(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
 
-        verify(lazyTransformationSessionService).createLazyTransformationSession(image.id(), exceptedLazyNames);
+        verify(lazyTransformationSessionService).createLazyTransformationSession(video.id(), exceptedLazyNames);
         verify(lazyTransformationService).queueVideoTransformations(List.of(expectedLazyTask));
         verifyNoMoreInteractions(lazyTransformationService);
         verifyNoMoreInteractions(lazyTransformationSessionService);

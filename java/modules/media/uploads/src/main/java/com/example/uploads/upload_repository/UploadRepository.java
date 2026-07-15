@@ -5,7 +5,7 @@ import com.example.media_api.uploads.ObjectLocation;
 import com.example.media_api.uploads.Upload;
 import com.example.media_api.uploads.UploadId;
 import com.example.media_api.uploads.UploadStatus;
-import com.example.users.api.repository.UserId;
+import com.example.users_api.repository.UserId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -88,18 +88,16 @@ public class UploadRepository {
     /**
      * Updates the status field of an upload if it matches the previous status.
      * Returns the updated upload or null if the upload was not found.
-     * TODO make retriable
      */
-    public @Nullable Upload updateStatus(@NotNull UploadId uploadId, @NotNull UploadStatus status, @NotNull UploadStatus previousStatus) {
+    public @Nullable Upload updateStatus(@NotNull UploadId uploadId, @NotNull UploadStatus status) {
         var updated = jdbc.sql("""
                         UPDATE uploads
                         SET status = :status
-                        WHERE id = :id AND status = :previous_status
+                        WHERE id = :id
                         RETURNING *
                         """)
                 .param("id", uploadId.get())
                 .param("status", status.name())
-                .param("previous_status", previousStatus.name())
                 .query(UploadEntity.class)
                 .optional();
         return updated.map(UploadRepository::entityToDomain).orElse(null);

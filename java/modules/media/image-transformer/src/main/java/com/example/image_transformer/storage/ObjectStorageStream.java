@@ -1,6 +1,6 @@
 package com.example.image_transformer.storage;
 
-import com.example.media_api.transformations.task.UploadTransformationTask;
+import com.example.media_api.uploads.ObjectLocation;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -13,18 +13,19 @@ import java.io.InputStream;
 @Component
 @Profile("!local")
 @RequiredArgsConstructor
-public class ObjectStorageTransformationStorage implements TransformationImageStorage {
+public class ObjectStorageStream implements FileStreamStorage {
     private final ObjectStorageRepository objectStorageRepository;
 
     @Override
-    public void write(@NotNull InputStream inputStream, @NotNull UploadTransformationTask upload) {
-        var outputId = upload.getOutputObject();
-
+    public void write(
+            @NotNull InputStream inputStream,
+            @NotNull ObjectLocation outputLocation
+    ) {
         try {
             var bytes = inputStream.readAllBytes();
             objectStorageRepository.putObject(
-                    outputId.bucket(),
-                    outputId.objectPath(),
+                    outputLocation.bucket(),
+                    outputLocation.path(),
                     new ByteArrayInputStream(bytes),
                     bytes.length,
                     "image/jpeg"
@@ -35,11 +36,11 @@ public class ObjectStorageTransformationStorage implements TransformationImageSt
     }
 
     @Override
-    public @NotNull InputStream read(@NotNull UploadTransformationTask upload) {
+    public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
         try {
             return objectStorageRepository.getObject(
-                    upload.getOriginal().bucket(),
-                    upload.getOriginal().objectPath()
+                    inputLocation.bucket(),
+                    inputLocation.path()
             );
         } catch (Exception e) {
             throw new RuntimeException("Failed to read source image from object storage", e);

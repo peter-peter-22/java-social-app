@@ -21,9 +21,11 @@
         <module name="java.object-storage.main" />
         <module name="java.users-api.main" />
         <module name="java.posts.main" />
+        <module name="java.users-persistence.testFixtures" />
         <module name="java.media-api.main" />
         <module name="java.users-persistence.test" />
         <module name="java.uploads.main" />
+        <module name="java.uploads.testFixtures" />
         <module name="java.image-transformer.testFixtures" />
         <module name="java.cockroach-db.test" />
         <module name="java.media-api.testFixtures" />

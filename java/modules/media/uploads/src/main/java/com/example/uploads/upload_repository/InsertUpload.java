@@ -2,7 +2,7 @@ package com.example.uploads.upload_repository;
 
 import com.example.media_api.uploads.FileType;
 import com.example.media_api.uploads.UploadStatus;
-import com.example.users.api.repository.UserId;
+import com.example.users_api.repository.UserId;
 import lombok.Builder;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

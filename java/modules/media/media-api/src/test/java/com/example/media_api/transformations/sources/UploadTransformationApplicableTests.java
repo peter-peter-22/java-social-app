@@ -6,11 +6,10 @@ import com.example.media_api.uploads.*;
 
 import static com.example.media_api.utils.TestTransformationCreator.*;
 
+import com.example.media_api.utils.TestUploadCreator;
 import org.junit.jupiter.api.Test;
 
 import static com.example.media_api.utils.TestTransformationCreator.createImageTransformation;
-import static com.example.media_api.utils.TestUploadCreator.createUploadFromFileType;
-import static com.example.media_api.utils.TestUploadCreator.createUploadFromLocation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadTransformationApplicableTests {
@@ -25,8 +24,8 @@ public class UploadTransformationApplicableTests {
         var videoTransformation = createVideoTransformation();
 
         // create uploads
-        var imageUpload = createUploadFromFileType(FileType.JPEG);
-        var videoUpload = createUploadFromFileType(FileType.MP4);
+        var imageUpload = TestUploadCreator.createImage();
+        var videoUpload = TestUploadCreator.createVideo();
 
         // check image filtering
         assertThat(imageTransformation.isApplicable(imageUpload)).isTrue();
@@ -51,9 +50,9 @@ public class UploadTransformationApplicableTests {
         );
 
         // create uploads
-        var bucketMatches = createUploadFromLocation(new ObjectLocation("posts/1.jpg", "uploads"));
-        var pathMatches = createUploadFromLocation(new ObjectLocation("avatars/1.jpg", "others"));
-        var bothMatches = createUploadFromLocation(new ObjectLocation("avatars/1.jpg", "uploads"));
+        var bucketMatches = TestUploadCreator.createUpload(c->new ObjectLocation("posts/1.jpg", "uploads"));
+        var pathMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "others"));
+        var bothMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "uploads"));
 
         // check filtering
         assertThat(transformation.isApplicable(bucketMatches)).isFalse();

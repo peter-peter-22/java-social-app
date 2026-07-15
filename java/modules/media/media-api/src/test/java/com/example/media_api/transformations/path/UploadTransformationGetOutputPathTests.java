@@ -16,7 +16,7 @@ public class UploadTransformationGetOutputPathTests {
     void getImageOutputId() {
         var name = "name";
         var outputBucket = "output_bucket";
-        var original = TestUploadCreator.createUploadFromLocation(new ObjectLocation("posts/original.123.jpg", "bucket"));
+        var original = TestUploadCreator.createUpload(c->c.objectLocation(new ObjectLocation("posts/original.123.jpg", "bucket")));
         var transformation = createImageTransformation(
                 ops -> ops.name(name).outputBucket(outputBucket).operations(
                         ImageTransformationOperations.builder().format(FileType.WEBP).build()

@@ -13,7 +13,7 @@ import java.nio.file.Path;
 
 @Component
 @Profile("local")
-class LocalImageTransformationStorage implements TransformationImageStorage {
+class LocalImageTransformationStorage implements FileStreamStorage {
     @Override
     public void write(
             @NotNull InputStream inputStream,

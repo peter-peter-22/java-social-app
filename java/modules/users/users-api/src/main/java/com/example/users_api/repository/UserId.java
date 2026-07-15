@@ -1,4 +1,4 @@
-package com.example.users.api.repository;
+package com.example.users_api.repository;
 
 import org.jetbrains.annotations.NotNull;
 

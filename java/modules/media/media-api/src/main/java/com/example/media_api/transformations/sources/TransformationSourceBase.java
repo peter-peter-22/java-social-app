@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuperBuilder
 @Getter
-abstract class TransformationSourceBase {
+public abstract class TransformationSourceBase {
     @NotNull
     final private String name;
     /**

@@ -10,7 +10,7 @@ public class TransformationPathManager {
         return new ObjectLocation(original.objectLocation().bucket() + "/" + original.objectLocation().path() + "/" + name + "." + extension, outputBucket);
     }
 
-    public static @NotNull ObjectLocation getOutputObject(@NotNull Upload original, @NotNull TransformationSource transformation){
+    public static @NotNull ObjectLocation getOutputObject(@NotNull Upload original, @NotNull TransformationSource<?> transformation){
         var extension = transformation.getOperations().getFormat().getExtensions()[0];
         return getOutputObject(original, extension, transformation.getOutputBucket(), transformation.getName());
     }

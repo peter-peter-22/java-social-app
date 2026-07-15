@@ -39,7 +39,7 @@ class BlockingImageTransformerRestApiTests {
             var api = new BlockingImageTransformerRestApi(properties);
 
             var tasks = new ImageTransformationTaskGroupDTO(
-                    List.of(createImageTransformation().createTaskDTO(createUploadFromFileType(FileType.JPEG)))
+                    List.of(createImageTransformation().createTaskDTO(createImage()))
             );
 
             api.transformAll(tasks);
@@ -65,7 +65,7 @@ class BlockingImageTransformerRestApiTests {
             var api = new BlockingVideoTransformerRestApi(properties);
 
             var tasks = new VideoTransformationTaskGroupDTO(
-                    List.of(createVideoTransformation().createTaskDTO(createUploadFromFileType(FileType.JPEG)))
+                    List.of(createVideoTransformation().createTaskDTO(createVideo()))
             );
 
             api.transformAll(tasks);

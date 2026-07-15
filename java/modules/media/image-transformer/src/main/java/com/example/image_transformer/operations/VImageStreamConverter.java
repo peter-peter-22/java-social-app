@@ -1,4 +1,4 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.operations;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
@@ -21,8 +21,8 @@ class VImageStreamConverter {
         );
     }
 
-    @NotNull InputStream toStream(@NotNull VImage image, @NotNull ImageTransformationOperations operations) {
-        var outputData = saveToBuffer(image, operations.getFormat(), operations.getQuality());
+    @NotNull InputStream toStream(@NotNull VImage image, @NotNull FileType outputFormat, int quality) {
+        var outputData = saveToBuffer(image, outputFormat, quality);
         return new ByteArrayInputStream(outputData.getBytes());
     }
 

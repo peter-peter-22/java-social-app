@@ -10,18 +10,20 @@ dependencies {
 	implementation(project(":users-api"))
 }
 
-configurations.named("testFixturesImplementation") {
-	extendsFrom(configurations.implementation.get())
-}
+configurations {
+	testFixturesImplementation {
+		extendsFrom(implementation.get())
+	}
 
-configurations.named("testFixturesRuntimeOnly") {
-	extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
-}
+	testFixturesRuntimeOnly {
+		extendsFrom(testRuntimeOnly.get())
+	}
 
-configurations.named("testFixturesAnnotationProcessor") {
-	extendsFrom(configurations.annotationProcessor.get())
-}
+	testFixturesCompileOnly {
+		extendsFrom(compileOnly.get())
+	}
 
-configurations.named("testFixturesCompileOnly") {
-	extendsFrom(configurations.compileOnly.get())
+	testFixturesAnnotationProcessor {
+		extendsFrom(annotationProcessor.get())
+	}
 }
