@@ -33,7 +33,7 @@ class WebhookControllerTest {
     @Test
     void markAsReadyCallsServiceWithRequestBody() throws Exception {
         var uploadId = new UploadId(UUID.randomUUID());
-        var webhook = new WebhookCall("resize", uploadId);
+        var webhook = new WebhookCall( uploadId,"resize");
 
         mockMvc().perform(post("/api/media/callback/mark_as_ready")
                         .contentType(MediaType.APPLICATION_JSON)

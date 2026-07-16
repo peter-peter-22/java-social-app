@@ -22,9 +22,9 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/modules/cockroach-db" />
             <option value="$PROJECT_DIR$/modules/media/image-transformer" />
-            <option value="$PROJECT_DIR$/modules/media/media-api" />
             <option value="$PROJECT_DIR$/modules/media/object-storage" />
             <option value="$PROJECT_DIR$/modules/media/uploads" />
+            <option value="$PROJECT_DIR$/modules/media/uploads-api" />
             <option value="$PROJECT_DIR$/modules/posts" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />

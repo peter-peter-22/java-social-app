@@ -23,8 +23,8 @@ dependencies {
 	implementation(project(":cockroach-db"))
 	testImplementation(testFixtures(project(":cockroach-db")))
 
-	implementation(project(":media-api"))
-	testImplementation(testFixtures(project(":media-api")))
+	implementation(project(":uploads-api"))
+	testImplementation(testFixtures(project(":uploads-api")))
 
 	// test fixtures
 	testFixturesImplementation(testFixtures(project(":users-persistence")))

@@ -21,15 +21,15 @@ dependencies {
 	implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
 	// modules
-	implementation(project(":media-api"))
+	implementation(project(":uploads-api"))
 	implementation(project(":object-storage"))
 
 	// testing
-	testImplementation(testFixtures(project(":media-api")))
+	testImplementation(testFixtures(project(":uploads-api")))
 
 	// test fixtures
 	testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-	testFixturesImplementation(project(":media-api"))
+	testFixturesImplementation(project(":uploads-api"))
 }
 
 testing {
@@ -41,7 +41,7 @@ testing {
 
 				implementation("org.springframework.boot:spring-boot-starter-test")
 				runtimeOnly("org.junit.platform:junit-platform-launcher")
-				implementation(project(":media-api"))
+				implementation(project(":uploads-api"))
 			}
 
 			targets {
@@ -57,6 +57,7 @@ testing {
 	}
 }
 
+// CLEAN: should this be grouped with other docker test tasks in the future?
 tasks.register<Exec>("dockerIT") {
 	group = LifecycleBasePlugin.VERIFICATION_GROUP
 	description = "Runs image-transformer integration tests inside Docker."
