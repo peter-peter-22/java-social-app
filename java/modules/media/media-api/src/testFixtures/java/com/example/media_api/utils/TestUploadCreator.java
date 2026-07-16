@@ -4,6 +4,7 @@ import com.example.media_api.uploads.*;
 import com.example.users_api.repository.UserId;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -37,15 +38,15 @@ public class TestUploadCreator {
         return builder.build();
     }
 
-    public static @NotNull Upload createUpload() {
-        return createUpload(null);
-    }
-
     public static @NotNull Upload createImage(){
         return createUpload(c->c.fileType(FileType.JPEG));
     }
 
     public static @NotNull Upload createVideo(){
         return createUpload(c->c.fileType(FileType.MP4));
+    }
+
+    public static @NonNull UploadId createUploadId(){
+        return new UploadId(UUID.randomUUID());
     }
 }

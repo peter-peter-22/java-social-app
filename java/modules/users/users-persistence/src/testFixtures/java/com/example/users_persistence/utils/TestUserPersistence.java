@@ -1,0 +1,39 @@
+package com.example.users_persistence.utils;
+
+import com.example.users_api.repository.User;
+import com.example.users_persistence.repository.InsertUser;
+import com.example.users_persistence.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
+import org.springframework.stereotype.Component;
+
+import java.util.function.Consumer;
+
+@Component
+@RequiredArgsConstructor
+public class TestUserPersistence {
+    private final UserRepository userRepository;
+
+    public static InsertUser createUserInsert(@Nullable Consumer<InsertUser.@Nullable InsertUserBuilder> customizer) {
+        var builder = InsertUser.builder();
+
+        if (customizer != null)
+            customizer.accept(builder);
+
+        return builder.build();
+    }
+
+    public static InsertUser createUserInsert() {
+        return createUserInsert(null);
+    }
+
+    public User insertUser(@Nullable Consumer<InsertUser.@Nullable InsertUserBuilder> customizer) {
+        var insert = createUserInsert(customizer);
+        return userRepository.create(insert);
+    }
+
+    public User insertUser() {
+        return insertUser(null);
+    }
+
+}

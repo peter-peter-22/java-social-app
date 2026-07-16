@@ -1,6 +1,6 @@
 package com.example.image_transformer.storage;
 
-import com.example.media_api.transformations.task.UploadTransformationTask;
+import com.example.media_api.uploads.ObjectLocation;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -13,14 +13,17 @@ import java.nio.file.Path;
 
 @Component
 @Profile("local")
-class LocalImageTransformationStorage implements FileStreamStorage {
+public class LocalStreamStorage implements FileStreamStorage {
+    public static Path objectLocationToLocalPath(ObjectLocation location) {
+        return TestResourcesDirectory.getResourcesPath().resolve(location.bucket()).resolve(location.path());
+    }
+
     @Override
     public void write(
             @NotNull InputStream inputStream,
-            @NotNull UploadTransformationTask upload
+            @NotNull ObjectLocation outputLocation
     ) {
-        var outputId = upload.getOutputObject();
-        var outputPath = testResourcesDirectory().resolve(outputId.objectPath());
+        var outputPath = objectLocationToLocalPath(outputLocation);
 
         try {
             var parent = outputPath.getParent();
@@ -39,32 +42,12 @@ class LocalImageTransformationStorage implements FileStreamStorage {
     }
 
     @Override
-    public @NotNull InputStream read(@NotNull UploadTransformationTask upload) {
-        var inputPath = testResourcesDirectory().resolve(upload.getOriginal().objectPath());
+    public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
+        var inputPath = objectLocationToLocalPath(inputLocation);
         try {
             return Files.newInputStream(inputPath);
         } catch (IOException e) {
             throw new RuntimeException("Failed to read source image from " + inputPath, e);
         }
-    }
-
-    // TODO overcomplicated?
-    private Path testResourcesDirectory() {
-        var integrationRelative = Path.of("src/integrationTest/resources");
-        if (Files.isDirectory(integrationRelative)) {
-            return integrationRelative;
-        }
-
-        var testRelative = Path.of("src/test/resources");
-        if (Files.isDirectory(testRelative)) {
-            return testRelative;
-        }
-
-        var moduleIntegrationRelative = Path.of("modules/media/image-transformer/src/integrationTest/resources");
-        if (Files.isDirectory(moduleIntegrationRelative)) {
-            return moduleIntegrationRelative;
-        }
-
-        return Path.of("modules/media/image-transformer/src/test/resources");
     }
 }

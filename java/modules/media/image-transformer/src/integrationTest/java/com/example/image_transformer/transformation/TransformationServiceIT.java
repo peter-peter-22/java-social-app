@@ -1,12 +1,14 @@
 package com.example.image_transformer.transformation;
 
 import com.example.image_transformer.TestApplication;
+import com.example.image_transformer.storage.LocalStreamStorage;
+import com.example.image_transformer.task.ImageTransformationTask;
+import com.example.image_transformer.task.TestTaskCreator;
 import com.example.media_api.transformations.operations.AspectRatio;
 import com.example.media_api.transformations.operations.ImageTransformationOperations;
 import com.example.media_api.transformations.operations.LimitResolution;
-import com.example.media_api.transformations.task.UploadTransformationTask;
 import com.example.media_api.uploads.FileType;
-import com.example.media_api.uploads.UploadId;
+import com.example.media_api.uploads.ObjectLocation;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,95 +28,87 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ActiveProfiles({"local"})
 @TestPropertySource(locations = "classpath:image-transformation-test.properties")
 class TransformationServiceIT {
-    private static final UploadId INPUT = new UploadId("image.jpg", "uploads");
-    private static final String BUCKET = "transformations";
-
+    private static final ObjectLocation TEST_FILE = new ObjectLocation("image.jpg", "test-images");
+    private static final int ORIGINAL_WIDTH = 1280;
+    private static final int ORIGINAL_HEIGHT = 852;
     @Autowired
-    private TransformationOperationsHandler transformationOperationsHandler;
+    private TaskService service;
 
     @Test
     void aspectFillProducesSquare() throws IOException {
-        assertSize("aspect-fill-square", 852, 852,
-                ops -> ops.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.FILL)));
+        var task = localTestTask("aspect-fill-square", c -> c.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.FILL)));
+        executeTask(task);
+        assertSize(ORIGINAL_HEIGHT, ORIGINAL_HEIGHT, task);
     }
 
     @Test
     void aspectContainPadsToSquare() throws IOException {
-        assertSize("aspect-contain-square", 1280, 1280,
-                ops -> ops.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.CONTAIN)));
+        var task = localTestTask("aspect-contain-square", c -> c.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.CONTAIN)));
+        executeTask(task);
+        assertSize(ORIGINAL_WIDTH, ORIGINAL_WIDTH, task);
     }
 
     @Test
     void limitWidthProducesExpectedResolution() throws IOException {
-        assertSize("limit-width-400", 400, 266,
-                ops -> ops.limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO)));
+        var task = localTestTask("limit-width-400", c -> c.limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO)));
+        executeTask(task);
+        assertSize(400, 266, task);
     }
 
     @Test
     void quality95Executes() {
-        transform("quality-95", ops -> ops.quality(95));
+        executeTask(localTestTask("quality-95", c -> c.quality(95)));
     }
 
     @Test
     void quality50Executes() {
-        transform("quality-50", ops -> ops.quality(50));
+        executeTask(localTestTask("quality-50", c -> c.quality(50)));
     }
 
     @Test
     void quality50WebpExecutes() {
-        transform("format-webp", ops -> ops.format(FileType.WEBP));
+        executeTask(localTestTask("format-webp", c -> c.format(FileType.WEBP)));
     }
 
     private void assertSize(
-            String name,
             int expectedWidth,
             int expectedHeight,
-            Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
+            @NonNull ImageTransformationTask task
     ) throws IOException {
-        var transformation = transform(name, customize);
-        var path = resourcesDirectory().resolve(transformation.getOutputObject().path()).toFile();
-        var image = ImageIO.read(path);
+        var outputFile = LocalStreamStorage.objectLocationToLocalPath(task.outputObject()).toFile();
+        var image = ImageIO.read(outputFile);
+        System.out.println("file: " + outputFile.getAbsolutePath());
+        System.out.println("read: "+image.getWidth() + " " + image.getHeight() + "\nexpected: " + expectedWidth + " " + expectedHeight + "\n");
         assertNotNull(image);
         assertEquals(expectedWidth, image.getWidth());
         assertEquals(expectedHeight, image.getHeight());
     }
 
-    private UploadTransformationTask transform(
-            String name,
-            Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
+    private void executeTask(
+            @NonNull ImageTransformationTask task
     ) {
-        var transformation = upload(name, customize);
-        transformationOperationsHandler.applyTransformationOperations(transformation);
-        return transformation;
+        service.processTasks(List.of(task));
     }
 
-    private UploadTransformationTask upload(
-            String name,
-            @NonNull Consumer<ImageTransformationOperations.ImageTransformationOperationsBuilder> customize
+    private @NonNull ImageTransformationTask localTestTask(
+            @NonNull String name,
+            Consumer<ImageTransformationOperations.@NonNull ImageTransformationOperationsBuilder> customizer
     ) {
-        var builder = ImageTransformationOperations.builder();
-        customize.accept(builder);
-        return UploadTransformationTask.builder()
-                .name(name)
-                .outputBucket(BUCKET)
-                .original(INPUT)
-                .operations(builder.build())
-                .lazy(false)
-                .build();
-    }
+        var operationsBuilder = ImageTransformationOperations.builder();
 
-    // TODO: the same as LocalImageTransformationStorage
-    private @NonNull Path resourcesDirectory() {
-        var integrationRelative = Path.of("src/integrationTest/resources");
-        if (java.nio.file.Files.isDirectory(integrationRelative)) {
-            return integrationRelative;
-        }
+        if (customizer != null)
+            customizer.accept(operationsBuilder);
 
-        var moduleIntegrationRelative = Path.of("modules/media/image-transformer/src/integrationTest/resources");
-        if (java.nio.file.Files.isDirectory(moduleIntegrationRelative)) {
-            return moduleIntegrationRelative;
-        }
+        var operations = operationsBuilder.build();
+        var extension = operations.getFormat().getExtensions()[0];
 
-        throw new IllegalStateException("Cannot locate image-transformer integration test resources");
+        return TestTaskCreator.createTask(
+                c -> {
+                    c.inputObject(TEST_FILE);
+                    c.outputObject(new ObjectLocation(name + "." + extension, TEST_FILE.bucket()));
+                    c.operations(operations);
+                    c.name(name);
+                }
+        );
     }
 }

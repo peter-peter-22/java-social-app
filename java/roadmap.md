@@ -1,3 +1,7 @@
+refractor object location
+
+test configuration
+
 separate upload persistence and upload service into modules
 
 check foreign key name in duplicated insert error?

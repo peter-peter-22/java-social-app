@@ -23,6 +23,9 @@ dependencies {
 	// modules
 	implementation(project(":media-api"))
 	implementation(project(":object-storage"))
+
+	// testing
+	testImplementation(testFixtures(project(":media-api")))
 }
 
 testing {
@@ -30,6 +33,7 @@ testing {
 		register<JvmTestSuite>("integrationTest") {
 			dependencies {
 				implementation(project())
+				implementation(testFixtures(project()))
 			}
 
 			targets {
@@ -45,25 +49,26 @@ testing {
 	}
 }
 
-// copy main deps to integration test
+// copy deps to integration test
 
-configurations.named("integrationTestImplementation") {
-	extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+configurations{
+	named("integrationTestImplementation") {
+		extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+	}
+
+	named("integrationTestRuntimeOnly") {
+		extendsFrom(configurations.testRuntimeOnly.get())
+	}
+
+	named("integrationTestAnnotationProcessor") {
+		extendsFrom(configurations.annotationProcessor.get())
+	}
+	named("integrationTestCompileOnly") {
+		extendsFrom(configurations.compileOnly.get())
+	}
 }
 
-configurations.named("integrationTestRuntimeOnly") {
-	extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
-}
-
-configurations.named("integrationTestAnnotationProcessor") {
-	extendsFrom(configurations.annotationProcessor.get())
-}
-
-configurations.named("integrationTestCompileOnly") {
-	extendsFrom(configurations.compileOnly.get())
-}
-
-// copy main deps to test fixture
+// copy deps to test fixture
 
 configurations {
 	testFixturesImplementation {

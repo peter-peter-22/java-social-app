@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -21,17 +22,10 @@ public class TaskService {
     private final FileStreamProcessingManager fileStreamProcessingManager;
     private final FileStreamStorage storage;
 
-    public void processTasks(@NotNull ImageTransformationTaskGroupDTO payload) {
-        var tasks = convert(payload);
+    public void processTasks(@NotNull Collection<ImageTransformationTask> tasks) {
         // TODO: process in parallel
-        // TODO: reset failed transformations
+        // TODO: reset failed transformations ?
         tasks.forEach(this::processTask);
-    }
-
-    private List<ImageTransformationTask> convert(@NotNull ImageTransformationTaskGroupDTO payload){
-        return payload.tasks().stream()
-                .map(ImageTransformationTaskMapper::createFromDTO)
-                .toList();
     }
 
     private void processTask(@NotNull ImageTransformationTask task){
