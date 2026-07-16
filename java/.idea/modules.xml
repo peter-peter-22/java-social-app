@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.integrationTest.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.integrationTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-transformer/java.image-transformer.testFixtures.iml" />

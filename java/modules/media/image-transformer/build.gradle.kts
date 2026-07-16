@@ -26,6 +26,10 @@ dependencies {
 
 	// testing
 	testImplementation(testFixtures(project(":media-api")))
+
+	// test fixtures
+	testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
+	testFixturesImplementation(project(":media-api"))
 }
 
 testing {
@@ -34,12 +38,16 @@ testing {
 			dependencies {
 				implementation(project())
 				implementation(testFixtures(project()))
+
+				implementation("org.springframework.boot:spring-boot-starter-test")
+				runtimeOnly("org.junit.platform:junit-platform-launcher")
+				implementation(project(":media-api"))
 			}
 
 			targets {
 				all {
 					testTask.configure {
-						description = "Runs integration tests that require libvips."
+						description = "Runs integration tests requiring libvips."
 						group = LifecycleBasePlugin.VERIFICATION_GROUP
 						shouldRunAfter(tasks.test)
 					}
@@ -49,41 +57,16 @@ testing {
 	}
 }
 
-// copy deps to integration test
+tasks.register<Exec>("dockerIT") {
+	group = LifecycleBasePlugin.VERIFICATION_GROUP
+	description = "Runs image-transformer integration tests inside Docker."
 
-configurations{
-	named("integrationTestImplementation") {
-		extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
-	}
+	workingDir(rootProject.projectDir)
 
-	named("integrationTestRuntimeOnly") {
-		extendsFrom(configurations.testRuntimeOnly.get())
-	}
-
-	named("integrationTestAnnotationProcessor") {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
-	named("integrationTestCompileOnly") {
-		extendsFrom(configurations.compileOnly.get())
-	}
-}
-
-// copy deps to test fixture
-
-configurations {
-	testFixturesImplementation {
-		extendsFrom(implementation.get())
-	}
-
-	testFixturesRuntimeOnly {
-		extendsFrom(testRuntimeOnly.get())
-	}
-
-	testFixturesCompileOnly {
-		extendsFrom(compileOnly.get())
-	}
-
-	testFixturesAnnotationProcessor {
-		extendsFrom(annotationProcessor.get())
-	}
+	commandLine(
+		"docker", "compose",
+		"-f", "modules/media/image-transformer/docker/compose-test.yaml",
+		"run", "--rm",
+		"image-transformer"
+	)
 }

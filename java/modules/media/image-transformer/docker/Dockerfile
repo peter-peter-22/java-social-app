@@ -27,6 +27,7 @@ ENV MALLOC_CONF="dirty_decay_ms:1000,muzzy_decay_ms:1000,background_thread:true"
 
 ENV GRADLE_USER_HOME=/gradle-cache
 
-RUN mkdir -p "${GRADLE_USER_HOME}" && chmod 0777 "${GRADLE_USER_HOME}"
+RUN mkdir -p "${GRADLE_USER_HOME}" /gradle-project-cache && \
+    chmod 0777 "${GRADLE_USER_HOME}" /gradle-project-cache
 
 CMD ["./gradlew", "--no-daemon", ":image-transformer:integrationTest"]

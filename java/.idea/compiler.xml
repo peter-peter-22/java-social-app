@@ -16,7 +16,6 @@
         <module name="java.posts.test" />
         <module name="java.spring-utils.main" />
         <module name="java.uploads.test" />
-        <module name="java.image-transformer.integrationTest" />
         <module name="java.media-api.test" />
         <module name="java.object-storage.main" />
         <module name="java.users-api.main" />
@@ -26,7 +25,6 @@
         <module name="java.users-persistence.test" />
         <module name="java.uploads.main" />
         <module name="java.uploads.testFixtures" />
-        <module name="java.image-transformer.testFixtures" />
         <module name="java.cockroach-db.test" />
         <module name="java.media-api.testFixtures" />
         <module name="java.users-persistence.main" />

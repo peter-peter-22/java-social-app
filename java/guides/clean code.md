@@ -1,0 +1,1 @@
+- [java OOP principles](https://java-design-patterns.com/principles/)

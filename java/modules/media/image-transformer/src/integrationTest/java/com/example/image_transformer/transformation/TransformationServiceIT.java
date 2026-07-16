@@ -77,8 +77,6 @@ class TransformationServiceIT {
     ) throws IOException {
         var outputFile = LocalStreamStorage.objectLocationToLocalPath(task.outputObject()).toFile();
         var image = ImageIO.read(outputFile);
-        System.out.println("file: " + outputFile.getAbsolutePath());
-        System.out.println("read: "+image.getWidth() + " " + image.getHeight() + "\nexpected: " + expectedWidth + " " + expectedHeight + "\n");
         assertNotNull(image);
         assertEquals(expectedWidth, image.getWidth());
         assertEquals(expectedHeight, image.getHeight());

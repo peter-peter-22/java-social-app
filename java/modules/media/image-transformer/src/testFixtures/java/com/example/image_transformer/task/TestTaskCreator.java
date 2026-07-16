@@ -21,8 +21,4 @@ public class TestTaskCreator {
 
         return builder.build();
     }
-
-    public static ImageTransformationTask createTask() {
-        return createTask(null);
-    }
 }

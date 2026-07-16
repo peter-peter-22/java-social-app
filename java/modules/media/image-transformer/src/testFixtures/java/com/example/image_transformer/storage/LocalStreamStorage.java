@@ -1,7 +1,7 @@
 package com.example.image_transformer.storage;
 
 import com.example.media_api.uploads.ObjectLocation;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -14,14 +14,14 @@ import java.nio.file.Path;
 @Component
 @Profile("local")
 public class LocalStreamStorage implements FileStreamStorage {
-    public static Path objectLocationToLocalPath(ObjectLocation location) {
+    public static @NonNull Path objectLocationToLocalPath(@NonNull ObjectLocation location) {
         return TestResourcesDirectory.getResourcesPath().resolve(location.bucket()).resolve(location.path());
     }
 
     @Override
     public void write(
-            @NotNull InputStream inputStream,
-            @NotNull ObjectLocation outputLocation
+            @NonNull InputStream inputStream,
+            @NonNull ObjectLocation outputLocation
     ) {
         var outputPath = objectLocationToLocalPath(outputLocation);
 
@@ -42,7 +42,7 @@ public class LocalStreamStorage implements FileStreamStorage {
     }
 
     @Override
-    public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
+    public @NonNull InputStream read(@NonNull ObjectLocation inputLocation) {
         var inputPath = objectLocationToLocalPath(inputLocation);
         try {
             return Files.newInputStream(inputPath);

@@ -14,6 +14,5 @@ import org.springframework.test.context.TestPropertySource;
                 classes = Application.class
         )
 )
-@TestPropertySource(locations = "classpath:image-transformation-test.properties")
 public class TestApplication {
 }
