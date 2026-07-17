@@ -12,21 +12,21 @@
         <module name="java.uploads-api.testFixtures" />
         <module name="java.object-storage.test" />
         <module name="java.users-api.test" />
+        <module name="java.uploads-service.testFixtures" />
         <module name="java.uploads-api.test" />
+        <module name="java.uploads-service.test" />
         <module name="java.spring-utils.test" />
         <module name="java.image-transformer.test" />
         <module name="java.posts.test" />
         <module name="java.spring-utils.main" />
-        <module name="java.uploads.test" />
         <module name="java.uploads-persistence.testFixtures" />
         <module name="java.object-storage.main" />
+        <module name="java.uploads-service.main" />
         <module name="java.users-api.main" />
         <module name="java.posts.main" />
         <module name="java.users-persistence.testFixtures" />
         <module name="java.users-persistence.test" />
         <module name="java.uploads-api.main" />
-        <module name="java.uploads.main" />
-        <module name="java.uploads.testFixtures" />
         <module name="java.uploads-persistence.test" />
         <module name="java.cockroach-db.test" />
         <module name="java.uploads-persistence.main" />
@@ -126,7 +126,6 @@
       <module name="java.spring-utils.main" options="-parameters -parameters" />
       <module name="java.spring-utils.test" options="-parameters -parameters" />
       <module name="java.spring-utils.testFixtures" options="-parameters -parameters" />
-      <module name="java.uploads" options="-parameters -parameters" />
       <module name="java.uploads-api" options="-parameters -parameters" />
       <module name="java.uploads-api.main" options="-parameters -parameters" />
       <module name="java.uploads-api.test" options="-parameters -parameters" />
@@ -135,6 +134,10 @@
       <module name="java.uploads-persistence.main" options="-parameters -parameters" />
       <module name="java.uploads-persistence.test" options="-parameters -parameters" />
       <module name="java.uploads-persistence.testFixtures" options="-parameters -parameters" />
+      <module name="java.uploads-service" options="-parameters -parameters" />
+      <module name="java.uploads-service.main" options="-parameters -parameters" />
+      <module name="java.uploads-service.test" options="-parameters -parameters" />
+      <module name="java.uploads-service.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads.main" options="-parameters -parameters" />
       <module name="java.uploads.test" options="-parameters -parameters" />
       <module name="java.uploads.testFixtures" options="-parameters -parameters" />

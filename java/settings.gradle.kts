@@ -13,7 +13,7 @@ include(
     ":users-persistence",
     // media
     ":object-storage",
-    ":uploads",
+    ":uploads-service",
     ":uploads-api",
     ":image-transformer",
     ":uploads-persistence",
@@ -24,7 +24,7 @@ include(
 project(":users-api").projectDir = file("modules/users/users-api")
 project(":users-persistence").projectDir = file("modules/users/users-persistence")
 project(":object-storage").projectDir = file("modules/media/object-storage")
-project(":uploads").projectDir = file("modules/media/uploads")
+project(":uploads-service").projectDir = file("modules/media/uploads-service")
 project(":uploads-api").projectDir = file("modules/media/uploads-api")
 project(":uploads-persistence").projectDir = file("modules/media/uploads-persistence")
 project(":image-transformer").projectDir = file("modules/media/image-transformer")

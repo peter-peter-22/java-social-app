@@ -4,7 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="rename media_api package to uploads_api">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.testFixtures.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/lazy_transformation_session_service/LazyTransformationSessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/lazy_transformation_session_service/LazyTransformationSessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/lazy_transformation_session_service/LazyTransformationSessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/lazy_transformation_session_service/LazyTransformationSessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/BlockingImageTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingImageTransformerRestApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/BlockingTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingTransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/BlockingVideoTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingVideoTransformerRestApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/LazyTransformationEventApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/LazyTransformationEventApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/LazyTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/LazyTransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/TransformationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/TransformationProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/transformations/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/transformations/TransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/webhook/WebhookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/main/java/com/example/uploads_service/webhook/WebhookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/transformations/BlockingImageTransformerRestApiTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/transformations/BlockingImageTransformerRestApiTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/transformations/LazyTransformationSessionServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/transformations/LazyTransformationSessionServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/transformations/TransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/transformations/TransformationServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/upload_service/UploadServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/upload_service/UploadServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/webhook/WebhookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/test/java/com/example/uploads_service/webhook/WebhookControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/testFixtures/resources/uploads-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-service/src/testFixtures/resources/uploads-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,36 +74,36 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads" type="2d1252cf:ModuleNode" />
+                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads" type="2d1252cf:ModuleNode" />
+                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads" type="2d1252cf:ModuleNode" />
+                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-persistence" type="2d1252cf:ModuleNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
@@ -115,61 +145,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="2.1459836885802452E-11" />
-      <entry key="MS500" value="0.010236929432742091" />
-      <entry key="S2" value="1.1527152388585893" />
-      <entry key="S5" value="4.315165274073951" />
-      <entry key="S10" value="8.611094223246587" />
-      <entry key="S30" value="18.548386934427967" />
-      <entry key="S60" value="24.173227407850945" />
-      <entry key="M2" value="30.475235430817722" />
-      <entry key="M5" value="47.00183318445714" />
-      <entry key="M10" value="64.08002594280886" />
-      <entry key="M15" value="74.36744452332435" />
-      <entry key="M30" value="91.53117928669289" />
-      <entry key="H1" value="122.8089834176948" />
-      <entry key="H2" value="216.15686418778145" />
-      <entry key="H4" value="530.1244823681582" />
-      <entry key="D1" value="6948.768355770267" />
-      <entry key="W1" value="19811.23607745941" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000008933843" />
+      <entry key="S2" value="1.0054671322874842" />
+      <entry key="S5" value="1.1244877758950724" />
+      <entry key="S10" value="1.3623094209853586" />
+      <entry key="S30" value="2.9784015641395785" />
+      <entry key="S60" value="6.2961400189910055" />
+      <entry key="M2" value="11.923426268843157" />
+      <entry key="M5" value="29.245739949715734" />
+      <entry key="M10" value="52.11623176513936" />
+      <entry key="M15" value="67.25517475821243" />
+      <entry key="M30" value="92.52393220989805" />
+      <entry key="H1" value="128.69664602455543" />
+      <entry key="H2" value="223.2752948724525" />
+      <entry key="H4" value="534.9825774852764" />
+      <entry key="D1" value="6939.146433693961" />
+      <entry key="W1" value="19817.378797029753" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000000015221" />
-      <entry key="S5" value="1.000018749348611" />
-      <entry key="S10" value="1.0043300518023488" />
-      <entry key="S30" value="1.1629912776186078" />
-      <entry key="S60" value="1.4037217825807902" />
-      <entry key="M2" value="1.6354108556868239" />
-      <entry key="M5" value="1.8593451513736186" />
-      <entry key="M10" value="2.1882600646201595" />
-      <entry key="M15" value="2.552125430666713" />
-      <entry key="M30" value="3.3677698647661005" />
-      <entry key="H1" value="4.838767682856499" />
-      <entry key="H2" value="11.9929540370886" />
-      <entry key="H4" value="41.273685378703824" />
-      <entry key="D1" value="377.8816169212607" />
-      <entry key="W1" value="754.961440926851" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.1869764630297703E-288" />
+      <entry key="S2" value="1.0437837391768767E-72" />
+      <entry key="S5" value="1.6123241289459853E-29" />
+      <entry key="S10" value="4.0327245891044336E-15" />
+      <entry key="S30" value="1.8484902293278604E-5" />
+      <entry key="S60" value="0.005596305186887005" />
+      <entry key="M2" value="0.10326117241673555" />
+      <entry key="M5" value="0.6158629611195694" />
+      <entry key="M10" value="1.2593921145347782" />
+      <entry key="M15" value="1.765807559828855" />
+      <entry key="M30" value="2.8013223410439085" />
+      <entry key="H1" value="4.413113636953455" />
+      <entry key="H2" value="11.453318522795414" />
+      <entry key="H4" value="40.33442165620922" />
+      <entry key="D1" value="376.43459509795605" />
+      <entry key="W1" value="754.5477653443746" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.481924927379092E-8" />
-      <entry key="MS500" value="0.03733854418103998" />
-      <entry key="S2" value="1.556412954409344" />
-      <entry key="S5" value="5.00674766140106" />
-      <entry key="S10" value="9.438981356770755" />
-      <entry key="S30" value="19.634025794301866" />
-      <entry key="S60" value="25.528121169311568" />
-      <entry key="M2" value="32.07260765228415" />
-      <entry key="M5" value="48.82910579099838" />
-      <entry key="M10" value="66.24337030628485" />
-      <entry key="M15" value="76.89896978609565" />
-      <entry key="M30" value="94.88524257853665" />
-      <entry key="H1" value="127.63889308423066" />
-      <entry key="H2" value="228.14200016327896" />
-      <entry key="H4" value="571.3876182966465" />
-      <entry key="D1" value="7326.634921730873" />
-      <entry key="W1" value="20566.193079113822" />
+      <entry key="MS100" value="0.9201876506248751" />
+      <entry key="MS500" value="0.9835020749012471" />
+      <entry key="S2" value="1.0012885376750527" />
+      <entry key="S5" value="1.1225669131184484" />
+      <entry key="S10" value="1.361041377881048" />
+      <entry key="S30" value="2.9750552905845273" />
+      <entry key="S60" value="6.296512234058942" />
+      <entry key="M2" value="12.01979722262204" />
+      <entry key="M5" value="29.84842397485181" />
+      <entry key="M10" value="53.35984591541411" />
+      <entry key="M15" value="69.00573151514385" />
+      <entry key="M30" value="95.31333444613634" />
+      <entry key="H1" value="133.1014162111287" />
+      <entry key="H2" value="234.72101347381712" />
+      <entry key="H4" value="575.3066226123387" />
+      <entry key="D1" value="7315.566024227574" />
+      <entry key="W1" value="20571.922123927543" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -238,6 +268,7 @@
     "Gradle.java [:media-api:test].executor": "Run",
     "Gradle.java [:object-storage:test].executor": "Run",
     "Gradle.java [:uploads-persistence:test].executor": "Run",
+    "Gradle.java [:uploads-service:test].executor": "Run",
     "Gradle.java [:uploads:check].executor": "Run",
     "Gradle.java [:uploads:test].executor": "Run",
     "Gradle.java [:users-api:test].executor": "Run",
@@ -309,7 +340,7 @@
       <recent name="com.example.image_transformer" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:uploads:test]">
+  <component name="RunManager" selected="Gradle.java [:uploads-service:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -341,7 +372,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:image-transformer:dockerIT]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:uploads-persistence:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -352,7 +383,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":image-transformer:dockerIT" />
+            <option value=":uploads-persistence:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -366,7 +397,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:uploads-persistence:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:uploads-service:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -377,7 +408,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-persistence:test" />
+            <option value=":uploads-service:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -523,11 +554,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java [:uploads:test]" />
+        <item itemvalue="Gradle.java [:uploads-service:test]" />
         <item itemvalue="Gradle.java [:uploads-persistence:test]" />
+        <item itemvalue="Gradle.java [:uploads:test]" />
         <item itemvalue="Gradle.java [:uploads:check]" />
         <item itemvalue="Gradle.java [:image-transformer:check]" />
-        <item itemvalue="Gradle.java [:image-transformer:dockerIT]" />
       </list>
     </recent_temporary>
   </component>
@@ -952,7 +983,8 @@
     <MESSAGE value="minor fixes" />
     <MESSAGE value="separate upload persistence and upload service into 2 modules" />
     <MESSAGE value="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
-    <option name="LAST_COMMIT_MESSAGE" value="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
+    <MESSAGE value="rename media_api package to uploads_api" />
+    <option name="LAST_COMMIT_MESSAGE" value="rename media_api package to uploads_api" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
