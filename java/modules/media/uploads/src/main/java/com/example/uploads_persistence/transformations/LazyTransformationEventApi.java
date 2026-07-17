@@ -1,7 +1,7 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.dto.ImageTransformationTaskDTO;
-import com.example.media_api.transformations.dto.VideoTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 

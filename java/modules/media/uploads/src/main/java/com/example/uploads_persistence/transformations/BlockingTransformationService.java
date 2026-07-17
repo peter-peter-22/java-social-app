@@ -1,9 +1,9 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.dto.ImageTransformationTaskDTO;
-import com.example.media_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.media_api.transformations.dto.VideoTransformationTaskDTO;
-import com.example.media_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;

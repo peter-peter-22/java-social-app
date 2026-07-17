@@ -1,12 +1,12 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 
-import static com.example.media_api.utils.TestTransformationCreator.*;
+import static com.example.uploads_api.utils.TestTransformationCreator.*;
 
-import static com.example.media_api.utils.TestUploadCreator.*;
+import static com.example.uploads_api.utils.TestUploadCreator.*;
 
-import com.example.media_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;

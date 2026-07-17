@@ -1,10 +1,10 @@
 package com.example.uploads_persistence.upload_repository;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.media_api.uploads.FileType;
-import com.example.media_api.uploads.ObjectLocation;
-import com.example.media_api.uploads.UploadStatus;
-import com.example.media_api.utils.TestUploadCreator;
+import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.UploadStatus;
+import com.example.uploads_api.utils.TestUploadCreator;
 import com.example.uploads_persistence.TestApplication;
 import com.example.uploads_persistence.utils.TestUploadPersistence;
 import com.example.users_api.repository.UserId;
@@ -12,7 +12,6 @@ import com.example.users_persistence.utils.TestUserPersistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;

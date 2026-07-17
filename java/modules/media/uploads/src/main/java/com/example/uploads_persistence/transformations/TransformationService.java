@@ -1,9 +1,9 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.sources.ImageTransformationSource;
-import com.example.media_api.transformations.sources.TransformationSource;
-import com.example.media_api.transformations.sources.VideoTransformationSource;
-import com.example.media_api.uploads.Upload;
+import com.example.uploads_api.transformations.sources.ImageTransformationSource;
+import com.example.uploads_api.transformations.sources.TransformationSource;
+import com.example.uploads_api.transformations.sources.VideoTransformationSource;
+import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_persistence.lazy_transformation_session_service.LazyTransformationSessionService;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;

@@ -1,6 +1,6 @@
 package com.example.uploads_persistence.lazy_transformation_session_service;
 
-import com.example.media_api.uploads.UploadId;
+import com.example.uploads_api.uploads.UploadId;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.image_transformer.storage;
 
-import com.example.media_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.ObjectLocation;
 import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.example.image_transformer.task;
 
-import com.example.media_api.transformations.dto.ImageTransformationTaskDTO;
-import com.example.media_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;

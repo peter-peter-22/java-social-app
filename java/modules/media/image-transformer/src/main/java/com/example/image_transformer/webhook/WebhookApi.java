@@ -1,6 +1,6 @@
 package com.example.image_transformer.webhook;
 
-import com.example.media_api.transformations.webhook.WebhookCall;
+import com.example.uploads_api.transformations.webhook.WebhookCall;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.resilience.annotation.Retryable;

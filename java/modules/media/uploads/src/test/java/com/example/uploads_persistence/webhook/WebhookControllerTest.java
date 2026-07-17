@@ -1,8 +1,8 @@
 package com.example.uploads_persistence.webhook;
 
 import com.example.uploads_persistence.lazy_transformation_session_service.LazyTransformationSessionService;
-import com.example.media_api.transformations.webhook.WebhookCall;
-import com.example.media_api.uploads.UploadId;
+import com.example.uploads_api.transformations.webhook.WebhookCall;
+import com.example.uploads_api.uploads.UploadId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

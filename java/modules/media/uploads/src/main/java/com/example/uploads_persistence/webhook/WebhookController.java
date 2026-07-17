@@ -1,7 +1,7 @@
 package com.example.uploads_persistence.webhook;
 
 import com.example.uploads_persistence.lazy_transformation_session_service.LazyTransformationSessionService;
-import com.example.media_api.transformations.webhook.WebhookCall;
+import com.example.uploads_api.transformations.webhook.WebhookCall;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

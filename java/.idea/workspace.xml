@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="separate upload persistence and upload service into 2 modules">
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/test-fixtures-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/tests/copying dependencies.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/tests/copying dependencies.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads-persistence/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-persistence/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/lazy_transformation_session_repository/LazyTransformationSessionEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/pending_lazy_transformation_repository/PendingLazyTransformationEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/upload_repository/InsertUpload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/upload_repository/UploadEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/upload_repository/UploadMissingUserException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/java/com/example/uploads_persistence/upload_repository/UploadRepositoryIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/test/resources/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" beforeDir="false" />
-    </list>
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,61 +115,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000030105" />
-      <entry key="S10" value="1.0000017525223979" />
-      <entry key="S30" value="1.0184107261239412" />
-      <entry key="S60" value="1.493818161234431" />
-      <entry key="M2" value="5.533039069562907" />
-      <entry key="M5" value="21.194705315782233" />
-      <entry key="M10" value="37.136965404863204" />
-      <entry key="M15" value="46.659517351866356" />
-      <entry key="M30" value="62.670484896315045" />
-      <entry key="H1" value="93.34069327004411" />
-      <entry key="H2" value="186.61946411317643" />
-      <entry key="H4" value="501.0289818253595" />
-      <entry key="D1" value="6922.0812514836725" />
-      <entry key="W1" value="19781.99568339659" />
+      <entry key="MS100" value="2.1459836885802452E-11" />
+      <entry key="MS500" value="0.010236929432742091" />
+      <entry key="S2" value="1.1527152388585893" />
+      <entry key="S5" value="4.315165274073951" />
+      <entry key="S10" value="8.611094223246587" />
+      <entry key="S30" value="18.548386934427967" />
+      <entry key="S60" value="24.173227407850945" />
+      <entry key="M2" value="30.475235430817722" />
+      <entry key="M5" value="47.00183318445714" />
+      <entry key="M10" value="64.08002594280886" />
+      <entry key="M15" value="74.36744452332435" />
+      <entry key="M30" value="91.53117928669289" />
+      <entry key="H1" value="122.8089834176948" />
+      <entry key="H2" value="216.15686418778145" />
+      <entry key="H4" value="530.1244823681582" />
+      <entry key="D1" value="6948.768355770267" />
+      <entry key="W1" value="19811.23607745941" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0015112939390062397" />
-      <entry key="MS500" value="0.2728159692637337" />
-      <entry key="S2" value="0.7227156297134549" />
-      <entry key="S5" value="0.8781869493578558" />
-      <entry key="S10" value="0.9371162944682244" />
-      <entry key="S30" value="0.9785833670607635" />
-      <entry key="S60" value="0.98923372755422" />
-      <entry key="M2" value="0.9946333035142497" />
-      <entry key="M5" value="1.0280422832400165" />
-      <entry key="M10" value="1.2996702407215335" />
-      <entry key="M15" value="1.647686550895328" />
-      <entry key="M30" value="2.439570538612759" />
-      <entry key="H1" value="3.8965367402298345" />
-      <entry key="H2" value="11.075360847195913" />
-      <entry key="H4" value="40.4243559529013" />
-      <entry key="D1" value="377.1162476046923" />
-      <entry key="W1" value="754.0284780088074" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000000000015221" />
+      <entry key="S5" value="1.000018749348611" />
+      <entry key="S10" value="1.0043300518023488" />
+      <entry key="S30" value="1.1629912776186078" />
+      <entry key="S60" value="1.4037217825807902" />
+      <entry key="M2" value="1.6354108556868239" />
+      <entry key="M5" value="1.8593451513736186" />
+      <entry key="M10" value="2.1882600646201595" />
+      <entry key="M15" value="2.552125430666713" />
+      <entry key="M30" value="3.3677698647661005" />
+      <entry key="H1" value="4.838767682856499" />
+      <entry key="H2" value="11.9929540370886" />
+      <entry key="H4" value="41.273685378703824" />
+      <entry key="D1" value="377.8816169212607" />
+      <entry key="W1" value="754.961440926851" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.001576313997157292" />
-      <entry key="MS500" value="0.33605436868701183" />
-      <entry key="S2" value="1.221110584900674" />
-      <entry key="S5" value="1.634887242967046" />
-      <entry key="S10" value="1.8069729005766235" />
-      <entry key="S30" value="1.9512494966909835" />
-      <entry key="S60" value="2.454996868863007" />
-      <entry key="M2" value="6.498599484561183" />
-      <entry key="M5" value="22.19394464971322" />
-      <entry key="M10" value="38.4137973337934" />
-      <entry key="M15" value="48.288200071728085" />
-      <entry key="M30" value="65.09732776899381" />
-      <entry key="H1" value="97.22892671416923" />
-      <entry key="H2" value="197.68729001475523" />
-      <entry key="H4" value="541.4429191528947" />
-      <entry key="D1" value="7299.182467060817" />
-      <entry key="W1" value="20536.01972577962" />
+      <entry key="MS100" value="1.481924927379092E-8" />
+      <entry key="MS500" value="0.03733854418103998" />
+      <entry key="S2" value="1.556412954409344" />
+      <entry key="S5" value="5.00674766140106" />
+      <entry key="S10" value="9.438981356770755" />
+      <entry key="S30" value="19.634025794301866" />
+      <entry key="S60" value="25.528121169311568" />
+      <entry key="M2" value="32.07260765228415" />
+      <entry key="M5" value="48.82910579099838" />
+      <entry key="M10" value="66.24337030628485" />
+      <entry key="M15" value="76.89896978609565" />
+      <entry key="M30" value="94.88524257853665" />
+      <entry key="H1" value="127.63889308423066" />
+      <entry key="H2" value="228.14200016327896" />
+      <entry key="H4" value="571.3876182966465" />
+      <entry key="D1" value="7326.634921730873" />
+      <entry key="W1" value="20566.193079113822" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -967,7 +951,8 @@
     <MESSAGE value="rename the media-api module to uploads-api" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="separate upload persistence and upload service into 2 modules" />
-    <option name="LAST_COMMIT_MESSAGE" value="separate upload persistence and upload service into 2 modules" />
+    <MESSAGE value="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

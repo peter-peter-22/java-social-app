@@ -1,6 +1,6 @@
 package com.example.image_transformer.storage;
 
-import com.example.media_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

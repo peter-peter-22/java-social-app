@@ -1,7 +1,7 @@
 package com.example.uploads_persistence.upload_repository;
 
-import com.example.media_api.uploads.FileType;
-import com.example.media_api.uploads.UploadStatus;
+import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_api.uploads.UploadStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 

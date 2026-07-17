@@ -1,7 +1,7 @@
 package com.example.uploads_persistence.utils;
 
-import com.example.media_api.uploads.FileType;
-import com.example.media_api.uploads.UploadId;
+import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_persistence.upload_repository.InsertUpload;
 import com.example.uploads_persistence.upload_repository.UploadRepository;
 import com.example.users_persistence.utils.TestUserPersistence;

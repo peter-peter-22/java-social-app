@@ -2,7 +2,7 @@ package com.example.image_transformer.webhook;
 
 
 import com.example.image_transformer.task.ImageTransformationTask;
-import com.example.media_api.transformations.webhook.WebhookCall;
+import com.example.uploads_api.transformations.webhook.WebhookCall;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;

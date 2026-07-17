@@ -1,6 +1,6 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

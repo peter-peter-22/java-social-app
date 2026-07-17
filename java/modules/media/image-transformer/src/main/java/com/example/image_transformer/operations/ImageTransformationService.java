@@ -1,7 +1,7 @@
 package com.example.image_transformer.operations;
 
 import app.photofox.vipsffm.Vips;
-import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;

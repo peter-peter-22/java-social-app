@@ -2,8 +2,7 @@ package com.example.image_transformer.operations;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.media_api.uploads.FileType;
-import com.example.media_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.uploads.FileType;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 

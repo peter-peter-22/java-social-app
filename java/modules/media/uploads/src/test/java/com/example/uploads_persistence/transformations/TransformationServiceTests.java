@@ -1,11 +1,11 @@
 package com.example.uploads_persistence.transformations;
 
-import com.example.media_api.transformations.filters.TransformationFilter;
-import com.example.media_api.transformations.filters.TransformationFilters;
+import com.example.uploads_api.transformations.filters.TransformationFilter;
+import com.example.uploads_api.transformations.filters.TransformationFilters;
 
-import com.example.media_api.transformations.sources.ImageTransformationSource;
-import com.example.media_api.transformations.sources.VideoTransformationSource;
-import com.example.media_api.uploads.Upload;
+import com.example.uploads_api.transformations.sources.ImageTransformationSource;
+import com.example.uploads_api.transformations.sources.VideoTransformationSource;
+import com.example.uploads_api.uploads.Upload;
 
 import com.example.uploads_persistence.lazy_transformation_session_service.LazyTransformationSessionService;
 import org.jetbrains.annotations.NotNull;
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.example.media_api.utils.TestTransformationCreator.*;
+import static com.example.uploads_api.utils.TestTransformationCreator.*;
 
-import static com.example.media_api.utils.TestUploadCreator.*;
+import static com.example.uploads_api.utils.TestUploadCreator.*;
 
 import java.util.List;
 
