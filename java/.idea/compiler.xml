@@ -8,35 +8,51 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
         <module name="java.cockroach-db.main" />
-        <module name="java.image-transformer.main" />
-        <module name="java.uploads-api.testFixtures" />
-        <module name="java.object-storage.test" />
         <module name="java.users-api.test" />
-        <module name="java.uploads-service.testFixtures" />
-        <module name="java.uploads-api.test" />
-        <module name="java.uploads-service.test" />
+        <module name="com.example.java.uploads-api.main" />
+        <module name="com.example.java.uploads-api.testFixtures" />
+        <module name="com.example.java.uploads-service.testFixtures" />
         <module name="java.spring-utils.test" />
-        <module name="java.image-transformer.test" />
+        <module name="com.example.java.uploads-service.test" />
         <module name="java.posts.test" />
         <module name="java.spring-utils.main" />
-        <module name="java.uploads-persistence.testFixtures" />
-        <module name="java.object-storage.main" />
-        <module name="java.uploads-service.main" />
+        <module name="com.example.java.uploads-service.main" />
         <module name="java.users-api.main" />
+        <module name="com.example.java.object-storage.test" />
         <module name="java.posts.main" />
         <module name="java.users-persistence.testFixtures" />
         <module name="java.users-persistence.test" />
-        <module name="java.uploads-api.main" />
-        <module name="java.uploads-persistence.test" />
+        <module name="com.example.java.uploads-persistence.test" />
         <module name="java.cockroach-db.test" />
-        <module name="java.uploads-persistence.main" />
+        <module name="com.example.java.uploads-api.test" />
         <module name="java.users-persistence.main" />
+        <module name="com.example.java.object-storage.main" />
+        <module name="com.example.java.image-transformer.test" />
+        <module name="com.example.java.uploads-persistence.testFixtures" />
+        <module name="com.example.java.image-transformer.main" />
+        <module name="com.example.java.uploads-persistence.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="24" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="com.example.java.image-transformer.integrationTest" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.main" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.test" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.main" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.test" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-api.main" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-api.test" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-api.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-persistence.main" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-persistence.test" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-persistence.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-service.main" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-service.test" options="-parameters -parameters" />
+      <module name="com.example.java.uploads-service.testFixtures" options="-parameters -parameters" />
       <module name="java.cockroach-db" options="-parameters -parameters" />
       <module name="java.cockroach-db.main" options="-parameters -parameters" />
       <module name="java.cockroach-db.test" options="-parameters -parameters" />

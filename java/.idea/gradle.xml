@@ -21,12 +21,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/modules/cockroach-db" />
-            <option value="$PROJECT_DIR$/modules/media/image-transformer" />
-            <option value="$PROJECT_DIR$/modules/media/object-storage" />
-            <option value="$PROJECT_DIR$/modules/media/uploads-api" />
-            <option value="$PROJECT_DIR$/modules/media/uploads-persistence" />
-            <option value="$PROJECT_DIR$/modules/media/uploads-service" />
             <option value="$PROJECT_DIR$/modules/posts" />
+            <option value="$PROJECT_DIR$/modules/uploads/image-transformer" />
+            <option value="$PROJECT_DIR$/modules/uploads/object-storage" />
+            <option value="$PROJECT_DIR$/modules/uploads/uploads-api" />
+            <option value="$PROJECT_DIR$/modules/uploads/uploads-persistence" />
+            <option value="$PROJECT_DIR$/modules/uploads/uploads-service" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />
             <option value="$PROJECT_DIR$/modules/utils/spring-utils" />
