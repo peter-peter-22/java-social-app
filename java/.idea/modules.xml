@@ -15,6 +15,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-api/java.uploads-api.testFixtures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads-persistence/java.uploads-persistence.testFixtures.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/uploads/java.uploads.testFixtures.iml" />

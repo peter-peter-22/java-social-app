@@ -18,6 +18,7 @@
         <module name="java.posts.test" />
         <module name="java.spring-utils.main" />
         <module name="java.uploads.test" />
+        <module name="java.uploads-persistence.testFixtures" />
         <module name="java.object-storage.main" />
         <module name="java.users-api.main" />
         <module name="java.posts.main" />
@@ -26,7 +27,9 @@
         <module name="java.uploads-api.main" />
         <module name="java.uploads.main" />
         <module name="java.uploads.testFixtures" />
+        <module name="java.uploads-persistence.test" />
         <module name="java.cockroach-db.test" />
+        <module name="java.uploads-persistence.main" />
         <module name="java.users-persistence.main" />
       </profile>
     </annotationProcessing>
@@ -128,6 +131,10 @@
       <module name="java.uploads-api.main" options="-parameters -parameters" />
       <module name="java.uploads-api.test" options="-parameters -parameters" />
       <module name="java.uploads-api.testFixtures" options="-parameters -parameters" />
+      <module name="java.uploads-persistence" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.main" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.test" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads.main" options="-parameters -parameters" />
       <module name="java.uploads.test" options="-parameters -parameters" />
       <module name="java.uploads.testFixtures" options="-parameters -parameters" />

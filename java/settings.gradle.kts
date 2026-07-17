@@ -16,6 +16,7 @@ include(
     ":uploads",
     ":uploads-api",
     ":image-transformer",
+    ":uploads-persistence",
     // utils
     ":spring-utils"
 )
@@ -25,6 +26,7 @@ project(":users-persistence").projectDir = file("modules/users/users-persistence
 project(":object-storage").projectDir = file("modules/media/object-storage")
 project(":uploads").projectDir = file("modules/media/uploads")
 project(":uploads-api").projectDir = file("modules/media/uploads-api")
+project(":uploads-persistence").projectDir = file("modules/media/uploads-persistence")
 project(":image-transformer").projectDir = file("modules/media/image-transformer")
 project(":posts").projectDir = file("modules/posts")
 project(":cockroach-db").projectDir = file("modules/cockroach-db")

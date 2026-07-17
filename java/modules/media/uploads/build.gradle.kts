@@ -16,6 +16,9 @@ dependencies {
 	implementation(project(":object-storage"))
 	testImplementation(testFixtures(project(":object-storage")))
 
+	implementation(project(":uploads-persistence"))
+	testImplementation(testFixtures(project(":uploads-persistence")))
+
 	implementation(project(":users-api"))
 
 	testImplementation(testFixtures(project(":users-persistence")))
