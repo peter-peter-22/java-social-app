@@ -1,4 +1,4 @@
-package com.example.uploads_persistence.lazy_transformation_session_repository;
+package com.example.uploads_persistence.lazy_transformation_repository;
 
 import org.springframework.data.relational.core.mapping.Table;
 

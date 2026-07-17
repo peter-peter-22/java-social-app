@@ -11,3 +11,11 @@ databaseChangeLog:
   - includeAll:
       path: changelog/uploads
       relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/lazy_transformation_sessions
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/pending_lazy_transformations
+      relativeToChangelogFile: true

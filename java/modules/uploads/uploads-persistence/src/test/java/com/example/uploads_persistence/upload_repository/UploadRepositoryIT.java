@@ -19,7 +19,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-@SpringBootTest(classes = TestApplication.class)
+@SpringBootTest
 public class UploadRepositoryIT extends CockroachIntegrationTest {
     @Autowired
     private TestUploadPersistence testUploadPersistence;
