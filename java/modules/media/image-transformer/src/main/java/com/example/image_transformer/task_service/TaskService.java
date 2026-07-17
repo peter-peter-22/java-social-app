@@ -20,7 +20,7 @@ public class TaskService {
     private final FileStreamStorage storage;
 
     public void processTasks(@NotNull Collection<ImageTransformationTask> tasks) {
-        // TODO: process in parallel
+        // OPTIMIZATION: process in parallel, avoid redundant reads from the object storage
         tasks.forEach(this::processTask);
     }
 

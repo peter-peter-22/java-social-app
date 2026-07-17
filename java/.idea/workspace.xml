@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/guides/tests/copying dependencies.md" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="minor fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/test containers.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/tests/test containers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/test suite.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/tests/test suite.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/java/com/example/image_transformer/transformation/TransformationServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/controller/TransformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/controller/TransformationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/transformation/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads-api/src/main/java/com/example/media_api/transformations/sources/TransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-api/src/main/java/com/example/media_api/transformations/sources/TransformationSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads-api/src/test/java/com/example/media_api/transformations/sources/UploadTransformationApplicableTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-api/src/test/java/com/example/media_api/transformations/sources/UploadTransformationApplicableTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/uploads-api/src/testFixtures/java/com/example/media_api/utils/TestUploadCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads-api/src/testFixtures/java/com/example/media_api/utils/TestUploadCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads/lazy_transformation_session_repository/LazyTransformationSessionEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/uploads/src/main/java/com/example/uploads/lazy_transformation_session_repository/LazyTransformationSessionEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,61 +106,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0002338709028864" />
-      <entry key="S2" value="1.1236642158729029" />
-      <entry key="S5" value="1.4334086943895914" />
-      <entry key="S10" value="1.6583378269472226" />
-      <entry key="S30" value="1.8699272528890283" />
-      <entry key="S60" value="1.9326989079488772" />
-      <entry key="M2" value="1.96576338273452" />
-      <entry key="M5" value="1.9920292695229365" />
-      <entry key="M10" value="2.9872194658879954" />
-      <entry key="M15" value="7.794342437010022" />
-      <entry key="M30" value="39.88961284541318" />
-      <entry key="H1" value="113.19417610395418" />
-      <entry key="H2" value="248.4908104333995" />
-      <entry key="H4" value="639.1614385953891" />
-      <entry key="D1" value="7351.179159528628" />
-      <entry key="W1" value="19890.232390156463" />
+      <entry key="MS100" value="1.4273657196333294" />
+      <entry key="MS500" value="3.468776065851704" />
+      <entry key="S2" value="4.539279374256029" />
+      <entry key="S5" value="4.808394300808013" />
+      <entry key="S10" value="4.902931680612104" />
+      <entry key="S30" value="4.967363759553743" />
+      <entry key="S60" value="4.991379084804762" />
+      <entry key="M2" value="5.319066486636494" />
+      <entry key="M5" value="8.306668464724826" />
+      <entry key="M10" value="12.653808767380891" />
+      <entry key="M15" value="17.615846930246885" />
+      <entry key="M30" value="45.35881639597516" />
+      <entry key="H1" value="114.7361999548241" />
+      <entry key="H2" value="248.6719900421113" />
+      <entry key="H4" value="634.211623435033" />
+      <entry key="D1" value="7324.346178299341" />
+      <entry key="W1" value="19891.48753461836" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="1.7982436509065367E-246" />
-      <entry key="S30" value="1.5811904293304048E-82" />
-      <entry key="S60" value="1.7117785730815366E-41" />
-      <entry key="M2" value="5.857417638272111E-21" />
-      <entry key="M5" value="1.4294853033433E-8" />
-      <entry key="M10" value="2.7356752877104215E-4" />
-      <entry key="M15" value="0.00949831139387344" />
-      <entry key="M30" value="0.44146007487352684" />
-      <entry key="H1" value="4.029984053979192" />
-      <entry key="H2" value="17.627567852966344" />
-      <entry key="H4" value="56.52185994108887" />
-      <entry key="D1" value="401.2186738985548" />
-      <entry key="W1" value="757.1129017591633" />
+      <entry key="MS500" value="1.1117323409605694E-100" />
+      <entry key="S2" value="1.0268335733717782E-25" />
+      <entry key="S5" value="1.010648239870838E-10" />
+      <entry key="S10" value="1.0053100217698206E-5" />
+      <entry key="S30" value="0.021582413252247766" />
+      <entry key="S60" value="0.14690954105247142" />
+      <entry key="M2" value="0.3832878044661366" />
+      <entry key="M5" value="0.6814123521953159" />
+      <entry key="M10" value="0.8255883650155753" />
+      <entry key="M15" value="0.8851901364547686" />
+      <entry key="M30" value="1.2652061448019083" />
+      <entry key="H1" value="4.4376830973882875" />
+      <entry key="H2" value="17.339193127015683" />
+      <entry key="H4" value="55.43555719031051" />
+      <entry key="D1" value="399.7199590589366" />
+      <entry key="W1" value="757.4376734849503" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9395227492140118" />
-      <entry key="MS500" value="0.9878308739634156" />
-      <entry key="S2" value="1.120036676064026" />
-      <entry key="S5" value="1.4314414084171834" />
-      <entry key="S10" value="1.6571668266905624" />
-      <entry key="S30" value="1.8694781687383382" />
-      <entry key="S60" value="1.9324656507149771" />
-      <entry key="M2" value="1.9656444587505144" />
-      <entry key="M5" value="1.9919807354940076" />
-      <entry key="M10" value="2.9874299104633457" />
-      <entry key="M15" value="7.80364573487919" />
-      <entry key="M30" value="40.32983561343194" />
-      <entry key="H1" value="117.22007266408711" />
-      <entry key="H2" value="266.11029929607474" />
-      <entry key="H4" value="695.6704997028309" />
-      <entry key="D1" value="7752.382059059001" />
-      <entry key="W1" value="20647.340866453473" />
+      <entry key="MS100" value="1.3650682613026017" />
+      <entry key="MS500" value="3.4275219731600965" />
+      <entry key="S2" value="4.524599993500734" />
+      <entry key="S5" value="4.802067487267333" />
+      <entry key="S10" value="4.899696414446194" />
+      <entry key="S30" value="4.98686088879474" />
+      <entry key="S60" value="5.134342142795708" />
+      <entry key="M2" value="5.697609362045242" />
+      <entry key="M5" value="8.98473062116978" />
+      <entry key="M10" value="13.477331587152646" />
+      <entry key="M15" value="18.49947361430819" />
+      <entry key="M30" value="46.62232477865102" />
+      <entry key="H1" value="119.16995985151716" />
+      <entry key="H2" value="266.00348146265617" />
+      <entry key="H4" value="689.6347485161609" />
+      <entry key="D1" value="7724.050443730795" />
+      <entry key="W1" value="20648.92078409126" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -912,7 +905,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="organize directories" />
-    <MESSAGE value="minor fixes" />
     <MESSAGE value="organize image transformer integration tests" />
     <MESSAGE value="fix image transformer integration tests" />
     <MESSAGE value="refractor image transformation DTO" />
@@ -929,7 +921,8 @@
     <MESSAGE value="update image-transformer" />
     <MESSAGE value="refractor and fix image-transformer tests" />
     <MESSAGE value="rename the media-api module to uploads-api" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename the media-api module to uploads-api" />
+    <MESSAGE value="minor fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
