@@ -1,8 +1,8 @@
 # Copying all dependencies
 
-There is a way to copy all dependencies to a test scope, but it's
-currently not in use. Manually defining the implementations is the
-standard.
+Copying all dependencies to a test fixture.
+
+(Implemented in the test-fixtures-conventions gradle convention)
 
 ## java-test-fixtures
 
