@@ -49,7 +49,7 @@ public class UploadTransformationApplicableTests {
                 })
         );
 
-        // create uploads
+        // create uploads TODO what is this?
         var bucketMatches = TestUploadCreator.createUpload(c->new ObjectLocation("posts/1.jpg", "uploads"));
         var pathMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "others"));
         var bothMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "uploads"));

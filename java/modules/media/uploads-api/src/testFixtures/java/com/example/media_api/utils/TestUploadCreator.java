@@ -45,8 +45,4 @@ public class TestUploadCreator {
     public static @NotNull Upload createVideo(){
         return createUpload(c->c.fileType(FileType.MP4));
     }
-
-    public static @NonNull UploadId createUploadId(){
-        return new UploadId(UUID.randomUUID());
-    }
 }

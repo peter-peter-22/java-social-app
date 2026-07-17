@@ -58,6 +58,7 @@ testing {
 }
 
 // CLEAN: should this be grouped with other docker test tasks in the future?
+// CLEAN: should I use the docker test plugin?
 tasks.register<Exec>("dockerIT") {
 	group = LifecycleBasePlugin.VERIFICATION_GROUP
 	description = "Runs image-transformer integration tests inside Docker."

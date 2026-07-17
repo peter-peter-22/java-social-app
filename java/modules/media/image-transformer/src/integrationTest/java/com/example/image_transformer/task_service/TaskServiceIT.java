@@ -1,4 +1,4 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.TestApplication;
 import com.example.image_transformer.storage.LocalStreamStorage;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(classes = TestApplication.class)
 @ActiveProfiles({"local"})
 @TestPropertySource(locations = "classpath:image-transformation-test.properties")
-class TransformationServiceIT {
+class TaskServiceIT {
     private static final ObjectLocation TEST_FILE = new ObjectLocation("image.jpg", "test-images");
     private static final int ORIGINAL_WIDTH = 1280;
     private static final int ORIGINAL_HEIGHT = 852;

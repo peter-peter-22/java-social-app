@@ -1,18 +1,15 @@
-package com.example.image_transformer.transformation;
+package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.operations.ImageTransformationService;
 import com.example.image_transformer.storage.FileStreamStorage;
 import com.example.image_transformer.stream_processing.FileStreamProcessingManager;
-import com.example.image_transformer.task.ImageTransformationTaskMapper;
 import com.example.image_transformer.webhook.WebhookService;
-import com.example.media_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +21,6 @@ public class TaskService {
 
     public void processTasks(@NotNull Collection<ImageTransformationTask> tasks) {
         // TODO: process in parallel
-        // TODO: reset failed transformations ?
         tasks.forEach(this::processTask);
     }
 
