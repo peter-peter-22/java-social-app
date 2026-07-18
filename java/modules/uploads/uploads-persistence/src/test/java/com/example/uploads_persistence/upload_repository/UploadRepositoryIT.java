@@ -95,7 +95,6 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
      */
     @Test
     void testUserForeignKey() {
-        // TODO check foreign key name
         var upload = InsertUpload.builder()
                 .objectPath(UUID.randomUUID() + ".jpg")
                 .bucket("bucket")
