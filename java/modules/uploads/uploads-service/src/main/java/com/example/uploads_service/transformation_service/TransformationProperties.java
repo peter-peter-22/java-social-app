@@ -1,4 +1,4 @@
-package com.example.uploads_service.transformations;
+package com.example.uploads_service.transformation_service;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;

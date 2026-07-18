@@ -1,7 +1,7 @@
 package com.example.uploads_service.upload_service;
 
 import com.example.object_storage.repository.ObjectStorageRepository;
-import com.example.uploads_service.transformations.TransformationService;
+import com.example.uploads_service.transformation_service.TransformationService;
 import com.example.uploads_persistence.upload_repository.InsertUpload;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.UploadId;

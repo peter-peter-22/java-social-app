@@ -1,4 +1,4 @@
-package com.example.uploads_service.transformations;
+package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 
@@ -7,9 +7,6 @@ import static com.example.uploads_api.utils.TestTransformationCreator.*;
 import static com.example.uploads_api.utils.TestUploadCreator.*;
 
 import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
-import com.example.uploads_service.transformations.BlockingImageTransformerRestApi;
-import com.example.uploads_service.transformations.BlockingVideoTransformerRestApi;
-import com.example.uploads_service.transformations.TransformationProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;

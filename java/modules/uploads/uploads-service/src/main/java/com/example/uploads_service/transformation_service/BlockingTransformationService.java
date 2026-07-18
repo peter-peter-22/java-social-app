@@ -1,4 +1,4 @@
-package com.example.uploads_service.transformations;
+package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;

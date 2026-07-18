@@ -1,4 +1,4 @@
-package com.example.uploads_service.transformations;
+package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
@@ -7,10 +7,7 @@ import com.example.uploads_api.transformations.sources.ImageTransformationSource
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
 
-import com.example.uploads_service.lazy_transformation_session_service.LazyTransformationSessionService;
-import com.example.uploads_service.transformations.BlockingTransformationService;
-import com.example.uploads_service.transformations.LazyTransformationService;
-import com.example.uploads_service.transformations.TransformationService;
+import com.example.uploads_persistence.lazy_transformation_repository.LazyTransformationRepository;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +29,7 @@ public class TransformationServiceTests {
     @Mock
     private LazyTransformationService lazyTransformationService;
     @Mock
-    private LazyTransformationSessionService lazyTransformationSessionService;
+    private LazyTransformationRepository lazyTransformationRepository;
 
     private final ImageTransformationSource blockingImageTransformation = createImageTransformation(ops -> ops.lazy(false));
     private final ImageTransformationSource lazyImageTransformation = createImageTransformation(ops -> ops.lazy(true));
@@ -50,7 +47,7 @@ public class TransformationServiceTests {
                 lazyTransformationService,
                 List.of(blockingImageTransformation, lazyImageTransformation),
                 List.of(blockingVideoTransformation, lazyVideoTransformation),
-                lazyTransformationSessionService
+                lazyTransformationRepository
         );
     }
 
@@ -70,10 +67,10 @@ public class TransformationServiceTests {
         verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
 
-        verify(lazyTransformationSessionService).createLazyTransformationSession(image.id(), exceptedLazyNames);
+        verify(lazyTransformationRepository).createLazyTransformationSession(image.id(), exceptedLazyNames);
         verify(lazyTransformationService).queueImageTransformations(List.of(expectedLazyTask));
         verifyNoMoreInteractions(lazyTransformationService);
-        verifyNoMoreInteractions(lazyTransformationSessionService);
+        verifyNoMoreInteractions(lazyTransformationRepository);
     }
 
     /**
@@ -92,10 +89,10 @@ public class TransformationServiceTests {
         verify(blockingTransformationService).transformVideos(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
 
-        verify(lazyTransformationSessionService).createLazyTransformationSession(video.id(), exceptedLazyNames);
+        verify(lazyTransformationRepository).createLazyTransformationSession(video.id(), exceptedLazyNames);
         verify(lazyTransformationService).queueVideoTransformations(List.of(expectedLazyTask));
         verifyNoMoreInteractions(lazyTransformationService);
-        verifyNoMoreInteractions(lazyTransformationSessionService);
+        verifyNoMoreInteractions(lazyTransformationRepository);
     }
 
     /**
@@ -110,13 +107,13 @@ public class TransformationServiceTests {
                 lazyTransformationService,
                 List.of(createImageTransformation(ops -> ops.filters(simpleFilter))),
                 List.of(createVideoTransformation()),
-                lazyTransformationSessionService
+                lazyTransformationRepository
         );
 
         service.applyTransformations(upload);
 
         verifyNoInteractions(blockingTransformationService);
         verifyNoInteractions(lazyTransformationService);
-        verifyNoInteractions(lazyTransformationSessionService);
+        verifyNoInteractions(lazyTransformationRepository);
     }
 }
