@@ -46,4 +46,18 @@ public class LazyTransformationStoreIT extends CockroachIntegrationTest {
             assertThat(status).isEqualTo(expectedStatus);
         }
     }
+
+    @Test
+    void testReady() {
+        var id = testUploadPersistence.insertUpload(c -> c.status(UploadStatus.PROCESSING));
+        var transformations = List.of("1");
+        lazyTransformationStore.createLazyTransformationSession(id, transformations);
+
+        var ready = lazyTransformationStore.checkIfReady(id);
+        assertThat(ready).isFalse();
+
+        lazyTransformationStore.markLazyTransformationAsComplete(id, transformations.getFirst());
+        ready = lazyTransformationStore.checkIfReady(id);
+        assertThat(ready).isTrue();
+    }
 }

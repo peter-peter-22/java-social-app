@@ -15,4 +15,9 @@ public interface LazyTransformationStore {
      * Creates a new lazy transformation session for the given upload and awaited lazy transformations.
      */
     void createLazyTransformationSession(@NotNull UploadId uploadId, @NotNull Collection<@NotNull String> requiredTransformations);
+
+    /**
+     * Returns true if all lazy transformations are ready
+     */
+    boolean checkIfReady(@NotNull UploadId uploadId);
 }

@@ -51,6 +51,9 @@ class LazyTransformationStoreImpl implements LazyTransformationStore {
     @Transactional
     public void createLazyTransformationSession(@NotNull UploadId uploadId, @NotNull Collection<@NotNull String> requiredTransformations) {
 
+        if (requiredTransformations.isEmpty())
+            return;
+
         // insert session
         template.update("INSERT INTO lazy_transformation_sessions (upload_id) VALUES (?)", uploadId.get());
 
@@ -64,5 +67,12 @@ class LazyTransformationStoreImpl implements LazyTransformationStore {
                     ps.setObject(2, name);
                 }
         );
+    }
+
+    @Override
+    public boolean checkIfReady(@NotNull UploadId uploadId) {
+        var sql = "SELECT EXISTS(SELECT 1 FROM pending_lazy_transformations WHERE session_id = ?)";
+        var exists = template.queryForObject(sql, Boolean.class, uploadId.get());
+        return exists == null || !exists;
     }
 }
