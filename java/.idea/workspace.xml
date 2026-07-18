@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor lazy trasnformation repository injection">
-      <change afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/UploadRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/CreateSignedUploadArgs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/SignedUploadFormResponse.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor upload repository injection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/InsertUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadMissingUserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/UploadMissingUserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/lazy_transformation_store/LazyTransformationStoreTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/lazy_transformation_store/LazyTransformationStoreIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/upload_repository/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/upload_repository/UploadRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/TransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/TransformationServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +80,24 @@
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="uploads-service" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -130,61 +136,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="8.022942553500263E-308" />
-      <entry key="MS500" value="4.522271711636795E-62" />
-      <entry key="S2" value="9.488356125821207E-16" />
-      <entry key="S5" value="2.3372822256438897E-6" />
-      <entry key="S10" value="0.0037584932636158855" />
-      <entry key="S30" value="0.6576230862368835" />
-      <entry key="S60" value="2.5299256228362754" />
-      <entry key="M2" value="5.012526366883793" />
-      <entry key="M5" value="7.582070415903233" />
-      <entry key="M10" value="9.089466722465069" />
-      <entry key="M15" value="11.401825845510428" />
-      <entry key="M30" value="24.092483577667426" />
-      <entry key="H1" value="53.170546704887876" />
-      <entry key="H2" value="118.71584371762233" />
-      <entry key="H4" value="306.84840127243876" />
-      <entry key="D1" value="5763.78387123957" />
-      <entry key="W1" value="19503.786703778114" />
+      <entry key="MS100" value="1.3513141196424385" />
+      <entry key="MS500" value="2.434319522772285" />
+      <entry key="S2" value="8.888452409178846" />
+      <entry key="S5" value="18.56101565525107" />
+      <entry key="S10" value="26.343893686692525" />
+      <entry key="S30" value="41.10880055994233" />
+      <entry key="S60" value="65.49181288993555" />
+      <entry key="M2" value="101.82710219652995" />
+      <entry key="M5" value="149.61619182883672" />
+      <entry key="M10" value="176.72321359566814" />
+      <entry key="M15" value="189.12197158202994" />
+      <entry key="M30" value="211.46566955890242" />
+      <entry key="H1" value="245.12577992437883" />
+      <entry key="H2" value="312.43890320244327" />
+      <entry key="H4" value="499.2050774369256" />
+      <entry key="D1" value="5931.085614052254" />
+      <entry key="W1" value="19691.11586380347" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000000001" />
-      <entry key="S5" value="1.0000063172210092" />
-      <entry key="S10" value="1.002620150933689" />
-      <entry key="S30" value="1.1837052918662017" />
-      <entry key="S60" value="1.587271446905738" />
-      <entry key="M2" value="2.074729425934925" />
-      <entry key="M5" value="2.5576598731014757" />
-      <entry key="M10" value="2.915120288483549" />
-      <entry key="M15" value="3.750269463241276" />
-      <entry key="M30" value="8.703348235638753" />
-      <entry key="H1" value="19.108278968681514" />
-      <entry key="H2" value="35.48910069845597" />
-      <entry key="H4" value="63.15465209902708" />
-      <entry key="D1" value="381.1273126122121" />
-      <entry key="W1" value="823.21072218097" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="2.959677446745246E-126" />
+      <entry key="S5" value="6.144697345685744E-51" />
+      <entry key="S10" value="7.859326038748558E-26" />
+      <entry key="S30" value="5.065938128877087E-9" />
+      <entry key="S60" value="1.038387257308136E-4" />
+      <entry key="M2" value="0.01678091121606568" />
+      <entry key="M5" value="0.372378346478994" />
+      <entry key="M10" value="1.1123137213388856" />
+      <entry key="M15" value="1.9729209449011" />
+      <entry key="M30" value="6.312624631708025" />
+      <entry key="H1" value="16.273590202999102" />
+      <entry key="H2" value="32.75110034046311" />
+      <entry key="H4" value="60.66955335157206" />
+      <entry key="D1" value="378.5857947340454" />
+      <entry key="W1" value="822.4242549965458" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.8463676415544796E-7" />
-      <entry key="MS500" value="0.052120690239060255" />
-      <entry key="S2" value="0.47780703479864794" />
-      <entry key="S5" value="0.7442275518524849" />
-      <entry key="S10" value="0.8688819369080437" />
-      <entry key="S30" value="1.7838220957248083" />
-      <entry key="S60" value="4.073861741103315" />
-      <entry key="M2" value="7.055676600677838" />
-      <entry key="M5" value="10.122913267420195" />
-      <entry key="M10" value="11.994621355616829" />
-      <entry key="M15" value="15.1431241871649" />
-      <entry key="M30" value="32.78448773539172" />
-      <entry key="H1" value="72.26585124778686" />
-      <entry key="H2" value="154.19209658318843" />
-      <entry key="H4" value="369.9904827281726" />
-      <entry key="D1" value="6144.896519228259" />
-      <entry key="W1" value="20326.992677874096" />
+      <entry key="MS100" value="1.2635847171736254" />
+      <entry key="MS500" value="2.4039790544774293" />
+      <entry key="S2" value="8.860839233126836" />
+      <entry key="S5" value="18.538198569835185" />
+      <entry key="S10" value="26.32766112352064" />
+      <entry key="S30" value="41.10042470824898" />
+      <entry key="S60" value="65.48542098274102" />
+      <entry key="M2" value="101.8386746479743" />
+      <entry key="M5" value="149.98319045949333" />
+      <entry key="M10" value="177.82997978020086" />
+      <entry key="M15" value="191.0889313625367" />
+      <entry key="M30" value="217.76940084726772" />
+      <entry key="H1" value="261.38797546790045" />
+      <entry key="H2" value="345.17797120790675" />
+      <entry key="H4" value="559.8624661045827" />
+      <entry key="D1" value="6309.656827054365" />
+      <entry key="W1" value="20513.535373119903" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -327,7 +333,7 @@
       <recent name="com.example.image_transformer" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:uploads-service:test]">
+  <component name="RunManager" selected="Gradle.java [:uploads-persistence:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -541,9 +547,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:uploads-persistence:test]" />
         <item itemvalue="Gradle.java [:uploads-service:test]" />
         <item itemvalue="Gradle.java [:uploads-api:test]" />
-        <item itemvalue="Gradle.java [:uploads-persistence:test]" />
         <item itemvalue="Gradle.java [:cockroach-db:test]" />
         <item itemvalue="Gradle.java [:uploads:test]" />
       </list>
@@ -942,7 +948,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix image transformer integration tests" />
     <MESSAGE value="refractor image transformation DTO" />
     <MESSAGE value="implement real image path geneartor" />
     <MESSAGE value="fix test properties error" />
@@ -967,7 +972,8 @@
     <MESSAGE value="update upload-service to use the new transformation repository" />
     <MESSAGE value="delete unused entites in uploads-persistence" />
     <MESSAGE value="refractor lazy trasnformation repository injection" />
-    <option name="LAST_COMMIT_MESSAGE" value="refractor lazy trasnformation repository injection" />
+    <MESSAGE value="refractor upload repository injection" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor upload repository injection" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
