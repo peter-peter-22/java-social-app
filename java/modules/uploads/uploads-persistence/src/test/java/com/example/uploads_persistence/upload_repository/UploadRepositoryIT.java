@@ -5,6 +5,7 @@ import com.example.uploads_api.transformations.upload_repository.InsertUpload;
 import com.example.uploads_api.transformations.upload_repository.UploadRepository;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import com.example.uploads_api.utils.TestUploadCreator;
 import com.example.uploads_persistence.utils.TestUploadPersistence;
@@ -94,6 +95,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
      */
     @Test
     void testUserForeignKey() {
+        // TODO check foreign key name
         var upload = InsertUpload.builder()
                 .objectPath(UUID.randomUUID() + ".jpg")
                 .bucket("bucket")
@@ -108,5 +110,20 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         fail("The foreign key constraint should have been violated.");
     }
 
-    // TODO: test status update and existence check
+    @Test
+    void testStatusUpdate() {
+        var id = testUploadPersistence.insertUpload(c -> c.status(UploadStatus.PROCESSING));
+        var updated = uploadRepository.updateStatus(id, UploadStatus.READY);
+        var read = uploadRepository.getById(id);
+
+        assertThat(updated).isNotNull();
+        assertThat(updated.status()).isEqualTo(UploadStatus.READY);
+        assertThat(read).isEqualTo(updated);
+    }
+
+    @Test
+    void testEmptyUpdate() {
+        var updated = uploadRepository.updateStatus(new UploadId(UUID.randomUUID()), UploadStatus.READY);
+        assertThat(updated).isNull();
+    }
 }
