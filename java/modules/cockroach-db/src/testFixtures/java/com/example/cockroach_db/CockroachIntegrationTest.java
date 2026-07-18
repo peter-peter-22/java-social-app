@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
-import org.testcontainers.containers.CockroachContainer;
+import org.testcontainers.cockroachdb.CockroachContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
