@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="add LazyTransformationRepository">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/lazy_transformation_session_service/LazyTransformationSessionRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/lazy_transformation_session_service/LazyTransformationSessionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingImageTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingImageTransformerRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingTransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/BlockingVideoTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingVideoTransformerRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/LazyTransformationEventApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationEventApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/LazyTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/TransformationProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformations/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/webhook/WebhookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/webhook/WebhookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformations/BlockingImageTransformerRestApiTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/BlockingImageTransformerRestApiTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformations/LazyTransformationSessionServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/LazyTransformationSessionServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformations/TransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/TransformationServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/webhook/WebhookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/webhook/WebhookControllerTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update upload-service to use the new transformation repository" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,61 +97,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.000000000457661" />
-      <entry key="S30" value="1.0016240227066058" />
-      <entry key="S60" value="1.1146002229294025" />
-      <entry key="M2" value="2.076770147361038" />
-      <entry key="M5" value="6.607406076713547" />
-      <entry key="M10" value="14.552568983276519" />
-      <entry key="M15" value="21.483695531989575" />
-      <entry key="M30" value="40.480192978789994" />
-      <entry key="H1" value="82.4140356703253" />
-      <entry key="H2" value="174.5113114760538" />
-      <entry key="H4" value="427.1068103514085" />
-      <entry key="D1" value="6411.655622293606" />
-      <entry key="W1" value="19709.88942444432" />
+      <entry key="MS100" value="1.5536234463464667" />
+      <entry key="MS500" value="3.627784258496936" />
+      <entry key="S2" value="4.602272687254917" />
+      <entry key="S5" value="5.165451862135349" />
+      <entry key="S10" value="6.20463448174704" />
+      <entry key="S30" value="8.176372235016885" />
+      <entry key="S60" value="9.537705223524501" />
+      <entry key="M2" value="12.441452033363419" />
+      <entry key="M5" value="19.903166494277315" />
+      <entry key="M10" value="29.568499529877176" />
+      <entry key="M15" value="37.425040100079244" />
+      <entry key="M30" value="57.65422942271666" />
+      <entry key="H1" value="100.03376095569877" />
+      <entry key="H2" value="192.12582081551872" />
+      <entry key="H4" value="443.7247772019149" />
+      <entry key="D1" value="6419.00630059603" />
+      <entry key="W1" value="19726.01858749638" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="3.2653876303178746E-66" />
-      <entry key="MS500" value="7.994419774568947E-14" />
-      <entry key="S2" value="5.321748790492654E-4" />
-      <entry key="S5" value="0.05235830741525397" />
-      <entry key="S10" value="0.3056157255257843" />
-      <entry key="S30" value="1.4786312622591375" />
-      <entry key="S60" value="2.445286782855235" />
-      <entry key="M2" value="3.4297366593838596" />
-      <entry key="M5" value="4.97710081233101" />
-      <entry key="M10" value="6.882525868786592" />
-      <entry key="M15" value="8.476366306285959" />
-      <entry key="M30" value="12.469914787591382" />
-      <entry key="H1" value="19.340921868046046" />
-      <entry key="H2" value="29.991176035218693" />
-      <entry key="H4" value="54.410070593994455" />
-      <entry key="D1" value="378.6124651708064" />
-      <entry key="W1" value="785.586876151547" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="7.199190491915765E-197" />
+      <entry key="S2" value="9.218888222730642E-50" />
+      <entry key="S5" value="2.5967806739790906E-20" />
+      <entry key="S10" value="2.152288737067201E-10" />
+      <entry key="S30" value="0.0013155322405150362" />
+      <entry key="S60" value="0.07293745516181767" />
+      <entry key="M2" value="0.5923401602332237" />
+      <entry key="M5" value="2.465474975215008" />
+      <entry key="M10" value="4.844064675754852" />
+      <entry key="M15" value="6.706837288010039" />
+      <entry key="M30" value="11.092195428835094" />
+      <entry key="H1" value="18.241232714485047" />
+      <entry key="H2" value="29.126077627668078" />
+      <entry key="H4" value="53.619596653762954" />
+      <entry key="D1" value="377.6901138259184" />
+      <entry key="W1" value="785.3131908127199" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0350069636899348E-5" />
-      <entry key="MS500" value="0.10069053638109489" />
-      <entry key="S2" value="0.5634932307574066" />
-      <entry key="S5" value="0.8295590368373111" />
-      <entry key="S10" value="1.1452029880131045" />
-      <entry key="S30" value="2.364729216560517" />
-      <entry key="S60" value="3.4776720280413875" />
-      <entry key="M2" value="5.4526639572221" />
-      <entry key="M5" value="11.55202361526952" />
-      <entry key="M10" value="21.4088554866079" />
-      <entry key="M15" value="29.936375106765592" />
-      <entry key="M30" value="52.92991242191648" />
-      <entry key="H1" value="101.73708927769914" />
-      <entry key="H2" value="204.48739461216792" />
-      <entry key="H4" value="481.5031135991869" />
-      <entry key="D1" value="6790.252874772673" />
-      <entry key="W1" value="20495.471668506085" />
+      <entry key="MS100" value="1.4524756212611534" />
+      <entry key="MS500" value="3.5791205416134964" />
+      <entry key="S2" value="4.5866953731972915" />
+      <entry key="S5" value="5.158471309091698" />
+      <entry key="S10" value="6.200467314807091" />
+      <entry key="S30" value="8.175723092114886" />
+      <entry key="S60" value="9.606620844694842" />
+      <entry key="M2" value="13.022567651297287" />
+      <entry key="M5" value="22.35088135889791" />
+      <entry key="M10" value="34.39298932437489" />
+      <entry key="M15" value="44.1123229560258" />
+      <entry key="M30" value="68.72801308725603" />
+      <entry key="H1" value="118.25790633269197" />
+      <entry key="H2" value="221.2371204715203" />
+      <entry key="H4" value="497.3307455656663" />
+      <entry key="D1" value="6796.681228526512" />
+      <entry key="W1" value="20511.327146364198" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -925,7 +908,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="organize directories" />
     <MESSAGE value="organize image transformer integration tests" />
     <MESSAGE value="fix image transformer integration tests" />
@@ -950,7 +932,10 @@
     <MESSAGE value="rename the uploads module to uploads-service" />
     <MESSAGE value="rename the media directory to uploads" />
     <MESSAGE value="add LazyTransformationRepository" />
-    <option name="LAST_COMMIT_MESSAGE" value="add LazyTransformationRepository" />
+    <MESSAGE value="update upload-service to use the new transformation repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="update upload-service to use the new transformation repository" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
