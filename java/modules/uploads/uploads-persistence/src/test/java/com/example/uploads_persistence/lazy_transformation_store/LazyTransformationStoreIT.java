@@ -2,8 +2,8 @@ package com.example.uploads_persistence.lazy_transformation_store;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
+import com.example.uploads_api.transformations.upload_repository.UploadRepository;
 import com.example.uploads_api.uploads.UploadStatus;
-import com.example.uploads_persistence.upload_repository.UploadRepository;
 import com.example.uploads_persistence.utils.TestUploadPersistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class LazyTransformationStoreTests extends CockroachIntegrationTest {
+public class LazyTransformationStoreIT extends CockroachIntegrationTest {
     @Autowired
     private LazyTransformationStore lazyTransformationStore;
     @Autowired

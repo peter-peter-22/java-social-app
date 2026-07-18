@@ -1,11 +1,11 @@
 package com.example.uploads_persistence.utils;
 
+import com.example.uploads_api.transformations.upload_repository.InsertUpload;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.UploadId;
-import com.example.uploads_persistence.upload_repository.InsertUpload;
-import com.example.uploads_persistence.upload_repository.UploadRepository;
-import com.example.users_persistence.utils.TestUserPersistence;
+import com.example.uploads_persistence.upload_repository.UploadRepositoryImpl;
 import com.example.users_persistence.repository.InsertUser;
+import com.example.users_persistence.utils.TestUserPersistence;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class TestUploadPersistence {
     private final TestUserPersistence userPersistence;
-    private final UploadRepository uploadRepository;
+    private final UploadRepositoryImpl uploadRepository;
 
     public InsertUpload prepareUploadInsert(
             @Nullable Consumer<InsertUpload.@NonNull InsertUploadBuilder> uploadCustomizer,

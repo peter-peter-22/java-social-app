@@ -1,4 +1,4 @@
-package com.example.uploads_persistence.upload_repository;
+package com.example.uploads_api.transformations.upload_repository;
 
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.UploadStatus;

@@ -17,6 +17,7 @@ import java.util.List;
 import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
 import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
 import static com.example.uploads_api.utils.TestUploadCreator.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +39,7 @@ public class TransformationServiceTests {
 
     private TransformationService service;
 
-    @NotNull TransformationService createService(){
+    @NotNull TransformationService createService() {
         return new TransformationService(
                 blockingTransformationService,
                 lazyTransformationService,
@@ -59,7 +60,9 @@ public class TransformationServiceTests {
         var expectedLazyTask = lazyImageTransformation.createTaskDTO(image);
         var exceptedLazyNames = List.of(lazyImageTransformation.getName());
 
-        service.applyTransformations(image);
+        var hasLazy = service.applyTransformations(image);
+
+        assertThat(hasLazy).isTrue();
 
         verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
@@ -81,7 +84,9 @@ public class TransformationServiceTests {
         var expectedLazyTask = lazyVideoTransformation.createTaskDTO(video);
         var exceptedLazyNames = List.of(lazyVideoTransformation.getName());
 
-        service.applyTransformations(video);
+        var hasLazy = service.applyTransformations(video);
+
+        assertThat(hasLazy).isTrue();
 
         verify(blockingTransformationService).transformVideos(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
@@ -107,9 +112,37 @@ public class TransformationServiceTests {
                 lazyTransformationStore
         );
 
-        service.applyTransformations(upload);
+        var hasLazy = service.applyTransformations(upload);
+
+        assertThat(hasLazy).isFalse();
 
         verifyNoInteractions(blockingTransformationService);
+        verifyNoInteractions(lazyTransformationService);
+        verifyNoInteractions(lazyTransformationStore);
+    }
+
+    /**
+     * No lazy transformations should be detected if there are only blocking transformations.
+     */
+    @Test
+    void testBlockingOnly() {
+        var service = new TransformationService(
+                blockingTransformationService,
+                lazyTransformationService,
+                List.of(blockingImageTransformation),
+                List.of(),
+                lazyTransformationStore
+        );
+
+        var expectedBlockingTask = blockingImageTransformation.createTaskDTO(image);
+
+        var hasLazy = service.applyTransformations(image);
+
+        assertThat(hasLazy).isFalse();
+
+        verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
+        verifyNoMoreInteractions(blockingTransformationService);
+
         verifyNoInteractions(lazyTransformationService);
         verifyNoInteractions(lazyTransformationStore);
     }

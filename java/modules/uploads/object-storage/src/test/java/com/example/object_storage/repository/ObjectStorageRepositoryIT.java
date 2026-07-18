@@ -5,11 +5,12 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okio.Buffer;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -50,6 +51,8 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
         assertThat(objectStorageRepository.objectExists(BUCKET, "nothing")).isFalse();
     }
+
+    // TODO: test expiration
 
     @Test
     void testGetPreSignedDownloadUrl() throws IOException {
@@ -181,7 +184,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isFalse();
     }
 
-    private static byte[] readTestContent() throws IOException {
+    private static byte @NonNull [] readTestContent() throws IOException {
         return Files.readAllBytes(TEST_FILE_PATH);
     }
 
@@ -192,7 +195,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         }
     }
 
-    private static MultipartBody buildUploadForm(Map<String, String> formData, String objectPath, byte[] content) {
+    private static @NonNull MultipartBody buildUploadForm(@NonNull Map<String, String> formData, String objectPath, byte[] content) {
         var builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
 

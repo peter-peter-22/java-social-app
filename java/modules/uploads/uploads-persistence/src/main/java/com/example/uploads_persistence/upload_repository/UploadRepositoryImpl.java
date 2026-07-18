@@ -1,6 +1,9 @@
 package com.example.uploads_persistence.upload_repository;
 
 import com.example.cockroach_db.SQLErrorCodes;
+import com.example.uploads_api.transformations.upload_repository.InsertUpload;
+import com.example.uploads_api.transformations.upload_repository.UploadMissingUserException;
+import com.example.uploads_api.transformations.upload_repository.UploadRepository;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadId;
@@ -19,7 +22,7 @@ import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
-public class UploadRepository {
+public class UploadRepositoryImpl implements UploadRepository {
     private final JdbcClient jdbc;
     private final JdbcAggregateTemplate template;
 
@@ -74,6 +77,7 @@ public class UploadRepository {
             return new UploadId(id);
         } catch (DataIntegrityViolationException e) {
             if (e.getCause() instanceof SQLException cause && cause.getSQLState().equals(SQLErrorCodes.FOREIGN_KEY_VIOLATION)) {
+                // TODO check foreign key name
                 throw new UploadMissingUserException(cause.getMessage());
             }
             throw e;
@@ -100,6 +104,6 @@ public class UploadRepository {
                 .param("status", status.name())
                 .query(UploadEntity.class)
                 .optional();
-        return updated.map(UploadRepository::entityToDomain).orElse(null);
+        return updated.map(UploadRepositoryImpl::entityToDomain).orElse(null);
     }
 }

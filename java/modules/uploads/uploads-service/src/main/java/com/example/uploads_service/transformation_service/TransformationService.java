@@ -28,7 +28,7 @@ public class TransformationService {
 
     /**
      * Completes or queues all matching transformations for the upload.
-     *
+     * TODO test return
      * @return True if there is at least one lazy transformation in progress.
      */
     public boolean applyTransformations(@NotNull Upload upload) {

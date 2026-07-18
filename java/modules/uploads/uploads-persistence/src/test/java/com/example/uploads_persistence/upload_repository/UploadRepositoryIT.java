@@ -1,11 +1,12 @@
 package com.example.uploads_persistence.upload_repository;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
+import com.example.uploads_api.transformations.upload_repository.InsertUpload;
+import com.example.uploads_api.transformations.upload_repository.UploadRepository;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadStatus;
 import com.example.uploads_api.utils.TestUploadCreator;
-import com.example.uploads_persistence.TestApplication;
 import com.example.uploads_persistence.utils.TestUploadPersistence;
 import com.example.users_api.repository.UserId;
 import com.example.users_persistence.utils.TestUserPersistence;
@@ -101,7 +102,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
                 .build();
         try {
             uploadRepository.create(upload);
-        } catch (UploadMissingUserException e) {
+        } catch (com.example.uploads_api.transformations.upload_repository.UploadMissingUserException e) {
             return;
         }
         fail("The foreign key constraint should have been violated.");
