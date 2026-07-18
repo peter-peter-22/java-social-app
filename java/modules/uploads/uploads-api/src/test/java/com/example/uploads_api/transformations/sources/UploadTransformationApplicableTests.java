@@ -2,14 +2,12 @@ package com.example.uploads_api.transformations.sources;
 
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
-import com.example.uploads_api.uploads.*;
-
-import static com.example.uploads_api.utils.TestTransformationCreator.*;
-
+import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.utils.TestUploadCreator;
 import org.junit.jupiter.api.Test;
 
 import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadTransformationApplicableTests {
@@ -49,10 +47,10 @@ public class UploadTransformationApplicableTests {
                 })
         );
 
-        // create uploads TODO what is this?
-        var bucketMatches = TestUploadCreator.createUpload(c->new ObjectLocation("posts/1.jpg", "uploads"));
-        var pathMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "others"));
-        var bothMatches = TestUploadCreator.createUpload(c->new ObjectLocation("avatars/1.jpg", "uploads"));
+        // create uploads
+        var bucketMatches = TestUploadCreator.createUpload(c -> c.objectLocation(new ObjectLocation("posts/1.jpg", "uploads")));
+        var pathMatches = TestUploadCreator.createUpload(c -> c.objectLocation(new ObjectLocation("avatars/1.jpg", "others")));
+        var bothMatches = TestUploadCreator.createUpload(c -> c.objectLocation(new ObjectLocation("avatars/1.jpg", "uploads")));
 
         // check filtering
         assertThat(transformation.isApplicable(bucketMatches)).isFalse();

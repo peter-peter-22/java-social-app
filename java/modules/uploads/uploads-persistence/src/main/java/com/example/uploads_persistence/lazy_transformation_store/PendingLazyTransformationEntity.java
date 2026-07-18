@@ -1,0 +1,12 @@
+package com.example.uploads_persistence.lazy_transformation_store;
+
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.UUID;
+
+@Table("pending_lazy_transformations")
+record PendingLazyTransformationEntity(
+        UUID sessionId,
+        String transformationName
+) {
+}

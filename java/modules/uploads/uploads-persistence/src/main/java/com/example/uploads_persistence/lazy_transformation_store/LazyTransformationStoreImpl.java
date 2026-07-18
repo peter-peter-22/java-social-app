@@ -1,5 +1,6 @@
-package com.example.uploads_persistence.lazy_transformation_repository;
+package com.example.uploads_persistence.lazy_transformation_store;
 
+import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +14,10 @@ import java.util.Collection;
 
 @Repository
 @RequiredArgsConstructor
-public class LazyTransformationRepository {
+class LazyTransformationStoreImpl implements LazyTransformationStore {
     private final JdbcClient jdbc;
     private final JdbcTemplate template;
 
-    /**
-     * Marks a pending lazy transformation as ready and deletes the session if no more lazy transformations are queued.
-     */
     public void markLazyTransformationAsComplete(@NotNull UploadId uploadId, @NotNull String transformationName) {
         // CLEAN should be simplified?
         jdbc.sql("""
@@ -50,9 +48,6 @@ public class LazyTransformationRepository {
                 .update();
     }
 
-    /**
-     * Creates a new lazy transformation session for the given upload and awaited lazy transformations.
-     */
     @Transactional
     public void createLazyTransformationSession(@NotNull UploadId uploadId, @NotNull Collection<@NotNull String> requiredTransformations) {
 
@@ -64,7 +59,7 @@ public class LazyTransformationRepository {
                 "INSERT INTO pending_lazy_transformations (session_id, transformation_name) VALUES (?, ?)",
                 requiredTransformations,
                 requiredTransformations.size(),
-                (ps,name)->{
+                (ps, name) -> {
                     ps.setObject(1, uploadId.get());
                     ps.setObject(2, name);
                 }

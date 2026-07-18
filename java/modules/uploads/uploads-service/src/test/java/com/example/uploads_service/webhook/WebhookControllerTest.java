@@ -1,8 +1,8 @@
 package com.example.uploads_service.webhook;
 
+import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import com.example.uploads_api.uploads.UploadId;
-import com.example.uploads_persistence.lazy_transformation_repository.LazyTransformationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +24,10 @@ class WebhookControllerTest {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Mock
-    private LazyTransformationRepository repo;
+    private LazyTransformationStore lazyTransformationStore;
 
     private MockMvc mockMvc() {
-        return MockMvcBuilders.standaloneSetup(new WebhookController(repo)).build();
+        return MockMvcBuilders.standaloneSetup(new WebhookController(lazyTransformationStore)).build();
     }
 
     @Test
@@ -40,6 +40,6 @@ class WebhookControllerTest {
                         .content(objectMapper.writeValueAsString(webhook)))
                 .andExpect(status().isOk());
 
-        verify(repo).markLazyTransformationAsComplete(uploadId, "resize");
+        verify(lazyTransformationStore).markLazyTransformationAsComplete(uploadId, "resize");
     }
 }

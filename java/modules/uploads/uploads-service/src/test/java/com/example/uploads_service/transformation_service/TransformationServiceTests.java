@@ -2,24 +2,21 @@ package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
-
+import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
-
-import com.example.uploads_persistence.lazy_transformation_repository.LazyTransformationRepository;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.example.uploads_api.utils.TestTransformationCreator.*;
-
-import static com.example.uploads_api.utils.TestUploadCreator.*;
-
 import java.util.List;
 
+import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
+import static com.example.uploads_api.utils.TestUploadCreator.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +26,7 @@ public class TransformationServiceTests {
     @Mock
     private LazyTransformationService lazyTransformationService;
     @Mock
-    private LazyTransformationRepository lazyTransformationRepository;
+    private LazyTransformationStore lazyTransformationStore;
 
     private final ImageTransformationSource blockingImageTransformation = createImageTransformation(ops -> ops.lazy(false));
     private final ImageTransformationSource lazyImageTransformation = createImageTransformation(ops -> ops.lazy(true));
@@ -47,7 +44,7 @@ public class TransformationServiceTests {
                 lazyTransformationService,
                 List.of(blockingImageTransformation, lazyImageTransformation),
                 List.of(blockingVideoTransformation, lazyVideoTransformation),
-                lazyTransformationRepository
+                lazyTransformationStore
         );
     }
 
@@ -67,10 +64,10 @@ public class TransformationServiceTests {
         verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
 
-        verify(lazyTransformationRepository).createLazyTransformationSession(image.id(), exceptedLazyNames);
+        verify(lazyTransformationStore).createLazyTransformationSession(image.id(), exceptedLazyNames);
         verify(lazyTransformationService).queueImageTransformations(List.of(expectedLazyTask));
         verifyNoMoreInteractions(lazyTransformationService);
-        verifyNoMoreInteractions(lazyTransformationRepository);
+        verifyNoMoreInteractions(lazyTransformationStore);
     }
 
     /**
@@ -89,10 +86,10 @@ public class TransformationServiceTests {
         verify(blockingTransformationService).transformVideos(List.of(expectedBlockingTask));
         verifyNoMoreInteractions(blockingTransformationService);
 
-        verify(lazyTransformationRepository).createLazyTransformationSession(video.id(), exceptedLazyNames);
+        verify(lazyTransformationStore).createLazyTransformationSession(video.id(), exceptedLazyNames);
         verify(lazyTransformationService).queueVideoTransformations(List.of(expectedLazyTask));
         verifyNoMoreInteractions(lazyTransformationService);
-        verifyNoMoreInteractions(lazyTransformationRepository);
+        verifyNoMoreInteractions(lazyTransformationStore);
     }
 
     /**
@@ -107,13 +104,13 @@ public class TransformationServiceTests {
                 lazyTransformationService,
                 List.of(createImageTransformation(ops -> ops.filters(simpleFilter))),
                 List.of(createVideoTransformation()),
-                lazyTransformationRepository
+                lazyTransformationStore
         );
 
         service.applyTransformations(upload);
 
         verifyNoInteractions(blockingTransformationService);
         verifyNoInteractions(lazyTransformationService);
-        verifyNoInteractions(lazyTransformationRepository);
+        verifyNoInteractions(lazyTransformationStore);
     }
 }

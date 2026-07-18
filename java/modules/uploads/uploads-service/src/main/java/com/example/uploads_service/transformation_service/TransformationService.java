@@ -1,10 +1,10 @@
 package com.example.uploads_service.transformation_service;
 
+import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.TransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
-import com.example.uploads_persistence.lazy_transformation_repository.LazyTransformationRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
@@ -24,7 +24,7 @@ public class TransformationService {
     private final LazyTransformationService lazyTransformationService;
     private final List<ImageTransformationSource> imageTransformations;
     private final List<VideoTransformationSource> videoTransformations;
-    private final LazyTransformationRepository lazyTransformationRepository;
+    private final LazyTransformationStore lazyTransformationStore;
 
     /**
      * Completes or queues all matching transformations for the upload.
@@ -60,7 +60,7 @@ public class TransformationService {
         if (!lazyVideoTransformations.isEmpty())
             jobs.add(() -> lazyTransformationService.queueVideoTransformations(createTasks(lazyVideoTransformations, upload)));
         if (!lazyNames.isEmpty())
-            jobs.add(() -> lazyTransformationRepository.createLazyTransformationSession(upload.id(), lazyNames));
+            jobs.add(() -> lazyTransformationStore.createLazyTransformationSession(upload.id(), lazyNames));
 
         // execute
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();

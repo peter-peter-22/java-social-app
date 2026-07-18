@@ -1,0 +1,13 @@
+package com.example.uploads_persistence.lazy_transformation_store;
+
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.Instant;
+import java.util.UUID;
+
+@Table("lazy_transformation_sessions")
+record LazyTransformationSessionEntity(
+        UUID uploadId,
+        Instant createdAt
+) {
+}

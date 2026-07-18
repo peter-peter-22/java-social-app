@@ -1,6 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_persistence.lazy_transformation_repository.LazyTransformationRepository;
+import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class LazyTransformationSessionServiceTests {
     @Mock
-    private LazyTransformationRepository repository;
+    private LazyTransformationStore lazyTransformationStore;
 
     @InjectMocks
     private TransformationService service;
