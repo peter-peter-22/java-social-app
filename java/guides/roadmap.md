@@ -4,8 +4,6 @@ test configurations, remove unused test package scanners
 
 separate upload persistence and upload service into modules
 
-check foreign key name in duplicated insert error?
-
 check if all significant errors have business logic alternative, the
 domain isolation works
 

@@ -125,4 +125,6 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
         var updated = uploadRepository.updateStatus(new UploadId(UUID.randomUUID()), UploadStatus.READY);
         assertThat(updated).isNull();
     }
+
+    // If a new foreign key is added, testUserForeignKey must be updated to check if it does not throw the user error for the wrong key.
 }

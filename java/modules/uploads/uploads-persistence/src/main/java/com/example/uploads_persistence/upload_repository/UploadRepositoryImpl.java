@@ -1,6 +1,6 @@
 package com.example.uploads_persistence.upload_repository;
 
-import com.example.cockroach_db.SQLErrorCodes;
+import com.example.cockroach_db.ForeignKeyErrorReader;
 import com.example.uploads_api.transformations.upload_repository.InsertUpload;
 import com.example.uploads_api.transformations.upload_repository.UploadMissingUserException;
 import com.example.uploads_api.transformations.upload_repository.UploadRepository;
@@ -17,7 +17,6 @@ import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.util.UUID;
 
 @Repository
@@ -76,10 +75,8 @@ public class UploadRepositoryImpl implements UploadRepository {
                     .single();
             return new UploadId(id);
         } catch (DataIntegrityViolationException e) {
-            if (e.getCause() instanceof SQLException cause && cause.getSQLState().equals(SQLErrorCodes.FOREIGN_KEY_VIOLATION)) {
-                // TODO check foreign key name
-                throw new UploadMissingUserException(cause.getMessage());
-            }
+            if (ForeignKeyErrorReader.isForeignKeyError(e, "uploads_created_by_fkey"))
+                throw new UploadMissingUserException(e.getMessage());
             throw e;
         }
     }
