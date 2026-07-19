@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="implement the functions of UploadService">
-      <change afterPath="$PROJECT_DIR$/modules/cockroach-db/src/main/java/com/example/cockroach_db/ForeignKeyErrorReader.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="check foreign key name on error in UploadService">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/upload_repository/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/upload_repository/UploadRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/storage/ObjectStorageTransformationStorageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/storage/ObjectStorageTransformationStorageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedDownloadUrlArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedDownloadUrlArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedUploadFormArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedUploadFormArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +51,42 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="cockroach-db" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="cockroach-db" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="cockroach-db" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="object-storage" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="object-storage" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="object-storage" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -139,61 +180,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000000000073" />
-      <entry key="S2" value="1.000333441012795" />
-      <entry key="S5" value="1.0593260467601566" />
-      <entry key="S10" value="1.4265085156535178" />
-      <entry key="S30" value="3.046981940701481" />
-      <entry key="S60" value="4.169410939459569" />
-      <entry key="M2" value="4.996001125327641" />
-      <entry key="M5" value="8.09307892982136" />
-      <entry key="M10" value="22.557841998107534" />
-      <entry key="M15" value="43.39225324551395" />
-      <entry key="M30" value="115.46240934645026" />
-      <entry key="H1" value="232.21782002824213" />
-      <entry key="H2" value="377.6403549843684" />
-      <entry key="H4" value="606.6032843863031" />
-      <entry key="D1" value="5923.772110424228" />
-      <entry key="W1" value="19825.0567748519" />
+      <entry key="MS100" value="1.0021921557200135" />
+      <entry key="MS500" value="1.4394114226859314" />
+      <entry key="S2" value="2.354732730411812" />
+      <entry key="S5" value="2.7099358237697198" />
+      <entry key="S10" value="2.849027611258934" />
+      <entry key="S30" value="2.973116043006798" />
+      <entry key="S60" value="3.226311256985541" />
+      <entry key="M2" value="4.245521497784264" />
+      <entry key="M5" value="8.4131473696007" />
+      <entry key="M10" value="15.27790088480795" />
+      <entry key="M15" value="21.523382402079463" />
+      <entry key="M30" value="43.88056481360051" />
+      <entry key="H1" value="115.10893982343336" />
+      <entry key="H2" value="261.78121592860293" />
+      <entry key="H4" value="510.3521660975136" />
+      <entry key="D1" value="5698.084448248334" />
+      <entry key="W1" value="19752.581253555014" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="5.344599004030171E-175" />
-      <entry key="S5" value="2.685722914301625E-70" />
-      <entry key="S10" value="2.8394654580559164E-35" />
-      <entry key="S30" value="8.661982002638657E-12" />
-      <entry key="S60" value="7.655012429526689E-6" />
-      <entry key="M2" value="0.007794370921836991" />
-      <entry key="M5" value="0.584366153500682" />
-      <entry key="M10" value="3.05515623681355" />
-      <entry key="M15" value="5.970596904602056" />
-      <entry key="M30" value="14.030558083969611" />
-      <entry key="H1" value="27.002875787289067" />
-      <entry key="H2" value="47.00278581177784" />
-      <entry key="H4" value="78.33903480080298" />
-      <entry key="D1" value="397.9314871954428" />
-      <entry key="W1" value="853.9882448467517" />
+      <entry key="S2" value="3.972458865416814E-90" />
+      <entry key="S5" value="1.7464132005343115E-36" />
+      <entry key="S10" value="1.4182842952639266E-18" />
+      <entry key="S30" value="1.5996412277301228E-6" />
+      <entry key="S60" value="0.002179023727352325" />
+      <entry key="M2" value="0.11148443404908409" />
+      <entry key="M5" value="1.9410847779243754" />
+      <entry key="M10" value="7.442571790153698" />
+      <entry key="M15" value="12.608678732630802" />
+      <entry key="M30" value="23.222577210839685" />
+      <entry key="H1" value="37.419093225899516" />
+      <entry key="H2" value="59.69963725586599" />
+      <entry key="H4" value="94.58474414146772" />
+      <entry key="D1" value="417.45756873324706" />
+      <entry key="W1" value="887.6579312714871" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9395227492140118" />
-      <entry key="MS500" value="0.9876008614453797" />
-      <entry key="S2" value="0.997214443826685" />
-      <entry key="S5" value="1.057363342909367" />
-      <entry key="S10" value="1.422640567060961" />
-      <entry key="S30" value="3.0408821360788263" />
-      <entry key="S60" value="4.164629007233159" />
-      <entry key="M2" value="5.000621723979362" />
-      <entry key="M5" value="8.670185797810651" />
-      <entry key="M10" value="25.593147434605747" />
-      <entry key="M15" value="49.33529575895614" />
-      <entry key="M30" value="129.4596528595637" />
-      <entry key="H1" value="259.1905697136489" />
-      <entry key="H2" value="424.6191004920748" />
-      <entry key="H4" value="684.923292754653" />
-      <entry key="D1" value="6321.687838164513" />
-      <entry key="W1" value="20679.040038841766" />
+      <entry key="MS100" value="0.9613651492648011" />
+      <entry key="MS500" value="1.4266799374804355" />
+      <entry key="S2" value="2.3489846650031456" />
+      <entry key="S5" value="2.7072253068999386" />
+      <entry key="S10" value="2.847591168458358" />
+      <entry key="S30" value="2.9726110555707987" />
+      <entry key="S60" value="3.227977087309166" />
+      <entry key="M2" value="4.3543643236218825" />
+      <entry key="M5" value="10.343332117412302" />
+      <entry key="M10" value="22.702377482519914" />
+      <entry key="M15" value="34.11215497407258" />
+      <entry key="M30" value="67.08338563391011" />
+      <entry key="H1" value="152.5079529066721" />
+      <entry key="H2" value="321.4613128030012" />
+      <entry key="H4" value="604.9193888823872" />
+      <entry key="D1" value="6115.526417112883" />
+      <entry key="W1" value="20640.234149288714" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -339,63 +380,59 @@
       <recent name="com.example.image_transformer" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.java [:uploads-service:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="UploadRepositoryIT.testEmptyUpdate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:cockroach-db:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-persistence:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.uploads_persistence.upload_repository.UploadRepositoryIT.testEmptyUpdate&quot;" />
+            <option value=":cockroach-db:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <GradleProfilingDisabled>false</GradleProfilingDisabled>
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="UploadRepositoryIT.testStatusUpdate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:object-storage:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-persistence:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.uploads_persistence.upload_repository.UploadRepositoryIT.testStatusUpdate&quot;" />
+            <option value=":object-storage:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <GradleProfilingDisabled>false</GradleProfilingDisabled>
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
@@ -557,10 +594,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.UploadRepositoryIT.testEmptyUpdate" />
-        <item itemvalue="Gradle.UploadRepositoryIT.testStatusUpdate" />
-        <item itemvalue="Gradle.java [:uploads-persistence:test]" />
         <item itemvalue="Gradle.java [:uploads-service:test]" />
+        <item itemvalue="Gradle.java [:uploads-persistence:test]" />
+        <item itemvalue="Gradle.java [:object-storage:test]" />
+        <item itemvalue="Gradle.java [:cockroach-db:test]" />
         <item itemvalue="Gradle.java [:uploads-api:test]" />
       </list>
     </recent_temporary>
@@ -958,8 +995,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add output format selector for transformations" />
-    <MESSAGE value="fix warnings" />
     <MESSAGE value="refractor" />
     <MESSAGE value="adjust retries" />
     <MESSAGE value="change database schema" />
@@ -983,7 +1018,9 @@
     <MESSAGE value="add the tests of the status update to the integration tests to UploadRepositoryIT" />
     <MESSAGE value="add checkIfReady method to LazyTransformationStoreImpl" />
     <MESSAGE value="implement the functions of UploadService" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement the functions of UploadService" />
+    <MESSAGE value="check foreign key name on error in UploadService" />
+    <MESSAGE value="check foreign key name on error in UploadRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="check foreign key name on error in UploadRepository" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

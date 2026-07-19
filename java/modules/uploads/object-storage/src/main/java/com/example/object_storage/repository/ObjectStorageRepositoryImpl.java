@@ -1,11 +1,13 @@
 package com.example.object_storage.repository;
 
 import com.example.object_storage.MinioProperties;
+import com.example.uploads_api.uploads.ObjectLocation;
 import io.minio.*;
-import io.minio.errors.*;
+import io.minio.errors.ErrorResponseException;
 import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
@@ -20,8 +22,8 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     private final MinioProperties minioProperties;
 
     @Override
-    public @NotNull String getDownloadUrl(@NotNull String bucket, @NotNull String objectPath) {
-        return String.format("%s/%s/%s", minioProperties.endpoint(), bucket, objectPath);
+    public @NotNull String getDownloadUrl(@NonNull ObjectLocation location) {
+        return String.format("%s/%s/%s", minioProperties.endpoint(), location.bucket(), location.path());
     }
 
     @Override
@@ -30,13 +32,18 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
+    public @NonNull String getSignedUploadFormUrl(@NonNull String bucket) {
+        return getBucketUrl(bucket);
+    }
+
+    @Override
     public @NotNull String getPreSignedDownloadUrl(@NotNull GetPreSignedDownloadUrlArgs args) {
         try {
             return minioClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
                             .method(Method.GET)
-                            .bucket(args.getBucket())
-                            .object(args.getObjectPath())
+                            .bucket(args.getLocation().bucket())
+                            .object(args.getLocation().path())
                             .expiry(args.getExpiresIn(), TimeUnit.MINUTES)
                             .build());
         } catch (Exception e) {
@@ -47,12 +54,11 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     @Override
     public @NotNull Map<String, String> getPreSignedUploadForm(@NotNull GetPreSignedUploadFormArgs args) {
         PostPolicy postPolicy = new PostPolicy(
-                args.getBucket(),
+                args.getLocation().bucket(),
                 ZonedDateTime.now().plus(args.getExpiration(),args.getTimeUnit())
         );
 
-        if (args.getObjectPath() != null)
-            postPolicy.addEqualsCondition("key", args.getObjectPath());
+        postPolicy.addEqualsCondition("key", args.getLocation().path());
         if (args.getContentType() != null)
             postPolicy.addEqualsCondition("Content-Type", args.getContentType());
         if (args.getContentLengthRange() != null)
@@ -66,11 +72,11 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void deleteObject(@NotNull String bucket, @NotNull String objectPath) {
+    public void deleteObject(@NonNull ObjectLocation location) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
-                    .bucket(bucket)
-                    .object(objectPath)
+                    .bucket(location.bucket())
+                    .object(location.path())
                     .build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete object from MinIO", e);
@@ -78,12 +84,12 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public @NotNull InputStream getObject(@NotNull String bucket, @NotNull String objectPath) {
+    public @NotNull InputStream getObject(@NonNull ObjectLocation location) {
         try {
             return minioClient.getObject(
                     GetObjectArgs.builder()
-                            .bucket(bucket)
-                            .object(objectPath)
+                            .bucket(location.bucket())
+                            .object(location.path())
                             .build()
             );
         } catch (Exception e) {
@@ -92,11 +98,11 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void uploadObject(@NotNull String filePath, @NotNull String objectPath, @NotNull String bucketName, @NotNull String contentType) {
+    public void uploadObject(@NotNull String filePath, @NonNull ObjectLocation location, @NotNull String contentType) {
         try {
             var args = UploadObjectArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectPath)
+                    .bucket(location.bucket())
+                    .object(location.path())
                     .filename(filePath)
                     .contentType(contentType)
                     .build();
@@ -107,11 +113,11 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public boolean objectExists(@NotNull String bucket, @NotNull String objectPath) {
+    public boolean objectExists(@NonNull ObjectLocation location) {
         try {
             var args = StatObjectArgs.builder()
-                    .bucket(bucket)
-                    .object(objectPath)
+                    .bucket(location.bucket())
+                    .object(location.path())
                     .build();
             var stat = minioClient.statObject(args);
             System.out.println(stat);
@@ -127,12 +133,12 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void putObject(@NotNull String bucket, @NotNull String objectPath, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType) {
+    public void putObject(@NonNull ObjectLocation location, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType) {
         try {
             minioClient.putObject(
                     PutObjectArgs.builder()
-                            .bucket(bucket)
-                            .object(objectPath)
+                            .bucket(location.bucket())
+                            .object(location.path())
                             .stream(inputStream, contentLength, -1)
                             .contentType(contentType)
                             .build());

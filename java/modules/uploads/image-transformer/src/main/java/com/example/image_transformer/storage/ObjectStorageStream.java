@@ -1,7 +1,7 @@
 package com.example.image_transformer.storage;
 
-import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.object_storage.repository.ObjectStorageRepository;
+import com.example.uploads_api.uploads.ObjectLocation;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Profile;
@@ -39,8 +39,7 @@ public class ObjectStorageStream implements FileStreamStorage {
     public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
         try {
             return objectStorageRepository.getObject(
-                    inputLocation.bucket(),
-                    inputLocation.path()
+                    new ObjectLocation(inputLocation.path(), inputLocation.bucket())
             );
         } catch (Exception e) {
             throw new RuntimeException("Failed to read source image from object storage", e);

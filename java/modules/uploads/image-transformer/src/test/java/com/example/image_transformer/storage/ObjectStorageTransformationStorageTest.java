@@ -1,7 +1,7 @@
 package com.example.image_transformer.storage;
 
-import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.object_storage.repository.ObjectStorageRepository;
+import com.example.uploads_api.uploads.ObjectLocation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -11,9 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +28,7 @@ class ObjectStorageTransformationStorageTest {
         var storage = new ObjectStorageStream(objectStorageRepository);
         var expectedStream = new ByteArrayInputStream(new byte[]{1, 2, 3});
 
-        when(objectStorageRepository.getObject(eq(LOCATION.bucket()), eq(LOCATION.path())))
+        when(objectStorageRepository.getObject(eq(LOCATION)))
                 .thenReturn(expectedStream);
 
         var actualStream = storage.read(LOCATION);
@@ -49,8 +47,7 @@ class ObjectStorageTransformationStorageTest {
         var lengthCaptor = ArgumentCaptor.forClass(Long.class);
 
         verify(objectStorageRepository).putObject(
-                eq(LOCATION.bucket()),
-                eq(LOCATION.path()),
+                eq(LOCATION),
                 streamCaptor.capture(),
                 lengthCaptor.capture(),
                 eq("image/jpeg")

@@ -1,6 +1,7 @@
 package com.example.object_storage.repository;
 
 import com.example.object_storage.MinioIntegrationTest;
+import com.example.uploads_api.uploads.ObjectLocation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -38,8 +39,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         String objectPath = UUID.randomUUID().toString();
         objectStorageRepository.uploadObject(
                 TEST_FILE_PATH.toString(),
-                objectPath,
-                BUCKET,
+                new ObjectLocation(objectPath, BUCKET),
                 CONTENT_TYPE
         );
         return objectPath;
@@ -48,8 +48,8 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
     @Test
     void testObjectExists() {
         var objectPath = initObject();
-        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
-        assertThat(objectStorageRepository.objectExists(BUCKET, "nothing")).isFalse();
+        assertThat(objectStorageRepository.objectExists(new ObjectLocation(objectPath, BUCKET))).isTrue();
+        assertThat(objectStorageRepository.objectExists(new ObjectLocation("nothing", BUCKET))).isFalse();
     }
 
     // TODO: test expiration
@@ -61,8 +61,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         var url = objectStorageRepository.getPreSignedDownloadUrl(
                 GetPreSignedDownloadUrlArgs.builder()
-                        .bucket(BUCKET)
-                        .objectPath(objectPath)
+                        .location(new ObjectLocation(objectPath, BUCKET))
                         .expiresIn(300)
                         .build()
         );
@@ -83,8 +82,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         Map<String, String> formData = objectStorageRepository.getPreSignedUploadForm(
                 GetPreSignedUploadFormArgs.builder()
-                        .bucket(BUCKET)
-                        .objectPath(objectPath)
+                        .location(new ObjectLocation(objectPath, BUCKET))
                         .expiration(10)
                         .timeUnit(ChronoUnit.MINUTES)
                         .build()
@@ -102,7 +100,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         var requestBuffer = new Buffer();
         requestBody.writeTo(requestBuffer);
         var response = restClient.post()
-                .uri(URI.create(objectStorageRepository.getBucketUrl(BUCKET)))
+                .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(BUCKET)))
                 .header("Content-Type", requestBody.contentType().toString())
                 .body(requestBuffer.readByteArray())
                 .retrieve()
@@ -112,7 +110,9 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         assertStoredContent(objectPath, content);
     }
 
-    /** The signed upload form should fail when the form arguments don't match what was specified during signing. */
+    /**
+     * The signed upload form should fail when the form arguments don't match what was specified during signing.
+     */
     @Test
     void testGetPreSignedUploadFormRejectsMismatchingObjectKey() throws IOException {
         var signedObjectPath = UUID.randomUUID().toString();
@@ -121,8 +121,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         Map<String, String> formData = objectStorageRepository.getPreSignedUploadForm(
                 GetPreSignedUploadFormArgs.builder()
-                        .bucket(BUCKET)
-                        .objectPath(signedObjectPath)
+                        .location(new ObjectLocation(signedObjectPath, BUCKET))
                         .expiration(10)
                         .timeUnit(ChronoUnit.MINUTES)
                         .build()
@@ -134,15 +133,15 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         try {
             restClient.post()
-                    .uri(URI.create(objectStorageRepository.getBucketUrl(BUCKET)))
+                    .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(BUCKET)))
                     .header("Content-Type", requestBody.contentType().toString())
                     .body(requestBuffer.readByteArray())
                     .retrieve()
                     .toBodilessEntity();
         } catch (RestClientResponseException e) {
             assertThat(e.getStatusCode().is4xxClientError()).isTrue();
-            assertThat(objectStorageRepository.objectExists(BUCKET, signedObjectPath)).isFalse();
-            assertThat(objectStorageRepository.objectExists(BUCKET, uploadedObjectPath)).isFalse();
+            assertThat(objectStorageRepository.objectExists(new ObjectLocation(signedObjectPath, BUCKET))).isFalse();
+            assertThat(objectStorageRepository.objectExists(new ObjectLocation(uploadedObjectPath, BUCKET))).isFalse();
             return;
         }
 
@@ -155,7 +154,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         byte[] content = readTestContent();
 
         try (InputStream inputStream = new ByteArrayInputStream(content)) {
-            objectStorageRepository.putObject(BUCKET, objectPath, inputStream, content.length, CONTENT_TYPE);
+            objectStorageRepository.putObject(new ObjectLocation(objectPath, BUCKET), inputStream, content.length, CONTENT_TYPE);
         }
 
         assertStoredContent(objectPath, content);
@@ -167,7 +166,7 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         byte[] expectedContent = readTestContent();
 
         byte[] responseBody = restClient.get()
-                .uri(URI.create(objectStorageRepository.getDownloadUrl(BUCKET, objectPath)))
+                .uri(URI.create(objectStorageRepository.getDownloadUrl(new ObjectLocation(objectPath, BUCKET))))
                 .retrieve()
                 .body(byte[].class);
 
@@ -177,11 +176,11 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
     @Test
     void testDeleteObject() {
         var objectPath = initObject();
-        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
+        assertThat(objectStorageRepository.objectExists(new ObjectLocation(objectPath, BUCKET))).isTrue();
 
-        objectStorageRepository.deleteObject(BUCKET, objectPath);
+        objectStorageRepository.deleteObject(new ObjectLocation(objectPath, BUCKET));
 
-        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isFalse();
+        assertThat(objectStorageRepository.objectExists(new ObjectLocation(objectPath, BUCKET))).isFalse();
     }
 
     private static byte @NonNull [] readTestContent() throws IOException {
@@ -189,8 +188,8 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
     }
 
     private void assertStoredContent(String objectPath, byte[] expectedContent) throws IOException {
-        assertThat(objectStorageRepository.objectExists(BUCKET, objectPath)).isTrue();
-        try (InputStream inputStream = objectStorageRepository.getObject(BUCKET, objectPath)) {
+        assertThat(objectStorageRepository.objectExists(new ObjectLocation(objectPath, BUCKET))).isTrue();
+        try (InputStream inputStream = objectStorageRepository.getObject(new ObjectLocation(objectPath, BUCKET))) {
             assertThat(inputStream.readAllBytes()).isEqualTo(expectedContent);
         }
     }

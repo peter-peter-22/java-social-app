@@ -1,26 +1,30 @@
 package com.example.object_storage.repository;
 
+import com.example.uploads_api.uploads.ObjectLocation;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.InputStream;
 import java.util.Map;
 
 public interface ObjectStorageRepository {
-    @NotNull String getDownloadUrl(@NotNull String bucket, @NotNull String objectPath);
+    @NotNull String getDownloadUrl(@NonNull ObjectLocation location);
 
     @NotNull String getBucketUrl(@NotNull String bucket);
+
+    @NonNull String getSignedUploadFormUrl(@NotNull String bucket);
 
     @NotNull String getPreSignedDownloadUrl(@NotNull GetPreSignedDownloadUrlArgs args);
 
     @NotNull Map<String, String> getPreSignedUploadForm(@NotNull GetPreSignedUploadFormArgs args);
 
-    void deleteObject(@NotNull String bucket, @NotNull String objectPath);
+    void deleteObject(@NonNull ObjectLocation location);
 
-    @NotNull InputStream getObject(@NotNull String bucket, @NotNull String objectPath);
+    @NotNull InputStream getObject(@NonNull ObjectLocation location);
 
-    void uploadObject(@NotNull String filePath, @NotNull String objectPath, @NotNull String bucketName, @NotNull String contentType);
+    void uploadObject(@NotNull String filePath, @NonNull ObjectLocation location, @NotNull String contentType);
 
-    boolean objectExists(@NotNull String bucket, @NotNull String objectPath);
+    boolean objectExists(@NonNull ObjectLocation location);
 
-    void putObject(@NotNull String bucket, @NotNull String objectPath, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType);
+    void putObject(@NonNull ObjectLocation location, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType);
 }

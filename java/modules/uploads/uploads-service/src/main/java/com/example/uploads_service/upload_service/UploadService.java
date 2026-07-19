@@ -5,6 +5,7 @@ import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.transformations.upload_repository.InsertUpload;
 import com.example.uploads_api.transformations.upload_repository.UploadRepository;
+import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import com.example.uploads_service.transformation_service.TransformationService;
@@ -37,8 +38,7 @@ public class UploadService {
 
         // get form parameters
         var getFormArgs = GetPreSignedUploadFormArgs.builder()
-                .bucket(UPLOAD_BUCKET)
-                .objectPath(args.getObjectPath())
+                .location(new ObjectLocation(args.getObjectPath(), UPLOAD_BUCKET))
                 .expiration(args.getExpiration())
                 .timeUnit(args.getTimeUnit())
                 .contentType(args.getFileType().getContentType())
