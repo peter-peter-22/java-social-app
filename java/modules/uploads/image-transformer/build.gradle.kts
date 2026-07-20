@@ -50,6 +50,7 @@ testing {
 						description = "Runs integration tests requiring libvips."
 						group = LifecycleBasePlugin.VERIFICATION_GROUP
 						shouldRunAfter(tasks.test)
+						jvmArgs("--enable-native-access=ALL-UNNAMED")
 					}
 				}
 			}

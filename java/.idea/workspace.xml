@@ -5,65 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="replace jetbrains annotations to jspecify">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostToInsert.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostToInsert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/posts-persistence/src/main/java/com/example/posts/post_repository/PostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/src/main/java/com/example/posts/post_repository/PostRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/AspectRatioTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/AspectRatioTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/ImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/ImageTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/ImageTransformationPipeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/ImageTransformationPipeline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/LimitResolutionTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/LimitResolutionTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/VImageStreamConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/operations/VImageStreamConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/FileStreamStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/FileStreamStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/configuration/ApplyReconciliation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/configuration/ApplyReconciliation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedDownloadUrlArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedDownloadUrlArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedUploadFormArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedUploadFormArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/ImageTransformationTaskDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/ImageTransformationTaskDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/VideoTransformationTaskDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/VideoTransformationTaskDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/filters/TransformationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/filters/TransformationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/filters/TransformationFilters.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/filters/TransformationFilters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/lazy_transformation_store/LazyTransformationStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/lazy_transformation_store/LazyTransformationStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/AspectRatio.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/AspectRatio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/LimitResolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/LimitResolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/TransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/TransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/path/TransformationPathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/path/TransformationPathManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/ImageTransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/ImageTransformationSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSourceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSourceBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/VideoTransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/VideoTransformationSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/InsertUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/upload_repository/UploadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/webhook/WebhookCall.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/webhook/WebhookCall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/FileType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/ObjectLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/ObjectLocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/Upload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/Upload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestTransformationCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestTransformationCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestUploadCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestUploadCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/lazy_transformation_store/LazyTransformationStoreImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/lazy_transformation_store/LazyTransformationStoreImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/main/java/com/example/uploads_persistence/upload_repository/UploadRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingImageTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingImageTransformerRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingVideoTransformerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/BlockingVideoTransformerRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationEventApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationEventApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/LazyTransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/transformation_service/TransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/CreateSignedUploadArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/CreateSignedUploadArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/TransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/test/java/com/example/uploads_service/transformation_service/TransformationServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/users-api/src/main/java/com/example/users_api/repository/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-api/src/main/java/com/example/users_api/repository/UserId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,65 +92,65 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0011067901299646" />
-      <entry key="MS500" value="1.3491361051473656" />
-      <entry key="S2" value="3.6649899359006337" />
-      <entry key="S5" value="6.500027218257586" />
-      <entry key="S10" value="8.324548743784987" />
-      <entry key="S30" value="9.988842622091665" />
-      <entry key="S60" value="10.4824123592108" />
-      <entry key="M2" value="10.904606652147958" />
-      <entry key="M5" value="12.457949238976651" />
-      <entry key="M10" value="15.434053654669405" />
-      <entry key="M15" value="18.592478866672405" />
-      <entry key="M30" value="28.6814504584385" />
-      <entry key="H1" value="57.671381092006605" />
-      <entry key="H2" value="150.10760409122295" />
-      <entry key="H4" value="375.24487977980243" />
-      <entry key="D1" value="5211.288153261055" />
-      <entry key="W1" value="19610.760825653804" />
+      <entry key="MS100" value="1.5000038325694174" />
+      <entry key="MS500" value="3.507871308487888" />
+      <entry key="S2" value="4.549924340254101" />
+      <entry key="S5" value="4.812682361163009" />
+      <entry key="S10" value="4.905078643183989" />
+      <entry key="S30" value="4.968104509617412" />
+      <entry key="S60" value="5.00220713834138" />
+      <entry key="M2" value="5.446440783199385" />
+      <entry key="M5" value="8.491388096143833" />
+      <entry key="M10" value="13.172781470431524" />
+      <entry key="M15" value="17.169774461195704" />
+      <entry key="M30" value="28.20506530203915" />
+      <entry key="H1" value="56.87450409757876" />
+      <entry key="H2" value="147.36400831556986" />
+      <entry key="H4" value="370.4379588383943" />
+      <entry key="D1" value="5193.337832997942" />
+      <entry key="W1" value="19603.399613271307" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="7.100719218475992E-223" />
-      <entry key="S2" value="2.9028566171991173E-56" />
-      <entry key="S5" value="6.097197094195087E-23" />
-      <entry key="S10" value="7.808455093163493E-12" />
-      <entry key="S30" value="1.9839088084098173E-4" />
-      <entry key="S60" value="0.01408512977721475" />
-      <entry key="M2" value="0.11868078941941168" />
-      <entry key="M5" value="0.42633617261672513" />
-      <entry key="M10" value="0.6534285797469296" />
-      <entry key="M15" value="0.7705607199882973" />
-      <entry key="M30" value="1.63836410314114" />
-      <entry key="H1" value="7.615122378141831" />
-      <entry key="H2" value="27.29730725906267" />
-      <entry key="H4" value="67.46383573664247" />
-      <entry key="D1" value="403.4140220120092" />
-      <entry key="W1" value="910.8872711648532" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="4.522138534505158E-139" />
+      <entry key="S5" value="4.593434681313923E-56" />
+      <entry key="S10" value="2.143229964636068E-28" />
+      <entry key="S30" value="5.984431829761021E-10" />
+      <entry key="S60" value="2.4463098392805872E-5" />
+      <entry key="M2" value="0.004946018438381104" />
+      <entry key="M5" value="0.1195920481957381" />
+      <entry key="M10" value="0.3460773580513726" />
+      <entry key="M15" value="0.5044176106843149" />
+      <entry key="M30" value="1.325568303674568" />
+      <entry key="H1" value="6.849718605118002" />
+      <entry key="H2" value="25.889146313667055" />
+      <entry key="H4" value="65.70069909762614" />
+      <entry key="D1" value="401.6374024432196" />
+      <entry key="W1" value="910.3131134528455" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8960295074933933" />
-      <entry key="MS500" value="1.320868534132116" />
-      <entry key="S2" value="3.6476393330565022" />
-      <entry key="S5" value="6.487188240504816" />
-      <entry key="S10" value="8.316087175018648" />
-      <entry key="S30" value="9.985569126368862" />
-      <entry key="S60" value="10.494303543969233" />
-      <entry key="M2" value="11.020764020478406" />
-      <entry key="M5" value="12.88153895776149" />
-      <entry key="M10" value="16.085340187796838" />
-      <entry key="M15" value="19.36121594206108" />
-      <entry key="M30" value="30.317589717589723" />
-      <entry key="H1" value="65.2816820067976" />
-      <entry key="H2" value="177.39614786782562" />
-      <entry key="H4" value="442.6969654273408" />
-      <entry key="D1" value="5614.687547992037" />
-      <entry key="W1" value="20521.643012117405" />
+      <entry key="MS100" value="1.388185076725799" />
+      <entry key="MS500" value="3.465307015303804" />
+      <entry key="S2" value="4.536782131162682" />
+      <entry key="S5" value="4.807175905497045" />
+      <entry key="S10" value="4.9022816467249175" />
+      <entry key="S30" value="4.967162231082798" />
+      <entry key="S60" value="5.001755401234631" />
+      <entry key="M2" value="5.451045128393468" />
+      <entry key="M5" value="8.610115053833464" />
+      <entry key="M10" value="13.517676977418343" />
+      <entry key="M15" value="17.672966722768585" />
+      <entry key="M30" value="29.528817741072952" />
+      <entry key="H1" value="63.71987795575502" />
+      <entry key="H2" value="173.24483927344187" />
+      <entry key="H4" value="436.1272129566246" />
+      <entry key="D1" value="5594.960672249185" />
+      <entry key="W1" value="20513.707645180937" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
