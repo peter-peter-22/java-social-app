@@ -1,5 +1,3 @@
-refractor object location
-
 test configurations, remove unused test package scanners
 
 separate upload persistence and upload service into modules

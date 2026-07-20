@@ -42,7 +42,7 @@ public class UploadTransformationApplicableTests {
         // create transformation
         var transformation = createImageTransformation(
                 ops -> ops.filters(new TransformationFilter[]{
-                        new TransformationFilters.PathPrefix("avatars/"),
+                        new TransformationFilters.KeyPrefix("avatars/"),
                         new TransformationFilters.BucketFilter("uploads")
                 })
         );

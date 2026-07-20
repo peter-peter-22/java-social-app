@@ -7,12 +7,12 @@ import org.jetbrains.annotations.NotNull;
 public class TransformationFilters {
 
     @AllArgsConstructor
-    public static class PathPrefix implements TransformationFilter {
+    public static class KeyPrefix implements TransformationFilter {
         private final String prefix;
 
         @Override
         public boolean isApplicable(@NotNull Upload upload) {
-            return upload.objectLocation().path().startsWith(prefix);
+            return upload.objectLocation().key().startsWith(prefix);
         }
     }
 

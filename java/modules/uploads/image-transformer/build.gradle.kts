@@ -67,7 +67,7 @@ tasks.register<Exec>("dockerIT") {
 
 	commandLine(
 		"docker", "compose",
-		"-f", "modules/media/image-transformer/docker/compose-test.yaml",
+		"-f", "modules/uploads/image-transformer/docker/compose-test.yaml",
 		"run", "--rm",
 		"image-transformer"
 	)

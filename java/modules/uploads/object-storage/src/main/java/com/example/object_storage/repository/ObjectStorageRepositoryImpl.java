@@ -23,17 +23,16 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
 
     @Override
     public @NotNull String getDownloadUrl(@NonNull ObjectLocation location) {
-        return String.format("%s/%s/%s", minioProperties.endpoint(), location.bucket(), location.path());
+        return String.format("%s/%s/%s", minioProperties.endpoint(), location.bucket(), location.key());
     }
 
-    @Override
-    public @NotNull String getBucketUrl(@NotNull String bucket) {
+    private @NotNull String getBucketUrl(@NotNull String bucket) {
         return String.format("%s/%s", minioProperties.endpoint(), bucket);
     }
 
     @Override
-    public @NonNull String getSignedUploadFormUrl(@NonNull String bucket) {
-        return getBucketUrl(bucket);
+    public @NonNull String getSignedUploadFormUrl(@NonNull ObjectLocation location) {
+        return getBucketUrl(location.bucket());
     }
 
     @Override
@@ -43,7 +42,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                     GetPresignedObjectUrlArgs.builder()
                             .method(Method.GET)
                             .bucket(args.getLocation().bucket())
-                            .object(args.getLocation().path())
+                            .object(args.getLocation().key())
                             .expiry(args.getExpiresIn(), TimeUnit.MINUTES)
                             .build());
         } catch (Exception e) {
@@ -58,7 +57,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                 ZonedDateTime.now().plus(args.getExpiration(),args.getTimeUnit())
         );
 
-        postPolicy.addEqualsCondition("key", args.getLocation().path());
+        postPolicy.addEqualsCondition("key", args.getLocation().key());
         if (args.getContentType() != null)
             postPolicy.addEqualsCondition("Content-Type", args.getContentType());
         if (args.getContentLengthRange() != null)
@@ -76,7 +75,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
                     .bucket(location.bucket())
-                    .object(location.path())
+                    .object(location.key())
                     .build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete object from MinIO", e);
@@ -89,7 +88,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
             return minioClient.getObject(
                     GetObjectArgs.builder()
                             .bucket(location.bucket())
-                            .object(location.path())
+                            .object(location.key())
                             .build()
             );
         } catch (Exception e) {
@@ -102,7 +101,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
         try {
             var args = UploadObjectArgs.builder()
                     .bucket(location.bucket())
-                    .object(location.path())
+                    .object(location.key())
                     .filename(filePath)
                     .contentType(contentType)
                     .build();
@@ -117,7 +116,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
         try {
             var args = StatObjectArgs.builder()
                     .bucket(location.bucket())
-                    .object(location.path())
+                    .object(location.key())
                     .build();
             var stat = minioClient.statObject(args);
             System.out.println(stat);
@@ -138,7 +137,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(location.bucket())
-                            .object(location.path())
+                            .object(location.key())
                             .stream(inputStream, contentLength, -1)
                             .contentType(contentType)
                             .build());

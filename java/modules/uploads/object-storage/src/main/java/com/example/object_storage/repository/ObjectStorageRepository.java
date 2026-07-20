@@ -10,9 +10,7 @@ import java.util.Map;
 public interface ObjectStorageRepository {
     @NotNull String getDownloadUrl(@NonNull ObjectLocation location);
 
-    @NotNull String getBucketUrl(@NotNull String bucket);
-
-    @NonNull String getSignedUploadFormUrl(@NotNull String bucket);
+    @NonNull String getSignedUploadFormUrl(@NotNull ObjectLocation location);
 
     @NotNull String getPreSignedDownloadUrl(@NotNull GetPreSignedDownloadUrlArgs args);
 

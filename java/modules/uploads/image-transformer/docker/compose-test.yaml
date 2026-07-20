@@ -2,7 +2,7 @@ services:
   image-transformer:
     build:
       context: ../../../../
-      dockerfile: modules/media/image-transformer/docker/Dockerfile
+      dockerfile: modules/uploads/image-transformer/docker/Dockerfile
     working_dir: /workspace
     user: "${UID:-1000}:${GID:-1000}"
     environment:

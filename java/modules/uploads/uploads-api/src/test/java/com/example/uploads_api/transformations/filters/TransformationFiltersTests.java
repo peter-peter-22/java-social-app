@@ -34,7 +34,7 @@ public class TransformationFiltersTests {
         };
 
         for (var testCase : testCases) {
-            var filter = new TransformationFilters.PathPrefix(testCase.prefix);
+            var filter = new TransformationFilters.KeyPrefix(testCase.prefix);
             for (var path : testCase.shouldApply()) {
                 var upload = TestUploadCreator.createUploadFromPath(path);
                 assertThat(filter.isApplicable(upload)).isTrue();

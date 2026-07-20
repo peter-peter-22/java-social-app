@@ -42,7 +42,7 @@ public class UploadRepositoryImpl implements UploadRepository {
     private static UploadEntity domainToEntity(@NotNull Upload domain) {
         return new UploadEntity(
                 domain.id().get(),
-                domain.objectLocation().path(),
+                domain.objectLocation().key(),
                 domain.objectLocation().bucket(),
                 domain.createdBy().get(),
                 domain.fileType(),

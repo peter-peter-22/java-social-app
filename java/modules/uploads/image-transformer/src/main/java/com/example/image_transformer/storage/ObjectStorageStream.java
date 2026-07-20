@@ -24,8 +24,7 @@ public class ObjectStorageStream implements FileStreamStorage {
         try {
             var bytes = inputStream.readAllBytes();
             objectStorageRepository.putObject(
-                    outputLocation.bucket(),
-                    outputLocation.path(),
+                    outputLocation,
                     new ByteArrayInputStream(bytes),
                     bytes.length,
                     "image/jpeg"
@@ -38,9 +37,7 @@ public class ObjectStorageStream implements FileStreamStorage {
     @Override
     public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
         try {
-            return objectStorageRepository.getObject(
-                    new ObjectLocation(inputLocation.path(), inputLocation.bucket())
-            );
+            return objectStorageRepository.getObject(inputLocation);
         } catch (Exception e) {
             throw new RuntimeException("Failed to read source image from object storage", e);
         }

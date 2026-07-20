@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TransformationPathManager {
     public static @NotNull ObjectLocation getOutputObject(@NotNull Upload original, @NotNull String extension, @NotNull String outputBucket, @NotNull String name) {
-        return new ObjectLocation(original.objectLocation().bucket() + "/" + original.objectLocation().path() + "/" + name + "." + extension, outputBucket);
+        return new ObjectLocation(original.objectLocation().bucket() + "/" + original.objectLocation().key() + "/" + name + "." + extension, outputBucket);
     }
 
     public static @NotNull ObjectLocation getOutputObject(@NotNull Upload original, @NotNull TransformationSource<?> transformation){

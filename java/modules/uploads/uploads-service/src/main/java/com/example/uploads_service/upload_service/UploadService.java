@@ -37,8 +37,9 @@ public class UploadService {
         var id = uploadRepository.create(insertUpload);
 
         // get form parameters
+        var location = new ObjectLocation(args.getObjectPath(), UPLOAD_BUCKET);
         var getFormArgs = GetPreSignedUploadFormArgs.builder()
-                .location(new ObjectLocation(args.getObjectPath(), UPLOAD_BUCKET))
+                .location(location)
                 .expiration(args.getExpiration())
                 .timeUnit(args.getTimeUnit())
                 .contentType(args.getFileType().getContentType())
@@ -50,7 +51,7 @@ public class UploadService {
         var formParams = objectStorageRepository.getPreSignedUploadForm(getFormArgs);
 
         // get url
-        var url = objectStorageRepository.getBucketUrl(UPLOAD_BUCKET);
+        var url = objectStorageRepository.getSignedUploadFormUrl(location);
 
         return SignedUploadFormResponse.builder()
                 .formFields(formParams)
@@ -81,9 +82,8 @@ public class UploadService {
     /**
      * Manually canceled upload
      */
-    boolean markUploadAsFailed(@NotNull UploadId id) {
+    void markUploadAsFailed(@NotNull UploadId id) {
         uploadRepository.updateStatus(id, UploadStatus.FAILED);
-        return false;
     }
 
     /**

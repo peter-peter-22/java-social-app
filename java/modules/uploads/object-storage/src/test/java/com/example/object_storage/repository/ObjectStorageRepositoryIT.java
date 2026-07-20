@@ -100,7 +100,9 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
         var requestBuffer = new Buffer();
         requestBody.writeTo(requestBuffer);
         var response = restClient.post()
-                .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(BUCKET)))
+                .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(
+                        ObjectLocation.builder().bucket(BUCKET).key(objectPath).build()
+                )))
                 .header("Content-Type", requestBody.contentType().toString())
                 .body(requestBuffer.readByteArray())
                 .retrieve()
@@ -133,7 +135,9 @@ public class ObjectStorageRepositoryIT extends MinioIntegrationTest {
 
         try {
             restClient.post()
-                    .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(BUCKET)))
+                    .uri(URI.create(objectStorageRepository.getSignedUploadFormUrl(
+                            ObjectLocation.builder().bucket(BUCKET).key(signedObjectPath).build()
+                    )))
                     .header("Content-Type", requestBody.contentType().toString())
                     .body(requestBuffer.readByteArray())
                     .retrieve()
