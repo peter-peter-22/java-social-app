@@ -10,6 +10,8 @@ repositories {
     mavenCentral()
 }
 
+val mockitoAgent by configurations.creating
+
 dependencies {
     // junit
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
@@ -27,6 +29,12 @@ dependencies {
 
     // assertj
     testImplementation("org.assertj:assertj-core:3.27.7")
+
+    // mockito
+    testImplementation("org.mockito:mockito-core:5.23.0")
+    mockitoAgent("org.mockito:mockito-core:5.23.0") {
+        isTransitive = false
+    }
 }
 
 java {
@@ -37,4 +45,7 @@ java {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    doFirst {
+        jvmArgs("-javaagent:${mockitoAgent.singleFile.absolutePath}")
+    }
 }

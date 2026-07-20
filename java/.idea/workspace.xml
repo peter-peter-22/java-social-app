@@ -4,39 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor ObjectStorageRepository">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/posts/posts-api/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostToInsert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/src/main/java/com/example/posts/post_repository/PostRepositoryImpl.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor post related modules">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/posts/java.posts.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-api/java.posts-api.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/HydratedPostDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/api/PostController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/src/main/java/com/example/posts/post_repository/PostEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostRepositoryCustomImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/main/java/com/example/posts/internal/post_service/PostServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostRepositoryIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/posts/src/test/java/com/example/posts/PostsTestApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/spring-utils/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/spring-utils/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/posts/posts-persistence/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/spring-utils/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/utils/spring-utils/src/test/java/com/example/spring_utils/TestApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,61 +133,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000643407414" />
-      <entry key="MS500" value="1.1028824522771339" />
-      <entry key="S2" value="2.7543319738274015" />
-      <entry key="S5" value="4.927486346906003" />
-      <entry key="S10" value="6.474525008328248" />
-      <entry key="S30" value="8.008760246273665" />
-      <entry key="S60" value="8.482284894211265" />
-      <entry key="M2" value="8.735320025753634" />
-      <entry key="M5" value="8.91660170514087" />
-      <entry key="M10" value="10.062716477640885" />
-      <entry key="M15" value="13.308198825248672" />
-      <entry key="M30" value="29.772847589230963" />
-      <entry key="H1" value="76.36719109218078" />
-      <entry key="H2" value="196.29623267294053" />
-      <entry key="H4" value="442.0963359844237" />
-      <entry key="D1" value="5416.951526893722" />
-      <entry key="W1" value="19696.922028439705" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.000000033737267" />
+      <entry key="S60" value="1.0002638774238837" />
+      <entry key="M2" value="1.0281685779848153" />
+      <entry key="M5" value="1.7399098756827165" />
+      <entry key="M10" value="3.856866939599041" />
+      <entry key="M15" value="6.339741318366096" />
+      <entry key="M30" value="16.909036413449666" />
+      <entry key="H1" value="52.018855192376584" />
+      <entry key="H2" value="156.70376637332075" />
+      <entry key="H4" value="392.40282981510575" />
+      <entry key="D1" value="5293.533028469357" />
+      <entry key="W1" value="19639.300433928394" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="4.231808518568226E-183" />
-      <entry key="S10" value="1.0774580172053665E-91" />
-      <entry key="S30" value="1.1302051868140602E-30" />
-      <entry key="S60" value="2.696746873220528E-15" />
-      <entry key="M2" value="1.7252637651192353E-7" />
-      <entry key="M5" value="0.01073244254140995" />
-      <entry key="M10" value="0.47254954392517773" />
-      <entry key="M15" value="1.7633864204501737" />
-      <entry key="M30" value="7.645052394115309" />
-      <entry key="H1" value="21.048979615080206" />
-      <entry key="H2" value="46.72983456231662" />
-      <entry key="H4" value="88.56332624234906" />
-      <entry key="D1" value="422.1193027813856" />
-      <entry key="W1" value="916.1220809353782" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="1.1258049216715445E-188" />
+      <entry key="S30" value="5.323266693512157E-63" />
+      <entry key="S60" value="1.8507623163150956E-31" />
+      <entry key="M2" value="1.4292583341050718E-15" />
+      <entry key="M5" value="6.2805932040239795E-6" />
+      <entry key="M10" value="0.011431372973308459" />
+      <entry key="M15" value="0.14749643482424704" />
+      <entry key="M30" value="2.2110444909516294" />
+      <entry key="H1" value="11.319820891566048" />
+      <entry key="H2" value="34.26876847487362" />
+      <entry key="H4" value="75.8413484759031" />
+      <entry key="D1" value="411.34911438576717" />
+      <entry key="W1" value="912.7457724504068" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="2.7931543305099546E-5" />
-      <entry key="MS500" value="0.22390569365448057" />
-      <entry key="S2" value="2.3020997462834547" />
-      <entry key="S5" value="4.676305887229672" />
-      <entry key="S10" value="6.3273980762252195" />
-      <entry key="S30" value="7.953256315873545" />
-      <entry key="S60" value="8.453589574316469" />
-      <entry key="M2" value="8.720725089657071" />
-      <entry key="M5" value="8.921356695776064" />
-      <entry key="M10" value="10.530564783753105" />
-      <entry key="M15" value="15.065278914841468" />
-      <entry key="M30" value="37.40773122591941" />
-      <entry key="H1" value="97.40333531708418" />
-      <entry key="H2" value="243.01126884735234" />
-      <entry key="H4" value="530.6443128713903" />
-      <entry key="D1" value="5839.055528625844" />
-      <entry key="W1" value="20613.03899570983" />
+      <entry key="MS100" value="3.414249690734756E-6" />
+      <entry key="MS500" value="0.08066015565323618" />
+      <entry key="S2" value="0.5329233680339712" />
+      <entry key="S5" value="0.7774382525851944" />
+      <entry key="S10" value="0.8817245899855546" />
+      <entry key="S30" value="0.9589095991854498" />
+      <entry key="S60" value="0.9795027724016966" />
+      <entry key="M2" value="1.0177160628557507" />
+      <entry key="M5" value="1.7355997622876558" />
+      <entry key="M10" value="3.865910045489767" />
+      <entry key="M15" value="6.485140550106174" />
+      <entry key="M30" value="19.116314629543194" />
+      <entry key="H1" value="63.33134659410105" />
+      <entry key="H2" value="190.96146497722845" />
+      <entry key="H4" value="468.23092385312896" />
+      <entry key="D1" value="5704.867213700967" />
+      <entry key="W1" value="20552.04110891178" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -977,7 +951,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="wip" />
     <MESSAGE value="update image-transformer" />
     <MESSAGE value="refractor and fix image-transformer tests" />
     <MESSAGE value="rename the media-api module to uploads-api" />
@@ -1002,7 +975,8 @@
     <MESSAGE value="fix database schema in the uploads table" />
     <MESSAGE value="refractor the usage of ObjectLocation" />
     <MESSAGE value="refractor ObjectStorageRepository" />
-    <option name="LAST_COMMIT_MESSAGE" value="refractor ObjectStorageRepository" />
+    <MESSAGE value="refractor post related modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor post related modules" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

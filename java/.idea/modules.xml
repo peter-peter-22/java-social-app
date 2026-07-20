@@ -17,8 +17,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/posts-api/java.posts-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-api/java.posts-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/posts/posts-persistence/java.posts-persistence.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-api/java.users-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" />

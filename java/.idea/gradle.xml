@@ -30,7 +30,6 @@
             <option value="$PROJECT_DIR$/modules/uploads/uploads-service" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />
-            <option value="$PROJECT_DIR$/modules/utils/spring-utils" />
           </set>
         </option>
       </GradleProjectSettings>
