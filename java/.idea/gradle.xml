@@ -21,7 +21,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/modules/cockroach-db" />
-            <option value="$PROJECT_DIR$/modules/posts" />
+            <option value="$PROJECT_DIR$/modules/posts/posts-api" />
+            <option value="$PROJECT_DIR$/modules/posts/posts-persistence" />
             <option value="$PROJECT_DIR$/modules/uploads/image-transformer" />
             <option value="$PROJECT_DIR$/modules/uploads/object-storage" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-api" />
