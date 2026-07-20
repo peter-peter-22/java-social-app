@@ -1,8 +1,8 @@
 package com.example.uploads_api.transformations.operations;
 
 import com.example.uploads_api.uploads.FileType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TransformationOperations {
-    @NotNull FileType getFormat();
+    @NonNull FileType getFormat();
 }

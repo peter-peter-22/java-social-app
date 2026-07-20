@@ -2,7 +2,7 @@ package com.example.uploads_api.uploads;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @AllArgsConstructor
 @Getter
@@ -11,12 +11,12 @@ public enum FileType {
     WEBP(new String[]{"webp"}, new String[]{"image/webp"}, "image/webp", MediaType.IMAGE),
     MP4(new String[]{"mp4"}, new String[]{"video/mp4"}, "video/mp4", MediaType.VIDEO);
 
-    @NotNull
+    @NonNull
     private final String[] extensions;
-    @NotNull
+    @NonNull
     private final String[] mimeType;
-    @NotNull
+    @NonNull
     private final String contentType;
-    @NotNull
+    @NonNull
     private final MediaType mediaType;
 }

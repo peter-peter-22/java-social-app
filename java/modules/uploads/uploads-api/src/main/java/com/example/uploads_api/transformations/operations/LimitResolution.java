@@ -1,10 +1,10 @@
 package com.example.uploads_api.transformations.operations;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public record LimitResolution(
         int pixels,
-        @NotNull Mode mode
+        @NonNull Mode mode
 ) {
     public enum Mode {
         KEEP_ASPECT_RATIO

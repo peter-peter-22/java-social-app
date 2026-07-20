@@ -1,11 +1,11 @@
 package com.example.uploads_api.transformations.operations;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public record AspectRatio(
         int width,
         int height,
-        @NotNull Mode mode
+        @NonNull Mode mode
 ) {
     public enum Mode {
         FILL,

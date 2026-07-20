@@ -6,7 +6,6 @@ import io.minio.*;
 import io.minio.errors.ErrorResponseException;
 import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Repository;
 
@@ -22,11 +21,11 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     private final MinioProperties minioProperties;
 
     @Override
-    public @NotNull String getDownloadUrl(@NonNull ObjectLocation location) {
+    public @NonNull String getDownloadUrl(@NonNull ObjectLocation location) {
         return String.format("%s/%s/%s", minioProperties.endpoint(), location.bucket(), location.key());
     }
 
-    private @NotNull String getBucketUrl(@NotNull String bucket) {
+    private @NonNull String getBucketUrl(@NonNull String bucket) {
         return String.format("%s/%s", minioProperties.endpoint(), bucket);
     }
 
@@ -36,7 +35,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public @NotNull String getPreSignedDownloadUrl(@NotNull GetPreSignedDownloadUrlArgs args) {
+    public @NonNull String getPreSignedDownloadUrl(@NonNull GetPreSignedDownloadUrlArgs args) {
         try {
             return minioClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
@@ -51,7 +50,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public @NotNull Map<String, String> getPreSignedUploadForm(@NotNull GetPreSignedUploadFormArgs args) {
+    public @NonNull Map<String, String> getPreSignedUploadForm(@NonNull GetPreSignedUploadFormArgs args) {
         PostPolicy postPolicy = new PostPolicy(
                 args.getLocation().bucket(),
                 ZonedDateTime.now().plus(args.getExpiration(),args.getTimeUnit())
@@ -83,7 +82,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public @NotNull InputStream getObject(@NonNull ObjectLocation location) {
+    public @NonNull InputStream getObject(@NonNull ObjectLocation location) {
         try {
             return minioClient.getObject(
                     GetObjectArgs.builder()
@@ -97,7 +96,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void uploadObject(@NotNull String filePath, @NonNull ObjectLocation location, @NotNull String contentType) {
+    public void uploadObject(@NonNull String filePath, @NonNull ObjectLocation location, @NonNull String contentType) {
         try {
             var args = UploadObjectArgs.builder()
                     .bucket(location.bucket())
@@ -132,7 +131,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void putObject(@NonNull ObjectLocation location, @NotNull InputStream inputStream, long contentLength, @NotNull String contentType) {
+    public void putObject(@NonNull ObjectLocation location, @NonNull InputStream inputStream, long contentLength, @NonNull String contentType) {
         try {
             minioClient.putObject(
                     PutObjectArgs.builder()

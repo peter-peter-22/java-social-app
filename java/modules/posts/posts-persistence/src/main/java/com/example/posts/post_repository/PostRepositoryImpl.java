@@ -6,8 +6,8 @@ import com.example.posts_api.post_repository.PostRepository;
 import com.example.posts_api.post_repository.PostToInsert;
 import com.example.users_api.repository.UserId;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ class PostRepositoryImpl implements PostRepository {
     private final JdbcAggregateTemplate template;
     private final JdbcClient jdbc;
 
-    private static @NotNull Post entityToDomain(@NotNull PostEntity e) {
+    private static @NonNull Post entityToDomain(@NonNull PostEntity e) {
         return new Post(
                 new PostId(e.id()),
                 new UserId(e.authorId()),
@@ -31,7 +31,7 @@ class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public @NotNull PostId insertAndReturnId(@NotNull PostToInsert insert) {
+    public @NonNull PostId insertAndReturnId(@NonNull PostToInsert insert) {
         var inserted = jdbc.sql("""
                         INSERT INTO posts (author_id,body)
                         VALUES (:author_id,:body)
@@ -45,7 +45,7 @@ class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public @Nullable Post getPost(@NotNull PostId id) {
+    public @Nullable Post getPost(@NonNull PostId id) {
         var found = template.findById(id.get(), PostEntity.class);
         if (found == null) return null;
         return entityToDomain(found);

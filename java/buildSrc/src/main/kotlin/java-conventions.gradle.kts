@@ -23,9 +23,8 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.46")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
 
-    // jetbrains annotations
-    compileOnly("org.jetbrains:annotations:26.0.2")
-    testCompileOnly("org.jetbrains:annotations:26.0.2")
+    // jspecify
+    implementation("org.jspecify:jspecify:1.0.0")
 
     // assertj
     testImplementation("org.assertj:assertj-core:3.27.7")

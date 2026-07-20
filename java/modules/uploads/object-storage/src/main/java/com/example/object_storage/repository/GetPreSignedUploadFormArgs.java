@@ -3,9 +3,8 @@ package com.example.object_storage.repository;
 import com.example.uploads_api.uploads.ObjectLocation;
 import lombok.Builder;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.time.temporal.TemporalUnit;
 
@@ -15,8 +14,8 @@ public class GetPreSignedUploadFormArgs {
     public record ContentLengthRange(int minBytes, int maxBytes) {}
 
     private final @NonNull ObjectLocation location;
-    private final @NotNull Integer expiration;
-    private final @NotNull TemporalUnit timeUnit;
+    private final @NonNull Integer expiration;
+    private final @NonNull TemporalUnit timeUnit;
     private final @Nullable String contentType;
     private final @Nullable ContentLengthRange contentLengthRange;
 }

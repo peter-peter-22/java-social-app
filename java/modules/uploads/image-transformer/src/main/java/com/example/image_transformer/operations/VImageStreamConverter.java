@@ -1,9 +1,10 @@
 package com.example.image_transformer.operations;
 
+import app.photofox.vipsffm.VBlob;
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
 import com.example.uploads_api.uploads.FileType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -12,7 +13,7 @@ import java.lang.foreign.Arena;
 
 @Component
 class VImageStreamConverter {
-    @NotNull VImage fromStream(@NotNull Arena arena, @NotNull InputStream inputStream) {
+    @NonNull VImage fromStream(@NonNull Arena arena, @NonNull InputStream inputStream) {
         return VImage.newFromStream(
                 arena,
                 inputStream,
@@ -20,15 +21,14 @@ class VImageStreamConverter {
         );
     }
 
-    @NotNull InputStream toStream(@NotNull VImage image, @NotNull FileType outputFormat, int quality) {
+    @NonNull InputStream toStream(@NonNull VImage image, @NonNull FileType outputFormat, int quality) {
         var outputData = saveToBuffer(image, outputFormat, quality);
         return new ByteArrayInputStream(outputData.getBytes());
     }
 
-    @NotNull
-    private app.photofox.vipsffm.VBlob saveToBuffer(
-            @NotNull VImage image,
-            @NotNull FileType format,
+    private @NonNull VBlob saveToBuffer(
+            @NonNull VImage image,
+            @NonNull FileType format,
             Integer quality
     ) {
         var outputQuality = VipsOption.Int("Q", quality == null ? 100 : quality);

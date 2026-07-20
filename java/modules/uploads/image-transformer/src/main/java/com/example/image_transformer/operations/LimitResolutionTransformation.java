@@ -4,15 +4,15 @@ import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.operations.LimitResolution;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
 class LimitResolutionTransformation implements ImageTransformation {
-    @NotNull
-    public VImage apply(@NotNull VImage image, @NotNull ImageTransformationOperations operations) {
+    @NonNull
+    public VImage apply(@NonNull VImage image, @NonNull ImageTransformationOperations operations) {
         var scale = scaleFor(image, operations);
         return scale < 1.0 ? image.resize(scale, VipsOption.Double("vscale", scale)) : image;
     }

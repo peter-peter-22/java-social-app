@@ -3,7 +3,7 @@ package com.example.image_transformer.operations;
 import app.photofox.vipsffm.VImage;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 class ImageTransformationPipeline {
     private final ImageTransformation[] transformations;
 
-    @NotNull
+    @NonNull
     VImage apply(
-            @NotNull VImage input,
-            @NotNull ImageTransformationOperations operations
+            @NonNull VImage input,
+            @NonNull ImageTransformationOperations operations
     ) {
         for (var transformation : transformations) {
             input = transformation.apply(input, operations);

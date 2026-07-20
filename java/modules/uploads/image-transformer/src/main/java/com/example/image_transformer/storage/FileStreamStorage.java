@@ -1,15 +1,15 @@
 package com.example.image_transformer.storage;
 
 import com.example.uploads_api.uploads.ObjectLocation;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.InputStream;
 
 public interface FileStreamStorage {
     void write(
-            @NotNull InputStream inputStream,
-            @NotNull ObjectLocation outputLocation
+            @NonNull InputStream inputStream,
+            @NonNull ObjectLocation outputLocation
     );
 
-    @NotNull InputStream read(@NotNull ObjectLocation inputLocation);
+    @NonNull InputStream read(@NonNull ObjectLocation inputLocation);
 }

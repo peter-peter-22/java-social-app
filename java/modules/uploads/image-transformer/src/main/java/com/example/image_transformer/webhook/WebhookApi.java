@@ -1,7 +1,7 @@
 package com.example.image_transformer.webhook;
 
 import com.example.uploads_api.transformations.webhook.WebhookCall;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ class WebhookApi {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void call(@NotNull WebhookCall body) {
+    public void call(@NonNull WebhookCall body) {
         restClient.post()
                 .uri("/")
                 .body(body)

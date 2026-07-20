@@ -4,7 +4,7 @@ import com.example.uploads_api.transformations.lazy_transformation_store.LazyTra
 import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ class LazyTransformationStoreImpl implements LazyTransformationStore {
     private final JdbcClient jdbc;
     private final JdbcTemplate template;
 
-    public void markLazyTransformationAsComplete(@NotNull UploadId uploadId, @NotNull String transformationName) {
+    public void markLazyTransformationAsComplete(@NonNull UploadId uploadId, @NonNull String transformationName) {
         // CLEAN should be simplified?
         jdbc.sql("""
                         WITH deleted_pending AS (
@@ -49,7 +49,7 @@ class LazyTransformationStoreImpl implements LazyTransformationStore {
     }
 
     @Transactional
-    public void createLazyTransformationSession(@NotNull UploadId uploadId, @NotNull Collection<@NotNull String> requiredTransformations) {
+    public void createLazyTransformationSession(@NonNull UploadId uploadId, @NonNull Collection<@NonNull String> requiredTransformations) {
 
         if (requiredTransformations.isEmpty())
             return;
@@ -70,7 +70,7 @@ class LazyTransformationStoreImpl implements LazyTransformationStore {
     }
 
     @Override
-    public boolean checkIfReady(@NotNull UploadId uploadId) {
+    public boolean checkIfReady(@NonNull UploadId uploadId) {
         var sql = "SELECT EXISTS(SELECT 1 FROM pending_lazy_transformations WHERE session_id = ?)";
         var exists = template.queryForObject(sql, Boolean.class, uploadId.get());
         return exists == null || !exists;

@@ -3,7 +3,7 @@ package com.example.image_transformer.storage;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.uploads.ObjectLocation;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +18,8 @@ public class ObjectStorageStream implements FileStreamStorage {
 
     @Override
     public void write(
-            @NotNull InputStream inputStream,
-            @NotNull ObjectLocation outputLocation
+            @NonNull InputStream inputStream,
+            @NonNull ObjectLocation outputLocation
     ) {
         try {
             var bytes = inputStream.readAllBytes();
@@ -35,7 +35,7 @@ public class ObjectStorageStream implements FileStreamStorage {
     }
 
     @Override
-    public @NotNull InputStream read(@NotNull ObjectLocation inputLocation) {
+    public @NonNull InputStream read(@NonNull ObjectLocation inputLocation) {
         try {
             return objectStorageRepository.getObject(inputLocation);
         } catch (Exception e) {

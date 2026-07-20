@@ -5,7 +5,7 @@ import app.photofox.vipsffm.VipsOption;
 import app.photofox.vipsffm.enums.VipsCompassDirection;
 import com.example.uploads_api.transformations.operations.AspectRatio;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,8 @@ import java.util.List;
 @Component
 @Order(1)
 class AspectRatioTransformation implements ImageTransformation {
-    @NotNull
-    public VImage apply(@NotNull VImage image, @NotNull ImageTransformationOperations operations) {
+    @NonNull
+    public VImage apply(@NonNull VImage image, @NonNull ImageTransformationOperations operations) {
         var aspectRatio = operations.getAspectRatio();
         if (aspectRatio == null) {
             return image;

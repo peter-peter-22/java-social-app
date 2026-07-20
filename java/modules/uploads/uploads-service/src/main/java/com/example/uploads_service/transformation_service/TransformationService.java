@@ -6,7 +6,6 @@ import com.example.uploads_api.transformations.sources.TransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class TransformationService {
      * TODO test return
      * @return True if there is at least one lazy transformation in progress.
      */
-    public boolean applyTransformations(@NotNull Upload upload) {
+    public boolean applyTransformations(@NonNull Upload upload) {
 
         // get which transformations are applicable based on their filters and the upload
         var applicableImageTransformations = filterApplicable(imageTransformations, upload);
@@ -76,25 +75,25 @@ public class TransformationService {
         return !lazyNames.isEmpty();
     }
 
-    private <DTO, Transformation extends TransformationSource<DTO>> @NonNull List<DTO> createTasks(@NotNull List<Transformation> transformations, @NotNull Upload upload) {
+    private <DTO, Transformation extends TransformationSource<DTO>> @NonNull List<DTO> createTasks(@NonNull List<Transformation> transformations, @NonNull Upload upload) {
         return transformations.stream()
                 .map(transformation -> transformation.createTaskDTO(upload))
                 .toList();
     }
 
-    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterApplicable(@NotNull List<Transformation> transformations, @NotNull Upload upload) {
+    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterApplicable(@NonNull List<Transformation> transformations, @NonNull Upload upload) {
         return transformations.stream()
                 .filter(transformation -> transformation.isApplicable(upload))
                 .toList();
     }
 
-    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterLazy(@NotNull List<Transformation> transformations) {
+    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterLazy(@NonNull List<Transformation> transformations) {
         return transformations.stream()
                 .filter(Transformation::isLazy)
                 .toList();
     }
 
-    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterBlocking(@NotNull List<Transformation> transformations) {
+    private <Transformation extends TransformationSource<?>> @NonNull List<Transformation> filterBlocking(@NonNull List<Transformation> transformations) {
         return transformations.stream()
                 .filter(t -> !t.isLazy())
                 .toList();

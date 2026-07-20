@@ -1,8 +1,8 @@
 package com.example.uploads_api.transformations.filters;
 
 import com.example.uploads_api.uploads.Upload;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TransformationFilter {
-    boolean isApplicable(@NotNull Upload upload);
+    boolean isApplicable(@NonNull Upload upload);
 }

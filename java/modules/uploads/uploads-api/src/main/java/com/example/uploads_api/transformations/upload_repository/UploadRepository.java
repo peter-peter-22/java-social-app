@@ -3,15 +3,15 @@ package com.example.uploads_api.transformations.upload_repository;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public interface UploadRepository {
-    @Nullable Upload getById(@NotNull UploadId id);
+    @Nullable Upload getById(@NonNull UploadId id);
 
-    @NotNull UploadId create(@NotNull InsertUpload upload) throws UploadMissingUserException;
+    @NonNull UploadId create(@NonNull InsertUpload upload) throws UploadMissingUserException;
 
-    @Nullable Upload updateStatus(@NotNull UploadId uploadId, @NotNull UploadStatus status);
+    @Nullable Upload updateStatus(@NonNull UploadId uploadId, @NonNull UploadStatus status);
 
-    void update(@NotNull Upload save);
+    void update(@NonNull Upload save);
 }

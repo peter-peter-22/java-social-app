@@ -1,7 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,7 +13,7 @@ public class BlockingVideoTransformerRestApi {
     private final RestClient restClient;
 
     @Autowired
-    BlockingVideoTransformerRestApi(@NotNull TransformationProperties properties) {
+    BlockingVideoTransformerRestApi(@NonNull TransformationProperties properties) {
         this.restClient = RestClient.create(properties.videoTransformerUrl());
     }
 

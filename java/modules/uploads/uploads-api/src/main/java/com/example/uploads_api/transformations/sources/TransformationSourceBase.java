@@ -5,20 +5,20 @@ import com.example.uploads_api.uploads.Upload;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @SuperBuilder
 @Getter
 public abstract class TransformationSourceBase {
-    @NotNull
+    @NonNull
     final private String name;
     /**
      * If true, the transformation will be executed asynchronously, otherwise it will block the request.
      */
     @Builder.Default
     private final boolean lazy = false;
-    @NotNull
+    @NonNull
     final private String outputBucket;
     @Nullable
     final private TransformationFilter[] filters;
@@ -26,7 +26,7 @@ public abstract class TransformationSourceBase {
     /**
      * Check if the filters apply to this upload.
      */
-    public boolean isApplicable(@NotNull Upload upload) {
+    public boolean isApplicable(@NonNull Upload upload) {
         // if no filters are defined, the transformation is always applicable.
         if (filters == null) return true;
 

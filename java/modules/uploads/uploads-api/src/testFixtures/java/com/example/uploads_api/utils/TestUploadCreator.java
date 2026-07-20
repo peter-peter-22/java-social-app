@@ -2,27 +2,27 @@ package com.example.uploads_api.utils;
 
 import com.example.uploads_api.uploads.*;
 import com.example.users_api.repository.UserId;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.time.Instant;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 public class TestUploadCreator {
-    public static @NotNull Upload createUploadFromPath(@NotNull String path) {
+    public static @NonNull Upload createUploadFromPath(@NonNull String path) {
         return createUpload(
                 c -> c.objectLocation(new ObjectLocation(path, "bucket" + UUID.randomUUID()))
         );
     }
 
-    public static @NotNull Upload createUploadFromBucket(@NotNull String bucket) {
+    public static @NonNull Upload createUploadFromBucket(@NonNull String bucket) {
         return createUpload(
                 c -> c.objectLocation(new ObjectLocation("example.file" + UUID.randomUUID(), bucket))
         );
     }
 
-    public static @NotNull Upload createUpload(@Nullable Consumer<Upload.@NotNull UploadBuilder> customizer) {
+    public static @NonNull Upload createUpload(@Nullable Consumer<Upload.@NonNull UploadBuilder> customizer) {
         var builder = Upload.builder()
                 .id(new UploadId(UUID.randomUUID()))
                 .objectLocation(new ObjectLocation("example.file" + UUID.randomUUID(), "bucket" + UUID.randomUUID()))
@@ -37,11 +37,11 @@ public class TestUploadCreator {
         return builder.build();
     }
 
-    public static @NotNull Upload createImage(){
+    public static @NonNull Upload createImage() {
         return createUpload(c->c.fileType(FileType.JPEG));
     }
 
-    public static @NotNull Upload createVideo(){
+    public static @NonNull Upload createVideo() {
         return createUpload(c->c.fileType(FileType.MP4));
     }
 }

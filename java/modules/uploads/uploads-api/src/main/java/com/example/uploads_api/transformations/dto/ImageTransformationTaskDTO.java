@@ -5,18 +5,17 @@ import com.example.uploads_api.transformations.operations.LimitResolution;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public record ImageTransformationTaskDTO(
-        @NotNull ObjectLocation inputObject,
-        @NotNull ObjectLocation outputObject,
-        @NotNull String name,
+        @NonNull ObjectLocation inputObject,
+        @NonNull ObjectLocation outputObject,
+        @NonNull String name,
         boolean lazy,
         @Nullable LimitResolution limitWidth,
         @Nullable LimitResolution limitHeight,
-        @NotNull FileType format,
+        @NonNull FileType format,
         int quality,
         @Nullable AspectRatio aspectRatio,
         @NonNull UploadId uploadId

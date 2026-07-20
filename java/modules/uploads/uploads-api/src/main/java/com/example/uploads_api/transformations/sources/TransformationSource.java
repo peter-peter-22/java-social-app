@@ -2,19 +2,19 @@ package com.example.uploads_api.transformations.sources;
 
 import com.example.uploads_api.transformations.operations.TransformationOperations;
 import com.example.uploads_api.uploads.Upload;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 // CLEAN: should I use only the abstract class instead of the interface?
 public interface TransformationSource<T> {
-    @NotNull TransformationOperations getOperations();
+    @NonNull TransformationOperations getOperations();
 
-    @NotNull String getName();
+    @NonNull String getName();
 
-    @NotNull String getOutputBucket();
+    @NonNull String getOutputBucket();
 
     boolean isLazy();
 
-    boolean isApplicable(@NotNull Upload upload);
+    boolean isApplicable(@NonNull Upload upload);
 
-    @NotNull T createTaskDTO(@NotNull Upload original);
+    @NonNull T createTaskDTO(@NonNull Upload original);
 }

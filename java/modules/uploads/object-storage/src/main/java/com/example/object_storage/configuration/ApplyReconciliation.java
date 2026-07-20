@@ -1,7 +1,7 @@
 package com.example.object_storage.configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,7 +16,7 @@ class ApplyReconciliation implements ApplicationRunner {
     private final ConfigurationManager configurationManager;
 
     @Override
-    public void run(@NotNull ApplicationArguments args) throws Exception {
+    public void run(@NonNull ApplicationArguments args) throws Exception {
         configurationManager.applyReconciliation();
     }
 }

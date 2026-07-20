@@ -1,10 +1,10 @@
 package com.example.uploads_api.uploads;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
 public record UploadId(
-        @NotNull UUID get
+        @NonNull UUID get
 ) {
 }

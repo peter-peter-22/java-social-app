@@ -1,11 +1,11 @@
 package com.example.uploads_api.uploads;
 
 import lombok.Builder;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @Builder
 public record ObjectLocation(
-        @NotNull String key,
-        @NotNull String bucket
+        @NonNull String key,
+        @NonNull String bucket
 ) {
 }

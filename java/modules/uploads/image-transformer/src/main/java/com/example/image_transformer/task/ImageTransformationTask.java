@@ -4,15 +4,14 @@ import com.example.uploads_api.transformations.operations.ImageTransformationOpe
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
 import lombok.Builder;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 @Builder
 public record ImageTransformationTask(
         @NonNull ImageTransformationOperations operations,
-        @NotNull ObjectLocation inputObject,
-        @NotNull ObjectLocation outputObject,
-        @NotNull String name,
+        @NonNull ObjectLocation inputObject,
+        @NonNull ObjectLocation outputObject,
+        @NonNull String name,
         boolean lazy,
         @NonNull UploadId uploadId
 ) {

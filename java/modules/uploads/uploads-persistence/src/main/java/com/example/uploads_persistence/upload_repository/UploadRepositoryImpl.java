@@ -10,8 +10,8 @@ import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import com.example.users_api.repository.UserId;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -25,7 +25,7 @@ public class UploadRepositoryImpl implements UploadRepository {
     private final JdbcClient jdbc;
     private final JdbcAggregateTemplate template;
 
-    private static Upload entityToDomain(@NotNull UploadEntity entity) {
+    private static Upload entityToDomain(@NonNull UploadEntity entity) {
         return new Upload(
                 new UploadId(entity.id()),
                 new ObjectLocation(
@@ -39,7 +39,7 @@ public class UploadRepositoryImpl implements UploadRepository {
         );
     }
 
-    private static UploadEntity domainToEntity(@NotNull Upload domain) {
+    private static UploadEntity domainToEntity(@NonNull Upload domain) {
         return new UploadEntity(
                 domain.id().get(),
                 domain.objectLocation().key(),
@@ -51,7 +51,7 @@ public class UploadRepositoryImpl implements UploadRepository {
         );
     }
 
-    public @Nullable Upload getById(@NotNull UploadId id) {
+    public @Nullable Upload getById(@NonNull UploadId id) {
         var entity = template.findById(id.get(), UploadEntity.class);
         if (entity == null) {
             return null;
@@ -59,7 +59,7 @@ public class UploadRepositoryImpl implements UploadRepository {
         return entityToDomain(entity);
     }
 
-    public @NotNull UploadId create(@NotNull InsertUpload upload) throws UploadMissingUserException {
+    public @NonNull UploadId create(@NonNull InsertUpload upload) throws UploadMissingUserException {
         try {
             var id = jdbc.sql("""
                             INSERT INTO uploads (created_by, object_path, bucket, file_type, status)
@@ -81,7 +81,7 @@ public class UploadRepositoryImpl implements UploadRepository {
         }
     }
 
-    public void update(@NotNull Upload save) {
+    public void update(@NonNull Upload save) {
         var e = domainToEntity(save);
         template.save(e);
     }
@@ -90,7 +90,7 @@ public class UploadRepositoryImpl implements UploadRepository {
      * Updates the status field of an upload if it matches the previous status.
      * Returns the updated upload or null if the upload was not found.
      */
-    public @Nullable Upload updateStatus(@NotNull UploadId uploadId, @NotNull UploadStatus status) {
+    public @Nullable Upload updateStatus(@NonNull UploadId uploadId, @NonNull UploadStatus status) {
         var updated = jdbc.sql("""
                         UPDATE uploads
                         SET status = :status

@@ -7,21 +7,21 @@ import com.example.uploads_api.uploads.MediaType;
 import com.example.uploads_api.uploads.Upload;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @SuperBuilder
 @Getter
 public class VideoTransformationSource extends TransformationSourceBase implements TransformationSource<VideoTransformationTaskDTO> {
-    public @NotNull VideoTransformationOperations operations;
+    public @NonNull VideoTransformationOperations operations;
 
     @Override
-    public boolean isApplicable(@NotNull Upload upload) {
+    public boolean isApplicable(@NonNull Upload upload) {
         if (!upload.fileType().getMediaType().equals(MediaType.VIDEO))
             return false;
         return super.isApplicable(upload);
     }
 
-    public @NotNull VideoTransformationTaskDTO createTaskDTO(@NotNull Upload original) {
+    public @NonNull VideoTransformationTaskDTO createTaskDTO(@NonNull Upload original) {
         return new VideoTransformationTaskDTO(
                 original.objectLocation(),
                 TransformationPathManager.getOutputObject(original,this),

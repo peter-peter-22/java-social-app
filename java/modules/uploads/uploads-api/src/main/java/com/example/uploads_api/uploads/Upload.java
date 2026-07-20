@@ -2,17 +2,17 @@ package com.example.uploads_api.uploads;
 
 import com.example.users_api.repository.UserId;
 import lombok.Builder;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.time.Instant;
 
 @Builder
 public record Upload(
-        @NotNull UploadId id,
-        @NotNull ObjectLocation objectLocation,
-        @NotNull UserId createdBy,
-        @NotNull FileType fileType,
-        @NotNull Instant createdAt,
-        @NotNull UploadStatus status
+        @NonNull UploadId id,
+        @NonNull ObjectLocation objectLocation,
+        @NonNull UserId createdBy,
+        @NonNull FileType fileType,
+        @NonNull Instant createdAt,
+        @NonNull UploadStatus status
 ) {
 }

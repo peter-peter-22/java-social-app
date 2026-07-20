@@ -1,21 +1,21 @@
 package com.example.uploads_api.utils;
 
 import com.example.uploads_api.transformations.operations.AspectRatio;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.operations.LimitResolution;
+import com.example.uploads_api.transformations.operations.VideoTransformationOperations;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
-import com.example.uploads_api.transformations.operations.VideoTransformationOperations;
 import com.example.uploads_api.uploads.FileType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
 public class TestTransformationCreator {
 
-    public static @NotNull ImageTransformationSource createImageTransformation(@Nullable Consumer<ImageTransformationSource.ImageTransformationSourceBuilder<?, ?>> customizer) {
+    public static @NonNull ImageTransformationSource createImageTransformation(@Nullable Consumer<ImageTransformationSource.ImageTransformationSourceBuilder<?, ?>> customizer) {
         var builder = ImageTransformationSource.builder()
                 .name("images"+ UUID.randomUUID())
                 .outputBucket("bucket")
@@ -34,11 +34,11 @@ public class TestTransformationCreator {
         return builder.build();
     }
 
-    public static @NotNull ImageTransformationSource createImageTransformation() {
+    public static @NonNull ImageTransformationSource createImageTransformation() {
         return createImageTransformation(null);
     }
 
-    public static @NotNull VideoTransformationSource createVideoTransformation(@Nullable Consumer<VideoTransformationSource.VideoTransformationSourceBuilder<?, ?>> customizer) {
+    public static @NonNull VideoTransformationSource createVideoTransformation(@Nullable Consumer<VideoTransformationSource.VideoTransformationSourceBuilder<?, ?>> customizer) {
         var builder = VideoTransformationSource.builder()
                 .name("videos"+ UUID.randomUUID())
                 .outputBucket("bucket")
@@ -57,7 +57,7 @@ public class TestTransformationCreator {
         return builder.build();
     }
 
-    public static @NotNull VideoTransformationSource createVideoTransformation() {
+    public static @NonNull VideoTransformationSource createVideoTransformation() {
         return createVideoTransformation(null);
     }
 

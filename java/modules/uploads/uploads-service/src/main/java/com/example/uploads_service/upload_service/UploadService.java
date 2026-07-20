@@ -10,7 +10,6 @@ import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_api.uploads.UploadStatus;
 import com.example.uploads_service.transformation_service.TransformationService;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class UploadService {
     /**
      * Generate a post form for signed file upload, register the upload in the database, and return the relevant data.
      */
-    @NotNull SignedUploadFormResponse createSignedUpload(@NonNull CreateSignedUploadArgs args) {
+    @NonNull SignedUploadFormResponse createSignedUpload(@NonNull CreateSignedUploadArgs args) {
         // register to database
         var insertUpload = InsertUpload.builder()
                 .bucket(UPLOAD_BUCKET)
@@ -63,7 +62,7 @@ public class UploadService {
     /**
      * After a file is uploaded to object storage, check if it exists, update its status, handle transformations.
      */
-    boolean markUploadAsComplete(@NotNull UploadId id) {
+    boolean markUploadAsComplete(@NonNull UploadId id) {
         var upload = uploadRepository.getById(id);
         if (upload == null) {
             return false;
@@ -82,14 +81,14 @@ public class UploadService {
     /**
      * Manually canceled upload
      */
-    void markUploadAsFailed(@NotNull UploadId id) {
+    void markUploadAsFailed(@NonNull UploadId id) {
         uploadRepository.updateStatus(id, UploadStatus.FAILED);
     }
 
     /**
      * Check if the queued lazy transformations are done
      */
-    boolean isUploadReady(@NotNull UploadId id) {
+    boolean isUploadReady(@NonNull UploadId id) {
         return lazyTransformationStore.checkIfReady(id);
     }
 }
