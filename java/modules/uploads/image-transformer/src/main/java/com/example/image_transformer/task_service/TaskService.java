@@ -22,6 +22,7 @@ public class TaskService {
 
     public void processTasks(@NonNull ImageTransformationTaskGroup group) {
         try (var inputStream = storage.read(group.inputObject())) {
+            // TODO update FileStreamProcessingManager
             var source = inputStream.readAllBytes();
             group.tasks().forEach(task -> processTask(task, source));
         } catch (Exception e) {

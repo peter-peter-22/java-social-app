@@ -22,6 +22,8 @@ public class ImageTransformationSource extends TransformationSourceBase implemen
     }
 
     public @NonNull ImageTransformationTaskDTO createTaskDTO(@NonNull Upload original) {
+        // TODO separate to mapper class
+        // TODO update to new DTO
         return new ImageTransformationTaskDTO(
                 original.objectLocation(),
                 TransformationPathManager.getOutputObject(original, this),

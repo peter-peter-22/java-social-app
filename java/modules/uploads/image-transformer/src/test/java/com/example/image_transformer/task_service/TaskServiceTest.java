@@ -61,6 +61,7 @@ class TaskServiceTest {
     }
 
     private static ImageTransformationTask task(String name) {
+        // TODO replace with TestTaskCreator
         return new ImageTransformationTask(
                 ImageTransformationOperations.builder().build(),
                 new ObjectLocation(name + ".jpg", "outputs"),
