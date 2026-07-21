@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java Guidelines"
+  short_description: "Apply concise Java coding conventions"
+  default_prompt: "Use $java to apply the project Java guidelines."

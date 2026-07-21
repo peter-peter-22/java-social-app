@@ -1,0 +1,4 @@
+interface:
+  display_name: "Use Test Fixtures"
+  short_description: "Reuse test fixture creators and persistence helpers"
+  default_prompt: "Use $use-test-fixtures when writing tests that create domain data or insert repository entities."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java Testing"
+  short_description: "Write focused Java unit and integration tests"
+  default_prompt: "Use $java-testing to write or improve Java unit and integration tests."
