@@ -1,6 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
@@ -41,8 +41,8 @@ public class LazyTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void queueImageTransformations(@NonNull Collection<ImageTransformationTaskDTO> tasks) {
-        sendInParallel(tasks, api::queueImage);
+    public void queueImageTransformations(@NonNull ImageTransformationTaskGroupDTO tasks) {
+        api.queueImage(tasks);
     }
 
     /**

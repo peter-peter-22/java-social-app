@@ -1,6 +1,7 @@
 package com.example.uploads_api.transformations.sources;
 
 import com.example.uploads_api.transformations.filters.TransformationFilter;
+import com.example.uploads_api.transformations.operations.TransformationOperations;
 import com.example.uploads_api.uploads.Upload;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import org.jspecify.annotations.Nullable;
 
 @SuperBuilder
 @Getter
-public abstract class TransformationSourceBase<T> implements TransformationSource<T> {
+public abstract class TransformationSourceBase<Operations extends TransformationOperations> implements TransformationSource {
     @NonNull
     final private String name;
     /**
@@ -22,6 +23,8 @@ public abstract class TransformationSourceBase<T> implements TransformationSourc
     final private String outputBucket;
     @Nullable
     final private TransformationFilter[] filters;
+    @NonNull
+    private final Operations operations;
 
     /**
      * Check if the filters apply to this upload.
@@ -39,5 +42,4 @@ public abstract class TransformationSourceBase<T> implements TransformationSourc
         return true;
     }
 
-    public abstract @NonNull T createTaskDTO(@NonNull Upload original);
 }

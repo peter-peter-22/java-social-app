@@ -4,7 +4,7 @@ import com.example.uploads_api.transformations.operations.TransformationOperatio
 import com.example.uploads_api.uploads.Upload;
 import org.jspecify.annotations.NonNull;
 
-public interface TransformationSource<T> {
+public interface TransformationSource {
     @NonNull TransformationOperations getOperations();
 
     @NonNull String getName();
@@ -15,5 +15,4 @@ public interface TransformationSource<T> {
 
     boolean isApplicable(@NonNull Upload upload);
 
-    @NonNull T createTaskDTO(@NonNull Upload original);
 }

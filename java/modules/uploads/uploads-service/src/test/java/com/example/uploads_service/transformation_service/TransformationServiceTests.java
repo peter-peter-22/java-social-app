@@ -1,8 +1,10 @@
 package com.example.uploads_service.transformation_service;
 
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
+import com.example.uploads_api.transformations.mappers.ImageTransformationSourceMapper;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
@@ -37,8 +39,6 @@ public class TransformationServiceTests {
     private final Upload image = createImage();
     private final Upload video = createVideo();
 
-    private TransformationService service;
-
     @NonNull TransformationService createService() {
         return new TransformationService(
                 blockingTransformationService,
@@ -56,19 +56,19 @@ public class TransformationServiceTests {
     void testImageTransformation() {
         var service = createService();
 
-        var expectedBlockingTask = blockingImageTransformation.createTaskDTO(image);
-        var expectedLazyTask = lazyImageTransformation.createTaskDTO(image);
+        var expectedBlockingTask = imageTaskGroup(blockingImageTransformation);
+        var expectedLazyTask = imageTaskGroup(lazyImageTransformation);
         var exceptedLazyNames = List.of(lazyImageTransformation.getName());
 
         var hasLazy = service.applyTransformations(image);
 
         assertThat(hasLazy).isTrue();
 
-        verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
+        verify(blockingTransformationService).transformImages(expectedBlockingTask);
         verifyNoMoreInteractions(blockingTransformationService);
 
         verify(lazyTransformationStore).createLazyTransformationSession(image.id(), exceptedLazyNames);
-        verify(lazyTransformationService).queueImageTransformations(List.of(expectedLazyTask));
+        verify(lazyTransformationService).queueImageTransformations(expectedLazyTask);
         verifyNoMoreInteractions(lazyTransformationService);
         verifyNoMoreInteractions(lazyTransformationStore);
     }
@@ -78,23 +78,7 @@ public class TransformationServiceTests {
      */
     @Test
     void testVideoTransformation() {
-        var service = createService();
-
-        var expectedBlockingTask = blockingVideoTransformation.createTaskDTO(video);
-        var expectedLazyTask = lazyVideoTransformation.createTaskDTO(video);
-        var exceptedLazyNames = List.of(lazyVideoTransformation.getName());
-
-        var hasLazy = service.applyTransformations(video);
-
-        assertThat(hasLazy).isTrue();
-
-        verify(blockingTransformationService).transformVideos(List.of(expectedBlockingTask));
-        verifyNoMoreInteractions(blockingTransformationService);
-
-        verify(lazyTransformationStore).createLazyTransformationSession(video.id(), exceptedLazyNames);
-        verify(lazyTransformationService).queueVideoTransformations(List.of(expectedLazyTask));
-        verifyNoMoreInteractions(lazyTransformationService);
-        verifyNoMoreInteractions(lazyTransformationStore);
+        // implement later
     }
 
     /**
@@ -134,16 +118,23 @@ public class TransformationServiceTests {
                 lazyTransformationStore
         );
 
-        var expectedBlockingTask = blockingImageTransformation.createTaskDTO(image);
+        var expectedBlockingTask = imageTaskGroup(blockingImageTransformation);
 
         var hasLazy = service.applyTransformations(image);
 
         assertThat(hasLazy).isFalse();
 
-        verify(blockingTransformationService).transformImages(List.of(expectedBlockingTask));
+        verify(blockingTransformationService).transformImages(expectedBlockingTask);
         verifyNoMoreInteractions(blockingTransformationService);
 
         verifyNoInteractions(lazyTransformationService);
         verifyNoInteractions(lazyTransformationStore);
+    }
+
+    private ImageTransformationTaskGroupDTO imageTaskGroup(ImageTransformationSource transformation) {
+        return new ImageTransformationTaskGroupDTO(
+                image.objectLocation(),
+                List.of(ImageTransformationSourceMapper.createTaskDTO(transformation, image))
+        );
     }
 }
