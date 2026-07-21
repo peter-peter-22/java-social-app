@@ -1,7 +1,4 @@
-separate upload persistence and upload service into modules
-
-check if all significant errors have business logic alternative, the
-domain isolation works
+move the relevant interfaces to the api modules
 
 optimize image transformer redundant reads
 

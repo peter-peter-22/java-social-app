@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="replace test fixture component beans with test configurations">
-      <change afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistenceConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/testFixtures/java/com/example/users_persistence/utils/TestUserPersistenceConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/test/java/com/example/uploads_persistence/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/testFixtures/java/com/example/users_persistence/utils/TestUserPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/testFixtures/java/com/example/users_persistence/utils/TestUserPersistence.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,61 +111,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0272074401555857" />
-      <entry key="MS500" value="1.5634878728912138" />
-      <entry key="S2" value="2.440023883315221" />
-      <entry key="S5" value="4.279113582021786" />
-      <entry key="S10" value="7.781556406175089" />
-      <entry key="S30" value="14.084123130171402" />
-      <entry key="S60" value="16.71470643846084" />
-      <entry key="M2" value="18.265621060554786" />
-      <entry key="M5" value="19.2871773690838" />
-      <entry key="M10" value="20.002719880269908" />
-      <entry key="M15" value="21.6595749987929" />
-      <entry key="M30" value="31.921513097241068" />
-      <entry key="H1" value="60.032541091418" />
-      <entry key="H2" value="138.0519950624566" />
-      <entry key="H4" value="342.95484143343526" />
-      <entry key="D1" value="5033.375624389979" />
-      <entry key="W1" value="19547.72966905483" />
+      <entry key="MS100" value="1.0330318137817431" />
+      <entry key="MS500" value="1.5165220110076876" />
+      <entry key="S2" value="2.829710232579888" />
+      <entry key="S5" value="4.995403213504386" />
+      <entry key="S10" value="6.745799989521642" />
+      <entry key="S30" value="9.030485293896273" />
+      <entry key="S60" value="11.335604977996244" />
+      <entry key="M2" value="16.021451055307118" />
+      <entry key="M5" value="23.997401195931708" />
+      <entry key="M10" value="28.930672624486725" />
+      <entry key="M15" value="32.107374173294495" />
+      <entry key="M30" value="43.518679145699465" />
+      <entry key="H1" value="71.86114530908038" />
+      <entry key="H2" value="149.43924565582876" />
+      <entry key="H4" value="353.484312539877" />
+      <entry key="D1" value="5037.451740409206" />
+      <entry key="W1" value="19556.665550424656" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="7.163219682026586E-194" />
-      <entry key="S10" value="3.3508294100096706E-97" />
-      <entry key="S30" value="1.0910855533385727E-32" />
-      <entry key="S60" value="1.8012442452211272E-16" />
-      <entry key="M2" value="3.045085717978527E-8" />
-      <entry key="M5" value="0.0033986114274822646" />
-      <entry key="M10" value="0.18369076456474942" />
-      <entry key="M15" value="0.7141232357016614" />
-      <entry key="M30" value="2.9224060288923233" />
-      <entry key="H1" value="7.838791492047523" />
-      <entry key="H2" value="22.88098787387903" />
-      <entry key="H4" value="59.42751356974943" />
-      <entry key="D1" value="394.68030271835454" />
-      <entry key="W1" value="915.4443982277021" />
+      <entry key="S5" value="3.613652316458216E-210" />
+      <entry key="S10" value="2.3799693599872298E-105" />
+      <entry key="S30" value="2.0973222036479142E-35" />
+      <entry key="S60" value="7.897248078850758E-18" />
+      <entry key="M2" value="6.376041126143266E-9" />
+      <entry key="M5" value="0.0018183695419559792" />
+      <entry key="M10" value="0.13436236491150108" />
+      <entry key="M15" value="0.5797401462619701" />
+      <entry key="M30" value="2.6331200556173036" />
+      <entry key="H1" value="7.4407063533614455" />
+      <entry key="H2" value="22.29242413836658" />
+      <entry key="H4" value="58.65821230808956" />
+      <entry key="D1" value="393.8241368562431" />
+      <entry key="W1" value="915.160442588496" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.972705038987637" />
-      <entry key="MS500" value="1.549378121698349" />
-      <entry key="S2" value="2.434390031852564" />
-      <entry key="S5" value="4.275118080989146" />
-      <entry key="S10" value="7.77793476241245" />
-      <entry key="S30" value="14.081934244969903" />
-      <entry key="S60" value="16.71340562983657" />
-      <entry key="M2" value="18.26490967367291" />
-      <entry key="M5" value="19.290238927793485" />
-      <entry key="M10" value="20.185241959921964" />
-      <entry key="M15" value="22.370901920467507" />
-      <entry key="M30" value="34.838229867004614" />
-      <entry key="H1" value="67.8643121908891" />
-      <entry key="H2" value="160.92417756292696" />
-      <entry key="H4" value="402.37124965720494" />
-      <entry key="D1" value="5428.04154613925" />
-      <entry key="W1" value="20463.16895118802" />
+      <entry key="MS100" value="0.8784315461195871" />
+      <entry key="MS500" value="1.4795147114655078" />
+      <entry key="S2" value="2.8168264223129555" />
+      <entry key="S5" value="4.9873476989787076" />
+      <entry key="S10" value="6.740540469426994" />
+      <entry key="S30" value="9.028245445149471" />
+      <entry key="S60" value="11.334311510806694" />
+      <entry key="M2" value="16.02063482751707" />
+      <entry key="M5" value="23.998755537282374" />
+      <entry key="M10" value="29.064034894010465" />
+      <entry key="M15" value="32.684746570395234" />
+      <entry key="M30" value="46.14662387511988" />
+      <entry key="H1" value="79.29516306526905" />
+      <entry key="H2" value="171.72307852853612" />
+      <entry key="H4" value="412.131557060404" />
+      <entry key="D1" value="5431.261526457769" />
+      <entry key="W1" value="20471.82087835774" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
