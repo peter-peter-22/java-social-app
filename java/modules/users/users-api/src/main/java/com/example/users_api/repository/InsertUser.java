@@ -1,4 +1,4 @@
-package com.example.users_persistence.repository;
+package com.example.users_api.repository;
 
 import lombok.Builder;
 

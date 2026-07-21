@@ -1,7 +1,9 @@
 package com.example.users_persistence.repository;
 
+import com.example.users_api.repository.InsertUser;
 import com.example.users_api.repository.User;
 import com.example.users_api.repository.UserId;
+import com.example.users_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;

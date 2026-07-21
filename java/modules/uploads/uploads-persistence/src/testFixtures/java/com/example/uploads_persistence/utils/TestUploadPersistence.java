@@ -4,7 +4,7 @@ import com.example.uploads_api.transformations.upload_repository.InsertUpload;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.UploadId;
 import com.example.uploads_persistence.upload_repository.UploadRepositoryImpl;
-import com.example.users_persistence.repository.InsertUser;
+import com.example.users_api.repository.InsertUser;
 import com.example.users_persistence.utils.TestUserPersistence;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

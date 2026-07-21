@@ -1,7 +1,5 @@
-package com.example.users_persistence.repository;
+package com.example.users_api.repository;
 
-import com.example.users_api.repository.User;
-import com.example.users_api.repository.UserId;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 

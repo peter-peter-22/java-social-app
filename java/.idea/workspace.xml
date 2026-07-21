@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="replace test fixture component beans with test configurations">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="inspect the code, update the roadmap">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-persistence/src/testFixtures/java/com/example/uploads_persistence/utils/TestUploadPersistence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/InsertUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-api/src/main/java/com/example/users_api/repository/InsertUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-api/src/main/java/com/example/users_api/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/main/java/com/example/users_persistence/repository/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/test/java/com/example/users_persistence/repository/UserRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/test/java/com/example/users_persistence/repository/UserRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/users/users-persistence/src/testFixtures/java/com/example/users_persistence/utils/TestUserPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/users/users-persistence/src/testFixtures/java/com/example/users_persistence/utils/TestUserPersistence.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="793" />
+    <option name="cachedIndexableFilesCount" value="795" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -111,61 +116,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0330318137817431" />
-      <entry key="MS500" value="1.5165220110076876" />
-      <entry key="S2" value="2.829710232579888" />
-      <entry key="S5" value="4.995403213504386" />
-      <entry key="S10" value="6.745799989521642" />
-      <entry key="S30" value="9.030485293896273" />
-      <entry key="S60" value="11.335604977996244" />
-      <entry key="M2" value="16.021451055307118" />
-      <entry key="M5" value="23.997401195931708" />
-      <entry key="M10" value="28.930672624486725" />
-      <entry key="M15" value="32.107374173294495" />
-      <entry key="M30" value="43.518679145699465" />
-      <entry key="H1" value="71.86114530908038" />
-      <entry key="H2" value="149.43924565582876" />
-      <entry key="H4" value="353.484312539877" />
-      <entry key="D1" value="5037.451740409206" />
-      <entry key="W1" value="19556.665550424656" />
+      <entry key="MS100" value="1.0132304029562451" />
+      <entry key="MS500" value="1.4448356384121548" />
+      <entry key="S2" value="2.4752887663377066" />
+      <entry key="S5" value="4.522176525861246" />
+      <entry key="S10" value="6.655861659288547" />
+      <entry key="S30" value="9.547867704431184" />
+      <entry key="S60" value="11.6975411786215" />
+      <entry key="M2" value="16.480592569926944" />
+      <entry key="M5" value="28.128385148542797" />
+      <entry key="M10" value="37.347329703953555" />
+      <entry key="M15" value="42.556722718453486" />
+      <entry key="M30" value="56.02799527199052" />
+      <entry key="H1" value="85.21349854863058" />
+      <entry key="H2" value="162.72517190947698" />
+      <entry key="H4" value="366.1440601744574" />
+      <entry key="D1" value="5044.219030432101" />
+      <entry key="W1" value="19567.989458961987" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="3.613652316458216E-210" />
-      <entry key="S10" value="2.3799693599872298E-105" />
-      <entry key="S30" value="2.0973222036479142E-35" />
-      <entry key="S60" value="7.897248078850758E-18" />
-      <entry key="M2" value="6.376041126143266E-9" />
-      <entry key="M5" value="0.0018183695419559792" />
-      <entry key="M10" value="0.13436236491150108" />
-      <entry key="M15" value="0.5797401462619701" />
-      <entry key="M30" value="2.6331200556173036" />
-      <entry key="H1" value="7.4407063533614455" />
-      <entry key="H2" value="22.29242413836658" />
-      <entry key="H4" value="58.65821230808956" />
-      <entry key="D1" value="393.8241368562431" />
-      <entry key="W1" value="915.160442588496" />
+      <entry key="S5" value="2.053918774196119E-225" />
+      <entry key="S10" value="5.674006326923978E-113" />
+      <entry key="S30" value="6.036306793262896E-38" />
+      <entry key="S60" value="4.236711150948311E-19" />
+      <entry key="M2" value="1.4768202785777424E-9" />
+      <entry key="M5" value="0.0010129610894222334" />
+      <entry key="M10" value="0.10028429984818185" />
+      <entry key="M15" value="0.47702035808133547" />
+      <entry key="M30" value="2.3884845156558594" />
+      <entry key="H1" value="7.086634759331367" />
+      <entry key="H2" value="21.75555864464691" />
+      <entry key="H4" value="57.947578736487756" />
+      <entry key="D1" value="393.0249082863875" />
+      <entry key="W1" value="914.8948928329318" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8784315461195871" />
-      <entry key="MS500" value="1.4795147114655078" />
-      <entry key="S2" value="2.8168264223129555" />
-      <entry key="S5" value="4.9873476989787076" />
-      <entry key="S10" value="6.740540469426994" />
-      <entry key="S30" value="9.028245445149471" />
-      <entry key="S60" value="11.334311510806694" />
-      <entry key="M2" value="16.02063482751707" />
-      <entry key="M5" value="23.998755537282374" />
-      <entry key="M10" value="29.064034894010465" />
-      <entry key="M15" value="32.684746570395234" />
-      <entry key="M30" value="46.14662387511988" />
-      <entry key="H1" value="79.29516306526905" />
-      <entry key="H2" value="171.72307852853612" />
-      <entry key="H4" value="412.131557060404" />
-      <entry key="D1" value="5431.261526457769" />
-      <entry key="W1" value="20471.82087835774" />
+      <entry key="MS100" value="0.9326179147601955" />
+      <entry key="MS500" value="1.4225310365608281" />
+      <entry key="S2" value="2.461971955885507" />
+      <entry key="S5" value="4.4974814666598695" />
+      <entry key="S10" value="6.628729986016208" />
+      <entry key="S30" value="9.528474200732097" />
+      <entry key="S60" value="11.68277556311925" />
+      <entry key="M2" value="16.469480723340748" />
+      <entry key="M5" value="28.122856103490534" />
+      <entry key="M10" value="37.44322665786861" />
+      <entry key="M15" value="43.02923748775269" />
+      <entry key="M30" value="58.410436003993034" />
+      <entry key="H1" value="92.29306957975935" />
+      <entry key="H2" value="184.47199464356632" />
+      <entry key="H4" value="424.08062699338495" />
+      <entry key="D1" value="5437.229587361602" />
+      <entry key="W1" value="20482.879234380398" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -930,7 +935,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="separate upload persistence and upload service into 2 modules" />
     <MESSAGE value="refractor gradle files in the upload-persistence and the upload modules by adding a convention test-fixtures-conventions.gradle.kts" />
     <MESSAGE value="rename media_api package to uploads_api" />
     <MESSAGE value="rename the uploads module to uploads-service" />
@@ -955,7 +959,8 @@
     <MESSAGE value="replace jetbrains annotations to jspecify" />
     <MESSAGE value="fix vipsffm warning" />
     <MESSAGE value="replace test fixture component beans with test configurations" />
-    <option name="LAST_COMMIT_MESSAGE" value="replace test fixture component beans with test configurations" />
+    <MESSAGE value="inspect the code, update the roadmap" />
+    <option name="LAST_COMMIT_MESSAGE" value="inspect the code, update the roadmap" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
