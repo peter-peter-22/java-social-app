@@ -1,15 +1,10 @@
 package com.example.uploads_persistence;
 
+import com.example.uploads_persistence.utils.TestUploadPersistenceConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication(scanBasePackages = {
-        "com.example.uploads_persistence",
-        "com.example.users_persistence"
-})
-@EnableJdbcRepositories(basePackages = {
-        "com.example.uploads_persistence",
-        "com.example.users_persistence"
-})
+@SpringBootApplication
+@Import(TestUploadPersistenceConfiguration.class)
 public class TestApplication {
 }

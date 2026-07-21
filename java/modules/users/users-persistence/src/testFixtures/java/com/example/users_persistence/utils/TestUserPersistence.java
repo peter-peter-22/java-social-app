@@ -5,11 +5,9 @@ import com.example.users_persistence.repository.InsertUser;
 import com.example.users_persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
-import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
 
-@Component
 @RequiredArgsConstructor
 public class TestUserPersistence {
     private final UserRepository userRepository;
@@ -21,10 +19,6 @@ public class TestUserPersistence {
             customizer.accept(builder);
 
         return builder.build();
-    }
-
-    public static InsertUser createUserInsert() {
-        return createUserInsert(null);
     }
 
     public User insertUser(@Nullable Consumer<InsertUser.@Nullable InsertUserBuilder> customizer) {

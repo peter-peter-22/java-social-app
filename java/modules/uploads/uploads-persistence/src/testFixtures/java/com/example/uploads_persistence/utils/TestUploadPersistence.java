@@ -9,12 +9,10 @@ import com.example.users_persistence.utils.TestUserPersistence;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
-@Component
 @RequiredArgsConstructor
 public class TestUploadPersistence {
     private final TestUserPersistence userPersistence;
@@ -36,12 +34,6 @@ public class TestUploadPersistence {
             uploadCustomizer.accept(builder);
 
         return builder.build();
-    }
-
-    public InsertUpload prepareUploadInsert(
-            @Nullable Consumer<InsertUpload.@NonNull InsertUploadBuilder> uploadCustomizer
-    ) {
-        return prepareUploadInsert(uploadCustomizer, null);
     }
 
     public InsertUpload prepareUploadInsert() {

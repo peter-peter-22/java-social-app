@@ -22,4 +22,5 @@ dependencies {
 
 	// test fixtures
 	testFixturesImplementation(testFixtures(project(":users-persistence")))
+	testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
 }
