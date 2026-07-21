@@ -3,6 +3,7 @@ package com.example.image_transformer.task_service;
 import com.example.image_transformer.TestApplication;
 import com.example.image_transformer.storage.LocalStreamStorage;
 import com.example.image_transformer.task.ImageTransformationTask;
+import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.task.TestTaskCreator;
 import com.example.uploads_api.transformations.operations.AspectRatio;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
@@ -85,7 +86,7 @@ class TaskServiceIT {
     private void executeTask(
             @NonNull ImageTransformationTask task
     ) {
-        service.processTasks(List.of(task));
+        service.processTasks(new ImageTransformationTaskGroup(TEST_FILE, List.of(task)));
     }
 
     private @NonNull ImageTransformationTask localTestTask(
@@ -102,7 +103,6 @@ class TaskServiceIT {
 
         return TestTaskCreator.createTask(
                 c -> {
-                    c.inputObject(TEST_FILE);
                     c.outputObject(new ObjectLocation(name + "." + extension, TEST_FILE.bucket()));
                     c.operations(operations);
                     c.name(name);

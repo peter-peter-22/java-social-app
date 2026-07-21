@@ -1,12 +1,9 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-
-import static com.example.uploads_api.utils.TestTransformationCreator.*;
-
-import static com.example.uploads_api.utils.TestUploadCreator.*;
-
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
 import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.uploads.ObjectLocation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
@@ -18,6 +15,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.net.URI;
 import java.util.List;
 
+import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
+import static com.example.uploads_api.utils.TestUploadCreator.createImage;
+import static com.example.uploads_api.utils.TestUploadCreator.createVideo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +39,8 @@ class BlockingImageTransformerRestApiTests {
             var api = new BlockingImageTransformerRestApi(properties);
 
             var tasks = new ImageTransformationTaskGroupDTO(
-                    List.of(createImageTransformation().createTaskDTO(createImage()))
+                    new ObjectLocation("original.jpg", "images"),
+                    List.of(toSpec(createImageTransformation().createTaskDTO(createImage())))
             );
 
             api.transformAll(tasks);
@@ -52,6 +54,13 @@ class BlockingImageTransformerRestApiTests {
             assertThat(request.getHeaders().get("Content-Type")).startsWith("application/json");
             assertThat(requestBody).isEqualTo(expectedBody);
         }
+    }
+
+    private static ImageTransformationTaskSpecDTO toSpec(com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO task) {
+        return new ImageTransformationTaskSpecDTO(
+                task.outputObject(), task.name(), task.lazy(), task.limitWidth(), task.limitHeight(),
+                task.format(), task.quality(), task.aspectRatio(), task.uploadId()
+        );
     }
 
     @Test

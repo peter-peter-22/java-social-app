@@ -10,10 +10,10 @@ import java.util.function.Consumer;
 public class TestTaskCreator {
     public static ImageTransformationTask createTask(@Nullable Consumer<ImageTransformationTask.ImageTransformationTaskBuilder> customizer) {
         var builder = ImageTransformationTask.builder()
-                .inputObject(new ObjectLocation(UUID.randomUUID().toString(), "input-bucket"))
                 .outputObject(new ObjectLocation(UUID.randomUUID().toString(), "output-bucket"))
                 .operations(ImageTransformationOperations.builder().build())
                 .name(UUID.randomUUID().toString())
+                .uploadId(new com.example.uploads_api.uploads.UploadId(UUID.randomUUID()))
                 .lazy(false);
 
         if (customizer != null)

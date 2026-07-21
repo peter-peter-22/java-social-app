@@ -1,12 +1,12 @@
-package com.example.uploads_api.transformations.dto;
+package com.example.image_transformer.task;
 
 import com.example.uploads_api.uploads.ObjectLocation;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Collection;
 
-public record ImageTransformationTaskGroupDTO(
+public record ImageTransformationTaskGroup(
         @NonNull ObjectLocation inputObject,
-        @NonNull Collection<ImageTransformationTaskSpecDTO> tasks
+        @NonNull Collection<ImageTransformationTask> tasks
 ) {
 }

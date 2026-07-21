@@ -1,14 +1,12 @@
 package com.example.image_transformer.task;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import org.jspecify.annotations.NonNull;
 
-import java.util.List;
-
 public class ImageTransformationTaskMapper {
-    public static @NonNull ImageTransformationTask createFromDTO(@NonNull ImageTransformationTaskDTO dto) {
+    public static @NonNull ImageTransformationTask createFromDTO(@NonNull ImageTransformationTaskSpecDTO dto) {
         return new ImageTransformationTask(
                 ImageTransformationOperations.builder()
                         .format(dto.format())
@@ -17,7 +15,6 @@ public class ImageTransformationTaskMapper {
                         .limitHeight(dto.limitHeight())
                         .limitWidth(dto.limitWidth())
                         .build(),
-                dto.inputObject(),
                 dto.outputObject(),
                 dto.name(),
                 dto.lazy(),
@@ -25,9 +22,10 @@ public class ImageTransformationTaskMapper {
         );
     }
 
-    public static @NonNull List<ImageTransformationTask> createFromGroupedDTO(@NonNull ImageTransformationTaskGroupDTO dto) {
-        return dto.tasks().stream()
+    public static @NonNull ImageTransformationTaskGroup createFromGroupedDTO(@NonNull ImageTransformationTaskGroupDTO dto) {
+        var tasks = dto.tasks().stream()
                 .map(ImageTransformationTaskMapper::createFromDTO)
                 .toList();
+        return new ImageTransformationTaskGroup(dto.inputObject(), tasks);
     }
 }

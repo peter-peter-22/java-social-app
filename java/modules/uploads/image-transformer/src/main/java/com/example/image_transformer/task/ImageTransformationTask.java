@@ -9,7 +9,6 @@ import org.jspecify.annotations.NonNull;
 @Builder
 public record ImageTransformationTask(
         @NonNull ImageTransformationOperations operations,
-        @NonNull ObjectLocation inputObject,
         @NonNull ObjectLocation outputObject,
         @NonNull String name,
         boolean lazy,

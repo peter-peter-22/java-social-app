@@ -1,5 +1,7 @@
 move the relevant interfaces to the api modules
 
-optimize image transformer redundant reads
+update the image transformation DTO related classes
+
+revise the transformation source interface vs abstract class usage
 
 do something with the retry testing

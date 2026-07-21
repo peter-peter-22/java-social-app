@@ -1,9 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskDTO;
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -29,7 +26,25 @@ class BlockingTransformationService {
             timeUnit = TimeUnit.SECONDS
     )
     public void transformImages(Collection<ImageTransformationTaskDTO> transformations) {
-        imageApi.transformAll(new ImageTransformationTaskGroupDTO(transformations));
+        var inputObjects = transformations.stream()
+                .map(ImageTransformationTaskDTO::inputObject)
+                .distinct()
+                .toList();
+        if (inputObjects.size() != 1)
+            throw new IllegalArgumentException("Image transformations must share one input object");
+
+        var inputObject = inputObjects.getFirst();
+        var specs = transformations.stream()
+                .map(this::toSpec)
+                .toList();
+        imageApi.transformAll(new ImageTransformationTaskGroupDTO(inputObject, specs));
+    }
+
+    private ImageTransformationTaskSpecDTO toSpec(ImageTransformationTaskDTO task) {
+        return new ImageTransformationTaskSpecDTO(
+                task.outputObject(), task.name(), task.lazy(), task.limitWidth(), task.limitHeight(),
+                task.format(), task.quality(), task.aspectRatio(), task.uploadId()
+        );
     }
 
     /**
