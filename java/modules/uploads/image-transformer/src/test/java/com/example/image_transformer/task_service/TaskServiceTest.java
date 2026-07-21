@@ -6,9 +6,7 @@ import com.example.image_transformer.stream_processing.FileStreamProcessingManag
 import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.webhook.WebhookService;
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
-import com.example.uploads_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,8 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
-import java.util.UUID;
 
+import static com.example.image_transformer.task.TestTaskCreator.createTask;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -61,13 +59,8 @@ class TaskServiceTest {
     }
 
     private static ImageTransformationTask task(String name) {
-        // TODO replace with TestTaskCreator
-        return new ImageTransformationTask(
-                ImageTransformationOperations.builder().build(),
-                new ObjectLocation(name + ".jpg", "outputs"),
-                name,
-                false,
-                new UploadId(UUID.randomUUID())
-        );
+        return createTask(builder -> builder
+                .outputObject(new ObjectLocation(name + ".jpg", "outputs"))
+                .name(name));
     }
 }
