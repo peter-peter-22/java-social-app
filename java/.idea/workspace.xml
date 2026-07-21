@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor TaskServiceTest">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor FileStreamProcessingManager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,61 +101,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8219090408657228E-8" />
-      <entry key="MS500" value="0.033045176181808446" />
-      <entry key="S2" value="0.8460351183354025" />
-      <entry key="S5" value="1.7864057892616694" />
-      <entry key="S10" value="2.3104565278391656" />
-      <entry key="S30" value="2.7674595506153357" />
-      <entry key="S60" value="3.1090554962299293" />
-      <entry key="M2" value="3.907333831780382" />
-      <entry key="M5" value="9.354217245451709" />
-      <entry key="M10" value="21.093326347478143" />
-      <entry key="M15" value="30.240796795265076" />
-      <entry key="M30" value="47.205810690344606" />
-      <entry key="H1" value="70.50883567511498" />
-      <entry key="H2" value="129.53938787696376" />
-      <entry key="H4" value="293.8543319446704" />
-      <entry key="D1" value="4567.140137425909" />
-      <entry key="W1" value="19383.624883090255" />
+      <entry key="MS100" value="1.0079766573568583" />
+      <entry key="MS500" value="1.390960904231606" />
+      <entry key="S2" value="2.105146665821442" />
+      <entry key="S5" value="2.5416529214351984" />
+      <entry key="S10" value="2.7489242129232774" />
+      <entry key="S30" value="2.9108291931800814" />
+      <entry key="S60" value="2.9561558576101152" />
+      <entry key="M2" value="3.0154976398938116" />
+      <entry key="M5" value="3.273804354745246" />
+      <entry key="M10" value="4.261628854748828" />
+      <entry key="M15" value="6.9007153852965555" />
+      <entry key="M30" value="19.29366854095135" />
+      <entry key="H1" value="44.28680164574745" />
+      <entry key="H2" value="101.99050481795045" />
+      <entry key="H4" value="259.6203070741105" />
+      <entry key="D1" value="4466.334097836923" />
+      <entry key="W1" value="19323.44843139882" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0" />
-      <entry key="S60" value="1.0" />
-      <entry key="M2" value="1.0" />
-      <entry key="M5" value="1.0" />
-      <entry key="M10" value="1.0000000000970377" />
-      <entry key="M15" value="1.0000004666689266" />
-      <entry key="M30" value="1.0023624270957934" />
-      <entry key="H1" value="1.2228732994955842" />
-      <entry key="H2" value="4.858151132511131" />
-      <entry key="H4" value="25.402807407201156" />
-      <entry key="D1" value="341.2677777068279" />
-      <entry key="W1" value="897.2485235183848" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="2.2671629160585984E-85" />
+      <entry key="S5" value="1.3873725315189867E-34" />
+      <entry key="S10" value="1.1778677903393857E-17" />
+      <entry key="S30" value="2.275266025544264E-6" />
+      <entry key="S60" value="0.0015083984969342223" />
+      <entry key="M2" value="0.038838161340903975" />
+      <entry key="M5" value="0.273959996008438" />
+      <entry key="M10" value="0.5575538674708389" />
+      <entry key="M15" value="0.7561694861102578" />
+      <entry key="M30" value="1.1342124291266469" />
+      <entry key="H1" value="1.5978935686374591" />
+      <entry key="H2" value="4.624263398168154" />
+      <entry key="H4" value="23.073220832308273" />
+      <entry key="D1" value="334.4322551161386" />
+      <entry key="W1" value="895.2772458871666" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="2.1781607278082114E-6" />
-      <entry key="MS500" value="0.10634227367340797" />
-      <entry key="S2" value="1.3651314893780433" />
-      <entry key="S5" value="2.5553207786237193" />
-      <entry key="S10" value="3.187236447261365" />
-      <entry key="S30" value="3.724543656544353" />
-      <entry key="S60" value="4.087342604208869" />
-      <entry key="M2" value="4.896389232356246" />
-      <entry key="M5" value="10.349728233020397" />
-      <entry key="M10" value="22.0908842816694" />
-      <entry key="M15" value="31.23894529785869" />
-      <entry key="M30" value="48.206872775382884" />
-      <entry key="H1" value="71.73059842927523" />
-      <entry key="H2" value="134.3954248235647" />
-      <entry key="H4" value="319.2521683731053" />
-      <entry key="D1" value="4908.395423681521" />
-      <entry key="W1" value="20280.86838364374" />
+      <entry key="MS100" value="0.8831298456908956" />
+      <entry key="MS500" value="1.344854725396196" />
+      <entry key="S2" value="2.04125777505846" />
+      <entry key="S5" value="2.494169904659587" />
+      <entry key="S10" value="2.7193769495657243" />
+      <entry key="S30" value="2.899405718926248" />
+      <entry key="S60" value="2.9517084819391863" />
+      <entry key="M2" value="3.050989534479848" />
+      <entry key="M5" value="3.545621859129788" />
+      <entry key="M10" value="4.817606550550348" />
+      <entry key="M15" value="7.655550198806814" />
+      <entry key="M30" value="20.4267985103628" />
+      <entry key="H1" value="45.88370529540214" />
+      <entry key="H2" value="106.61298417620243" />
+      <entry key="H4" value="282.68910948657316" />
+      <entry key="D1" value="4800.754132253234" />
+      <entry key="W1" value="20218.720668675072" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -920,7 +920,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="delete unused entites in uploads-persistence" />
     <MESSAGE value="refractor lazy trasnformation repository injection" />
     <MESSAGE value="refractor upload repository injection" />
     <MESSAGE value="Fix the cockroach test container shutdown issue." />
@@ -945,7 +944,8 @@
     <MESSAGE value="fix redundant object storage reads in the image transformer" />
     <MESSAGE value="add todos" />
     <MESSAGE value="refractor TaskServiceTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="refractor TaskServiceTest" />
+    <MESSAGE value="refractor FileStreamProcessingManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor FileStreamProcessingManager" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

@@ -36,6 +36,7 @@ class TaskServiceIT {
     private TaskService service;
 
     @Test
+    @SuppressWarnings("SuspiciousNameCombination")
     void aspectFillProducesSquare() throws IOException {
         var task = localTestTask("aspect-fill-square", c -> c.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.FILL)));
         executeTask(task);
@@ -43,6 +44,7 @@ class TaskServiceIT {
     }
 
     @Test
+    @SuppressWarnings("SuspiciousNameCombination")
     void aspectContainPadsToSquare() throws IOException {
         var task = localTestTask("aspect-contain-square", c -> c.aspectRatio(new AspectRatio(1, 1, AspectRatio.Mode.CONTAIN)));
         executeTask(task);

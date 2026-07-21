@@ -23,6 +23,7 @@ public class TaskService {
         group.tasks().forEach(task -> processTask(task, source));
     }
 
+    // OPTIMIZE: should this be parallel?
     private void processTask(@NonNull ImageTransformationTask task, byte[] source) {
         fileStreamProcessingManager.process(
                 source,
