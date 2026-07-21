@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
-
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -21,22 +19,16 @@ public class TaskService {
     private final FileStreamStorage storage;
 
     public void processTasks(@NonNull ImageTransformationTaskGroup group) {
-        try (var inputStream = storage.read(group.inputObject())) {
-            // TODO update FileStreamProcessingManager
-            var source = inputStream.readAllBytes();
-            group.tasks().forEach(task -> processTask(task, source));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read source image for transformations", e);
-        }
+        var source = fileStreamProcessingManager.readAllBytes(() -> storage.read(group.inputObject()));
+        group.tasks().forEach(task -> processTask(task, source));
     }
 
     private void processTask(@NonNull ImageTransformationTask task, byte[] source) {
         fileStreamProcessingManager.process(
-                () -> new ByteArrayInputStream(source),
-                stream-> transformationService.transformFile(stream,task.operations()),
-                stream-> storage.write(stream,task.outputObject())
+                source,
+                stream -> transformationService.transformFile(stream, task.operations()),
+                stream -> storage.write(stream, task.outputObject())
         );
         webhookService.handleCallback(task);
     }
-    // TODO unit test
 }

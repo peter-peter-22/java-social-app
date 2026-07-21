@@ -1,28 +1,34 @@
 package com.example.image_transformer.stream_processing;
 
-import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Component
-@RequiredArgsConstructor
 public class FileStreamProcessingManager {
-   public void process(
-           @NonNull Supplier<@NonNull InputStream> source,
-           @NonNull Function<@NonNull InputStream, @NonNull InputStream> processor,
-           @NonNull Consumer<@NonNull InputStream> consumer
-   ){
-      try (var inputStream = source.get()) {
-         try (var outputStream = processor.apply(inputStream)) {
+    public byte[] readAllBytes(@NonNull Supplier<@NonNull InputStream> source) {
+        try (var inputStream = source.get()) {
+            return inputStream.readAllBytes();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read file stream", e);
+        }
+    }
+
+    public void process(
+            byte @NonNull [] source,
+            @NonNull Function<@NonNull InputStream, @NonNull InputStream> processor,
+            @NonNull Consumer<@NonNull InputStream> consumer
+    ) {
+        try (var inputStream = new ByteArrayInputStream(source);
+             var outputStream = processor.apply(inputStream)) {
             consumer.accept(outputStream);
-         }
-      } catch (Exception e) {
-         throw new RuntimeException("Failed to process file stream", e);
-      }
-   }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to process file stream", e);
+        }
+    }
 }
