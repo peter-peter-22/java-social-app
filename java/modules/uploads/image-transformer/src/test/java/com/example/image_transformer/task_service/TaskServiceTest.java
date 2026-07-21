@@ -22,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+// CLEAN: should this be simplified by checking only the call count?
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
     private static final ObjectLocation INPUT = new ObjectLocation("original.jpg", "images");
@@ -35,7 +36,9 @@ class TaskServiceTest {
     private FileStreamStorage storage;
 
     @Test
-    void readsSharedInputOnceAndReplaysItForEveryTask() throws Exception {
+    @SuppressWarnings("resource")
+        // The file stream is not used, no try block is necessary
+    void readsSharedInputOnceAndReplaysItForEveryTask() {
         var processedInputs = new java.util.ArrayList<byte[]>();
         when(storage.read(INPUT)).thenReturn(new ByteArrayInputStream(SOURCE));
         when(transformationService.transformFile(any(), any())).thenAnswer(invocation -> {
