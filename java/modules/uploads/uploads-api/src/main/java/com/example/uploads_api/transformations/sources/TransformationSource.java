@@ -4,7 +4,6 @@ import com.example.uploads_api.transformations.operations.TransformationOperatio
 import com.example.uploads_api.uploads.Upload;
 import org.jspecify.annotations.NonNull;
 
-// TODO: should I use only the abstract class instead of the interface?
 public interface TransformationSource<T> {
     @NonNull TransformationOperations getOperations();
 

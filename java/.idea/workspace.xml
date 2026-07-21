@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update messages">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="fix warning in TaskServiceTest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/ImageTransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/ImageTransformationSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSourceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/TransformationSourceBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/VideoTransformationSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/sources/VideoTransformationSource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,61 +104,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0548592931071268" />
-      <entry key="MS500" value="2.022081607261121" />
-      <entry key="S2" value="3.236592991835114" />
-      <entry key="S5" value="3.661926794663738" />
-      <entry key="S10" value="3.8249146036778137" />
-      <entry key="S30" value="3.940233178028747" />
-      <entry key="S60" value="3.9705896750932594" />
-      <entry key="M2" value="4.029733193557339" />
-      <entry key="M5" value="4.60189585047399" />
-      <entry key="M10" value="5.833425695039282" />
-      <entry key="M15" value="7.934961164184304" />
-      <entry key="M30" value="18.57199909288613" />
-      <entry key="H1" value="42.488927587295805" />
-      <entry key="H2" value="99.08065843886376" />
-      <entry key="H4" value="254.67165946720357" />
-      <entry key="D1" value="4444.300244015904" />
-      <entry key="W1" value="19311.317440046307" />
+      <entry key="MS100" value="1.0000021608045297" />
+      <entry key="MS500" value="1.0736076743496863" />
+      <entry key="S2" value="1.5208723372209496" />
+      <entry key="S5" value="1.7771499628230139" />
+      <entry key="S10" value="2.049171727944111" />
+      <entry key="S30" value="3.5487260286166538" />
+      <entry key="S60" value="4.795141199371671" />
+      <entry key="M2" value="5.9744002315963725" />
+      <entry key="M5" value="9.235826616429451" />
+      <entry key="M10" value="13.491744589085984" />
+      <entry key="M15" value="16.644335238514664" />
+      <entry key="M30" value="26.186776272231945" />
+      <entry key="H1" value="48.112773981865246" />
+      <entry key="H2" value="101.82832573474052" />
+      <entry key="H4" value="251.88121887877188" />
+      <entry key="D1" value="4394.680216066841" />
+      <entry key="W1" value="19288.218629075545" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="4.7468764589804644E-195" />
-      <entry key="S5" value="1.86450336547486E-78" />
-      <entry key="S10" value="1.3654681854495399E-39" />
-      <entry key="S30" value="1.1094145616785882E-13" />
-      <entry key="S60" value="3.3307875370294236E-7" />
-      <entry key="M2" value="5.771305733240315E-4" />
-      <entry key="M5" value="0.05087369936376401" />
-      <entry key="M10" value="0.24026467137536334" />
-      <entry key="M15" value="0.4314076786387049" />
-      <entry key="M30" value="0.8566999932352939" />
-      <entry key="H1" value="1.3887210848982428" />
-      <entry key="H2" value="4.310981447732274" />
-      <entry key="H4" value="22.277939380163154" />
-      <entry key="D1" value="332.48288159683744" />
-      <entry key="W1" value="894.5298789315963" />
+      <entry key="S2" value="6.220758232861267E-110" />
+      <entry key="S5" value="2.0774822851019107E-44" />
+      <entry key="S10" value="1.4413473852967955E-22" />
+      <entry key="S30" value="5.2431170697357503E-8" />
+      <entry key="S60" value="2.289785376348023E-4" />
+      <entry key="M2" value="0.015132042531746749" />
+      <entry key="M5" value="0.1875579702789798" />
+      <entry key="M10" value="0.4564890943683214" />
+      <entry key="M15" value="0.6647640203767045" />
+      <entry key="M30" value="1.1537154253017305" />
+      <entry key="H1" value="1.815543421005677" />
+      <entry key="H2" value="4.490456806840301" />
+      <entry key="H4" value="21.20449723318009" />
+      <entry key="D1" value="328.1999869029312" />
+      <entry key="W1" value="893.4868612373938" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0318956105480352" />
-      <entry key="MS500" value="2.0068237295058426" />
-      <entry key="S2" value="3.22952141816647" />
-      <entry key="S5" value="3.658662539150767" />
-      <entry key="S10" value="3.823200173084026" />
-      <entry key="S30" value="3.9396424100609284" />
-      <entry key="S60" value="3.970290832680675" />
-      <entry key="M2" value="4.030111044642856" />
-      <entry key="M5" value="4.652311722210081" />
-      <entry key="M10" value="6.072981141236077" />
-      <entry key="M15" value="8.365587376112765" />
-      <entry key="M30" value="19.427871466962138" />
-      <entry key="H1" value="43.876783333331915" />
-      <entry key="H2" value="103.38997420793847" />
-      <entry key="H4" value="276.9453314689334" />
-      <entry key="D1" value="4776.770975937617" />
-      <entry key="W1" value="20205.842314518326" />
+      <entry key="MS100" value="0.007814368095965554" />
+      <entry key="MS500" value="0.45042482745283746" />
+      <entry key="S2" value="1.3016791443072016" />
+      <entry key="S5" value="1.6818547666494084" />
+      <entry key="S10" value="1.993556582908102" />
+      <entry key="S30" value="3.512125702550584" />
+      <entry key="S60" value="4.769775838337989" />
+      <entry key="M2" value="5.973872607811431" />
+      <entry key="M5" value="9.415640380026185" />
+      <entry key="M10" value="13.943668337065871" />
+      <entry key="M15" value="17.30572060001675" />
+      <entry key="M30" value="27.338366260992974" />
+      <entry key="H1" value="49.926816323946284" />
+      <entry key="H2" value="106.31694076311823" />
+      <entry key="H4" value="273.0816028509986" />
+      <entry key="D1" value="4722.868206296922" />
+      <entry key="W1" value="20181.700491577263" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -919,7 +923,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refractor upload repository injection" />
     <MESSAGE value="Fix the cockroach test container shutdown issue." />
     <MESSAGE value="Update CockroachContainer to a newer version because deprecation warning." />
     <MESSAGE value="add the tests of the status update to the integration tests to UploadRepositoryIT" />
@@ -944,7 +947,8 @@
     <MESSAGE value="refractor TaskServiceTest" />
     <MESSAGE value="refractor FileStreamProcessingManager" />
     <MESSAGE value="update messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="update messages" />
+    <MESSAGE value="fix warning in TaskServiceTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix warning in TaskServiceTest" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

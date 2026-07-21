@@ -11,7 +11,7 @@ import org.jspecify.annotations.NonNull;
 
 @SuperBuilder
 @Getter
-public class VideoTransformationSource extends TransformationSourceBase implements TransformationSource<VideoTransformationTaskDTO> {
+public class VideoTransformationSource extends TransformationSourceBase<VideoTransformationTaskDTO> {
     public @NonNull VideoTransformationOperations operations;
 
     @Override

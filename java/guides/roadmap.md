@@ -1,7 +1,7 @@
 move the relevant interfaces to the api modules
 
-update the image transformation DTO related classes
+reconsider the usage of beans in the image transformer
 
-revise the transformation source interface vs abstract class usage
+update the image transformation DTO related classes
 
 do something with the retry testing

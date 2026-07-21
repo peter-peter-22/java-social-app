@@ -10,7 +10,7 @@ import org.jspecify.annotations.Nullable;
 
 @SuperBuilder
 @Getter
-public abstract class TransformationSourceBase {
+public abstract class TransformationSourceBase<T> implements TransformationSource<T> {
     @NonNull
     final private String name;
     /**
@@ -38,4 +38,6 @@ public abstract class TransformationSourceBase {
         }
         return true;
     }
+
+    public abstract @NonNull T createTaskDTO(@NonNull Upload original);
 }

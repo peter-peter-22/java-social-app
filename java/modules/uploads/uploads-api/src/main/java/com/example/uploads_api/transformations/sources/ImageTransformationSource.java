@@ -11,7 +11,7 @@ import org.jspecify.annotations.NonNull;
 
 @SuperBuilder
 @Getter
-public class ImageTransformationSource extends TransformationSourceBase implements TransformationSource<ImageTransformationTaskDTO> {
+public class ImageTransformationSource extends TransformationSourceBase<ImageTransformationTaskDTO> {
     public @NonNull ImageTransformationOperations operations;
 
     @Override
