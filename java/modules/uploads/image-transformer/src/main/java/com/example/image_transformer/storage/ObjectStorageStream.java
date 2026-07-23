@@ -4,14 +4,14 @@ import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.uploads.ObjectLocation;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 @Component
-@Profile("!local")
+@ConditionalOnMissingBean(FileStreamStorage.class)
 @RequiredArgsConstructor
 public class ObjectStorageStream implements FileStreamStorage {
     private final ObjectStorageRepository objectStorageRepository;

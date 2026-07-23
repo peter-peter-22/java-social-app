@@ -2,8 +2,6 @@ package com.example.image_transformer.storage;
 
 import com.example.uploads_api.uploads.ObjectLocation;
 import org.jspecify.annotations.NonNull;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-@Component
-@Profile("local")
 public class LocalStreamStorage implements FileStreamStorage {
     public static @NonNull Path objectLocationToLocalPath(@NonNull ObjectLocation location) {
         return TestResourcesDirectory.getResourcesPath().resolve(location.bucket()).resolve(location.key());

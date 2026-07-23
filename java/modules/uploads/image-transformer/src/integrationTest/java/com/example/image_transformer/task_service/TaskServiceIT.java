@@ -1,6 +1,7 @@
 package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.TestApplication;
+import com.example.image_transformer.storage.LocalStorageConfiguration;
 import com.example.image_transformer.storage.LocalStreamStorage;
 import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
@@ -14,7 +15,7 @@ import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 
 import javax.imageio.ImageIO;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = TestApplication.class)
-@ActiveProfiles({"local"})
+@Import(LocalStorageConfiguration.class)
 @TestPropertySource(locations = "classpath:image-transformation-test.properties")
 class TaskServiceIT {
     private static final ObjectLocation TEST_FILE = new ObjectLocation("image.jpg", "test-images");
