@@ -40,6 +40,8 @@ testing {
 				implementation(testFixtures(project()))
 
 				implementation("org.springframework.boot:spring-boot-starter-test")
+				implementation("org.springframework.boot:spring-boot-starter-webmvc")
+				implementation("com.squareup.okhttp3:mockwebserver3:5.0.0-alpha.12")
 				runtimeOnly("org.junit.platform:junit-platform-launcher")
 				implementation(project(":uploads-api"))
 			}
@@ -58,6 +60,10 @@ testing {
 	}
 }
 
+sourceSets.named("integrationTest") {
+	resources.srcDir("src/test/resources")
+}
+
 // CLEAN: should this be grouped with other docker test tasks in the future?
 // CLEAN: should I use the docker test plugin?
 tasks.register<Exec>("dockerIT") {
@@ -72,4 +78,9 @@ tasks.register<Exec>("dockerIT") {
 		"run", "--rm",
 		"image-transformer"
 	)
+
+//	commandLine(
+//		"sh", "-c",
+//		"docker compose -f modules/uploads/image-transformer/docker/compose-test.yaml up --build --abort-on-container-exit --exit-code-from image-transformer; test_status=\$?; docker compose -f modules/uploads/image-transformer/docker/compose-test.yaml down --volumes --remove-orphans; exit \$test_status"
+//	)
 }
