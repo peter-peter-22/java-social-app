@@ -1,17 +1,23 @@
 package com.example.image_transformer;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.TestPropertySource;
 
-@SpringBootApplication
-@ComponentScan(
-        excludeFilters = @ComponentScan.Filter(
-                type = FilterType.ASSIGNABLE_TYPE,
-                classes = Application.class
-        )
-)
+@SpringBootApplication(scanBasePackages = {
+        "com.example.image_transformer.webhook",
+        "com.example.image_transformer.operations",
+        "com.example.image_transformer.task_service"
+})
+//@ComponentScan(
+//        excludeFilters = {
+//                @ComponentScan.Filter(
+//                        type = FilterType.ASSIGNABLE_TYPE,
+//                        classes = Application.class
+//                ),
+//                @ComponentScan.Filter(
+//                        type = FilterType.CUSTOM,
+//                        classes = TypeExcludeFilter.class
+//                )
+//        }
+//)
 public class TestApplication {
 }

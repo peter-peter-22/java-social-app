@@ -1,5 +1,6 @@
 package com.example.image_transformer;
 
+import com.example.image_transformer.storage.TestResourcesDirectory;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
@@ -23,16 +24,17 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(
-        classes = TestApplication.class,
+        classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@TestPropertySource(properties = "minio.reconciliation.enabled=true")
+@TestPropertySource(locations = "classpath:image-transformation-rest-test.properties")
 class TransformationRestIT {
     private static final MockWebServer WEBHOOK_SERVER = startWebhookServer();
 
@@ -50,7 +52,7 @@ class TransformationRestIT {
     @DynamicPropertySource
     static void registerWebhookProperties(DynamicPropertyRegistry registry) {
         registry.add(
-                "transformations.blocking.webhook-url",
+                "transformations.webhook_url",
                 () -> WEBHOOK_SERVER.url("/").toString()
         );
     }
@@ -124,8 +126,18 @@ class TransformationRestIT {
                 .isNull();
     }
 
+    private static InputStream getTestFileStream() {
+        var inputPath = TestResourcesDirectory.getResourcesPath().resolve("test-images", "image.jpg");
+        System.out.println("Reading test image from " + inputPath);
+        try {
+            return Files.newInputStream(inputPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read source image from " + inputPath, e);
+        }
+    }
+
     private void uploadInput(ObjectLocation location) throws IOException {
-        try (InputStream input = getClass().getResourceAsStream("/test-images/image.jpg")) {
+        try (InputStream input = getTestFileStream()) {
             assertThat(input).isNotNull();
             var bytes = input.readAllBytes();
             objectStorageRepository.putObject(

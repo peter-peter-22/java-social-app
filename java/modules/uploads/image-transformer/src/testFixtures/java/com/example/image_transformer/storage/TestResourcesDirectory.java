@@ -1,6 +1,5 @@
 package com.example.image_transformer.storage;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class TestResourcesDirectory {

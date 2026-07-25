@@ -15,17 +15,16 @@ import org.springframework.stereotype.Service;
 public class TaskService {
     private final WebhookService webhookService;
     private final ImageTransformationService transformationService;
-    private final FileStreamProcessingManager fileStreamProcessingManager;
     private final FileStreamStorage storage;
 
     public void processTasks(@NonNull ImageTransformationTaskGroup group) {
-        var source = fileStreamProcessingManager.readAllBytes(() -> storage.read(group.inputObject()));
+        var source = FileStreamProcessingManager.readAllBytes(() -> storage.read(group.inputObject()));
         group.tasks().forEach(task -> processTask(task, source));
     }
 
     // OPTIMIZE: should this be parallel?
     private void processTask(@NonNull ImageTransformationTask task, byte[] source) {
-        fileStreamProcessingManager.process(
+        FileStreamProcessingManager.process(
                 source,
                 stream -> transformationService.transformFile(stream, task.operations()),
                 stream -> storage.write(stream, task.outputObject())

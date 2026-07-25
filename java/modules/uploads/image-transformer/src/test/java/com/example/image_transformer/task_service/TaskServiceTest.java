@@ -2,7 +2,6 @@ package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.operations.ImageTransformationService;
 import com.example.image_transformer.storage.FileStreamStorage;
-import com.example.image_transformer.stream_processing.FileStreamProcessingManager;
 import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.webhook.WebhookService;
@@ -50,7 +49,6 @@ class TaskServiceTest {
         var service = new TaskService(
                 webhookService,
                 transformationService,
-                new FileStreamProcessingManager(),
                 storage
         );
         var group = new ImageTransformationTaskGroup(INPUT, List.of(task("first"), task("second")));

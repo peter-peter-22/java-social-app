@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.net.URI;
 
-@ConfigurationProperties(prefix = "transformations.blocking")
+@ConfigurationProperties(prefix = "transformations")
 @Validated
 public record WebhookProperties(
         @NotNull

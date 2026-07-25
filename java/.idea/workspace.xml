@@ -4,13 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update the uploads-api and uploads-service modules to use the new transformation task DTO">
-      <change afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-rest-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStreamStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStreamStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/TestResourcesDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/TestResourcesDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-test.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +104,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="0821cdaf47d5a1bf6b835de12613381abdaf0b30" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GithubDefaultAccount">
@@ -104,65 +121,65 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.3288633374417396E-81" />
-      <entry key="S5" value="8.487964187937939E-33" />
-      <entry key="S10" value="1.5934512895399682E-16" />
-      <entry key="S30" value="1.2200996169267713E-5" />
-      <entry key="S60" value="0.0071796106964729985" />
-      <entry key="M2" value="0.1843223305705662" />
-      <entry key="M5" value="1.3435066016597108" />
-      <entry key="M10" value="3.253971534775791" />
-      <entry key="M15" value="5.880830330726666" />
-      <entry key="M30" value="16.431983814728465" />
-      <entry key="H1" value="39.16032045645969" />
-      <entry key="H2" value="88.44498578944352" />
-      <entry key="H4" value="221.14407600595675" />
-      <entry key="D1" value="4177.519158234814" />
-      <entry key="W1" value="19171.295451566624" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.000000005670884" />
+      <entry key="S2" value="1.0182786307680445" />
+      <entry key="S5" value="1.4407447770136577" />
+      <entry key="S10" value="2.3156291274273904" />
+      <entry key="S30" value="3.7553860812885618" />
+      <entry key="S60" value="4.319028334834645" />
+      <entry key="M2" value="4.648461546604148" />
+      <entry key="M5" value="5.027587396606884" />
+      <entry key="M10" value="5.743386737844838" />
+      <entry key="M15" value="6.608126617662368" />
+      <entry key="M30" value="11.630934724034997" />
+      <entry key="H1" value="37.43029998716729" />
+      <entry key="H2" value="109.4083172271916" />
+      <entry key="H4" value="258.66386460404715" />
+      <entry key="D1" value="3963.6883306307177" />
+      <entry key="W1" value="19116.65338501418" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000057712" />
-      <entry key="S10" value="1.0000033523732943" />
-      <entry key="S30" value="1.0236864397014864" />
-      <entry key="S60" value="1.218847080005715" />
-      <entry key="M2" value="1.710163112305593" />
-      <entry key="M5" value="2.7426913440164853" />
-      <entry key="M10" value="3.576025661316454" />
-      <entry key="M15" value="4.042481926442491" />
-      <entry key="M30" value="5.0374018473266595" />
-      <entry key="H1" value="6.5393888075295274" />
-      <entry key="H2" value="9.298430118237421" />
-      <entry key="H4" value="22.357440061028896" />
-      <entry key="D1" value="316.3236310490568" />
-      <entry key="W1" value="894.1859387431325" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.892777972558711E-139" />
+      <entry key="S5" value="3.242200506256422E-56" />
+      <entry key="S10" value="1.8006111479873774E-28" />
+      <entry key="S30" value="5.646855114618115E-10" />
+      <entry key="S60" value="2.376311406640457E-5" />
+      <entry key="M2" value="0.00487643423751438" />
+      <entry key="M5" value="0.1265554717833594" />
+      <entry key="M10" value="0.4844524389237723" />
+      <entry key="M15" value="0.8739494854053785" />
+      <entry key="M30" value="1.8539639497727267" />
+      <entry key="H1" value="3.4293565690540015" />
+      <entry key="H2" value="6.487391548436054" />
+      <entry key="H4" value="16.25017764229713" />
+      <entry key="D1" value="288.29847648057245" />
+      <entry key="W1" value="885.8283049220059" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.725290298461918E-9" />
-      <entry key="MS500" value="0.020617311105826472" />
-      <entry key="S2" value="0.3789291416275995" />
-      <entry key="S5" value="0.6783021637282205" />
-      <entry key="S10" value="0.8235939420314288" />
-      <entry key="S30" value="0.9600046473177397" />
-      <entry key="S60" value="1.189216536810058" />
-      <entry key="M2" value="1.8688430454637877" />
-      <entry key="M5" value="4.066193512846828" />
-      <entry key="M10" value="6.814962408646878" />
-      <entry key="M15" value="9.911206253982396" />
-      <entry key="M30" value="21.46100988953688" />
-      <entry key="H1" value="45.69389253766679" />
-      <entry key="H2" value="97.73921717161143" />
-      <entry key="H4" value="243.49684715338475" />
-      <entry key="D1" value="4493.831199039787" />
-      <entry key="W1" value="20065.476386892686" />
+      <entry key="MS100" value="0.008431470597690834" />
+      <entry key="MS500" value="0.38475180899171935" />
+      <entry key="S2" value="0.8040180273327466" />
+      <entry key="S5" value="1.3307604984735633" />
+      <entry key="S10" value="2.240212141844141" />
+      <entry key="S30" value="3.7192194131545517" />
+      <entry key="S60" value="4.298809814515198" />
+      <entry key="M2" value="4.642472268480339" />
+      <entry key="M5" value="5.148182561727235" />
+      <entry key="M10" value="6.222387972551481" />
+      <entry key="M15" value="7.476640050343513" />
+      <entry key="M30" value="13.479865131212675" />
+      <entry key="H1" value="40.85516802709065" />
+      <entry key="H2" value="115.89167344660476" />
+      <entry key="H4" value="274.9098168255776" />
+      <entry key="D1" value="4251.976070718667" />
+      <entry key="W1" value="20002.476709377006" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -267,7 +284,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/mnt/hdd/projects/IdeaProjects/java_tutorials&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads/image-transformer/src/testFixtures/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -287,11 +304,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources" />
       <recent name="$PROJECT_DIR$/modules/posts/posts-api/src/main/java/com/example/posts_api/post_repository" />
       <recent name="$PROJECT_DIR$/modules/posts" />
       <recent name="$PROJECT_DIR$/modules/uploads" />
       <recent name="$PROJECT_DIR$/modules/media" />
-      <recent name="$PROJECT_DIR$/modules/media/image-transformer/src/test/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.codex" />

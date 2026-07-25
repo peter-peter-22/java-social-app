@@ -11,7 +11,7 @@ import java.nio.file.StandardCopyOption;
 
 public class LocalStreamStorage implements FileStreamStorage {
     public static @NonNull Path objectLocationToLocalPath(@NonNull ObjectLocation location) {
-        return TestResourcesDirectory.getResourcesPath().resolve(location.bucket()).resolve(location.key());
+        return TestResourcesDirectory.getResourcesPath().resolve(location.bucket(), location.key());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.image_transformer.stream_processing;
 
 import org.jspecify.annotations.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -9,9 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Component
 public class FileStreamProcessingManager {
-    public byte[] readAllBytes(@NonNull Supplier<@NonNull InputStream> source) {
+    public static byte[] readAllBytes(@NonNull Supplier<@NonNull InputStream> source) {
         try (var inputStream = source.get()) {
             return inputStream.readAllBytes();
         } catch (Exception e) {
@@ -19,7 +17,7 @@ public class FileStreamProcessingManager {
         }
     }
 
-    public void process(
+    public static void process(
             byte @NonNull [] source,
             @NonNull Function<@NonNull InputStream, @NonNull InputStream> processor,
             @NonNull Consumer<@NonNull InputStream> consumer

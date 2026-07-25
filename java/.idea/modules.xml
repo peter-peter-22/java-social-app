@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-api/com.example.java.uploads-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-api/com.example.java.uploads-api.main.iml" />
