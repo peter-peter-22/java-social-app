@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-rest-test.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" beforeDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="fix image transformer integration tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStreamStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStreamStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/TestResourcesDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/TestResourcesDirectory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="805" />
+    <option name="cachedIndexableFilesCount" value="807" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -122,60 +107,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.000000005670884" />
-      <entry key="S2" value="1.0182786307680445" />
-      <entry key="S5" value="1.4407447770136577" />
-      <entry key="S10" value="2.3156291274273904" />
-      <entry key="S30" value="3.7553860812885618" />
-      <entry key="S60" value="4.319028334834645" />
-      <entry key="M2" value="4.648461546604148" />
-      <entry key="M5" value="5.027587396606884" />
-      <entry key="M10" value="5.743386737844838" />
-      <entry key="M15" value="6.608126617662368" />
-      <entry key="M30" value="11.630934724034997" />
-      <entry key="H1" value="37.43029998716729" />
-      <entry key="H2" value="109.4083172271916" />
-      <entry key="H4" value="258.66386460404715" />
-      <entry key="D1" value="3963.6883306307177" />
-      <entry key="W1" value="19116.65338501418" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0000000004756067" />
+      <entry key="S30" value="1.0022866853380066" />
+      <entry key="S60" value="1.1150668611868433" />
+      <entry key="M2" value="2.1776981588445055" />
+      <entry key="M5" value="8.778437418735066" />
+      <entry key="M10" value="17.442762399250448" />
+      <entry key="M15" value="22.67490808940599" />
+      <entry key="M30" value="32.797845705217156" />
+      <entry key="H1" value="59.46722122268588" />
+      <entry key="H2" value="130.40193131501212" />
+      <entry key="H4" value="278.90114800197347" />
+      <entry key="D1" value="3969.0491800703967" />
+      <entry key="W1" value="19130.026856194716" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.892777972558711E-139" />
-      <entry key="S5" value="3.242200506256422E-56" />
-      <entry key="S10" value="1.8006111479873774E-28" />
-      <entry key="S30" value="5.646855114618115E-10" />
-      <entry key="S60" value="2.376311406640457E-5" />
-      <entry key="M2" value="0.00487643423751438" />
-      <entry key="M5" value="0.1265554717833594" />
-      <entry key="M10" value="0.4844524389237723" />
-      <entry key="M15" value="0.8739494854053785" />
-      <entry key="M30" value="1.8539639497727267" />
-      <entry key="H1" value="3.4293565690540015" />
-      <entry key="H2" value="6.487391548436054" />
-      <entry key="H4" value="16.25017764229713" />
-      <entry key="D1" value="288.29847648057245" />
-      <entry key="W1" value="885.8283049220059" />
+      <entry key="S2" value="3.1223363596281224E-100" />
+      <entry key="S5" value="2.0474273813574633E-40" />
+      <entry key="S10" value="1.9536274109220566E-20" />
+      <entry key="S30" value="4.2397057402640876E-7" />
+      <entry key="S60" value="9.1986214295117E-4" />
+      <entry key="M2" value="0.04292749283537234" />
+      <entry key="M5" value="0.4497802371475526" />
+      <entry key="M10" value="1.118780682018683" />
+      <entry key="M15" value="1.6687178385574581" />
+      <entry key="M30" value="2.9083988323521934" />
+      <entry key="H1" value="4.6971605778127525" />
+      <entry key="H2" value="7.880207772491513" />
+      <entry key="H4" value="17.570376616802697" />
+      <entry key="D1" value="288.4345907851573" />
+      <entry key="W1" value="887.011061990987" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.008431470597690834" />
-      <entry key="MS500" value="0.38475180899171935" />
-      <entry key="S2" value="0.8040180273327466" />
-      <entry key="S5" value="1.3307604984735633" />
-      <entry key="S10" value="2.240212141844141" />
-      <entry key="S30" value="3.7192194131545517" />
-      <entry key="S60" value="4.298809814515198" />
-      <entry key="M2" value="4.642472268480339" />
-      <entry key="M5" value="5.148182561727235" />
-      <entry key="M10" value="6.222387972551481" />
-      <entry key="M15" value="7.476640050343513" />
-      <entry key="M30" value="13.479865131212675" />
-      <entry key="H1" value="40.85516802709065" />
-      <entry key="H2" value="115.89167344660476" />
-      <entry key="H4" value="274.9098168255776" />
-      <entry key="D1" value="4251.976070718667" />
-      <entry key="W1" value="20002.476709377006" />
+      <entry key="MS100" value="1.451668841556055E-4" />
+      <entry key="MS500" value="0.17075503209429943" />
+      <entry key="S2" value="0.6428259166190375" />
+      <entry key="S5" value="0.8379871346679486" />
+      <entry key="S10" value="0.915416372771444" />
+      <entry key="S30" value="0.9732573842299066" />
+      <entry key="S60" value="1.1012697913793834" />
+      <entry key="M2" value="2.2107343598907794" />
+      <entry key="M5" value="9.21240231995872" />
+      <entry key="M10" value="18.54399961023705" />
+      <entry key="M15" value="24.327400685097885" />
+      <entry key="M30" value="35.69388049787883" />
+      <entry key="H1" value="64.1555769682797" />
+      <entry key="H2" value="138.2757505524235" />
+      <entry key="H4" value="296.4660868891817" />
+      <entry key="D1" value="4257.472868120839" />
+      <entry key="W1" value="20017.03290842645" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -325,7 +310,7 @@
       <recent name="com.example.uploads.lazy_session_repository" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:image-transformer:dockerIT]">
+  <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -940,7 +925,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add the tests of the status update to the integration tests to UploadRepositoryIT" />
     <MESSAGE value="add checkIfReady method to LazyTransformationStoreImpl" />
     <MESSAGE value="implement the functions of UploadService" />
     <MESSAGE value="check foreign key name on error in UploadService" />
@@ -965,7 +949,8 @@
     <MESSAGE value="fix warning in TaskServiceTest" />
     <MESSAGE value="refractor TransformationSourceBase" />
     <MESSAGE value="update the uploads-api and uploads-service modules to use the new transformation task DTO" />
-    <option name="LAST_COMMIT_MESSAGE" value="update the uploads-api and uploads-service modules to use the new transformation task DTO" />
+    <MESSAGE value="fix image transformer integration tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix image transformer integration tests" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
