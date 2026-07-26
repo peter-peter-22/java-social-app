@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="fix image transformer integration tests">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor ReadPropertiesTest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/TestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,61 +106,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0000000004756067" />
-      <entry key="S30" value="1.0022866853380066" />
-      <entry key="S60" value="1.1150668611868433" />
-      <entry key="M2" value="2.1776981588445055" />
-      <entry key="M5" value="8.778437418735066" />
-      <entry key="M10" value="17.442762399250448" />
-      <entry key="M15" value="22.67490808940599" />
-      <entry key="M30" value="32.797845705217156" />
-      <entry key="H1" value="59.46722122268588" />
-      <entry key="H2" value="130.40193131501212" />
-      <entry key="H4" value="278.90114800197347" />
-      <entry key="D1" value="3969.0491800703967" />
-      <entry key="W1" value="19130.026856194716" />
+      <entry key="MS100" value="1.0054105838598082" />
+      <entry key="MS500" value="1.3520860567280202" />
+      <entry key="S2" value="1.7703040950353737" />
+      <entry key="S5" value="1.9008757210112743" />
+      <entry key="S10" value="1.9491447313298822" />
+      <entry key="S30" value="1.9827524776740484" />
+      <entry key="S60" value="1.99136820936153" />
+      <entry key="M2" value="2.0068571249143003" />
+      <entry key="M5" value="3.064517934765652" />
+      <entry key="M10" value="8.078204693920057" />
+      <entry key="M15" value="13.22891772295035" />
+      <entry key="M30" value="25.080608615890807" />
+      <entry key="H1" value="51.88616053609747" />
+      <entry key="H2" value="121.43609851492717" />
+      <entry key="H4" value="268.91695828816864" />
+      <entry key="D1" value="3942.1020190461327" />
+      <entry key="W1" value="19112.03291323686" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="3.1223363596281224E-100" />
-      <entry key="S5" value="2.0474273813574633E-40" />
-      <entry key="S10" value="1.9536274109220566E-20" />
-      <entry key="S30" value="4.2397057402640876E-7" />
-      <entry key="S60" value="9.1986214295117E-4" />
-      <entry key="M2" value="0.04292749283537234" />
-      <entry key="M5" value="0.4497802371475526" />
-      <entry key="M10" value="1.118780682018683" />
-      <entry key="M15" value="1.6687178385574581" />
-      <entry key="M30" value="2.9083988323521934" />
-      <entry key="H1" value="4.6971605778127525" />
-      <entry key="H2" value="7.880207772491513" />
-      <entry key="H4" value="17.570376616802697" />
-      <entry key="D1" value="288.4345907851573" />
-      <entry key="W1" value="887.011061990987" />
+      <entry key="S2" value="1.4492183338318362E-237" />
+      <entry key="S5" value="2.387097512951743E-95" />
+      <entry key="S10" value="6.670717773016836E-48" />
+      <entry key="S30" value="2.963325266483869E-16" />
+      <entry key="S60" value="2.431893490331524E-8" />
+      <entry key="M2" value="2.2072240857847072E-4" />
+      <entry key="M5" value="0.05463170190113692" />
+      <entry key="M10" value="0.3899124829571554" />
+      <entry key="M15" value="0.8264140565559585" />
+      <entry key="M30" value="2.0467337692833176" />
+      <entry key="H1" value="3.9403890545269165" />
+      <entry key="H2" value="7.217545273837071" />
+      <entry key="H4" value="16.81539195149726" />
+      <entry key="D1" value="286.3309734140422" />
+      <entry key="W1" value="886.0839933598623" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.451668841556055E-4" />
-      <entry key="MS500" value="0.17075503209429943" />
-      <entry key="S2" value="0.6428259166190375" />
-      <entry key="S5" value="0.8379871346679486" />
-      <entry key="S10" value="0.915416372771444" />
-      <entry key="S30" value="0.9732573842299066" />
-      <entry key="S60" value="1.1012697913793834" />
-      <entry key="M2" value="2.2107343598907794" />
-      <entry key="M5" value="9.21240231995872" />
-      <entry key="M10" value="18.54399961023705" />
-      <entry key="M15" value="24.327400685097885" />
-      <entry key="M30" value="35.69388049787883" />
-      <entry key="H1" value="64.1555769682797" />
-      <entry key="H2" value="138.2757505524235" />
-      <entry key="H4" value="296.4660868891817" />
-      <entry key="D1" value="4257.472868120839" />
-      <entry key="W1" value="20017.03290842645" />
+      <entry key="MS100" value="0.9638455058457013" />
+      <entry key="MS500" value="1.3322812393984154" />
+      <entry key="S2" value="1.761846177801851" />
+      <entry key="S5" value="1.89705196144637" />
+      <entry key="S10" value="1.9471512893124274" />
+      <entry key="S30" value="1.9820690552047016" />
+      <entry key="S60" value="1.9910237129260868" />
+      <entry key="M2" value="2.006854313811167" />
+      <entry key="M5" value="3.117159440242561" />
+      <entry key="M10" value="8.461968371292903" />
+      <entry key="M15" value="14.047273313390585" />
+      <entry key="M30" value="27.118629863186626" />
+      <entry key="H1" value="55.81915755184039" />
+      <entry key="H2" value="128.64778959048715" />
+      <entry key="H4" value="285.72714472083607" />
+      <entry key="D1" value="4228.422169000844" />
+      <entry key="W1" value="19998.111902039083" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -925,7 +925,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add checkIfReady method to LazyTransformationStoreImpl" />
     <MESSAGE value="implement the functions of UploadService" />
     <MESSAGE value="check foreign key name on error in UploadService" />
     <MESSAGE value="check foreign key name on error in UploadRepository" />
@@ -950,7 +949,8 @@
     <MESSAGE value="refractor TransformationSourceBase" />
     <MESSAGE value="update the uploads-api and uploads-service modules to use the new transformation task DTO" />
     <MESSAGE value="fix image transformer integration tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix image transformer integration tests" />
+    <MESSAGE value="refractor ReadPropertiesTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="refractor ReadPropertiesTest" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

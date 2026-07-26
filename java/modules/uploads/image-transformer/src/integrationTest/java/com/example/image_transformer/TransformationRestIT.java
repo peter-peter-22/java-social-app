@@ -85,7 +85,7 @@ class TransformationRestIT {
                 .toBodilessEntity();
 
         assertThat(response.getStatusCode().value()).isEqualTo(200);
-        assertTransformedImage(output);
+        assertImageDimensions(output);
 
         var webhookRequest = WEBHOOK_SERVER.takeRequest();
         assertThat(webhookRequest.getMethod()).isEqualTo("POST");
@@ -121,7 +121,7 @@ class TransformationRestIT {
                 .toBodilessEntity();
 
         assertThat(response.getStatusCode().value()).isEqualTo(200);
-        assertTransformedImage(output);
+        assertImageDimensions(output);
         assertThat(WEBHOOK_SERVER.takeRequest(100, java.util.concurrent.TimeUnit.MILLISECONDS))
                 .isNull();
     }
@@ -149,7 +149,7 @@ class TransformationRestIT {
         }
     }
 
-    private void assertTransformedImage(ObjectLocation location) throws IOException {
+    private void assertImageDimensions(ObjectLocation location) throws IOException {
         try (InputStream output = objectStorageRepository.getObject(location)) {
             var image = ImageIO.read(output);
             assertThat(image).isNotNull();
@@ -159,7 +159,7 @@ class TransformationRestIT {
     }
 
     private static ObjectLocation objectLocation(String name) {
-        return new ObjectLocation("integration/" + UUID.randomUUID() + "/" + name, "public");
+        return new ObjectLocation("test/" + UUID.randomUUID() + "/" + name, "public");
     }
 
     private RestClient restClient() {
