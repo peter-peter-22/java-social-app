@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/modules/uploads/uploads-api" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-persistence" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-service" />
+            <option value="$PROJECT_DIR$/modules/uploads/video-transformer" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />
           </set>
