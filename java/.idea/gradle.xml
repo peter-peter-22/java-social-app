@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/modules/posts/posts-persistence" />
             <option value="$PROJECT_DIR$/modules/uploads/image-transformer" />
             <option value="$PROJECT_DIR$/modules/uploads/object-storage" />
+            <option value="$PROJECT_DIR$/modules/uploads/transformer-contracts" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-api" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-persistence" />
             <option value="$PROJECT_DIR$/modules/uploads/uploads-service" />

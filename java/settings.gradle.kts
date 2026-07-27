@@ -19,7 +19,8 @@ include(
     ":uploads-api",
     ":image-transformer",
     ":video-transformer",
-    ":uploads-persistence"
+    ":uploads-persistence",
+    ":transformer-contracts"
 )
 
 project(":users-api").projectDir = file("modules/users/users-api")
@@ -31,6 +32,7 @@ project(":uploads-api").projectDir = file("modules/uploads/uploads-api")
 project(":uploads-persistence").projectDir = file("modules/uploads/uploads-persistence")
 project(":image-transformer").projectDir = file("modules/uploads/image-transformer")
 project(":video-transformer").projectDir = file("modules/uploads/video-transformer")
+project(":transformer-contracts").projectDir = file("modules/uploads/transformer-contracts")
 
 project(":posts-persistence").projectDir = file("modules/posts/posts-persistence")
 project(":posts-api").projectDir = file("modules/posts/posts-api")
