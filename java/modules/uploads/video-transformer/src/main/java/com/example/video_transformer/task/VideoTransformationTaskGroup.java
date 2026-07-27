@@ -1,5 +1,6 @@
 package com.example.video_transformer.task;
 
+import com.example.transformer_contracts.webhook.HasWebhookCall;
 import com.example.uploads_api.transformations.operations.VideoTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
@@ -19,6 +20,6 @@ public record VideoTransformationTaskGroup(
             @NonNull String name,
             boolean lazy,
             @NonNull UploadId uploadId
-    ) {
+    ) implements HasWebhookCall {
     }
 }

@@ -17,17 +17,17 @@ idea {
 }
 
 dependencies {
-
     // modules
-    implementation(project(":uploads-api"))
+    api(project(":uploads-api"))
+    testImplementation(testFixtures(project(":uploads-api")))
+
     implementation(project(":object-storage"))
 
-    // testing
-    testImplementation(testFixtures(project(":uploads-api")))
+    api(project(":transformer-contracts"))
+    testImplementation(project(":transformer-contracts"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-    testFixturesImplementation(project(":uploads-api"))
 }
 
 testing {
