@@ -3,7 +3,6 @@ package com.example.image_transformer;
 import com.example.image_transformer.storage.TestResourcesDirectory;
 import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
 import com.example.uploads_api.transformations.operations.LimitResolution;
 import com.example.uploads_api.uploads.FileType;
 import com.example.uploads_api.uploads.ObjectLocation;
@@ -66,7 +65,7 @@ class TransformationRestIT {
         uploadInput(input);
         WEBHOOK_SERVER.enqueue(new MockResponse(200));
 
-        var task = new ImageTransformationTaskSpecDTO(
+        var task = new ImageTransformationTaskGroupDTO.TransformationParameters(
                 output,
                 "thumbnail",
                 true,
@@ -102,7 +101,7 @@ class TransformationRestIT {
 
         uploadInput(input);
 
-        var task = new ImageTransformationTaskSpecDTO(
+        var task = new ImageTransformationTaskGroupDTO.TransformationParameters(
                 output,
                 "thumbnail",
                 false,

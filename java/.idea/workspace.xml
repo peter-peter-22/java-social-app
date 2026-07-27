@@ -4,23 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="refractor TransformationRestIT">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/test/java/com/example/video_transformer/TestApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/spring-project/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/spring-project/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/spring-project/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/spring-project/src/main/java/com/example/spring_project/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/spring-project/src/test/java/com/example/spring_project/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="add empty module video-transformer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTaskMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTaskMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/ImageTransformationTaskGroupDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/ImageTransformationTaskGroupDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/dto/ImageTransformationTaskSpecDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/mappers/ImageTransformationSourceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/mappers/ImageTransformationSourceMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +24,7 @@
     </option>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="807" />
+    <option name="cachedIndexableFilesCount" value="817" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -125,61 +115,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000038454" />
-      <entry key="MS500" value="1.005211809282799" />
-      <entry key="S2" value="1.2718018442145211" />
-      <entry key="S5" value="1.7379343552511908" />
-      <entry key="S10" value="2.3082231891319336" />
-      <entry key="S30" value="3.207753502167725" />
-      <entry key="S60" value="3.6170992152654313" />
-      <entry key="M2" value="4.286110376449676" />
-      <entry key="M5" value="6.356890784101478" />
-      <entry key="M10" value="8.366012306185173" />
-      <entry key="M15" value="9.764272169221714" />
-      <entry key="M30" value="15.268006675305529" />
-      <entry key="H1" value="33.84236652529947" />
-      <entry key="H2" value="91.80205859473976" />
-      <entry key="H4" value="230.34738131015848" />
-      <entry key="D1" value="3820.1504267509076" />
-      <entry key="W1" value="19029.898083601904" />
+      <entry key="MS100" value="1.05195694587334" />
+      <entry key="MS500" value="1.9826421112033759" />
+      <entry key="S2" value="4.769607253487816" />
+      <entry key="S5" value="7.711824917834627" />
+      <entry key="S10" value="10.248155279644262" />
+      <entry key="S30" value="13.474374432153974" />
+      <entry key="S60" value="14.63663890315883" />
+      <entry key="M2" value="15.386566955649798" />
+      <entry key="M5" value="17.60868396605109" />
+      <entry key="M10" value="21.47693591099846" />
+      <entry key="M15" value="24.332868861618326" />
+      <entry key="M30" value="31.492518270187652" />
+      <entry key="H1" value="50.01715609655882" />
+      <entry key="H2" value="106.3749992354349" />
+      <entry key="H4" value="243.19766574043555" />
+      <entry key="D1" value="3817.05733449803" />
+      <entry key="W1" value="19034.013029115933" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="8.28307056056392E-102" />
-      <entry key="S5" value="3.692126261464529E-41" />
-      <entry key="S10" value="6.076286910165227E-21" />
-      <entry key="S30" value="1.8247894331566264E-7" />
-      <entry key="S60" value="4.271755415700467E-4" />
-      <entry key="M2" value="0.02066822540931342" />
-      <entry key="M5" value="0.21189787446151695" />
-      <entry key="M10" value="0.46300963915988086" />
-      <entry key="M15" value="0.6261154541045527" />
-      <entry key="M30" value="1.1616992648791116" />
-      <entry key="H1" value="2.597818139190144" />
-      <entry key="H2" value="5.704688911069416" />
-      <entry key="H4" value="14.634406889586211" />
-      <entry key="D1" value="277.59868368963066" />
-      <entry key="W1" value="882.7191178870252" />
+      <entry key="S2" value="2.947151754797241E-225" />
+      <entry key="S5" value="1.5408522598590469E-90" />
+      <entry key="S10" value="1.2413107023864116E-45" />
+      <entry key="S30" value="1.0747154689223334E-15" />
+      <entry key="S60" value="3.2782853276100526E-8" />
+      <entry key="M2" value="1.810603581022401E-4" />
+      <entry key="M5" value="0.03185185093604164" />
+      <entry key="M10" value="0.17951224140603803" />
+      <entry key="M15" value="0.3329076549121729" />
+      <entry key="M30" value="0.8470877349037129" />
+      <entry key="H1" value="2.2183296523476623" />
+      <entry key="H2" value="5.271577991320109" />
+      <entry key="H4" value="14.067906095699351" />
+      <entry key="D1" value="275.7781104455885" />
+      <entry key="W1" value="881.8897653664573" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.5140569133280385" />
-      <entry key="MS500" value="0.876785864856697" />
-      <entry key="S2" value="1.163626625051132" />
-      <entry key="S5" value="1.6515096136955547" />
-      <entry key="S10" value="2.2521837841565726" />
-      <entry key="S30" value="3.1853300193772194" />
-      <entry key="S60" value="3.6056279338860717" />
-      <entry key="M2" value="4.299257617653364" />
-      <entry key="M5" value="6.560714501989403" />
-      <entry key="M10" value="8.821559080616383" />
-      <entry key="M15" value="10.38389050608068" />
-      <entry key="M30" value="16.424120222600973" />
-      <entry key="H1" value="36.43474380236089" />
-      <entry key="H2" value="97.50170301890037" />
-      <entry key="H4" value="244.97695036356947" />
-      <entry key="D1" value="4097.738550833453" />
-      <entry key="W1" value="19912.61220668118" />
+      <entry key="MS100" value="0.9877583583176348" />
+      <entry key="MS500" value="1.9429350505614353" />
+      <entry key="S2" value="4.72412087543527" />
+      <entry key="S5" value="7.682099498723673" />
+      <entry key="S10" value="10.228779566854756" />
+      <entry key="S30" value="13.466094959484982" />
+      <entry key="S60" value="14.63217915063451" />
+      <entry key="M2" value="15.384358862599253" />
+      <entry key="M5" value="17.63834115686179" />
+      <entry key="M10" value="21.65303685685076" />
+      <entry key="M15" value="24.661966469965897" />
+      <entry key="M30" value="32.3353484395732" />
+      <entry key="H1" value="52.2307452861177" />
+      <entry key="H2" value="111.64186793742714" />
+      <entry key="H4" value="257.26089722308944" />
+      <entry key="D1" value="4092.824950558742" />
+      <entry key="W1" value="19915.897803791086" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -196,116 +186,116 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.Dockerfile.executor": "Run",
-    "Docker.compose-test.yaml: Compose Deployment.executor": "Run",
-    "Docker.compose.yaml: Compose Deployment.executor": "Run",
-    "Docker.docker/compose-test.yaml: Compose Deployment.executor": "Run",
-    "Docker.image_transformer/Dockerfile.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build java.executor": "Run",
-    "Gradle.ConnectionTest.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.Empty.executor": "Run",
-    "Gradle.ImageTransformerRestApiTest.executor": "Run",
-    "Gradle.LazyTransformationRepositoryTests.executor": "Run",
-    "Gradle.LazyTransformationStoreIT.executor": "Run",
-    "Gradle.Load Gradle Dependencies.executor": "Run",
-    "Gradle.ObjectStorageRepositoryIT (1).executor": "Run",
-    "Gradle.ObjectStorageRepositoryIT.executor": "Run",
-    "Gradle.ObjectStorageRepositoryIT.should_upload_from_path.executor": "Run",
-    "Gradle.ObjectStorageTransformationStorageTest.executor": "Run",
-    "Gradle.ParralelTransformationApiTest.executor": "Run",
-    "Gradle.PostRepositoryIT.executor": "Run",
-    "Gradle.PostServiceIT (1).executor": "Run",
-    "Gradle.PostServiceIT.executor": "Run",
-    "Gradle.PostServiceIT.testCreatePost.executor": "Debug",
-    "Gradle.ReadPropertiesTest.executor": "Run",
-    "Gradle.TransformationApiSelectorTest.executor": "Run",
-    "Gradle.TransformationFiltersTests.executor": "Run",
-    "Gradle.TransformationServiceApplyTests.executor": "Run",
-    "Gradle.TransformationServiceIT.executor": "Run",
-    "Gradle.TransformationServiceMarkAsReadyTests.executor": "Run",
-    "Gradle.TransformationServiceMarkTests.executor": "Run",
-    "Gradle.TransformationServiceTests.executor": "Run",
-    "Gradle.UploadRepositoryIT.executor": "Debug",
-    "Gradle.UploadRepositoryIT.testEmptyUpdate.executor": "Run",
-    "Gradle.UploadRepositoryIT.testStatusUpdate.executor": "Run",
-    "Gradle.UploadRepositoryIT.testUploadUpdate.executor": "Debug",
-    "Gradle.UploadRepositoryIT.testUserForeignKey.executor": "Run",
-    "Gradle.UploadTransformationGetOutputIdTests.executor": "Run",
-    "Gradle.UploadTransformationTests.executor": "Run",
-    "Gradle.UploadVariantRepositoryIT.executor": "Run",
-    "Gradle.UploadVariantRepositoryIT.testMissingUpdate.executor": "Run",
-    "Gradle.UploadVariantRepositoryIT.testUploadForeignKey.executor": "Run",
-    "Gradle.UserRepositoryIT.executor": "Run",
-    "Gradle.WebhookControllerTest.executor": "Run",
-    "Gradle.java [:application:build].executor": "Run",
-    "Gradle.java [:application:org.example.Main.main()].executor": "Run",
-    "Gradle.java [:cockroach-db:test].executor": "Run",
-    "Gradle.java [:image-transformer:check].executor": "Run",
-    "Gradle.java [:image-transformer:dockerIT].executor": "Run",
-    "Gradle.java [:image-transformer:dockerIntegrationTest].executor": "Run",
-    "Gradle.java [:image-transformer:integrationTest].executor": "Run",
-    "Gradle.java [:image-transformer:test].executor": "Run",
-    "Gradle.java [:media-api:test].executor": "Run",
-    "Gradle.java [:object-storage:test].executor": "Run",
-    "Gradle.java [:posts-api:test].executor": "Run",
-    "Gradle.java [:posts-persistence:test].executor": "Run",
-    "Gradle.java [:uploads-api:test].executor": "Run",
-    "Gradle.java [:uploads-persistence:test].executor": "Run",
-    "Gradle.java [:uploads-service:test].executor": "Run",
-    "Gradle.java [:uploads:check].executor": "Run",
-    "Gradle.java [:uploads:test].executor": "Run",
-    "Gradle.java [:users-api:test].executor": "Run",
-    "Gradle.java [:users-persistence:test].executor": "Run",
-    "Gradle.java [dockerIT].executor": "Run",
-    "Gradle.java [generateOpenApiDocs].executor": "Run",
-    "Gradle.java [test].executor": "Run",
-    "JUnit.MinioIntegrationTest.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "New/updated database configurations found",
-    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Application.executor": "Run",
-    "Spring Boot.DemoApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/home/peter/IdeaProjects/java_social_app/java/application/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "editor.preferences.tabs",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.compose-test.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker/compose-test.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.image_transformer/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build java.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConnectionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Empty.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ImageTransformerRestApiTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LazyTransformationRepositoryTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LazyTransformationStoreIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ObjectStorageRepositoryIT (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ObjectStorageRepositoryIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ObjectStorageRepositoryIT.should_upload_from_path.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ObjectStorageTransformationStorageTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParralelTransformationApiTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostRepositoryIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostServiceIT (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostServiceIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostServiceIT.testCreatePost.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.ReadPropertiesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationApiSelectorTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationFiltersTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationServiceApplyTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationServiceIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationServiceMarkAsReadyTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationServiceMarkTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransformationServiceTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadRepositoryIT.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UploadRepositoryIT.testEmptyUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadRepositoryIT.testStatusUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadRepositoryIT.testUploadUpdate.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UploadRepositoryIT.testUserForeignKey.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadTransformationGetOutputIdTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadTransformationTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadVariantRepositoryIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadVariantRepositoryIT.testMissingUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UploadVariantRepositoryIT.testUploadForeignKey.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryIT.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WebhookControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:application:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:application:org.example.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:cockroach-db:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:image-transformer:check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:image-transformer:dockerIT].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:image-transformer:dockerIntegrationTest].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:image-transformer:integrationTest].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:image-transformer:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:media-api:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:object-storage:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:posts-api:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:posts-persistence:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:uploads-api:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:uploads-persistence:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:uploads-service:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:uploads:check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:uploads:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:users-api:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:users-persistence:test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [dockerIT].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [generateOpenApiDocs].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [test].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MinioIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;New/updated database configurations found&quot;,
+    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/peter/IdeaProjects/java_social_app/java/application/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/modules/uploads" />
@@ -951,8 +941,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="check foreign key name on error in UploadService" />
-    <MESSAGE value="check foreign key name on error in UploadRepository" />
     <MESSAGE value="fix database schema in the uploads table" />
     <MESSAGE value="refractor the usage of ObjectLocation" />
     <MESSAGE value="refractor ObjectStorageRepository" />
@@ -976,7 +964,9 @@
     <MESSAGE value="fix image transformer integration tests" />
     <MESSAGE value="refractor ReadPropertiesTest" />
     <MESSAGE value="refractor TransformationRestIT" />
-    <option name="LAST_COMMIT_MESSAGE" value="refractor TransformationRestIT" />
+    <MESSAGE value="add new module template" />
+    <MESSAGE value="add empty module video-transformer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add empty module video-transformer" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

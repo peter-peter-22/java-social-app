@@ -1,12 +1,11 @@
 package com.example.image_transformer.task;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import org.jspecify.annotations.NonNull;
 
 public class ImageTransformationTaskMapper {
-    public static @NonNull ImageTransformationTask createFromDTO(@NonNull ImageTransformationTaskSpecDTO dto) {
+    public static @NonNull ImageTransformationTask createFromDTO(@NonNull ImageTransformationTaskGroupDTO.TransformationParameters dto) {
         return new ImageTransformationTask(
                 ImageTransformationOperations.builder()
                         .format(dto.format())

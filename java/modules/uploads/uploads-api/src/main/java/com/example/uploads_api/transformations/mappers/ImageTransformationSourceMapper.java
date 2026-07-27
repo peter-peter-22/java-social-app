@@ -1,6 +1,6 @@
 package com.example.uploads_api.transformations.mappers;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskSpecDTO;
+import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.path.TransformationPathManager;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.uploads.Upload;
@@ -10,11 +10,11 @@ public final class ImageTransformationSourceMapper {
     private ImageTransformationSourceMapper() {
     }
 
-    public static @NonNull ImageTransformationTaskSpecDTO createTaskDTO(
+    public static @NonNull ImageTransformationTaskGroupDTO.TransformationParameters createTaskDTO(
             @NonNull ImageTransformationSource source,
             @NonNull Upload original
     ) {
-        return new ImageTransformationTaskSpecDTO(
+        return new ImageTransformationTaskGroupDTO.TransformationParameters(
                 TransformationPathManager.getOutputObject(original, source),
                 source.getName(),
                 source.isLazy(),
