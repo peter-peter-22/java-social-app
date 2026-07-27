@@ -4,7 +4,10 @@ import com.example.image_transformer.task.ImageTransformationTaskMapper;
 import com.example.image_transformer.task_service.TaskService;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/transform")
@@ -13,9 +16,8 @@ public class TransformationController {
     private final TaskService transformationService;
 
     @PostMapping()
-    void markAsReady(@RequestBody ImageTransformationTaskGroupDTO body) {
+    void process(@RequestBody ImageTransformationTaskGroupDTO body) {
         var tasks = ImageTransformationTaskMapper.createFromGroupedDTO(body);
         transformationService.processTasks(tasks);
-        // TODO: add webmvc test
     }
 }

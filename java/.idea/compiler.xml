@@ -26,7 +26,9 @@
         <module name="java.posts-persistence.main" />
         <module name="java.users-api.test" />
         <module name="com.example.java.uploads-service.main" />
+        <module name="java.transformer-contracts.test" />
         <module name="com.example.java.object-storage.test" />
+        <module name="java.transformer-contracts.main" />
         <module name="java.posts-api.test" />
         <module name="java.users-persistence.main" />
         <module name="java.video-transformer.main" />
@@ -169,9 +171,11 @@
       <module name="java.users-persistence.testFixtures" options="-parameters -parameters" />
       <module name="java.users.main" options="-parameters -parameters" />
       <module name="java.users.test" options="-parameters -parameters" />
-      <module name="java.video-transformer" options="-parameters" />
-      <module name="java.video-transformer.main" options="-parameters" />
-      <module name="java.video-transformer.test" options="-parameters" />
+      <module name="java.video-transformer" options="-parameters -parameters" />
+      <module name="java.video-transformer.integrationTest" options="-parameters -parameters" />
+      <module name="java.video-transformer.main" options="-parameters -parameters" />
+      <module name="java.video-transformer.test" options="-parameters -parameters" />
+      <module name="java.video-transformer.testFixtures" options="-parameters -parameters" />
       <module name="uploads" options="-parameters -parameters" />
     </option>
   </component>
