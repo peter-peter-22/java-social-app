@@ -1,4 +1,4 @@
-package com.example.image_transformer.storage;
+package com.example.transformer_contracts.storage;
 
 import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.uploads_api.uploads.ObjectLocation;

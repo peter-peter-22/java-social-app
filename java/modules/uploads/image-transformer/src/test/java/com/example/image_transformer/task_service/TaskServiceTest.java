@@ -1,9 +1,9 @@
 package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.operations.ImageTransformationService;
-import com.example.image_transformer.storage.FileStreamStorage;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
-import com.example.image_transformer.webhook.WebhookService;
+import com.example.transformer_contracts.storage.FileStreamStorage;
+import com.example.transformer_contracts.webhook.WebhookService;
 import com.example.uploads_api.uploads.ObjectLocation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,4 @@
-package com.example.image_transformer.storage;
+package com.example.transformer_contracts.storage;
 
 import java.nio.file.Path;
 

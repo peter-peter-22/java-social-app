@@ -21,15 +21,16 @@ dependencies {
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
     // modules
-    implementation(project(":uploads-api"))
+    api(project(":uploads-api"))
+    testImplementation(testFixtures(project(":uploads-api")))
+
     implementation(project(":object-storage"))
 
-    // testing
-    testImplementation(testFixtures(project(":uploads-api")))
+    api(project(":transformer-contracts"))
+    testImplementation(project(":transformer-contracts"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-    testFixturesImplementation(project(":uploads-api"))
 }
 
 testing {
@@ -40,11 +41,18 @@ testing {
                 implementation(testFixtures(project()))
 
                 implementation(project(":object-storage"))
+
                 implementation("org.springframework.boot:spring-boot-starter-test")
                 implementation("org.springframework.boot:spring-boot-starter-webmvc")
+
                 implementation("com.squareup.okhttp3:mockwebserver3:5.0.0-alpha.12")
+
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
+
                 implementation(project(":uploads-api"))
+
+                implementation(project(":transformer-contracts"))
+                implementation(testFixtures(project(":transformer-contracts")))
             }
 
             targets {
@@ -53,7 +61,7 @@ testing {
                         description = "Runs integration tests requiring libvips."
                         group = LifecycleBasePlugin.VERIFICATION_GROUP
                         shouldRunAfter(tasks.test)
-                        jvmArgs("--enable-native-access=ALL-UNNAMED")
+                        jvmArgs("--enable-native-access=ALL-UNNAMED") // Fix the warning about vips-ffm native access
                     }
                 }
             }

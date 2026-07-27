@@ -1,4 +1,4 @@
-package com.example.image_transformer.webhook;
+package com.example.transformer_contracts.webhook;
 
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import org.jspecify.annotations.NonNull;

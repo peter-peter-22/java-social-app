@@ -149,6 +149,10 @@
       <module name="java.spring-utils.main" options="-parameters -parameters" />
       <module name="java.spring-utils.test" options="-parameters -parameters" />
       <module name="java.spring-utils.testFixtures" options="-parameters -parameters" />
+      <module name="java.transformer-contracts" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.main" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.test" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads-api" options="-parameters -parameters" />
       <module name="java.uploads-api.main" options="-parameters -parameters" />
       <module name="java.uploads-api.test" options="-parameters -parameters" />

@@ -1,7 +1,6 @@
-package com.example.image_transformer.webhook;
+package com.example.transformer_contracts.webhook;
 
 
-import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
@@ -12,11 +11,10 @@ import org.springframework.stereotype.Service;
 public class WebhookService {
     private final WebhookApi webhookApi;
 
-    public void handleCallback(ImageTransformationTaskGroup.@NonNull Task task) {
+    public void handleCallback(@NonNull HasWebhookCall task) {
         if (!task.lazy()) return;
         // TODO investigate if the upload id belongs here
         var body = new WebhookCall(task.uploadId(), task.name());
         webhookApi.call(body);
-        // TODO unit test
     }
 }

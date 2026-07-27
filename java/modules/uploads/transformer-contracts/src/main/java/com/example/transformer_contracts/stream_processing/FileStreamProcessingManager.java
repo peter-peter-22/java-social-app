@@ -1,4 +1,4 @@
-package com.example.image_transformer.stream_processing;
+package com.example.transformer_contracts.stream_processing;
 
 import org.jspecify.annotations.NonNull;
 

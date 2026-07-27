@@ -1,7 +1,7 @@
 package com.example.image_transformer;
 
-import com.example.image_transformer.storage.TestResourcesDirectory;
 import com.example.object_storage.repository.ObjectStorageRepository;
+import com.example.transformer_contracts.storage.TestResourcesDirectory;
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.operations.LimitResolution;
 import com.example.uploads_api.uploads.FileType;

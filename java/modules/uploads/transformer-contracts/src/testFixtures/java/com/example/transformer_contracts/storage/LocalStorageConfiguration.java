@@ -1,4 +1,4 @@
-package com.example.image_transformer.storage;
+package com.example.transformer_contracts.storage;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

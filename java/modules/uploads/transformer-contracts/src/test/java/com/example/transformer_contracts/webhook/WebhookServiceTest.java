@@ -1,8 +1,8 @@
-package com.example.image_transformer.webhook;
+package com.example.transformer_contracts.webhook;
 
-import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import com.example.uploads_api.uploads.UploadId;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -11,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
-import static com.example.image_transformer.task.TestTaskCreator.createTask;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -46,10 +45,20 @@ class WebhookServiceTest {
         verifyNoInteractions(webhookApi);
     }
 
-    private static ImageTransformationTaskGroup.Task taskWithLazy(boolean lazy) {
-        return createTask(builder -> builder
-                .name(TRANSFORMATION_NAME)
-                .lazy(lazy)
-                .uploadId(UPLOAD_ID));
+
+    private static HasWebhookCall taskWithLazy(boolean lazy) {
+
+        record TestWebhookCall(
+                boolean lazy,
+                @NonNull UploadId uploadId,
+                @NonNull String name
+        ) implements HasWebhookCall {
+        }
+
+        return new TestWebhookCall(
+                lazy,
+                UPLOAD_ID,
+                TRANSFORMATION_NAME
+        );
     }
 }

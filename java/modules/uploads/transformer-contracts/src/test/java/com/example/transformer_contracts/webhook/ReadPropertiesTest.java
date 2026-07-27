@@ -1,6 +1,5 @@
-package com.example.image_transformer;
+package com.example.transformer_contracts.webhook;
 
-import com.example.image_transformer.webhook.WebhookProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;

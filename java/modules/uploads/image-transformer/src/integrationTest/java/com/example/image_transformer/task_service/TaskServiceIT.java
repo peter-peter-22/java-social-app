@@ -1,10 +1,10 @@
 package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.TestApplication;
-import com.example.image_transformer.storage.LocalStorageConfiguration;
-import com.example.image_transformer.storage.LocalStreamStorage;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.task.TestTaskCreator;
+import com.example.transformer_contracts.storage.LocalStorageConfiguration;
+import com.example.transformer_contracts.storage.LocalStreamStorage;
 import com.example.uploads_api.transformations.operations.AspectRatio;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.operations.LimitResolution;

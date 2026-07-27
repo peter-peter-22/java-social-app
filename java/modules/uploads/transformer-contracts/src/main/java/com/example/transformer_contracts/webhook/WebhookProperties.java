@@ -1,4 +1,4 @@
-package com.example.image_transformer.webhook;
+package com.example.transformer_contracts.webhook;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;

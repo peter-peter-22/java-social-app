@@ -4,14 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="create empty transformer-contracts module">
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/controller/TransformationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/task/VideoTransformationTaskGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/task/VideoTransformationTaskMapper.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="implement controller of the video-transformer module">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts/java.transformer-contracts.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts/java.transformer-contracts.testFixtures.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/HasWebhookCall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/controller/TransformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/controller/TransformationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/video-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/FileStreamStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/storage/FileStreamStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/storage/ObjectStorageStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/storage/ObjectStorageStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/stream_processing/FileStreamProcessingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/stream_processing/FileStreamProcessingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTaskGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task/ImageTransformationTaskGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/main/java/com/example/image_transformer/webhook/WebhookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/ReadPropertiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/ReadPropertiesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/storage/LocalStreamStorageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/storage/LocalStreamStorageTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/storage/ObjectStorageTransformationStorageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/storage/ObjectStorageTransformationStorageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/task_service/TaskServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/java/com/example/image_transformer/webhook/WebhookServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/WebhookServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/resources/test-files/copied.txt" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/resources/test-files/copied.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/test/resources/test-files/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/resources/test-files/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStorageConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/LocalStorageConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/LocalStreamStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/LocalStreamStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/java/com/example/image_transformer/storage/TestResourcesDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/TestResourcesDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/image-transformation-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures/resources/image-transformation-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/transformer-contracts/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,9 +117,9 @@
         <option value="package-info" />
         <option value="Dockerfile" />
         <option value="Kotlin File" />
-        <option value="Interface" />
         <option value="Record" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -116,61 +141,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.522423677321452E-273" />
-      <entry key="MS500" value="2.7321661472348495E-55" />
-      <entry key="S2" value="2.286266100465329E-14" />
-      <entry key="S5" value="3.497846537824664E-6" />
-      <entry key="S10" value="0.0019182439509389366" />
-      <entry key="S30" value="0.18290409933157473" />
-      <entry key="S60" value="0.8596029737054367" />
-      <entry key="M2" value="3.387627700019092" />
-      <entry key="M5" value="12.294043472902828" />
-      <entry key="M10" value="21.54707237643928" />
-      <entry key="M15" value="27.98916094830389" />
-      <entry key="M30" value="47.034990465388056" />
-      <entry key="H1" value="84.23657568091082" />
-      <entry key="H2" value="151.62325798544742" />
-      <entry key="H4" value="289.5997525413024" />
-      <entry key="D1" value="3734.9853624613334" />
-      <entry key="W1" value="19016.460257821287" />
+      <entry key="MS100" value="1.012287281288138" />
+      <entry key="MS500" value="1.6083168702553383" />
+      <entry key="S2" value="3.282201936208893" />
+      <entry key="S5" value="7.84023950126168" />
+      <entry key="S10" value="13.200602190904842" />
+      <entry key="S30" value="20.3278469344448" />
+      <entry key="S60" value="22.928472975218096" />
+      <entry key="M2" value="24.505266648554972" />
+      <entry key="M5" value="27.31535501105411" />
+      <entry key="M10" value="34.1806313542492" />
+      <entry key="M15" value="42.413310028935435" />
+      <entry key="M30" value="67.05860533853361" />
+      <entry key="H1" value="110.68396771506424" />
+      <entry key="H2" value="184.73375169871676" />
+      <entry key="H4" value="326.3164688464467" />
+      <entry key="D1" value="3720.7457564888214" />
+      <entry key="W1" value="19029.01420743102" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000000000642" />
-      <entry key="S5" value="1.000008203919978" />
-      <entry key="S10" value="1.0050257654391495" />
-      <entry key="S30" value="1.452179445497967" />
-      <entry key="S60" value="2.508231365931586" />
-      <entry key="M2" value="3.8883757265608896" />
-      <entry key="M5" value="5.633642033056218" />
-      <entry key="M10" value="7.851668795665179" />
-      <entry key="M15" value="10.722244048635277" />
-      <entry key="M30" value="20.390089752648844" />
-      <entry key="H1" value="34.555123708977426" />
-      <entry key="H2" value="49.092261825249935" />
-      <entry key="H4" value="64.96273453750115" />
-      <entry key="D1" value="323.60535951955967" />
-      <entry key="W1" value="940.01153932259" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="5.616671019231384E-155" />
+      <entry key="S5" value="2.1893851909902825E-62" />
+      <entry key="S10" value="1.9969165566843895E-31" />
+      <entry key="S30" value="1.1266190619722614E-10" />
+      <entry key="S60" value="1.8576100322647877E-5" />
+      <entry key="M2" value="0.008627968918277119" />
+      <entry key="M5" value="0.46617417102933595" />
+      <entry key="M10" value="2.2716591208187173" />
+      <entry key="M15" value="4.469912065301133" />
+      <entry key="M30" value="12.16623205375244" />
+      <entry key="H1" value="27.010199729665445" />
+      <entry key="H2" value="45.90631511642541" />
+      <entry key="H4" value="66.44911263347959" />
+      <entry key="D1" value="326.9327253363498" />
+      <entry key="W1" value="948.4146564216884" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.3429678419393726E-8" />
-      <entry key="MS500" value="0.02664484036774865" />
-      <entry key="S2" value="0.4040203873397435" />
-      <entry key="S5" value="0.6959328153572867" />
-      <entry key="S10" value="0.8404469937849326" />
-      <entry key="S30" value="1.549666149236039" />
-      <entry key="S60" value="3.2896539297014336" />
-      <entry key="M2" value="7.211573997713547" />
-      <entry key="M5" value="17.887113589557693" />
-      <entry key="M10" value="29.369677645696644" />
-      <entry key="M15" value="38.685358641358796" />
-      <entry key="M30" value="67.40083747200808" />
-      <entry key="H1" value="118.77037955350963" />
-      <entry key="H2" value="200.69921777463566" />
-      <entry key="H4" value="354.55083351211215" />
-      <entry key="D1" value="4058.5792017906947" />
-      <entry key="W1" value="19956.466608164345" />
+      <entry key="MS100" value="0.471356408689708" />
+      <entry key="MS500" value="1.3920592279571353" />
+      <entry key="S2" value="3.1555078039051025" />
+      <entry key="S5" value="7.712697717041018" />
+      <entry key="S10" value="13.093500090720076" />
+      <entry key="S30" value="20.27362749010779" />
+      <entry key="S60" value="22.897861666243344" />
+      <entry key="M2" value="24.494713457142584" />
+      <entry key="M5" value="27.762231333189384" />
+      <entry key="M10" value="36.42956714147978" />
+      <entry key="M15" value="46.85938776733805" />
+      <entry key="M30" value="79.20070102441328" />
+      <entry key="H1" value="137.67161250033075" />
+      <entry key="H2" value="230.62172900352346" />
+      <entry key="H4" value="392.7521604017986" />
+      <entry key="D1" value="4047.6666467698624" />
+      <entry key="W1" value="19977.423605387517" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -244,6 +269,7 @@
     "Gradle.java [:object-storage:test].executor": "Run",
     "Gradle.java [:posts-api:test].executor": "Run",
     "Gradle.java [:posts-persistence:test].executor": "Run",
+    "Gradle.java [:transformer-contracts:test].executor": "Run",
     "Gradle.java [:uploads-api:test].executor": "Run",
     "Gradle.java [:uploads-persistence:test].executor": "Run",
     "Gradle.java [:uploads-service:test].executor": "Run",
@@ -279,7 +305,7 @@
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads/video-transformer/src/main/java/com/example/video_transformer",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads/transformer-contracts/src/test",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -299,11 +325,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer" />
-      <recent name="$PROJECT_DIR$/modules/uploads" />
-      <recent name="$PROJECT_DIR$/templates/spring-project/src/main/java/com/example/java-library" />
-      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test" />
       <recent name="$PROJECT_DIR$/modules/uploads/image-transformer/src/testFixtures/resources" />
+      <recent name="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures" />
+      <recent name="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts" />
+      <recent name="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.codex" />
@@ -313,43 +339,18 @@
       <recent name="$PROJECT_DIR$/modules/media/image-transformer/src/integrationTest/resources/test-images" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.transformer_contracts.webhook" />
       <recent name="com.example.uploads_api.transformations.mappers" />
       <recent name="com.example.users_persistence.utils" />
       <recent name="com.example.uploads.transformations" />
       <recent name="com.example.media_api.transformations.dto" />
-      <recent name="com.example.media_api.transformations" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:image-transformer:test]">
+  <component name="RunManager" selected="Gradle.java [:image-transformer:dockerIT]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="java [:image-transformer:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":image-transformer:check" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
     <configuration name="java [:image-transformer:dockerIT]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -389,6 +390,31 @@
         <option name="taskNames">
           <list>
             <option value=":image-transformer:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="java [:transformer-contracts:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":transformer-contracts:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -548,11 +574,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java [:image-transformer:test]" />
         <item itemvalue="Gradle.java [:image-transformer:dockerIT]" />
+        <item itemvalue="Gradle.java [:image-transformer:test]" />
+        <item itemvalue="Gradle.java [:transformer-contracts:test]" />
         <item itemvalue="Gradle.java [:uploads-service:test]" />
         <item itemvalue="Gradle.java [:uploads-api:test]" />
-        <item itemvalue="Gradle.java [:image-transformer:check]" />
       </list>
     </recent_temporary>
   </component>
@@ -949,7 +975,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix mockito self attaching warning" />
     <MESSAGE value="replace jetbrains annotations to jspecify" />
     <MESSAGE value="fix vipsffm warning" />
     <MESSAGE value="replace test fixture component beans with test configurations" />
@@ -974,7 +999,8 @@
     <MESSAGE value="minor fixes" />
     <MESSAGE value="refractor transformation task DTOs and their usage" />
     <MESSAGE value="create empty transformer-contracts module" />
-    <option name="LAST_COMMIT_MESSAGE" value="create empty transformer-contracts module" />
+    <MESSAGE value="implement controller of the video-transformer module" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement controller of the video-transformer module" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

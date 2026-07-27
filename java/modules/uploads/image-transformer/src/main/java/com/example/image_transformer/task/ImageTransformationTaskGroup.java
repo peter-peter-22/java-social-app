@@ -1,5 +1,6 @@
 package com.example.image_transformer.task;
 
+import com.example.transformer_contracts.webhook.HasWebhookCall;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
@@ -19,6 +20,6 @@ public record ImageTransformationTaskGroup(
             @NonNull String name,
             boolean lazy,
             @NonNull UploadId uploadId
-    ) {
+    ) implements HasWebhookCall {
     }
 }
