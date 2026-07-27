@@ -6,11 +6,10 @@ import com.example.uploads_api.transformations.sources.ImageTransformationSource
 import com.example.uploads_api.uploads.Upload;
 import org.jspecify.annotations.NonNull;
 
-public final class ImageTransformationSourceMapper {
-    private ImageTransformationSourceMapper() {
-    }
+import java.util.Collection;
 
-    public static ImageTransformationTaskGroupDTO.@NonNull TransformationParameters createTaskDTO(
+public final class ImageTransformationMapper {
+    private static ImageTransformationTaskGroupDTO.@NonNull TransformationParameters createTaskDTO(
             @NonNull ImageTransformationSource source,
             @NonNull Upload original
     ) {
@@ -22,7 +21,17 @@ public final class ImageTransformationSourceMapper {
                 source.getOperations().getLimitHeight(),
                 source.getOperations().getFormat(),
                 source.getOperations().getQuality(),
-                source.getOperations().getAspectRatio(),
+                source.getOperations().getAspectRatio()
+        );
+    }
+
+    public static @NonNull ImageTransformationTaskGroupDTO createTaskGroupDTO(
+            @NonNull Upload original,
+            @NonNull Collection<ImageTransformationSource> transformations
+    ) {
+        return new ImageTransformationTaskGroupDTO(
+                original.objectLocation(),
+                transformations.stream().map(el -> createTaskDTO(el, original)).toList(),
                 original.id()
         );
     }

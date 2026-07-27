@@ -1,6 +1,6 @@
 package com.example.image_transformer.webhook;
 
-import com.example.image_transformer.task.ImageTransformationTask;
+import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import com.example.uploads_api.uploads.UploadId;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ class WebhookServiceTest {
         verifyNoInteractions(webhookApi);
     }
 
-    private static ImageTransformationTask taskWithLazy(boolean lazy) {
+    private static ImageTransformationTaskGroup.Task taskWithLazy(boolean lazy) {
         return createTask(builder -> builder
                 .name(TRANSFORMATION_NAME)
                 .lazy(lazy)

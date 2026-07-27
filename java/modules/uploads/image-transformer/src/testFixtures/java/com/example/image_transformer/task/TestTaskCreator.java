@@ -8,8 +8,8 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class TestTaskCreator {
-    public static ImageTransformationTask createTask(@Nullable Consumer<ImageTransformationTask.ImageTransformationTaskBuilder> customizer) {
-        var builder = ImageTransformationTask.builder()
+    public static ImageTransformationTaskGroup.Task createTask(@Nullable Consumer<ImageTransformationTaskGroup.Task.TaskBuilder> customizer) {
+        var builder = ImageTransformationTaskGroup.Task.builder()
                 .outputObject(new ObjectLocation(UUID.randomUUID().toString(), "output-bucket"))
                 .operations(ImageTransformationOperations.builder().build())
                 .name(UUID.randomUUID().toString())

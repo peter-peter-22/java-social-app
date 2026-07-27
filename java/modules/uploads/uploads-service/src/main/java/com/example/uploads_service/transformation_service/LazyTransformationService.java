@@ -1,35 +1,19 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 
-import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
 public class LazyTransformationService {
     private final LazyTransformationEventApi api;
-
-    private <T> void sendInParallel(@NonNull Collection<T> messages, @NonNull Consumer<T> consumer) {
-        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
-        try (executor) {
-            var futures = messages.stream()
-                    .map(message -> CompletableFuture.runAsync(() -> consumer.accept(message), executor))
-                    .toArray(CompletableFuture[]::new);
-
-            CompletableFuture.allOf(futures).join();
-        }
-    }
 
     /**
      * Send all transformations to the event queue.
@@ -55,7 +39,7 @@ public class LazyTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void queueVideoTransformations(@NonNull Collection<VideoTransformationTaskDTO> tasks) {
-        sendInParallel(tasks, api::queueVideo);
+    public void queueVideoTransformations(@NonNull VideoTransformationTaskGroupDTO tasks) {
+        api.queueVideo(tasks);
     }
 }

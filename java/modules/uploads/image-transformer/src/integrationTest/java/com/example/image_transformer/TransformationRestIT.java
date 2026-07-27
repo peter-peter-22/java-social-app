@@ -73,13 +73,12 @@ class TransformationRestIT {
                 null,
                 FileType.JPEG,
                 85,
-                null,
-                uploadId
+                null
         );
 
         var response = restClient().post()
                 .uri("/transform")
-                .body(new ImageTransformationTaskGroupDTO(input, List.of(task)))
+                .body(new ImageTransformationTaskGroupDTO(input, List.of(task), uploadId))
                 .retrieve()
                 .toBodilessEntity();
 
@@ -98,6 +97,7 @@ class TransformationRestIT {
     void doesNotCallWebhookForNonLazyTask() throws Exception {
         var input = objectLocation("input.jpg");
         var output = objectLocation("thumbnail.jpg");
+        var uploadId = new UploadId(UUID.randomUUID());
 
         uploadInput(input);
 
@@ -109,13 +109,12 @@ class TransformationRestIT {
                 null,
                 FileType.JPEG,
                 85,
-                null,
-                new UploadId(UUID.randomUUID())
+                null
         );
 
         var response = restClient().post()
                 .uri("/transform")
-                .body(new ImageTransformationTaskGroupDTO(input, List.of(task)))
+                .body(new ImageTransformationTaskGroupDTO(input, List.of(task), uploadId))
                 .retrieve()
                 .toBodilessEntity();
 
@@ -127,7 +126,6 @@ class TransformationRestIT {
 
     private static InputStream getTestFileStream() {
         var inputPath = TestResourcesDirectory.getResourcesPath().resolve("test-images", "image.jpg");
-        System.out.println("Reading test image from " + inputPath);
         try {
             return Files.newInputStream(inputPath);
         } catch (IOException e) {

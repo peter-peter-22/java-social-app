@@ -1,10 +1,12 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
-import com.example.uploads_api.transformations.mappers.ImageTransformationSourceMapper;
+import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
+import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
 import com.example.uploads_api.uploads.Upload;
@@ -78,7 +80,23 @@ public class TransformationServiceTests {
      */
     @Test
     void testVideoTransformation() {
-        // implement later
+        var service = createService();
+
+        var expectedBlockingTask = videoTaskGroup(blockingVideoTransformation);
+        var expectedLazyTask = videoTaskGroup(lazyVideoTransformation);
+        var exceptedLazyNames = List.of(lazyVideoTransformation.getName());
+
+        var hasLazy = service.applyTransformations(video);
+
+        assertThat(hasLazy).isTrue();
+
+        verify(blockingTransformationService).transformVideos(expectedBlockingTask);
+        verifyNoMoreInteractions(blockingTransformationService);
+
+        verify(lazyTransformationStore).createLazyTransformationSession(video.id(), exceptedLazyNames);
+        verify(lazyTransformationService).queueVideoTransformations(expectedLazyTask);
+        verifyNoMoreInteractions(lazyTransformationService);
+        verifyNoMoreInteractions(lazyTransformationStore);
     }
 
     /**
@@ -132,9 +150,10 @@ public class TransformationServiceTests {
     }
 
     private ImageTransformationTaskGroupDTO imageTaskGroup(ImageTransformationSource transformation) {
-        return new ImageTransformationTaskGroupDTO(
-                image.objectLocation(),
-                List.of(ImageTransformationSourceMapper.createTaskDTO(transformation, image))
-        );
+        return ImageTransformationMapper.createTaskGroupDTO(image, List.of(transformation));
+    }
+
+    private VideoTransformationTaskGroupDTO videoTaskGroup(VideoTransformationSource transformation) {
+        return VideoTransformationMapper.createTaskGroupDTO(video, List.of(transformation));
     }
 }

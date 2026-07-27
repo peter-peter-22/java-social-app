@@ -12,7 +12,8 @@ import java.util.Collection;
 
 public record ImageTransformationTaskGroupDTO(
         @NonNull ObjectLocation inputObject,
-        @NonNull Collection<TransformationParameters> tasks
+        @NonNull Collection<TransformationParameters> tasks,
+        @NonNull UploadId uploadId
 ) {
     public record TransformationParameters(
             @NonNull ObjectLocation outputObject,
@@ -22,8 +23,7 @@ public record ImageTransformationTaskGroupDTO(
             @Nullable LimitResolution limitHeight,
             @NonNull FileType format,
             int quality,
-            @Nullable AspectRatio aspectRatio,
-            @NonNull UploadId uploadId
+            @Nullable AspectRatio aspectRatio
     ) {
     }
 }

@@ -3,7 +3,6 @@ package com.example.image_transformer.task_service;
 import com.example.image_transformer.operations.ImageTransformationService;
 import com.example.image_transformer.storage.FileStreamStorage;
 import com.example.image_transformer.stream_processing.FileStreamProcessingManager;
-import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.webhook.WebhookService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class TaskService {
     }
 
     // OPTIMIZE: should this be parallel?
-    private void processTask(@NonNull ImageTransformationTask task, byte[] source) {
+    private void processTask(ImageTransformationTaskGroup.@NonNull Task task, byte[] source) {
         FileStreamProcessingManager.process(
                 source,
                 stream -> transformationService.transformFile(stream, task.operations()),

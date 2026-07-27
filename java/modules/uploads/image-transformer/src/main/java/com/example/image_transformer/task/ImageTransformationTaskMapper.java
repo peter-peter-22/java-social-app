@@ -2,11 +2,13 @@ package com.example.image_transformer.task;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.uploads.UploadId;
+import jakarta.validation.constraints.NotNull;
 import org.jspecify.annotations.NonNull;
 
 public class ImageTransformationTaskMapper {
-    public static @NonNull ImageTransformationTask createFromDTO(ImageTransformationTaskGroupDTO.@NonNull TransformationParameters dto) {
-        return new ImageTransformationTask(
+    private static ImageTransformationTaskGroup.@NonNull Task createFromDTO(ImageTransformationTaskGroupDTO.@NonNull TransformationParameters dto, @NotNull UploadId uploadId) {
+        return new ImageTransformationTaskGroup.Task(
                 ImageTransformationOperations.builder()
                         .format(dto.format())
                         .quality(dto.quality())
@@ -17,13 +19,13 @@ public class ImageTransformationTaskMapper {
                 dto.outputObject(),
                 dto.name(),
                 dto.lazy(),
-                dto.uploadId()
+                uploadId
         );
     }
 
     public static @NonNull ImageTransformationTaskGroup createFromGroupedDTO(@NonNull ImageTransformationTaskGroupDTO dto) {
         var tasks = dto.tasks().stream()
-                .map(ImageTransformationTaskMapper::createFromDTO)
+                .map(task -> createFromDTO(task, dto.uploadId()))
                 .toList();
         return new ImageTransformationTaskGroup(dto.inputObject(), tasks);
     }

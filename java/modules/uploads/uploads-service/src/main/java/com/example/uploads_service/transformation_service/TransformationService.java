@@ -1,9 +1,8 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
-import com.example.uploads_api.transformations.mappers.ImageTransformationSourceMapper;
+import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
+import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.TransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
@@ -30,6 +29,7 @@ public class TransformationService {
 
     /**
      * Completes or queues all matching transformations for the upload.
+     *
      * @return True if there is at least one lazy transformation in progress.
      */
     public boolean applyTransformations(@NonNull Upload upload) {
@@ -53,13 +53,21 @@ public class TransformationService {
         ArrayList<Runnable> jobs = new ArrayList<>();
 
         if (!blockingImageTransformations.isEmpty())
-            jobs.add(() -> blockingTransformationService.transformImages(createImageTasks(blockingImageTransformations, upload)));
+            jobs.add(() -> blockingTransformationService.transformImages(
+                    ImageTransformationMapper.createTaskGroupDTO(upload, blockingImageTransformations))
+            );
         if (!blockingVideoTransformations.isEmpty())
-            jobs.add(() -> blockingTransformationService.transformVideos(createVideoTasks(blockingVideoTransformations, upload)));
+            jobs.add(() -> blockingTransformationService.transformVideos(
+                    VideoTransformationMapper.createTaskGroupDTO(upload, blockingVideoTransformations)
+            ));
         if (!lazyImageTransformations.isEmpty())
-            jobs.add(() -> lazyTransformationService.queueImageTransformations(createImageTasks(lazyImageTransformations, upload)));
+            jobs.add(() -> lazyTransformationService.queueImageTransformations(
+                    ImageTransformationMapper.createTaskGroupDTO(upload, lazyImageTransformations)
+            ));
         if (!lazyVideoTransformations.isEmpty())
-            jobs.add(() -> lazyTransformationService.queueVideoTransformations(createVideoTasks(lazyVideoTransformations, upload)));
+            jobs.add(() -> lazyTransformationService.queueVideoTransformations(
+                    VideoTransformationMapper.createTaskGroupDTO(upload, lazyVideoTransformations)
+            ));
         if (!lazyNames.isEmpty())
             jobs.add(() -> lazyTransformationStore.createLazyTransformationSession(upload.id(), lazyNames));
 
@@ -75,24 +83,6 @@ public class TransformationService {
 
         // return true if awaiting lazy transformations
         return !lazyNames.isEmpty();
-    }
-
-    // CLEAN: can be abstracted?
-    private @NonNull ImageTransformationTaskGroupDTO createImageTasks(
-            @NonNull List<ImageTransformationSource> transformations,
-            @NonNull Upload upload
-    ) {
-        var tasks = transformations.stream()
-                .map(transformation -> ImageTransformationSourceMapper.createTaskDTO(transformation, upload))
-                .toList();
-        return new ImageTransformationTaskGroupDTO(upload.objectLocation(), tasks);
-    }
-
-    private @NonNull List<VideoTransformationTaskDTO> createVideoTasks(
-            @NonNull List<VideoTransformationSource> transformations,
-            @NonNull Upload upload
-    ) {
-        return List.of(); // placeholder
     }
 
     private <Transformation extends TransformationSource> @NonNull List<Transformation> filterApplicable(@NonNull List<Transformation> transformations, @NonNull Upload upload) {

@@ -3,7 +3,6 @@ package com.example.image_transformer.task_service;
 import com.example.image_transformer.TestApplication;
 import com.example.image_transformer.storage.LocalStorageConfiguration;
 import com.example.image_transformer.storage.LocalStreamStorage;
-import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.task.TestTaskCreator;
 import com.example.uploads_api.transformations.operations.AspectRatio;
@@ -77,7 +76,7 @@ class TaskServiceIT {
     private void assertSize(
             int expectedWidth,
             int expectedHeight,
-            @NonNull ImageTransformationTask task
+            ImageTransformationTaskGroup.@NonNull Task task
     ) throws IOException {
         var outputFile = LocalStreamStorage.objectLocationToLocalPath(task.outputObject()).toFile();
         var image = ImageIO.read(outputFile);
@@ -87,12 +86,12 @@ class TaskServiceIT {
     }
 
     private void executeTask(
-            @NonNull ImageTransformationTask task
+            ImageTransformationTaskGroup.@NonNull Task task
     ) {
         service.processTasks(new ImageTransformationTaskGroup(TEST_FILE, List.of(task)));
     }
 
-    private @NonNull ImageTransformationTask localTestTask(
+    private ImageTransformationTaskGroup.@NonNull Task localTestTask(
             @NonNull String name,
             Consumer<ImageTransformationOperations.@NonNull ImageTransformationOperationsBuilder> customizer
     ) {

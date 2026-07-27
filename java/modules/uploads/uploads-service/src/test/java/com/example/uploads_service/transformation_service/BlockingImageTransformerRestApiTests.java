@@ -1,8 +1,7 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.mappers.ImageTransformationSourceMapper;
-import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
+import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
@@ -15,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
 import static com.example.uploads_api.utils.TestUploadCreator.createImage;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -35,9 +35,9 @@ class BlockingImageTransformerRestApiTests {
             when(properties.imageTransformerUrl()).thenReturn(URI.create(server.url("/").toString()));
             var api = new BlockingImageTransformerRestApi(properties);
 
-            var tasks = new ImageTransformationTaskGroupDTO(
-                    new ObjectLocation("original.jpg", "images"),
-                    List.of(ImageTransformationSourceMapper.createTaskDTO(createImageTransformation(), createImage()))
+            var tasks = ImageTransformationMapper.createTaskGroupDTO(
+                    createImage(),
+                    List.of(createImageTransformation())
             );
 
             api.transformAll(tasks);
@@ -56,7 +56,27 @@ class BlockingImageTransformerRestApiTests {
     @Test
     void testVideoApi() throws Exception {
         try (var server = new MockWebServer()) {
-            // implement later
+            server.enqueue(new MockResponse(200));
+            server.start();
+
+            when(properties.videoTransformerUrl()).thenReturn(URI.create(server.url("/").toString()));
+            var api = new BlockingVideoTransformerRestApi(properties);
+
+            var tasks = VideoTransformationMapper.createTaskGroupDTO(
+                    createImage(),
+                    List.of(createVideoTransformation())
+            );
+
+            api.transformAll(tasks);
+
+            var request = server.takeRequest();
+            var requestBody = OBJECT_MAPPER.readTree(request.getBody().readUtf8());
+            var expectedBody = OBJECT_MAPPER.valueToTree(tasks);
+
+            assertThat(request.getMethod()).isEqualTo("POST");
+            assertThat(request.getPath()).isEqualTo("/transform");
+            assertThat(request.getHeaders().get("Content-Type")).startsWith("application/json");
+            assertThat(requestBody).isEqualTo(expectedBody);
         }
     }
 }

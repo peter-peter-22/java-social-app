@@ -2,7 +2,6 @@ package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.operations.ImageTransformationService;
 import com.example.image_transformer.storage.FileStreamStorage;
-import com.example.image_transformer.task.ImageTransformationTask;
 import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.image_transformer.webhook.WebhookService;
 import com.example.uploads_api.uploads.ObjectLocation;
@@ -59,7 +58,7 @@ class TaskServiceTest {
         assertThat(processedInputs).containsExactly(SOURCE, SOURCE);
     }
 
-    private static ImageTransformationTask task(String name) {
+    private static ImageTransformationTaskGroup.Task task(String name) {
         return createTask(builder -> builder
                 .outputObject(new ObjectLocation(name + ".jpg", "outputs"))
                 .name(name));

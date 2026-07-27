@@ -17,6 +17,9 @@ public class BlockingVideoTransformerRestApi {
         this.restClient = RestClient.create(properties.videoTransformerUrl());
     }
 
+    /**
+     * In practice, video transformations should not be blocking.
+     */
     public void transformAll(@NonNull VideoTransformationTaskGroupDTO body) {
         restClient.post()
                 .uri("/transform")

@@ -1,7 +1,7 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskDTO;
+import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ public class LazyTransformationEventApi {
         System.out.println("Sending event: " + task);
     }
 
-    public void queueVideo(@NonNull VideoTransformationTaskDTO task) {
+    public void queueVideo(@NonNull VideoTransformationTaskGroupDTO task) {
         System.out.println("Sending event: " + task);
     }
 }
