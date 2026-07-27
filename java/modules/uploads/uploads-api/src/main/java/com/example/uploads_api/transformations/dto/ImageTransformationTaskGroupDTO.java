@@ -10,9 +10,9 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 
-public record ImageTransformationTaskGroupDTO(// TODO merge with the spec
+public record ImageTransformationTaskGroupDTO(
         @NonNull ObjectLocation inputObject,
-                                              @NonNull Collection<TransformationParameters> tasks
+        @NonNull Collection<TransformationParameters> tasks
 ) {
     public record TransformationParameters(
             @NonNull ObjectLocation outputObject,

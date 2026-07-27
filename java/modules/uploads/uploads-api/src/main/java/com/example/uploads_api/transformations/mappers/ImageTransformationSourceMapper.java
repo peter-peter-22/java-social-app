@@ -10,7 +10,7 @@ public final class ImageTransformationSourceMapper {
     private ImageTransformationSourceMapper() {
     }
 
-    public static @NonNull ImageTransformationTaskGroupDTO.TransformationParameters createTaskDTO(
+    public static ImageTransformationTaskGroupDTO.@NonNull TransformationParameters createTaskDTO(
             @NonNull ImageTransformationSource source,
             @NonNull Upload original
     ) {

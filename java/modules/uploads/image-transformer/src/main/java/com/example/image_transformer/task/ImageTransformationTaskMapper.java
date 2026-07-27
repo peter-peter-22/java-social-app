@@ -5,7 +5,7 @@ import com.example.uploads_api.transformations.operations.ImageTransformationOpe
 import org.jspecify.annotations.NonNull;
 
 public class ImageTransformationTaskMapper {
-    public static @NonNull ImageTransformationTask createFromDTO(@NonNull ImageTransformationTaskGroupDTO.TransformationParameters dto) {
+    public static @NonNull ImageTransformationTask createFromDTO(ImageTransformationTaskGroupDTO.@NonNull TransformationParameters dto) {
         return new ImageTransformationTask(
                 ImageTransformationOperations.builder()
                         .format(dto.format())
