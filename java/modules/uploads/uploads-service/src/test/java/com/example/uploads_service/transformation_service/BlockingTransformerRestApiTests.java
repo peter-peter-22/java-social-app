@@ -1,7 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.tasks.ImageTransformationMapper;
-import com.example.uploads_api.transformations.tasks.VideoTransformationMapper;
+import com.example.uploads_api.utils.TestTransformationTaskGroupCreator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
@@ -11,16 +10,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.URI;
-import java.util.List;
 
-import static com.example.uploads_api.utils.TestTransformationSourceCreator.createImageTransformation;
-import static com.example.uploads_api.utils.TestTransformationSourceCreator.createVideoTransformation;
-import static com.example.uploads_api.utils.TestUploadCreator.createImage;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BlockingImageTransformerRestApiTests {
+class BlockingTransformerRestApiTests {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Mock
@@ -35,16 +30,13 @@ class BlockingImageTransformerRestApiTests {
             when(properties.imageTransformerUrl()).thenReturn(URI.create(server.url("/").toString()));
             var api = new BlockingImageTransformerRestApi(properties);
 
-            var tasks = ImageTransformationMapper.createTaskGroupDTO(
-                    createImage(),
-                    List.of(createImageTransformation())
-            );
+            var tasks = TestTransformationTaskGroupCreator.createImageTransformationTaskGroup();
 
             api.transformAll(tasks);
 
             var request = server.takeRequest();
             var requestBody = OBJECT_MAPPER.readTree(request.getBody().readUtf8());
-            var expectedBody = OBJECT_MAPPER.valueToTree(tasks);
+            var expectedBody = OBJECT_MAPPER.readTree(OBJECT_MAPPER.writeValueAsString(tasks));
 
             assertThat(request.getMethod()).isEqualTo("POST");
             assertThat(request.getPath()).isEqualTo("/transform");
@@ -62,16 +54,13 @@ class BlockingImageTransformerRestApiTests {
             when(properties.videoTransformerUrl()).thenReturn(URI.create(server.url("/").toString()));
             var api = new BlockingVideoTransformerRestApi(properties);
 
-            var tasks = VideoTransformationMapper.createTaskGroupDTO(
-                    createImage(),
-                    List.of(createVideoTransformation())
-            );
+            var tasks = TestTransformationTaskGroupCreator.createVideoTransformationTaskGroup();
 
             api.transformAll(tasks);
 
             var request = server.takeRequest();
             var requestBody = OBJECT_MAPPER.readTree(request.getBody().readUtf8());
-            var expectedBody = OBJECT_MAPPER.valueToTree(tasks);
+            var expectedBody = OBJECT_MAPPER.readTree(OBJECT_MAPPER.writeValueAsString(tasks));
 
             assertThat(request.getMethod()).isEqualTo("POST");
             assertThat(request.getPath()).isEqualTo("/transform");
