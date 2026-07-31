@@ -60,7 +60,6 @@ class TransformationRestIT {
     // CLEAN: the two tests might repeat too much
     @Test
     void transformsImageThroughRestApiAndCallsWebhookForLazyTask() throws Exception {
-        System.out.println("hello from the test");
         var input = objectLocation("input.jpg");
         var output = objectLocation("thumbnail.jpg");
         var uploadId = new UploadId(UUID.randomUUID());

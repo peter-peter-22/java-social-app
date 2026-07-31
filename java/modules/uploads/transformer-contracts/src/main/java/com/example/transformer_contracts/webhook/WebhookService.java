@@ -20,9 +20,10 @@ public class WebhookService {
                 .toList();
         if (lazyTransformationNames.isEmpty()) return;
         // TODO investigate if the upload id belongs here
+        // TODO the webhook must be called after each transformation
         var body = WebhookCall.builder()
                 .uploadId(tasks.uploadId())
-                .transformationNames(lazyTransformationNames)
+                .transformationName(lazyTransformationNames.getFirst())
                 .build();
         webhookApi.call(body);
     }

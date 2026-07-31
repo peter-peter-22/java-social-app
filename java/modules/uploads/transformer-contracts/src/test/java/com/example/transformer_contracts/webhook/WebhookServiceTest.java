@@ -1,5 +1,7 @@
 package com.example.transformer_contracts.webhook;
 
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
 import com.example.uploads_api.transformations.tasks.TransformationTaskGroup;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import com.example.uploads_api.utils.TestTransformationTaskGroupCreator;
@@ -33,7 +35,7 @@ class WebhookServiceTest {
         var callCaptor = ArgumentCaptor.forClass(WebhookCall.class);
         verify(webhookApi).call(callCaptor.capture());
         assertThat(callCaptor.getValue())
-                .isEqualTo(new WebhookCall(uploadId, List.of(TRANSFORMATION_NAME)));
+                .isEqualTo(new WebhookCall(uploadId, TRANSFORMATION_NAME));
     }
 
     @Test
@@ -48,10 +50,15 @@ class WebhookServiceTest {
 
     private static TransformationTaskGroup taskWithLazy(boolean lazy) {
         return TestTransformationTaskGroupCreator.createImageTransformationTaskGroup(
-                c -> {
-                    c.name(TRANSFORMATION_NAME);
-                    c.lazy(lazy);
-                }
+                c -> c.tasks(
+                        List.of(
+                                ImageTransformationTaskGroup.ImageTask.builder()
+                                        .name(TRANSFORMATION_NAME)
+                                        .lazy(lazy)
+                                        .operations(ImageTransformationOperations.builderWithDefaults().build())
+                                        .build()
+                        )
+                )
         );
     }
 }

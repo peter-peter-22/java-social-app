@@ -1,7 +1,6 @@
 package com.example.video_transformer.controller;
 
 import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
-import com.example.video_transformer.task.VideoTransformationTaskMapper;
 import com.example.video_transformer.task_service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ public class TransformationController {
 
     @PostMapping()
     void process(@RequestBody VideoTransformationTaskGroup body) {
-        var tasks = VideoTransformationTaskMapper.createFromGroupedDTO(body);
-        transformationService.processTasks(tasks);
+        transformationService.processTasks(body);
     }
 }

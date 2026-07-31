@@ -27,6 +27,10 @@ public class TestTransformationTaskGroupCreator {
         return builder.build();
     }
 
+    public static @NonNull ImageTransformationTaskGroup createImageTransformationTaskGroup() {
+        return createImageTransformationTaskGroup(null);
+    }
+
     public static @NonNull VideoTransformationTaskGroup createVideoTransformationTaskGroup(
             @Nullable Consumer<VideoTransformationTaskGroup.@NonNull VideoTransformationTaskGroupBuilder> customizer
     ) {
@@ -40,5 +44,9 @@ public class TestTransformationTaskGroupCreator {
         if (customizer != null)
             customizer.accept(builder);
         return builder.build();
+    }
+
+    public static @NonNull VideoTransformationTaskGroup createVideoTransformationTaskGroup() {
+        return createVideoTransformationTaskGroup(null);
     }
 }

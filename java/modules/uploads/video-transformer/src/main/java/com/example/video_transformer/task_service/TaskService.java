@@ -3,8 +3,8 @@ package com.example.video_transformer.task_service;
 import com.example.transformer_contracts.storage.FileStreamStorage;
 import com.example.transformer_contracts.stream_processing.FileStreamProcessingManager;
 import com.example.transformer_contracts.webhook.WebhookService;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import com.example.video_transformer.operations.VideoTransformationService;
-import com.example.video_transformer.task.VideoTransformationTaskGroup;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,8 @@ public class TaskService {
     }
 
     // OPTIMIZE: should this be parallel?
-    private void processTask(VideoTransformationTaskGroup.@NonNull Task task, byte[] source) {
+    // TODO: CLEAN: this could be extracted to the contracts module
+    private void processTask(VideoTransformationTaskGroup.@NonNull VideoTask task, byte[] source) {
         FileStreamProcessingManager.process(
                 source,
                 stream -> transformationService.transformFile(stream, task.operations()),
