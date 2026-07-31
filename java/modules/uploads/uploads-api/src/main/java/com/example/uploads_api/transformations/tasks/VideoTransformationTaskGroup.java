@@ -1,6 +1,5 @@
-package com.example.video_transformer.task;
+package com.example.uploads_api.transformations.tasks;
 
-import com.example.transformer_contracts.webhook.HasWebhookCall;
 import com.example.uploads_api.transformations.operations.VideoTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
@@ -9,17 +8,18 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.Collection;
 
+@Builder
 public record VideoTransformationTaskGroup(
         @NonNull ObjectLocation inputObject,
-        @NonNull Collection<Task> tasks
-) {
+        @NonNull Collection<VideoTask> tasks,
+        @NonNull UploadId uploadId
+) implements TransformationTaskGroup {
     @Builder
-    public record Task(
-            @NonNull VideoTransformationOperations operations,
+    public record VideoTask(
             @NonNull ObjectLocation outputObject,
             @NonNull String name,
             boolean lazy,
-            @NonNull UploadId uploadId
-    ) implements HasWebhookCall {
+            @NonNull VideoTransformationOperations operations
+    ) implements TransformationTask {
     }
 }

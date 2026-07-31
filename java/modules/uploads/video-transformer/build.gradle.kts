@@ -17,8 +17,10 @@ idea {
 }
 
 dependencies {
+    // ffmpeg
+    implementation("net.bramp.ffmpeg", "ffmpeg", "0.9.2")
+
     // modules
-    api(project(":uploads-api"))
     testImplementation(testFixtures(project(":uploads-api")))
 
     implementation(project(":object-storage"))

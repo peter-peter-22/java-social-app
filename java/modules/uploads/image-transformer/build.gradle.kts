@@ -21,7 +21,6 @@ dependencies {
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
     // modules
-    api(project(":uploads-api"))
     testImplementation(testFixtures(project(":uploads-api")))
 
     implementation(project(":object-storage"))
@@ -50,6 +49,7 @@ testing {
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
 
                 implementation(project(":uploads-api"))
+                implementation(testFixtures(project(":uploads-api")))
 
                 implementation(project(":transformer-contracts"))
                 implementation(testFixtures(project(":transformer-contracts")))

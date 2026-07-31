@@ -1,6 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -20,7 +20,7 @@ public class BlockingVideoTransformerRestApi {
     /**
      * In practice, video transformations should not be blocking.
      */
-    public void transformAll(@NonNull VideoTransformationTaskGroupDTO body) {
+    public void transformAll(@NonNull VideoTransformationTaskGroup body) {
         restClient.post()
                 .uri("/transform")
                 .body(body)

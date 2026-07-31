@@ -3,7 +3,7 @@ package com.example.image_transformer.operations;
 import app.photofox.vipsffm.VBlob;
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_api.transformations.operations.ImageEncodings;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -21,22 +21,22 @@ class VImageStreamConverter {
         );
     }
 
-    @NonNull InputStream toStream(@NonNull VImage image, @NonNull FileType outputFormat, int quality) {
-        var outputData = saveToBuffer(image, outputFormat, quality);
+    @NonNull InputStream toStream(@NonNull VImage image, ImageEncodings.@NonNull ImageEncoding outputFormat) {
+        var outputData = saveToBuffer(image, outputFormat);
         return new ByteArrayInputStream(outputData.getBytes());
     }
 
     private @NonNull VBlob saveToBuffer(
             @NonNull VImage image,
-            @NonNull FileType format,
-            Integer quality
+            ImageEncodings.@NonNull ImageEncoding format
     ) {
-        var outputQuality = VipsOption.Int("Q", quality == null ? 100 : quality);
-
         return switch (format) {
-            case JPEG -> image.jpegsaveBuffer(outputQuality);
-            case WEBP -> image.webpsaveBuffer(outputQuality);
-            default -> throw new IllegalArgumentException("Unsupported image output format: " + format);
+            case ImageEncodings.Jpeg encoding -> image.jpegsaveBuffer(
+                    VipsOption.Int("Q", encoding.quality())
+            );
+            case ImageEncodings.Webp encoding -> image.webpsaveBuffer(
+                    VipsOption.Int("Q", encoding.quality())
+            );
         };
     }
 }

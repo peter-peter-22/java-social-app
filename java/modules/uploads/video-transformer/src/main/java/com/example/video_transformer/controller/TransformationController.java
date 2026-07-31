@@ -1,6 +1,6 @@
 package com.example.video_transformer.controller;
 
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import com.example.video_transformer.task.VideoTransformationTaskMapper;
 import com.example.video_transformer.task_service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class TransformationController {
     private final TaskService transformationService;
 
     @PostMapping()
-    void process(@RequestBody VideoTransformationTaskGroupDTO body) {
+    void process(@RequestBody VideoTransformationTaskGroup body) {
         var tasks = VideoTransformationTaskMapper.createFromGroupedDTO(body);
         transformationService.processTasks(tasks);
     }

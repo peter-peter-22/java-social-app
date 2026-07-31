@@ -1,6 +1,6 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,7 +17,7 @@ public class BlockingImageTransformerRestApi {
         this.restClient = RestClient.create(properties.imageTransformerUrl());
     }
 
-    public void transformAll(@NonNull ImageTransformationTaskGroupDTO body) {
+    public void transformAll(@NonNull ImageTransformationTaskGroup body) {
         restClient.post()
                 .uri("/transform")
                 .body(body)

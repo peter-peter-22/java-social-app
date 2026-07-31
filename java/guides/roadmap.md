@@ -1,7 +1,15 @@
+reconsider Integer usage
+
+replace image transformation operations to record
+
+use api implementations where needed
+
+update AI skills
+
 move the relevant interfaces to the api modules
 
-reconsider the usage of beans in the image transformer
+clean the gradle dependency usage
 
-update the image transformation DTO related classes
+add JOOQ
 
 do something with the retry testing

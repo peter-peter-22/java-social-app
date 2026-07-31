@@ -1,7 +1,7 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
-import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
+import com.example.uploads_api.transformations.tasks.ImageTransformationMapper;
+import com.example.uploads_api.transformations.tasks.VideoTransformationMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
@@ -13,8 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.net.URI;
 import java.util.List;
 
-import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
-import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createVideoTransformation;
 import static com.example.uploads_api.utils.TestUploadCreator.createImage;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;

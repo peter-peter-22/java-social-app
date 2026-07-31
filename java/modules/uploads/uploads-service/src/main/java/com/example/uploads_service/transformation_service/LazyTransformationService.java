@@ -1,7 +1,7 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.resilience.annotation.Retryable;
@@ -25,7 +25,7 @@ public class LazyTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void queueImageTransformations(@NonNull ImageTransformationTaskGroupDTO tasks) {
+    public void queueImageTransformations(@NonNull ImageTransformationTaskGroup tasks) {
         api.queueImage(tasks);
     }
 
@@ -39,7 +39,7 @@ public class LazyTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void queueVideoTransformations(@NonNull VideoTransformationTaskGroupDTO tasks) {
+    public void queueVideoTransformations(@NonNull VideoTransformationTaskGroup tasks) {
         api.queueVideo(tasks);
     }
 }

@@ -2,13 +2,14 @@ package com.example.image_transformer;
 
 import com.example.object_storage.repository.ObjectStorageRepository;
 import com.example.transformer_contracts.storage.TestResourcesDirectory;
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.operations.LimitResolution;
-import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,10 @@ class TransformationRestIT {
         );
     }
 
+    // CLEAN: the two tests might repeat too much
     @Test
     void transformsImageThroughRestApiAndCallsWebhookForLazyTask() throws Exception {
+        System.out.println("hello from the test");
         var input = objectLocation("input.jpg");
         var output = objectLocation("thumbnail.jpg");
         var uploadId = new UploadId(UUID.randomUUID());
@@ -65,20 +68,26 @@ class TransformationRestIT {
         uploadInput(input);
         WEBHOOK_SERVER.enqueue(new MockResponse(200));
 
-        var task = new ImageTransformationTaskGroupDTO.TransformationParameters(
-                output,
-                "thumbnail",
-                true,
-                new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO),
-                null,
-                FileType.JPEG,
-                85,
-                null
-        );
+        var task = ImageTransformationTaskGroup.ImageTask.builder()
+                .name("thumbnail")
+                .outputObject(output)
+                .operations(
+                        ImageTransformationOperations.builderWithDefaults()
+                                .limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO))
+                                .build()
+                )
+                .lazy(true)
+                .build();
+
+        var group = ImageTransformationTaskGroup.builder()
+                .inputObject(input)
+                .tasks(List.of(task))
+                .uploadId(uploadId)
+                .build();
 
         var response = restClient().post()
                 .uri("/transform")
-                .body(new ImageTransformationTaskGroupDTO(input, List.of(task), uploadId))
+                .body(group)
                 .retrieve()
                 .toBodilessEntity();
 
@@ -101,20 +110,26 @@ class TransformationRestIT {
 
         uploadInput(input);
 
-        var task = new ImageTransformationTaskGroupDTO.TransformationParameters(
-                output,
-                "thumbnail",
-                false,
-                new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO),
-                null,
-                FileType.JPEG,
-                85,
-                null
-        );
+        var task = ImageTransformationTaskGroup.ImageTask.builder()
+                .name("thumbnail")
+                .outputObject(output)
+                .operations(
+                        ImageTransformationOperations.builderWithDefaults()
+                                .limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO))
+                                .build()
+                )
+                .lazy(true)
+                .build();
+
+        var group = ImageTransformationTaskGroup.builder()
+                .inputObject(input)
+                .tasks(List.of(task))
+                .uploadId(uploadId)
+                .build();
 
         var response = restClient().post()
                 .uri("/transform")
-                .body(new ImageTransformationTaskGroupDTO(input, List.of(task), uploadId))
+                .body(group)
                 .retrieve()
                 .toBodilessEntity();
 
@@ -146,7 +161,7 @@ class TransformationRestIT {
         }
     }
 
-    private void assertImageDimensions(ObjectLocation location) throws IOException {
+    private void assertImageDimensions(@NonNull ObjectLocation location) throws IOException {
         try (InputStream output = objectStorageRepository.getObject(location)) {
             var image = ImageIO.read(output);
             assertThat(image).isNotNull();
@@ -155,15 +170,15 @@ class TransformationRestIT {
         }
     }
 
-    private static ObjectLocation objectLocation(String name) {
+    private static @NonNull ObjectLocation objectLocation(@NonNull String name) {
         return new ObjectLocation("test/" + UUID.randomUUID() + "/" + name, "public");
     }
 
-    private RestClient restClient() {
+    private @NonNull RestClient restClient() {
         return RestClient.create("http://localhost:" + serverPort);
     }
 
-    private static MockWebServer startWebhookServer() {
+    private static @NonNull MockWebServer startWebhookServer() {
         try {
             var server = new MockWebServer();
             server.start();

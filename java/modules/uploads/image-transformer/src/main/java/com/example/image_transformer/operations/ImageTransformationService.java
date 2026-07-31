@@ -20,7 +20,7 @@ public class ImageTransformationService {
         Vips.run(arena -> {
             var inputVImage = converter.fromStream(arena, inputStream);
             var outputVImage = pipeline.apply(inputVImage, operations);
-            result.set(converter.toStream(outputVImage, operations.getFormat(), operations.getQuality()));
+            result.set(converter.toStream(outputVImage, operations.encoding()));
         });
         if (result.get() == null)
             throw new IllegalStateException("The result is null");

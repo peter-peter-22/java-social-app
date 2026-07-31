@@ -1,7 +1,7 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ class BlockingTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void transformImages(ImageTransformationTaskGroupDTO transformations) {
+    public void transformImages(ImageTransformationTaskGroup transformations) {
         imageApi.transformAll(transformations);
     }
 
@@ -39,7 +39,7 @@ class BlockingTransformationService {
             maxDelay = 1,
             timeUnit = TimeUnit.SECONDS
     )
-    public void transformVideos(VideoTransformationTaskGroupDTO transformations) {
+    public void transformVideos(VideoTransformationTaskGroup transformations) {
         videoApi.transformAll(transformations);
     }
 }

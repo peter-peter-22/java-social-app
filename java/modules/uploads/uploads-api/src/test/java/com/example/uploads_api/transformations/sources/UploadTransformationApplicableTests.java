@@ -6,8 +6,8 @@ import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.utils.TestUploadCreator;
 import org.junit.jupiter.api.Test;
 
-import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
-import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createVideoTransformation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadTransformationApplicableTests {

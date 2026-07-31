@@ -1,14 +1,14 @@
 package com.example.uploads_service.transformation_service;
 
-import com.example.uploads_api.transformations.dto.ImageTransformationTaskGroupDTO;
-import com.example.uploads_api.transformations.dto.VideoTransformationTaskGroupDTO;
 import com.example.uploads_api.transformations.filters.TransformationFilter;
 import com.example.uploads_api.transformations.filters.TransformationFilters;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
-import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
-import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
+import com.example.uploads_api.transformations.tasks.ImageTransformationMapper;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
+import com.example.uploads_api.transformations.tasks.VideoTransformationMapper;
+import com.example.uploads_api.transformations.tasks.VideoTransformationTaskGroup;
 import com.example.uploads_api.uploads.Upload;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static com.example.uploads_api.utils.TestTransformationCreator.createImageTransformation;
-import static com.example.uploads_api.utils.TestTransformationCreator.createVideoTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createImageTransformation;
+import static com.example.uploads_api.utils.TestTransformationSourceCreator.createVideoTransformation;
 import static com.example.uploads_api.utils.TestUploadCreator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -149,11 +149,11 @@ public class TransformationServiceTests {
         verifyNoInteractions(lazyTransformationStore);
     }
 
-    private ImageTransformationTaskGroupDTO imageTaskGroup(ImageTransformationSource transformation) {
+    private ImageTransformationTaskGroup imageTaskGroup(ImageTransformationSource transformation) {
         return ImageTransformationMapper.createTaskGroupDTO(image, List.of(transformation));
     }
 
-    private VideoTransformationTaskGroupDTO videoTaskGroup(VideoTransformationSource transformation) {
+    private VideoTransformationTaskGroup videoTaskGroup(VideoTransformationSource transformation) {
         return VideoTransformationMapper.createTaskGroupDTO(video, List.of(transformation));
     }
 }

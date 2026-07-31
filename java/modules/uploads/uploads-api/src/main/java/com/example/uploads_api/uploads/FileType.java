@@ -9,7 +9,8 @@ import org.jspecify.annotations.NonNull;
 public enum FileType {
     JPEG(new String[]{"jpg", "jpeg"}, new String[]{"image/jpeg", "image/jpg"}, "image/jpg", MediaType.IMAGE),
     WEBP(new String[]{"webp"}, new String[]{"image/webp"}, "image/webp", MediaType.IMAGE),
-    MP4(new String[]{"mp4"}, new String[]{"video/mp4"}, "video/mp4", MediaType.VIDEO);
+    MP4(new String[]{"mp4"}, new String[]{"video/mp4"}, "video/mp4", MediaType.VIDEO),
+    HLS(new String[]{"hls"}, new String[]{"video/hls"}, "video/hls", MediaType.VIDEO);
 
     @NonNull
     private final String[] extensions;

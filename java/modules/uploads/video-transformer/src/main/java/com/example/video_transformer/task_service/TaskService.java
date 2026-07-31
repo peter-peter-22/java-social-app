@@ -19,6 +19,7 @@ public class TaskService {
     public void processTasks(@NonNull VideoTransformationTaskGroup group) {
         var source = FileStreamProcessingManager.readAllBytes(() -> storage.read(group.inputObject()));
         group.tasks().forEach(task -> processTask(task, source));
+        webhookService.handleWebhookCalls(group);
     }
 
     // OPTIMIZE: should this be parallel?
@@ -28,6 +29,5 @@ public class TaskService {
                 stream -> transformationService.transformFile(stream, task.operations()),
                 stream -> storage.write(stream, task.outputObject())
         );
-        webhookService.handleCallback(task);
     }
 }

@@ -6,10 +6,12 @@ plugins {
 version = "0.0.1-SNAPSHOT"
 
 dependencies {
-    implementation(project(":uploads-api"))
+    // modules
+    api(project(":uploads-api"))
+    testImplementation(testFixtures(project(":uploads-api")))
     implementation(project(":object-storage"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-    testFixturesImplementation(project(":uploads-api"))
+    testFixturesImplementation(testFixtures(project(":uploads-api")))
 }

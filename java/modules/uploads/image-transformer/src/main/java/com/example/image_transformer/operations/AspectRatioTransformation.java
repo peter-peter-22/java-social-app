@@ -16,7 +16,7 @@ import java.util.List;
 class AspectRatioTransformation implements ImageTransformation {
     @NonNull
     public VImage apply(@NonNull VImage image, @NonNull ImageTransformationOperations operations) {
-        var aspectRatio = operations.getAspectRatio();
+        var aspectRatio = operations.aspectRatio();
         if (aspectRatio == null) {
             return image;
         }

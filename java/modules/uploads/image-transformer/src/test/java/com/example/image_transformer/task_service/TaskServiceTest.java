@@ -1,10 +1,13 @@
 package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.operations.ImageTransformationService;
-import com.example.image_transformer.task.ImageTransformationTaskGroup;
 import com.example.transformer_contracts.storage.FileStreamStorage;
 import com.example.transformer_contracts.webhook.WebhookService;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
 import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.utils.TestTransformationTaskGroupCreator;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -14,11 +17,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.example.image_transformer.task.TestTaskCreator.createTask;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 // CLEAN: should this be simplified by checking only the call count?
 @ExtendWith(MockitoExtension.class)
@@ -33,9 +34,13 @@ class TaskServiceTest {
     @Mock
     private FileStreamStorage storage;
 
+    /**
+     * The ImageTransformationService should call the storage read function only once per group
+     * and the write function for each task.
+     */
     @Test
     @SuppressWarnings("resource")
-        // The file stream is not used, no try block is necessary
+    // The file stream is not used, no try block is necessary
     void readsSharedInputOnceAndReplaysItForEveryTask() {
         var processedInputs = new java.util.ArrayList<byte[]>();
         when(storage.read(INPUT)).thenReturn(new ByteArrayInputStream(SOURCE));
@@ -50,17 +55,25 @@ class TaskServiceTest {
                 transformationService,
                 storage
         );
-        var group = new ImageTransformationTaskGroup(INPUT, List.of(task("first"), task("second")));
+        var group = TestTransformationTaskGroupCreator.createImageTransformationTaskGroup(
+                c -> c.inputObject(INPUT)
+                        .tasks(List.of(task("a"), task("b")))
+        );
 
         service.processTasks(group);
+
+        verify(storage, times(1)).read(any());
+        verify(storage, times(2)).write(any(), any());
 
         verify(storage).read(INPUT);
         assertThat(processedInputs).containsExactly(SOURCE, SOURCE);
     }
 
-    private static ImageTransformationTaskGroup.Task task(String name) {
-        return createTask(builder -> builder
+    private static ImageTransformationTaskGroup.@NonNull ImageTask task(@NonNull String name) {
+        return ImageTransformationTaskGroup.ImageTask.builder()
+                .name(name)
                 .outputObject(new ObjectLocation(name + ".jpg", "outputs"))
-                .name(name));
+                .operations(ImageTransformationOperations.builderWithDefaults().build())
+                .build();
     }
 }

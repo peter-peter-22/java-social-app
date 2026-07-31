@@ -49,7 +49,7 @@ The users and uploads modules are reference implementations:
 
 - `users-api` exposes `TestUserCreator` for unit-test data.
 - `users-persistence` exposes `TestUserPersistence` and `TestUserPersistenceConfiguration`.
-- `uploads-api` exposes `TestUploadCreator` and `TestTransformationCreator`.
+- `uploads-api` exposes `TestUploadCreator` and `TestTransformationSourceCreator`.
 - `uploads-persistence` exposes `TestUploadPersistence` and `TestUploadPersistenceConfiguration`; its persistence helper
   composes `TestUserPersistence` for required users.
 

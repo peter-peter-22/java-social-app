@@ -1,11 +1,11 @@
 package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
-import com.example.uploads_api.transformations.mappers.ImageTransformationMapper;
-import com.example.uploads_api.transformations.mappers.VideoTransformationMapper;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.TransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
+import com.example.uploads_api.transformations.tasks.ImageTransformationMapper;
+import com.example.uploads_api.transformations.tasks.VideoTransformationMapper;
 import com.example.uploads_api.uploads.Upload;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

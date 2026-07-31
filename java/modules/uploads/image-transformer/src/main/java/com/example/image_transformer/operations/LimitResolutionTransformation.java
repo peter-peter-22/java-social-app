@@ -18,8 +18,8 @@ class LimitResolutionTransformation implements ImageTransformation {
     }
 
     private double scaleFor(VImage image, ImageTransformationOperations operations) {
-        var widthScale = axisScale(image.getWidth(), operations.getLimitWidth());
-        var heightScale = axisScale(image.getHeight(), operations.getLimitHeight());
+        var widthScale = axisScale(image.getWidth(), operations.limitWidth());
+        var heightScale = axisScale(image.getHeight(), operations.limitHeight());
 
         return Math.min(widthScale, heightScale);
     }
