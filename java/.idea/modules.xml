@@ -26,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/users/users-persistence/java.users-persistence.testFixtures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads/video-transformer/java.video-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads/video-transformer/java.video-transformer.main.iml" />
     </modules>
   </component>
 </project>

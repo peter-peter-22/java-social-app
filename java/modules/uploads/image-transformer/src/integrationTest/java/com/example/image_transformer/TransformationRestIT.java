@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -108,6 +109,8 @@ class TransformationRestIT {
         var uploadId = new UploadId(UUID.randomUUID());
 
         uploadInput(input);
+        // If the server is called by mistake, the rest client gets stuck forever unless a response is given.
+        WEBHOOK_SERVER.enqueue(new MockResponse(200));
 
         var task = ImageTransformationTaskGroup.ImageTask.builder()
                 .name("thumbnail")
@@ -117,7 +120,7 @@ class TransformationRestIT {
                                 .limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO))
                                 .build()
                 )
-                .lazy(true)
+                .lazy(false)
                 .build();
 
         var group = ImageTransformationTaskGroup.builder()
@@ -134,7 +137,10 @@ class TransformationRestIT {
 
         assertThat(response.getStatusCode().value()).isEqualTo(200);
         assertImageDimensions(output);
-        assertThat(WEBHOOK_SERVER.takeRequest(100, java.util.concurrent.TimeUnit.MILLISECONDS))
+        // if the WEBHOOK_SERVER gets called when it should not, the test is waiting forever instead of throwing
+        // if task.lazy() is true, the unnecessary webhook call happens and the test is stuck
+        // the timeout does not seem to work
+        assertThat(WEBHOOK_SERVER.takeRequest(100, TimeUnit.MILLISECONDS))
                 .isNull();
     }
 

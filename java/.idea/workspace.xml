@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="fix unintended comparison function in BlockingTransformerRestApiTests">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads/video-transformer/java.video-transformer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/WebhookServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/WebhookServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/webhook/WebhookCall.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/webhook/WebhookCall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestTransformationTaskGroupCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/testFixtures/java/com/example/uploads_api/utils/TestTransformationTaskGroupCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/controller/TransformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/controller/TransformationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/video-transformer/src/main/java/com/example/video_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads/video-transformer/src/test/java/com/example/video_transformer/TestApplication.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,9 +102,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="728d91df-de05-4fb3-be02-1d1cc4f43c09" />
   </component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.0.0-bin/d6wjpkvcgsg3oed0qlfss3wgl/gradle-9.0.0" javaHome="$USER_HOME$/.jdks/ms-21.0.9" gradleVersion="9.0.0" />
   <component name="McpProjectServerCommands">
