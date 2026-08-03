@@ -10,6 +10,7 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +54,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     public @NonNull Map<String, String> getPreSignedUploadForm(@NonNull GetPreSignedUploadFormArgs args) {
         PostPolicy postPolicy = new PostPolicy(
                 args.getLocation().bucket(),
-                ZonedDateTime.now().plus(args.getExpiration(),args.getTimeUnit())
+                ZonedDateTime.now().plus(args.getExpiration(), args.getTimeUnit())
         );
 
         postPolicy.addEqualsCondition("key", args.getLocation().key());
@@ -96,21 +97,6 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     }
 
     @Override
-    public void uploadObject(@NonNull String filePath, @NonNull ObjectLocation location, @NonNull String contentType) {
-        try {
-            var args = UploadObjectArgs.builder()
-                    .bucket(location.bucket())
-                    .object(location.key())
-                    .filename(filePath)
-                    .contentType(contentType)
-                    .build();
-            minioClient.uploadObject(args);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public boolean objectExists(@NonNull ObjectLocation location) {
         try {
             var args = StatObjectArgs.builder()
@@ -118,7 +104,6 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                     .object(location.key())
                     .build();
             var stat = minioClient.statObject(args);
-            System.out.println(stat);
             return true;
         } catch (ErrorResponseException e) {
             if ("NoSuchKey".equals(e.errorResponse().code())) {
@@ -142,6 +127,35 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload input stream", e);
+        }
+    }
+
+    @Override
+    public void downloadObject(@NonNull ObjectLocation location, @NonNull Path filePath) {
+        try {
+            var args = DownloadObjectArgs.builder()
+                    .bucket(location.bucket())
+                    .object(location.key())
+                    .filename(filePath.toString())
+                    .build();
+            minioClient.downloadObject(args);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to download file", e);
+        }
+    }
+
+    @Override
+    public void uploadObject(@NonNull ObjectLocation location, @NonNull Path filePath, @NonNull String contentType) {
+        try {
+            var args = UploadObjectArgs.builder()
+                    .bucket(location.bucket())
+                    .object(location.key())
+                    .filename(filePath.toString())
+                    .contentType(contentType)
+                    .build();
+            minioClient.uploadObject(args);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload file", e);
         }
     }
 }

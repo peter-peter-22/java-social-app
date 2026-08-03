@@ -4,6 +4,7 @@ import com.example.uploads_api.uploads.ObjectLocation;
 import org.jspecify.annotations.NonNull;
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Map;
 
 public interface ObjectStorageRepository {
@@ -19,9 +20,12 @@ public interface ObjectStorageRepository {
 
     @NonNull InputStream getObject(@NonNull ObjectLocation location);
 
-    void uploadObject(@NonNull String filePath, @NonNull ObjectLocation location, @NonNull String contentType);
-
     boolean objectExists(@NonNull ObjectLocation location);
 
     void putObject(@NonNull ObjectLocation location, @NonNull InputStream inputStream, long contentLength, @NonNull String contentType);
+
+    // TODO: add unit tests
+    void downloadObject(@NonNull ObjectLocation location, @NonNull Path filePath);
+
+    void uploadObject(@NonNull ObjectLocation location, @NonNull Path filePath, @NonNull String contentType);
 }

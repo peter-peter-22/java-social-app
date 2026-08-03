@@ -3,7 +3,7 @@ package com.example.image_transformer.operations;
 import app.photofox.vipsffm.VBlob;
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.uploads_api.transformations.operations.ImageEncodings;
+import com.example.uploads_api.v2.transformations.operations.ImageEncodings;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 

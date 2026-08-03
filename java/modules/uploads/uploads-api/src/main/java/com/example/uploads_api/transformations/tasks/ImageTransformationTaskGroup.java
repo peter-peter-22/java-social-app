@@ -1,8 +1,8 @@
 package com.example.uploads_api.transformations.tasks;
 
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
 import lombok.Builder;
 import org.jspecify.annotations.NonNull;
 
@@ -18,7 +18,7 @@ public record ImageTransformationTaskGroup(
     public record ImageTask(
             @NonNull ObjectLocation outputObject,
             @NonNull String name,
-            boolean lazy,
+            boolean async,
             @NonNull ImageTransformationOperations operations
     ) implements TransformationTask {
     }

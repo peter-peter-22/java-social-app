@@ -1,7 +1,7 @@
 package com.example.image_transformer.controller;
 
 import com.example.image_transformer.task_service.TaskService;
-import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
+import com.example.uploads_api.v2.transformations.tasks.ImageTask;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +15,7 @@ public class TransformationController {
     private final TaskService transformationService;
 
     @PostMapping()
-    void process(@RequestBody ImageTransformationTaskGroup body) {
-        transformationService.processTasks(body);
+    void process(@RequestBody ImageTask body) {
+        transformationService.processTask(body);
     }
 }

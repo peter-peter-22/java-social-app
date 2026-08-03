@@ -22,8 +22,20 @@ the api module of these services to prevent unnecessary imported data.
 ## Webflux
 Use webflux instead of spring webmvc for IO bound servers.
 
-## Micro optimizations
-Some minor optimizations are marked with "optimization:" in the javadoc.
+## Accelerated tmp folder
+
+The tmp folder of the video-transformer is frequently used. Storing this folder in the memory would avoid unnecessary
+and slow disk usage. On ubuntu, the tmpfs should be used in the tmp folder by default. Requires verification.
+
+## Small optimizations
+
+Some minor optimizations are marked with "optimization:" in the comments.
+
+## GPU accelerated image transformer
+
+The image transformer is CPU-only, but Cloudinary claims to have GPU accelerated image transformations.
+
+##  
 
 # Update packages
 Some are outdated and insecure.

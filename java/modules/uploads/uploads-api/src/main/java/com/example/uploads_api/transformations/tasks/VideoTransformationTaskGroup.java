@@ -1,8 +1,8 @@
 package com.example.uploads_api.transformations.tasks;
 
-import com.example.uploads_api.transformations.operations.VideoTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_api.v2.transformations.operations.VideoTransformationOperations;
 import lombok.Builder;
 import org.jspecify.annotations.NonNull;
 
@@ -12,13 +12,14 @@ import java.util.Collection;
 public record VideoTransformationTaskGroup(
         @NonNull ObjectLocation inputObject,
         @NonNull Collection<VideoTask> tasks,
-        @NonNull UploadId uploadId
+        @NonNull UploadId uploadId,
+        boolean async,
+        String completedNotificationUrl,
+        String progressNotificationUrl
 ) implements TransformationTaskGroup {
     @Builder
     public record VideoTask(
-            @NonNull ObjectLocation outputObject,
             @NonNull String name,
-            boolean lazy,
             @NonNull VideoTransformationOperations operations
     ) implements TransformationTask {
     }

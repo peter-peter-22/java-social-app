@@ -25,7 +25,7 @@ public class UploadRepositoryImpl implements UploadRepository {
     private final JdbcClient jdbc;
     private final JdbcAggregateTemplate template;
 
-    private static Upload entityToDomain(@NonNull UploadEntity entity) {
+    private static Upload entityToDomain(@NonNull ImageUploadEntity entity) {
         return new Upload(
                 new UploadId(entity.id()),
                 new ObjectLocation(
@@ -39,8 +39,8 @@ public class UploadRepositoryImpl implements UploadRepository {
         );
     }
 
-    private static UploadEntity domainToEntity(@NonNull Upload domain) {
-        return new UploadEntity(
+    private static ImageUploadEntity domainToEntity(@NonNull Upload domain) {
+        return new ImageUploadEntity(
                 domain.id().get(),
                 domain.objectLocation().key(),
                 domain.objectLocation().bucket(),
@@ -52,7 +52,7 @@ public class UploadRepositoryImpl implements UploadRepository {
     }
 
     public @Nullable Upload getById(@NonNull UploadId id) {
-        var entity = template.findById(id.get(), UploadEntity.class);
+        var entity = template.findById(id.get(), ImageUploadEntity.class);
         if (entity == null) {
             return null;
         }
@@ -99,7 +99,7 @@ public class UploadRepositoryImpl implements UploadRepository {
                         """)
                 .param("id", uploadId.get())
                 .param("status", status.name())
-                .query(UploadEntity.class)
+                .query(ImageUploadEntity.class)
                 .optional();
         return updated.map(UploadRepositoryImpl::entityToDomain).orElse(null);
     }

@@ -1,9 +1,9 @@
 package com.example.uploads_api.transformations.object_keys;
 
-import com.example.uploads_api.transformations.operations.ImageEncodings;
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import com.example.uploads_api.uploads.ObjectLocation;
 import com.example.uploads_api.utils.TestUploadCreator;
+import com.example.uploads_api.v2.transformations.operations.ImageEncodings;
+import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
 import org.junit.jupiter.api.Test;
 
 import static com.example.uploads_api.utils.TestTransformationSourceCreator.createImageTransformation;

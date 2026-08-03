@@ -1,16 +1,19 @@
 package com.example.uploads_api.transformations.tasks;
 
-import com.example.uploads_api.uploads.ObjectLocation;
-import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_api.v2.uploads.upload_registry.Upload;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Collection;
 
 public interface TransformationTaskGroup {
-    @NonNull ObjectLocation inputObject();
+    @NonNull
+    Upload original();
 
-    // "? extends TransformationTask" is needed because subclasses don't work with generics (Collection<T> is the generic here)
-    @NonNull Collection<? extends TransformationTask> tasks();
+    @NonNull Collection<? extends @NonNull TransformationTask> tasks();
 
-    @NonNull UploadId uploadId();
+    boolean async();
+
+    String completedNotificationUrl();
+
+    String progressNotificationUrl();
 }

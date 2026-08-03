@@ -16,19 +16,17 @@ public class TaskService {
     private final ImageTransformationService transformationService;
     private final FileStreamStorage storage;
 
-    public void processTasks(@NonNull ImageTransformationTaskGroup group) {
+    public void processTask(@NonNull ImageTransformationTaskGroup group) {
         var source = FileStreamProcessingManager.readAllBytes(() -> storage.read(group.inputObject()));
-        group.tasks().forEach(task -> processTask(task, source));
-        webhookService.handleWebhookCalls(group);
-    }
-
-    // OPTIMIZE: should this be parallel?
-    // TODO: CLEAN: this could be extracted to the contracts module
-    private void processTask(ImageTransformationTaskGroup.@NonNull ImageTask task, byte[] source) {
-        FileStreamProcessingManager.process(
-                source,
-                stream -> transformationService.transformFile(stream, task.operations()),
-                stream -> storage.write(stream, task.outputObject())
-        );
+        // TODO should be parallel?
+        // TODO: CLEAN: this looks overcomplicated
+        group.tasks().forEach(task -> {
+            FileStreamProcessingManager.process(
+                    source,
+                    stream -> transformationService.transformFile(stream, task.operations()),
+                    stream -> storage.write(stream, task.outputObject())
+            );
+            webhookService.handleWebhookCall(task, group);
+        });
     }
 }

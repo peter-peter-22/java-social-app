@@ -3,6 +3,7 @@ package com.example.uploads_service.webhook;
 import com.example.uploads_api.transformations.lazy_transformation_store.LazyTransformationStore;
 import com.example.uploads_api.transformations.webhook.WebhookCall;
 import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_service.controller.WebhookController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

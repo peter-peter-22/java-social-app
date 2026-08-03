@@ -1,8 +1,8 @@
 package com.example.uploads_api.utils;
 
-import com.example.uploads_api.transformations.operations.*;
 import com.example.uploads_api.transformations.sources.ImageTransformationSource;
 import com.example.uploads_api.transformations.sources.VideoTransformationSource;
+import com.example.uploads_api.v2.transformations.operations.*;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -39,8 +39,6 @@ public class TestTransformationSourceCreator {
                 .outputBucket("bucket")
                 .operations(
                         VideoTransformationOperations.builder()
-                                .limitWidth(new LimitResolution(640, LimitResolution.Mode.KEEP_ASPECT_RATIO))
-                                .limitHeight(new LimitResolution(640, LimitResolution.Mode.KEEP_ASPECT_RATIO))
                                 .encoding(VideoEncodings.Mp4.builderWithDefaults().build())
                                 .build()
                 );

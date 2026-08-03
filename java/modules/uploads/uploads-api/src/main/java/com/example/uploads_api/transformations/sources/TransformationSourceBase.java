@@ -1,8 +1,8 @@
 package com.example.uploads_api.transformations.sources;
 
 import com.example.uploads_api.transformations.filters.TransformationFilter;
-import com.example.uploads_api.transformations.operations.TransformationOperations;
 import com.example.uploads_api.uploads.Upload;
+import com.example.uploads_api.v2.transformations.operations.TransformationOperations;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

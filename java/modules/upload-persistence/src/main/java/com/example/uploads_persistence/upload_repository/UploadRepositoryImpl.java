@@ -1,0 +1,106 @@
+package com.example.uploads_persistence.upload_repository;
+
+import com.example.cockroach_db.ForeignKeyErrorReader;
+import com.example.uploads_api.transformations.upload_repository.InsertUpload;
+import com.example.uploads_api.transformations.upload_repository.UploadMissingUserException;
+import com.example.uploads_api.transformations.upload_repository.UploadRepository;
+import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.Upload;
+import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_api.uploads.UploadStatus;
+import com.example.users_api.repository.UserId;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+@RequiredArgsConstructor
+public class UploadRepositoryImpl implements UploadRepository {
+    private final JdbcClient jdbc;
+    private final JdbcAggregateTemplate template;
+
+    private static Upload entityToDomain(@NonNull UploadEntity entity) {
+        return new Upload(
+                new UploadId(entity.id()),
+                new ObjectLocation(
+                        entity.objectPath(),
+                        entity.bucket()
+                ),
+                new UserId(entity.createdBy()),
+                entity.fileType(),
+                entity.createdAt(),
+                entity.status()
+        );
+    }
+
+    private static UploadEntity domainToEntity(@NonNull Upload domain) {
+        return new UploadEntity(
+                domain.id().get(),
+                domain.objectLocation().key(),
+                domain.objectLocation().bucket(),
+                domain.createdBy().get(),
+                domain.fileType(),
+                domain.createdAt(),
+                domain.status()
+        );
+    }
+
+    public @Nullable Upload getById(@NonNull UploadId id) {
+        var entity = template.findById(id.get(), UploadEntity.class);
+        if (entity == null) {
+            return null;
+        }
+        return entityToDomain(entity);
+    }
+
+    public @NonNull UploadId create(@NonNull InsertUpload upload) throws UploadMissingUserException {
+        try {
+            var id = jdbc.sql("""
+                            INSERT INTO uploads (created_by, object_path, bucket, file_type, status)
+                            VALUES (:created_by, :object_path, :bucket, :file_type, :status)
+                            RETURNING id
+                            """)
+                    .param("object_path", upload.getObjectPath())
+                    .param("created_by", upload.getCreatedBy().get())
+                    .param("bucket", upload.getBucket())
+                    .param("file_type", upload.getFileType().name())
+                    .param("status", upload.getStatus().name())
+                    .query(UUID.class)
+                    .single();
+            return new UploadId(id);
+        } catch (DataIntegrityViolationException e) {
+            if (ForeignKeyErrorReader.isForeignKeyError(e, "uploads_created_by_fkey"))
+                throw new UploadMissingUserException(e.getMessage());
+            throw e;
+        }
+    }
+
+    public void update(@NonNull Upload save) {
+        var e = domainToEntity(save);
+        template.save(e);
+    }
+
+    /**
+     * Updates the status field of an upload if it matches the previous status.
+     * Returns the updated upload or null if the upload was not found.
+     */
+    public @Nullable Upload updateStatus(@NonNull UploadId uploadId, @NonNull UploadStatus status) {
+        var updated = jdbc.sql("""
+                        UPDATE uploads
+                        SET status = :status
+                        WHERE id = :id
+                        RETURNING *
+                        """)
+                .param("id", uploadId.get())
+                .param("status", status.name())
+                .query(UploadEntity.class)
+                .optional();
+        return updated.map(UploadRepositoryImpl::entityToDomain).orElse(null);
+    }
+}
