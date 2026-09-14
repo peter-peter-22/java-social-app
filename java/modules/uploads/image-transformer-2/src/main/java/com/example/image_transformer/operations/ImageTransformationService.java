@@ -10,19 +10,23 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
 public class ImageTransformationService {
     private final ImageTransformationPipeline pipeline;
 
-    public void transformFile(String inputFile, Path outputDir, @NonNull ImageTransformationOperations operations) {
+    public Path transformFile(String inputFile, Path outputDir, @NonNull ImageTransformationOperations operations) {
+        AtomicReference<Path> mainFile = new AtomicReference<>();
+
         Vips.run(arena -> {
             var inputVImage = VImage.newFromFile(arena, inputFile);
 
             var outputVImage = pipeline.apply(inputVImage, operations);
 
             var path = outputDir.resolve("default." + operations.encoding().fileType().getExtension());
+            mainFile.set(path);
             var pathString = path.toString();
             switch (operations.encoding()) {
                 case ImageEncodings.Jpeg encoding -> outputVImage.jpegsave(
@@ -35,5 +39,7 @@ public class ImageTransformationService {
                 );
             }
         });
+
+        return mainFile.get();
     }
 }

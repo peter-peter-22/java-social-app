@@ -25,8 +25,8 @@ dependencies {
 
     implementation(project(":object-storage"))
 
-    api(project(":transformer-contracts"))
-    testImplementation(project(":transformer-contracts"))
+    api(project(":transformer-contracts-2"))
+    testImplementation(project(":transformer-contracts-2"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")

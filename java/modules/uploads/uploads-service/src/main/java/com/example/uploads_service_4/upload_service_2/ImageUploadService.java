@@ -17,6 +17,7 @@ public class ImageUploadService {
     private final OriginalUploadRepository uploadRepository;
     private final NamedImageTransformationRepository namedImageTransformationRepository;
     private final ImageWorkerApi imageWorkerApi;
+    private final UploadVariantRepository uploadVariantRepository;
 
     private static final String originalsBucket = "originals";
     private static final String variantsBucket = "variants";
@@ -61,7 +62,7 @@ public class ImageUploadService {
             throw new RuntimeException("Failed to use the uploaded input stream", e);
         }
 
-        // send task to the media processing worker
+        // select the requested eager transformations
         var transformations = namedImageTransformationRepository.getByName(uploadRequest.eagerTransformations()).stream()
                 .map(
                         namedTransformation -> new ImageTask.ImageTransformationInstance(
@@ -71,11 +72,12 @@ public class ImageUploadService {
                 )
                 .toList();
 
+        // send task to the media processing worker
         var task = ImageTask.builder()
                 .original(upload)
                 .completedNotificationUrl(uploadRequest.completionUrl())
                 .progressNotificationUrl(uploadRequest.progressUrl())
-                .tasks(transformations)
+                .variants(transformations)
                 .build();
 
         if (uploadRequest.asyncEager()) {

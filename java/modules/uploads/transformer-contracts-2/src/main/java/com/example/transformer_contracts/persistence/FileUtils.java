@@ -12,6 +12,9 @@ import java.util.List;
 @UtilityClass
 public class FileUtils {
 
+    /**
+     * Return the absolute paths of the files in a directory recursively.
+     */
     public List<Path> getFilesInDir(Path root) throws IOException {
         try (var stream = Files.walk(root)) {
             return stream
@@ -20,6 +23,7 @@ public class FileUtils {
         }
     }
 
+    /** Delete all entries in a directory and the directory itself. */
     public void deleteRecursively(@NonNull Path path) throws IOException {
         try (var paths = Files.walk(path)) {
             paths.sorted(Comparator.reverseOrder()).forEach(entry -> {
@@ -29,6 +33,7 @@ public class FileUtils {
                     throw new RuntimeException(e);
                 }
             });
+            // TODO do I need to delete the root directory too?
         }
     }
 }

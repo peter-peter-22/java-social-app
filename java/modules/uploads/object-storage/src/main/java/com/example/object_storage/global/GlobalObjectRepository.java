@@ -1,8 +1,13 @@
 package com.example.object_storage.global;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
 import java.io.InputStream;
 import java.util.Collection;
 
+@Repository
+@RequiredArgsConstructor
 public class GlobalObjectRepository {
     public void download(DownloadGlobalObjectArgs args) {
 

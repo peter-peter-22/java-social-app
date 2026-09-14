@@ -8,7 +8,8 @@ public record UploadVariant(
         UploadId originalId,
         Instant createdAt,
         String transformationName,
-        String version,
-        String keyPrefix
+        String objectKeyPrefix,
+        String mainObjectRelativePath,
+        String mainObjectContentType
 ) {
 }

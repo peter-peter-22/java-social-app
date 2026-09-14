@@ -14,7 +14,7 @@ import java.util.Collection;
 @EqualsAndHashCode
 public class ImageTask {
     private final Upload original;
-    private final Collection<ImageTransformationInstance> tasks;
+    private final Collection<ImageTransformationInstance> variants;
     private final String completedNotificationUrl;
     private final String progressNotificationUrl;
 
