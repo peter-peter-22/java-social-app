@@ -1,3 +1,16 @@
+https://cloudinary.com/documentation/image_upload_api_reference
+
+https://cloudinary.com/documentation/cloudinary_video_player
+
+https://cloudinary.github.io/cloudinary-video-player/adaptive-streaming.html
+
+https://cloudinary.com/documentation/adaptive_bitrate_streaming
+
+https://res.cloudinary.com/demo/video/upload/sp_auto/pg_2/v1510661484/sea_turtle.m3u8
+
+urls
+https://cloudinary.com/blog/questions/how-to-use-a-video-url-for-embeds-apis-and-optimized-delivery
+
 reconsider Integer usage
 
 rename value classes

@@ -41,21 +41,7 @@ public enum FileType {
     public static @Nullable FileType fromPath(@NonNull Path path) {
         var ext = getFileExtension(path);
         if (ext == null) return null;
-        for (var fileType : FileType.values()) {
-            if (ext.equals(fileType.getExtension())) {
-                return fileType;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the content type of the file extension if known, otherwise octet-stream.
-     */
-    public static String getContentTypeFromPath(Path path) {
-        var type = fromPath(path);
-        if (type != null) return type.getContentType();
-        return "application/octet-stream";
+        return getByExtension(ext);
     }
 
     public static @Nullable FileType getByExtension(String extension) {
