@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/guides/placeholder/master.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guides/placeholder/res.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/InsertUploadVariant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer-2/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer-2/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer-2/src/main/java/com/example/image_transformer/operations/ImageTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer-2/src/main/java/com/example/image_transformer/operations/ImageTransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/image-transformer-2/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/image-transformer-2/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/transformer-contracts-2/src/main/java/com/example/transformer_contracts/persistence/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/transformer-contracts-2/src/main/java/com/example/transformer_contracts/persistence/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/transformations/tasks/ImageTransformationTaskGroup.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/transformations/tasks/ImageTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/transformations/tasks/ImageTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/FileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/UploadVariant.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/UploadVariant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/UploadVariantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-api/src/main/java/com/example/uploads_api/v2/uploads/upload_registry/UploadVariantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service_4/upload_service_2/ImageUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads/uploads-service/src/main/java/com/example/uploads_service_4/upload_service_2/ImageUploadService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
