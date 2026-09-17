@@ -1,0 +1,62 @@
+@startuml
+
+title Upload without transformations
+
+skinparam BoxPadding 5
+skinparam ParticipantPadding 5
+
+actor Client
+
+box Main
+participant MainApp
+database MainDB
+endbox
+
+box Media
+participant MediaApp
+participant MediaWorker
+database MediaDB
+database ObjectStorages
+endbox
+
+group requesting upload
+Client->MainApp: file metadata, upload category
+MainApp->MainApp: can this user create a new upload?
+MainApp->MainApp: is the upload metadata good for this category?
+MainApp->MainApp: get the upload preset name of this category
+MainApp->MainDB: store the pending upload
+note over MainDB: upload key, category, date, pending status
+return unique upload key
+MainApp->MainApp: create signed upload token with the upload id and preset name
+MainApp-->Client: upload parameters + signature
+end
+
+group uploading
+Client->MediaApp: upload parameters + signature + file
+MediaApp->MediaApp: verify signature and parameters
+MediaApp->MediaApp: get the object storage path and region
+MediaApp->MediaApp: get the transformations from the upload preset
+MediaApp->MediaDB: pending original record
+note over MediaDB: upload key, home region, uploading status, date
+MediaApp->ObjectStorages: file+region+path
+MediaApp->MediaDB: update original record status to ready
+group webhook
+MediaApp->MainApp: upload identity and no metadata
+MainApp->MainApp: (optional) validate
+MainApp->MainDB: update the status of the upload key to ready
+end
+MediaApp-->Client: upload identity and no metadata // We probalby need the medatada extractor in the media app
+end
+
+group submit post
+Client->MainApp: post parameters, upload keys
+MainApp->MainApp: validate post and uploads
+MainApp->MainDB: insert the post
+return post id
+MainApp->MainDB: insert upload links between the post and uploads
+note over MainDB: post id, upload key
+note over MainDB: should the upload record status be updated from "ready" to "linked"?
+MainApp-->Client: post id
+end
+
+@enduml

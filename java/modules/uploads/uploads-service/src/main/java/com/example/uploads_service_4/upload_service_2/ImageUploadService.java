@@ -80,6 +80,7 @@ public class ImageUploadService {
                 .variants(transformations)
                 .build();
 
+        // only blocking processing and the worker creates the event?
         if (uploadRequest.asyncEager()) {
             imageWorkerApi.processAsync(task);
 

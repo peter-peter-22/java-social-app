@@ -1,0 +1,42 @@
+@startuml
+
+title Display the original
+
+skinparam BoxPadding 5
+skinparam ParticipantPadding 5
+
+actor Client
+
+box Main
+participant MainApp
+database MainDB
+endbox
+
+box Media
+participant MediaApp
+participant MediaWorker
+database MediaDB
+database ObjectStorages
+endbox
+
+group getting the post
+Client->MainApp: post id
+MainApp->MainDB: post id
+MainDB->MainApp: post, linked media records
+MainApp-->Client: post data and media records
+end
+
+note over Client: (optional) set the media displayer dimensions based on the metadata
+
+group getting one media file
+Client->MediaApp: upload key based media URL
+MediaApp->MediaDB: upload key
+return upload record
+note over MediaApp: get the home region and object key from the record
+MediaApp->ObjectStorages: object key, bucket, home region
+return file
+MediaApp-->Client: file
+end
+
+
+@enduml
