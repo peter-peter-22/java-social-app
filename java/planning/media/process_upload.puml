@@ -1,0 +1,102 @@
+@startuml
+
+title Processing a signed image upload behind the media API
+
+skinparam BoxPadding 5
+skinparam ParticipantPadding 5
+
+actor Client
+
+box Media
+    participant MediaApi
+    participant ImageWorker
+    database MediaDB
+    database ObjectStorage
+    queue Kafka
+endbox
+
+participant MainApp
+
+
+
+Client->MediaApi: POST /upload/image
+note right: upload parameters + signature + file
+
+activate MediaApi
+
+    note over MediaApi
+        /upload/image -> image worker
+        /upload/video -> video worker
+        /upload/raw -> raw worker
+    end note
+
+    MediaApi->ImageWorker: POST /upload
+
+    activate ImageWorker
+
+        ImageWorker->ImageWorker: verify signature and parameters
+        ImageWorker->ImageWorker: get the object storage path and region
+        ImageWorker->ImageWorker: get the transformations
+        note over ImageWorker
+            any transformation source in the request
+            (upload preset / named transformation / transformation string)
+            must be converted to plain transformations (DB is probably involved)
+        end note
+        ImageWorker->ImageWorker: get image metadata
+
+        alt if incoming transformation is requested
+            ImageWorker->ImageWorker: process the incoming transformation, overwrite the original file
+        end
+
+        ImageWorker->MediaDB: register the upload with pending status
+        note right: upload key, home region, uploading status, date, metadata
+        ImageWorker->ObjectStorage: upload to the local object storage
+
+        opt eager transformations requested
+            alt blocking
+                ImageWorker->ImageWorker: process the transformation
+                ImageWorker->ObjectStorage: save the transformed variants
+                ImageWorker->MediaDB: register the transformed variants
+                ImageWorker->MediaDB: update the upload status to ready
+                opt webhook
+                    ImageWorker -> MainApp: POST transformation-complete webhook
+                end
+            else async
+                ImageWorker->ImageWorker: queue the transformation
+                ImageWorker->MediaDB: update the upload status to processing
+                note over ImageWorker: the ready status and the webhook are handled by the event consumer
+            end
+        end
+
+        ImageWorker-->Client: upload identity and metadata
+
+    deactivate ImageWorker
+
+deactivate MediaApi
+
+
+== Async processing ==
+
+Kafka -> ImageWorker: ProcessingJob(uploadId, transformations)
+
+activate ImageWorker
+
+ImageWorker -> MediaDB: Claim job
+
+alt job already processed
+    ImageWorker -> ImageWorker: Ignore duplicate
+else processing required
+    ImageWorker -> ObjectStorage: Read original
+    ImageWorker -> ImageWorker: Process transformations
+    ImageWorker -> ObjectStorage: Save variants
+    ImageWorker -> MediaDB: Register variants
+    ImageWorker -> MediaDB: Mark READY
+
+    opt webhook
+        ImageWorker -> MainApp: POST transformation-complete webhook
+    end
+end
+
+deactivate ImageWorker
+
+@enduml

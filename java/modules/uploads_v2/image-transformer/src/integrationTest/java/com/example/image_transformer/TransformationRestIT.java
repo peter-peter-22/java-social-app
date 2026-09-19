@@ -1,0 +1,195 @@
+package com.example.image_transformer;
+
+import com.example.object_storage.repository.ObjectStorageRepository;
+import com.example.transformer_contracts.storage.TestResourcesDirectory;
+import com.example.uploads_api.transformations.tasks.ImageTransformationTaskGroup;
+import com.example.uploads_api.uploads.ObjectLocation;
+import com.example.uploads_api.uploads.UploadId;
+import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.v2.transformations.operations.LimitResolution;
+import mockwebserver3.MockResponse;
+import mockwebserver3.MockWebServer;
+import org.jspecify.annotations.NonNull;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.client.RestClient;
+
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(
+        classes = Application.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
+@TestPropertySource(locations = "classpath:image-transformation-rest-test.properties")
+class TransformationRestIT {
+    private static final MockWebServer WEBHOOK_SERVER = startWebhookServer();
+
+    @LocalServerPort
+    private int serverPort;
+
+    @Autowired
+    private ObjectStorageRepository objectStorageRepository;
+
+    @AfterAll
+    static void stopWebhookServer() throws IOException {
+        WEBHOOK_SERVER.close();
+    }
+
+    @DynamicPropertySource
+    static void registerWebhookProperties(DynamicPropertyRegistry registry) {
+        registry.add(
+                "transformations.webhook_url",
+                () -> WEBHOOK_SERVER.url("/").toString()
+        );
+    }
+
+    // CLEAN: the two tests might repeat too much
+    @Test
+    void transformsImageThroughRestApiAndCallsWebhookForLazyTask() throws Exception {
+        var input = objectLocation("input.jpg");
+        var output = objectLocation("thumbnail.jpg");
+        var uploadId = new UploadId(UUID.randomUUID());
+
+        uploadInput(input);
+        WEBHOOK_SERVER.enqueue(new MockResponse(200));
+
+        var task = ImageTransformationTaskGroup.ImageTask.builder()
+                .name("thumbnail")
+                .outputObject(output)
+                .operations(
+                        ImageTransformationOperations.builderWithDefaults()
+                                .limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO))
+                                .build()
+                )
+                .lazy(true)
+                .build();
+
+        var group = ImageTransformationTaskGroup.builder()
+                .inputObject(input)
+                .tasks(List.of(task))
+                .uploadId(uploadId)
+                .build();
+
+        var response = restClient().post()
+                .uri("/transform")
+                .body(group)
+                .retrieve()
+                .toBodilessEntity();
+
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
+        assertImageDimensions(output);
+
+        var webhookRequest = WEBHOOK_SERVER.takeRequest();
+        assertThat(webhookRequest.getMethod()).isEqualTo("POST");
+        assertThat(webhookRequest.getPath()).isEqualTo("/");
+        assertThat(webhookRequest.getBody().readUtf8())
+                .contains(uploadId.get().toString())
+                .contains("thumbnail");
+    }
+
+    @Test
+    void doesNotCallWebhookForNonLazyTask() throws Exception {
+        var input = objectLocation("input.jpg");
+        var output = objectLocation("thumbnail.jpg");
+        var uploadId = new UploadId(UUID.randomUUID());
+
+        uploadInput(input);
+        // If the server is called by mistake, the rest client gets stuck forever unless a response is given.
+        WEBHOOK_SERVER.enqueue(new MockResponse(200));
+
+        var task = ImageTransformationTaskGroup.ImageTask.builder()
+                .name("thumbnail")
+                .outputObject(output)
+                .operations(
+                        ImageTransformationOperations.builderWithDefaults()
+                                .limitWidth(new LimitResolution(400, LimitResolution.Mode.KEEP_ASPECT_RATIO))
+                                .build()
+                )
+                .lazy(false)
+                .build();
+
+        var group = ImageTransformationTaskGroup.builder()
+                .inputObject(input)
+                .tasks(List.of(task))
+                .uploadId(uploadId)
+                .build();
+
+        var response = restClient().post()
+                .uri("/transform")
+                .body(group)
+                .retrieve()
+                .toBodilessEntity();
+
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
+        assertImageDimensions(output);
+        // if the WEBHOOK_SERVER gets called when it should not, the test is waiting forever instead of throwing
+        // if task.lazy() is true, the unnecessary webhook call happens and the test is stuck
+        // the timeout does not seem to work
+        assertThat(WEBHOOK_SERVER.takeRequest(100, TimeUnit.MILLISECONDS))
+                .isNull();
+    }
+
+    private static InputStream getTestFileStream() {
+        var inputPath = TestResourcesDirectory.getResourcesPath().resolve("test-images", "image.jpg");
+        try {
+            return Files.newInputStream(inputPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read source image from " + inputPath, e);
+        }
+    }
+
+    private void uploadInput(ObjectLocation location) throws IOException {
+        try (InputStream input = getTestFileStream()) {
+            assertThat(input).isNotNull();
+            var bytes = input.readAllBytes();
+            objectStorageRepository.putObject(
+                    location,
+                    new ByteArrayInputStream(bytes),
+                    bytes.length,
+                    "image/jpeg"
+            );
+        }
+    }
+
+    private void assertImageDimensions(@NonNull ObjectLocation location) throws IOException {
+        try (InputStream output = objectStorageRepository.getObject(location)) {
+            var image = ImageIO.read(output);
+            assertThat(image).isNotNull();
+            assertThat(image.getWidth()).isEqualTo(400);
+            assertThat(image.getHeight()).isEqualTo(266);
+        }
+    }
+
+    private static @NonNull ObjectLocation objectLocation(@NonNull String name) {
+        return new ObjectLocation("test/" + UUID.randomUUID() + "/" + name, "public");
+    }
+
+    private @NonNull RestClient restClient() {
+        return RestClient.create("http://localhost:" + serverPort);
+    }
+
+    private static @NonNull MockWebServer startWebhookServer() {
+        try {
+            var server = new MockWebServer();
+            server.start();
+            return server;
+        } catch (IOException e) {
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+}

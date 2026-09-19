@@ -1,0 +1,32 @@
+package com.example.transformer_contracts.stream_processing;
+
+import org.jspecify.annotations.NonNull;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public class FileStreamProcessingManager {
+    public static byte[] readAllBytes(@NonNull Supplier<@NonNull InputStream> source) {
+        try (var inputStream = source.get()) {
+            return inputStream.readAllBytes();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read file stream", e);
+        }
+    }
+
+    public static void process(
+            byte @NonNull [] source,
+            @NonNull Function<@NonNull InputStream, @NonNull InputStream> processor,
+            @NonNull Consumer<@NonNull InputStream> consumer
+    ) {
+        try (var inputStream = new ByteArrayInputStream(source);
+             var outputStream = processor.apply(inputStream)) {
+            consumer.accept(outputStream);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to process file stream", e);
+        }
+    }
+}

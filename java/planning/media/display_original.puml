@@ -1,6 +1,6 @@
 @startuml
 
-title Display the original
+title Display an uploaded file
 
 skinparam BoxPadding 5
 skinparam ParticipantPadding 5

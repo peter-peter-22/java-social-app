@@ -1,6 +1,6 @@
 @startuml
 
-title Upload without transformations
+title Signed upload (the media processing logic is skipped)
 
 skinparam BoxPadding 5
 skinparam ParticipantPadding 5
@@ -14,9 +14,6 @@ endbox
 
 box Media
 participant MediaApp
-participant MediaWorker
-database MediaDB
-database ObjectStorages
 endbox
 
 group requesting upload
@@ -33,19 +30,12 @@ end
 
 group uploading
 Client->MediaApp: upload parameters + signature + file
-MediaApp->MediaApp: verify signature and parameters
-MediaApp->MediaApp: get the object storage path and region
-MediaApp->MediaApp: get the transformations from the upload preset
-MediaApp->MediaDB: pending original record
-note over MediaDB: upload key, home region, uploading status, date
-MediaApp->ObjectStorages: file+region+path
-MediaApp->MediaDB: update original record status to ready
+note over MediaApp: *validation, registration, transformations, object storage*
 group webhook
-MediaApp->MainApp: upload identity and no metadata
-MainApp->MainApp: (optional) validate
+MediaApp->MainApp: upload identity and metadata
 MainApp->MainDB: update the status of the upload key to ready
 end
-MediaApp-->Client: upload identity and no metadata // We probalby need the medatada extractor in the media app
+MediaApp-->Client: upload identity and metadata
 end
 
 group submit post
