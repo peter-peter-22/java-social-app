@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.concurrent.Executors;
 
 @Repository
 @NullMarked
@@ -24,9 +25,10 @@ public class GlobalObjectRepository {
     }
 
     public void uploadAll(String region, Collection<UploadLocalObjectArgs> args) {
-        // TODO parallel
-        for (UploadLocalObjectArgs arg : args) {
-            upload(region, arg);
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (UploadLocalObjectArgs arg : args) {
+                executor.submit(() -> upload(region, arg));
+            }
         }
     }
 

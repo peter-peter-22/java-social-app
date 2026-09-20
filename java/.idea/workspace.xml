@@ -4,63 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update plan">
-      <change afterPath="$PROJECT_DIR$/.idea/doNotAskNotifications.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/RegionalObjectRepositories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/LocalObjectExistsArgs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/global/GlobalObjectStorageTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/regional/RegionalObjectRepositoriesIT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.codex/skills/java/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.codex/skills/java/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.codex/skills/use-test-fixtures/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.codex/skills/use-test-fixtures/agents/openai.yaml" beforeDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="start the upload v2 directory, copy the usable legacy code">
+      <change afterPath="$PROJECT_DIR$/guides/parallel.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer-2/java.image-transformer-2.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer-2/java.image-transformer-2.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main~1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/image-transformer/com.example.java.image-transformer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test~1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/object-storage/com.example.java.object-storage.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts-2/java.transformer-contracts-2.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts-2/java.transformer-contracts-2.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts/java.transformer-contracts.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts/java.transformer-contracts.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/transformer-contracts/java.transformer-contracts.testFixtures.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-api/com.example.java.uploads-api.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-api/com.example.java.uploads-api.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-api/com.example.java.uploads-api.testFixtures.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-persistence/com.example.java.uploads-persistence.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-persistence/com.example.java.uploads-persistence.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-persistence/com.example.java.uploads-persistence.testFixtures.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-service/com.example.java.uploads-service.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/uploads-service/com.example.java.uploads-service.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads/video-transformer/java.video-transformer.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main~1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test~1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/MinioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/MinioProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/DeleteGlobalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/DeleteLocalObjectArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/DownloadGlobalObjectArgs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GetGlobalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/GetLocalObjectArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/DownloadLocalObjectArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/LocalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/LocalObjectArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/PutGlobalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/PutLocalObjectArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/UploadGlobalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/UploadLocalObjectArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/MinioReconciliation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/MinioReconciliation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/ReconciliationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/ReconciliationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist/buckets/Public.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist/buckets/Private.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedDownloadUrlArgs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/repository/GetPreSignedUploadFormArgs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/ObjectStorageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/repository/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/ObjectStorageRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/repository/ObjectStorageRepositoryIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/testFixtures/java/com/example/object_storage/MinioIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/testFixtures/java/com/example/object_storage/MinioIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/media/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/requirements.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/global/GlobalObjectStorageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/global/GlobalObjectRepositoryTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,17 +57,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="java" type="f1a62948:ProjectNode" />
-                <item name="image-transformer" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="java" type="f1a62948:ProjectNode" />
-                <item name="image-transformer" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -375,38 +318,11 @@
       <recent name="com.example.uploads_service_4.upload_service_2" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.java [:object-storage:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="BlockingImageTransformerRestApiTests.testImageApi" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":uploads-service:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.uploads_service.transformation_service.BlockingImageTransformerRestApiTests.testImageApi&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
     <configuration name="BlockingImageTransformerRestApiTests.testVideoApi" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -473,6 +389,31 @@
         <option name="taskNames">
           <list>
             <option value=":image-transformer:integrationTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="java [:object-storage:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":object-storage:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -614,11 +555,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:object-storage:test]" />
         <item itemvalue="Gradle.java [:image-transformer:dockerIT]" />
         <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Gradle.java [test]" />
         <item itemvalue="Gradle.BlockingImageTransformerRestApiTests.testVideoApi" />
-        <item itemvalue="Gradle.BlockingImageTransformerRestApiTests.testImageApi" />
       </list>
     </recent_temporary>
   </component>
@@ -1015,8 +956,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix redundant object storage reads in the image transformer" />
-    <MESSAGE value="add todos" />
     <MESSAGE value="refractor TaskServiceTest" />
     <MESSAGE value="refractor FileStreamProcessingManager" />
     <MESSAGE value="update messages" />
@@ -1040,7 +979,9 @@
     <MESSAGE value="fix the error that stops the test on failure instead of throwing in TransformationRestIT" />
     <MESSAGE value="wip" />
     <MESSAGE value="update plan" />
-    <option name="LAST_COMMIT_MESSAGE" value="update plan" />
+    <MESSAGE value="improve codex skill, remove over-engineered text" />
+    <MESSAGE value="start the upload v2 directory, copy the usable legacy code" />
+    <option name="LAST_COMMIT_MESSAGE" value="start the upload v2 directory, copy the usable legacy code" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
