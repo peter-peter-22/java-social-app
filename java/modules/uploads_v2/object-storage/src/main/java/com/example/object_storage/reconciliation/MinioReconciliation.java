@@ -7,15 +7,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public abstract class MinioReconciliation {
-    protected final MinioClient minioClient;
     public abstract String getName();
 
     /** Apply idempotent settings to minio.*/
-    public abstract void apply() throws Exception;
+    public abstract void apply(MinioClient client);
 
-    protected void createBucketIfNotExists(String name)  {
+    protected static void createBucketIfNotExists(MinioClient client, String name) {
         try {
-            boolean exists = minioClient.bucketExists(
+            boolean exists = client.bucketExists(
                     BucketExistsArgs.builder().bucket(name).build()
             );
             if (exists) {
@@ -23,7 +22,7 @@ public abstract class MinioReconciliation {
                 return;
             }
             System.out.printf("Creating bucket '%s'.", name);
-            minioClient.makeBucket(
+            client.makeBucket(
                     MakeBucketArgs.builder().bucket(name).build()
             );
             System.out.printf("Created bucket '%s' successfully.%n", name);

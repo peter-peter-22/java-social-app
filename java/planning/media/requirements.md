@@ -17,7 +17,7 @@ transformation can be used only from signed upload/get URLs or the admin API.
   tools and hardware (Lipvips, Ffmpeg)
 - Database: The id, home region, metadata and other parameters of the uploads are stored here.
 - Message queue: The async transformations are queued here.
-- Object storages: One object storage cluster per region for the files.
+- Object storages: One Minio object storage cluster per region for the files.
 
 ## Features
 

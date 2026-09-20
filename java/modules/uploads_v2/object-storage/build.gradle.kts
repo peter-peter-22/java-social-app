@@ -16,9 +16,6 @@ dependencies {
     // rest client for testing
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 
-    // modules
-    implementation(project(":uploads-api"))
-
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
     testFixturesApi("org.testcontainers:testcontainers-junit-jupiter")

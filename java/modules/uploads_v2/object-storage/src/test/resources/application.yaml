@@ -1,0 +1,5 @@
+minio:
+  reconciliation:
+    enabled: true
+  home-region: test
+  # The object storage of the "test" region is configured by the MinioIntegrationTest class.

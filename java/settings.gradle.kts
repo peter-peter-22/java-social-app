@@ -15,30 +15,14 @@ include(
     ":users-persistence",
     // uploads
     ":object-storage",
-    ":uploads-service",
-    ":uploads-api",
-    ":image-transformer",
-    ":image-transformer-2",
-    ":video-transformer",
-    ":uploads-persistence",
-    ":transformer-contracts",
-    ":transformer-contracts-2"
 )
 
 project(":users-api").projectDir = file("modules/users/users-api")
 project(":users-persistence").projectDir = file("modules/users/users-persistence")
 
-project(":object-storage").projectDir = file("modules/uploads/object-storage")
-project(":uploads-service").projectDir = file("modules/uploads/uploads-service")
-project(":uploads-api").projectDir = file("modules/uploads/uploads-api")
-project(":uploads-persistence").projectDir = file("modules/uploads/uploads-persistence")
-project(":image-transformer").projectDir = file("modules/uploads/image-transformer")
-project(":image-transformer-2").projectDir = file("modules/uploads/image-transformer-2")
-project(":video-transformer").projectDir = file("modules/uploads/video-transformer")
-project(":transformer-contracts").projectDir = file("modules/uploads/transformer-contracts")
-project(":transformer-contracts-2").projectDir = file("modules/uploads/transformer-contracts-2")
-
 project(":posts-persistence").projectDir = file("modules/posts/posts-persistence")
 project(":posts-api").projectDir = file("modules/posts/posts-api")
 
 project(":cockroach-db").projectDir = file("modules/cockroach-db")
+
+project(":object-storage").projectDir = file("modules/uploads_v2/object-storage")

@@ -19,9 +19,10 @@ public abstract class MinioIntegrationTest {
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
-        registry.add("minio.endpoint", MINIO_CONTAINER::getS3URL);
-        registry.add("minio.access-key", MINIO_CONTAINER::getUserName);
-        registry.add("minio.secret-key", MINIO_CONTAINER::getPassword);
+        registry.add("minio.regions[0].name", () -> "test");
+        registry.add("minio.regions[0].endpoint", MINIO_CONTAINER::getS3URL);
+        registry.add("minio.regions[0].access-key", MINIO_CONTAINER::getUserName);
+        registry.add("minio.regions[0].secret-key", MINIO_CONTAINER::getPassword);
     }
 
     @Test

@@ -9,36 +9,17 @@
         </processorPath>
         <module name="java.cockroach-db.main" />
         <module name="java.posts-api.main" />
-        <module name="com.example.java.uploads-api.main" />
-        <module name="java.image-transformer-2.test" />
-        <module name="com.example.java.uploads-api.testFixtures" />
-        <module name="com.example.java.uploads-service.testFixtures" />
-        <module name="com.example.java.uploads-service.test" />
-        <module name="java.transformer-contracts-2.test" />
-        <module name="java.transformer-contracts-2.main" />
+        <module name="com.example.java.object-storage.test~1" />
         <module name="java.users-api.main" />
         <module name="java.users-persistence.testFixtures" />
         <module name="java.users-persistence.test" />
-        <module name="com.example.java.uploads-persistence.test" />
         <module name="java.cockroach-db.test" />
         <module name="java.posts-persistence.test" />
-        <module name="com.example.java.uploads-api.test" />
-        <module name="com.example.java.object-storage.main" />
-        <module name="com.example.java.image-transformer.test" />
-        <module name="java.video-transformer.test" />
         <module name="java.posts-persistence.main" />
         <module name="java.users-api.test" />
-        <module name="java.image-transformer-2.main" />
-        <module name="com.example.java.uploads-service.main" />
-        <module name="java.transformer-contracts.test" />
-        <module name="com.example.java.object-storage.test" />
-        <module name="java.transformer-contracts.main" />
+        <module name="com.example.java.object-storage.main~1" />
         <module name="java.posts-api.test" />
         <module name="java.users-persistence.main" />
-        <module name="java.video-transformer.main" />
-        <module name="com.example.java.uploads-persistence.testFixtures" />
-        <module name="com.example.java.image-transformer.main" />
-        <module name="com.example.java.uploads-persistence.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="24" />
@@ -49,9 +30,13 @@
       <module name="com.example.java.image-transformer.main" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.test" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.main" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.main~1" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.test" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.testFixtures~1" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.test~1" options="-parameters -parameters" />
       <module name="com.example.java.uploads-api.main" options="-parameters -parameters" />
       <module name="com.example.java.uploads-api.test" options="-parameters -parameters" />
       <module name="com.example.java.uploads-api.testFixtures" options="-parameters -parameters" />
