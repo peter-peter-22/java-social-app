@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="start the upload v2 directory, copy the usable legacy code">
-      <change afterPath="$PROJECT_DIR$/guides/parallel.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main~1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test~1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test.iml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/java-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/global/GlobalObjectStorageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/global/GlobalObjectRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +50,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="object-storage" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="object-storage" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -464,7 +468,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="com.example.java.image-transformer.main" />
+      <module name="java.image-transformer.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.image_transformer.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -956,7 +960,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refractor TaskServiceTest" />
     <MESSAGE value="refractor FileStreamProcessingManager" />
     <MESSAGE value="update messages" />
     <MESSAGE value="fix warning in TaskServiceTest" />
@@ -981,7 +984,8 @@
     <MESSAGE value="update plan" />
     <MESSAGE value="improve codex skill, remove over-engineered text" />
     <MESSAGE value="start the upload v2 directory, copy the usable legacy code" />
-    <option name="LAST_COMMIT_MESSAGE" value="start the upload v2 directory, copy the usable legacy code" />
+    <MESSAGE value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

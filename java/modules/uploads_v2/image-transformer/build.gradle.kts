@@ -21,12 +21,9 @@ dependencies {
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
     // modules
-    testImplementation(testFixtures(project(":uploads-api")))
 
     implementation(project(":object-storage"))
 
-    api(project(":transformer-contracts-2"))
-    testImplementation(project(":transformer-contracts-2"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -47,12 +44,6 @@ testing {
                 implementation("com.squareup.okhttp3:mockwebserver3:5.0.0-alpha.12")
 
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
-
-                implementation(project(":uploads-api"))
-                implementation(testFixtures(project(":uploads-api")))
-
-                implementation(project(":transformer-contracts-2"))
-                implementation(testFixtures(project(":transformer-contracts-2")))
             }
 
             targets {

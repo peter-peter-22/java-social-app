@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/modules/cockroach-db" />
             <option value="$PROJECT_DIR$/modules/posts/posts-api" />
             <option value="$PROJECT_DIR$/modules/posts/posts-persistence" />
+            <option value="$PROJECT_DIR$/modules/uploads_v2/image-transformer" />
             <option value="$PROJECT_DIR$/modules/uploads_v2/object-storage" />
             <option value="$PROJECT_DIR$/modules/users/users-api" />
             <option value="$PROJECT_DIR$/modules/users/users-persistence" />

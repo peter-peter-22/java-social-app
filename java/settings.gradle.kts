@@ -15,6 +15,7 @@ include(
     ":users-persistence",
     // uploads
     ":object-storage",
+    ":image-transformer"
 )
 
 project(":users-api").projectDir = file("modules/users/users-api")
@@ -26,3 +27,4 @@ project(":posts-api").projectDir = file("modules/posts/posts-api")
 project(":cockroach-db").projectDir = file("modules/cockroach-db")
 
 project(":object-storage").projectDir = file("modules/uploads_v2/object-storage")
+project(":image-transformer").projectDir = file("modules/uploads_v2/image-transformer")
