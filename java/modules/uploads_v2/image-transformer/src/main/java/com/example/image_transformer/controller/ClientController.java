@@ -1,6 +1,6 @@
 package com.example.image_transformer.controller;
 
-import com.example.image_transformer.api.ImageUploadRequest;
+import com.example.image_transformer.api.dto.ImageUploadRequest;
 import com.example.image_transformer.task_service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
