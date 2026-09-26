@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
+      <change afterPath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/media/requirements_v2.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/signed_upload.puml" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/signed_upload.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,16 +273,16 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Application.executor": "Run",
     "Spring Boot.DemoApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
+    "git.auto.fetch.suggestion.counter": "1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/planning/media",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -301,11 +302,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/planning/media" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2" />
       <recent name="$PROJECT_DIR$/planning" />
-      <recent name="$PROJECT_DIR$/modules/uploads" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/planning/media" />
@@ -315,11 +316,11 @@
       <recent name="$PROJECT_DIR$/guides/tests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.image_transformer.controller" />
       <recent name="com.example.object_storage.regional" />
       <recent name="com.example.object_storage.global.internal.regional_repository" />
       <recent name="com.example.object_storage.global.internal" />
       <recent name="com.example.uploads_api.v2.uploads.upload_registry" />
-      <recent name="com.example.uploads_service_4.upload_service_2" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.java [:object-storage:test]">
@@ -980,12 +981,12 @@
     <MESSAGE value="refractor upload DTOs and their usage" />
     <MESSAGE value="fix unintended comparison function in BlockingTransformerRestApiTests" />
     <MESSAGE value="fix the error that stops the test on failure instead of throwing in TransformationRestIT" />
-    <MESSAGE value="wip" />
     <MESSAGE value="update plan" />
     <MESSAGE value="improve codex skill, remove over-engineered text" />
     <MESSAGE value="start the upload v2 directory, copy the usable legacy code" />
     <MESSAGE value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
+    <MESSAGE value="wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

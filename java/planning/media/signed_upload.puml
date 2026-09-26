@@ -12,8 +12,8 @@ participant MainApp
 database MainDB
 endbox
 
-box Media
-participant MediaApp
+box Upload
+participant UploadApp
 endbox
 
 group requesting upload
@@ -29,13 +29,13 @@ MainApp-->Client: upload parameters + signature
 end
 
 group uploading
-Client->MediaApp: upload parameters + signature + file
-note over MediaApp: *validation, registration, transformations, object storage*
+Client->UploadApp: upload parameters + signature + file
+note over UploadApp: *validation, registration, transformations, object storage*
 group webhook
-MediaApp->MainApp: upload identity and metadata
+UploadApp->MainApp: upload identity and metadata
 MainApp->MainDB: update the status of the upload key to ready
 end
-MediaApp-->Client: upload identity and metadata
+UploadApp-->Client: upload identity and metadata
 end
 
 group submit post
