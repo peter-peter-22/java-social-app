@@ -1,4 +1,4 @@
-package com.example.image_transformer.api.dto;
+package com.example.uploads_service.api.dto;
 
 import com.example.image_transformer.api.authentication.AuthenticationType;
 import lombok.Builder;

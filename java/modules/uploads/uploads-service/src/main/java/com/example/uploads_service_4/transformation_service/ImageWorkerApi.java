@@ -1,4 +1,4 @@
-package com.example.uploads_service_4.transformation_service;
+package com.example.uploads_service.transformation_service;
 
 import com.example.uploads_api.v2.transformations.tasks.ImageTask;
 

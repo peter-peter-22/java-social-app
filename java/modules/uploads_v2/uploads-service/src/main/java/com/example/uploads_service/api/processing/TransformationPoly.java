@@ -1,9 +1,4 @@
-package com.example.image_transformer.api.processing;
-
-import com.example.image_transformer.api.transformations.operations.ImageEncodings;
-import com.example.image_transformer.api.transformations.operations.TransformationOperations;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+package com.example.uploads_service.api.processing;
 
 public class TransformationPoly {
 //    @JsonTypeInfo(

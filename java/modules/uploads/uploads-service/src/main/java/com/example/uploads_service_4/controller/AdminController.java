@@ -1,4 +1,4 @@
-package com.example.uploads_service_4.controller;
+package com.example.uploads_service.controller;
 
 public class AdminController {
 }

@@ -1,4 +1,4 @@
-package com.example.uploads_service_4.upload_service_2;
+package com.example.uploads_service.upload_service_2;
 
 import com.example.uploads_persistence.upload_repository.Upload;
 
