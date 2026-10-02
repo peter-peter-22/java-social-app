@@ -1,7 +1,7 @@
-package com.example.uploads_service_4.controller;
+package com.example.uploads_service.controller;
 
 import com.example.object_storage.repository.ObjectStorageRepository;
-import com.example.uploads_service_4.upload_service_2.SignedUploadMetadata;
+import com.example.uploads_service.upload_service_2.SignedUploadMetadata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,11 +1,11 @@
-package com.example.uploads_service_4.upload_service_2;
+package com.example.uploads_service.upload_service_2;
 
 import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.global.PutGlobalObjectArgs;
 import com.example.uploads_api.v2.transformations.tasks.ImageTask;
 import com.example.uploads_api.v2.uploads.upload_registry.*;
-import com.example.uploads_service_4.transformation_service.ImageWorkerApi;
-import com.example.uploads_service_4.transformation_service.NamedImageTransformationRepository;
+import com.example.uploads_service.transformation_service.ImageWorkerApi;
+import com.example.uploads_service.transformation_service.NamedImageTransformationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
