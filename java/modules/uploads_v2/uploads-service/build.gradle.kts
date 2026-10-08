@@ -9,7 +9,7 @@ dependencies {
 	// modules
 	implementation(project(":object-storage"))
 	testImplementation(testFixtures(project(":object-storage")))
-
+    implementation(project(":object-storage"))
 
 
 

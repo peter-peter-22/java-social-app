@@ -24,14 +24,9 @@ note right: upload parameters + signature + file
 
 activate UploadApi
 
-    UploadApi->UploadApi: verify signature and parameters
-    UploadApi->UploadApi: get the object storage path and region
-    UploadApi->UploadApi: get the transformations
-    note over UploadApi
-        any transformation source in the request
-        (upload preset / named transformation / transformation string)
-        must be converted to plain transformations (DB is probably involved)
-    end note
+    UploadApi->UploadApi: verify signature and constraints
+    UploadApi->UploadDb:  transformation names
+    UploadDb-->UploadApi: transformation parameters
     UploadApi->ObjectStorage: upload temporary staging object
     UploadApi->ImageProcessor: POST /transform
     note right: transformation instructions and upload identity

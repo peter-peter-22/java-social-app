@@ -12,16 +12,21 @@
         <module name="java.posts-persistence.main" />
         <module name="java.posts-api.main" />
         <module name="java.users-api.test" />
+        <module name="java.uploads-service.testFixtures" />
+        <module name="java.uploads-service.test" />
         <module name="java.image-transformer.test" />
+        <module name="java.uploads-service.main" />
         <module name="java.users-api.main" />
         <module name="com.example.java.object-storage.test" />
         <module name="java.users-persistence.testFixtures" />
+        <module name="java.upload-registry.main" />
         <module name="java.users-persistence.test" />
         <module name="java.cockroach-db.test" />
         <module name="java.posts-persistence.test" />
         <module name="java.posts-api.test" />
         <module name="java.users-persistence.main" />
         <module name="com.example.java.object-storage.main" />
+        <module name="java.upload-registry.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="25" />
@@ -153,6 +158,10 @@
       <module name="java.transformer-contracts.main" options="-parameters -parameters" />
       <module name="java.transformer-contracts.test" options="-parameters -parameters" />
       <module name="java.transformer-contracts.testFixtures" options="-parameters -parameters" />
+      <module name="java.upload-registry" options="-parameters -parameters" />
+      <module name="java.upload-registry.main" options="-parameters -parameters" />
+      <module name="java.upload-registry.test" options="-parameters -parameters" />
+      <module name="java.upload-registry.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads-api" options="-parameters -parameters" />
       <module name="java.uploads-api.main" options="-parameters -parameters" />
       <module name="java.uploads-api.test" options="-parameters -parameters" />

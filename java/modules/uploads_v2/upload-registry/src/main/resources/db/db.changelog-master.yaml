@@ -1,0 +1,21 @@
+databaseChangeLog:
+
+  - includeAll:
+      path: changelog/uploads
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/named_transformations
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/image_metadata
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/video_metadata
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/derived
+      relativeToChangelogFile: true

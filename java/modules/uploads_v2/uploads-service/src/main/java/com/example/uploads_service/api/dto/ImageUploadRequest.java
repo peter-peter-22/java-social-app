@@ -1,6 +1,6 @@
 package com.example.uploads_service.api.dto;
 
-import com.example.image_transformer.api.authentication.AuthenticationType;
+import com.example.uploads_service.api.authentication.AuthenticationType;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

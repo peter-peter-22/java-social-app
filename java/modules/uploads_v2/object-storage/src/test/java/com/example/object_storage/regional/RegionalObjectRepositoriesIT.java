@@ -33,13 +33,12 @@ public class RegionalObjectRepositoriesIT extends MinioIntegrationTest {
     @Test
         // Short test for CRUD operations on the local object storage.
     void managesObjectsInTheHomeRegion() throws IOException {
-        var repository = regionalObjectRepositories.getLocal();
+        var repository = regionalObjectRepositories.getByRegion(REGION);
         var source = new ClassPathResource("test.txt").getFile().toPath();
         var content = Files.readAllBytes(source);
         var uploadedKey = randomObjectKey();
         var putKey = randomObjectKey();
 
-        assertThat(repository).isSameAs(regionalObjectRepositories.getByRegion(REGION));
         assertThat(repository.objectExists(existsArgs(uploadedKey))).isFalse();
 
         repository.uploadObject(UploadLocalObjectArgs.builder()

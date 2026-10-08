@@ -7,6 +7,9 @@ version = "0.0.1-SNAPSHOT"
 
 dependencies {
 
+    // jpa
+    api("org.springframework.boot:spring-boot-starter-data-jpa")
+
 	// driver
 	runtimeOnly("org.postgresql:postgresql")
 

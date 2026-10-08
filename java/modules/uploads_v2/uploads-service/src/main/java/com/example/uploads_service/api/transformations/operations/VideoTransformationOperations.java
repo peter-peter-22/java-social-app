@@ -1,6 +1,6 @@
 package com.example.uploads_service.api.transformations.operations;
 
-import com.example.uploads_api.uploads.FileType;
+import com.example.uploads_service.api.uploads.FileType;
 import lombok.Builder;
 import org.jspecify.annotations.NonNull;
 
@@ -11,11 +11,6 @@ public record VideoTransformationOperations(
 
     @Override
     public @NonNull FileType getFormat() {
-        return encoding.fileType();
-    }
-
-    public static VideoTransformationOperationsBuilder builderWithDefaults() {
-        return builder()
-                .encoding(VideoEncodings.Mp4.builder().build());
+        return encoding.getFileType();
     }
 }

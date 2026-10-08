@@ -43,4 +43,8 @@ public class GlobalObjectRepository {
     public void putObject(String region, PutLocalObjectArgs args) {
         regionalObjectRepositories.getByRegion(region).putObject(args);
     }
+
+    public String getHomeRegion() {
+        return regionalObjectRepositories.getHomeRegion();
+    }
 }

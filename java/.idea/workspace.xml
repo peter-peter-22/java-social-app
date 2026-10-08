@@ -5,10 +5,91 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/planning/media/requirements_v2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/guides/error codes.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/guides/liquibase.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/java/com/example/cockroach_db/ForeignKeyErrorReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/java/com/example/cockroach_db/SQLErrorCodes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/001-index-timestamp.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/test/java/com/example/cockroach_db/ConnectionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/test/java/com/example/cockroach_db/TestApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/testFixtures/resources/database-test.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/cockroach-db/src/test/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/guides/error codes.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/guides/liquibase.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derived/000-create-derived-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/image_metadata/000-create-image-metadata-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-named-transformations-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/001-index-name-and-created-at.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/001-index-created-at.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/video_metadata/000-create-video-metadata-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/TestApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryIT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/DisplayType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/InsertUpload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/OriginalUploadRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/Upload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/UploadKeyTakenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/UploadStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/ImageProcessingApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/ImageProcessingTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/media/signed_upload.puml" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/signed_upload.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/lazy_transformation_sessions/000-create-lazy-transformations-sessions-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/lazy_transformation_sessions/000-create-lazy-transformations-sessions-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/pending_lazy_transformations/000-create-pending-lazy-transformations-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/pending_lazy_transformations/000-create-pending-lazy-transformations-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/posts/000-create-posts-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/posts/000-create-posts-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/uploads/001-index-timestamp.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/posts/001-index-name-and-created-at.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/changelog/users/000-create-users-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/users/000-create-users-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/resources/database-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/resources/database-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/RegionalObjectRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/RegionalObjectRepositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/regional/RegionalObjectRepositoriesIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage/regional/RegionalObjectRepositoriesIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/dto/ImageUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/dto/ImageUploadRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/processing/ImageUploadTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/processing/TransformationPoly.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/processing/UploadTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/ImageTransformationConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/InsertNamedImageTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/ImageUploadPreset.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/NamedImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/NamedImageTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/NamedTransformation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/TransformationResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/UploadPreset.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageEncodings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/TransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/TransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoEncodings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/requirements.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/requirements_v2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,15 +157,15 @@
         <option value="AnnotationType" />
         <option value="Spring Component" />
         <option value="Spring Repository" />
-        <option value="Exception" />
         <option value="Spring Service" />
         <option value="Dockerfile" />
         <option value="Kotlin File" />
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Interface" />
+        <option value="Exception" />
         <option value="Record" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -222,7 +303,7 @@
     "Gradle.TransformationServiceMarkAsReadyTests.executor": "Run",
     "Gradle.TransformationServiceMarkTests.executor": "Run",
     "Gradle.TransformationServiceTests.executor": "Run",
-    "Gradle.UploadRepositoryIT.executor": "Debug",
+    "Gradle.UploadRepositoryIT.executor": "Run",
     "Gradle.UploadRepositoryIT.testEmptyUpdate.executor": "Run",
     "Gradle.UploadRepositoryIT.testStatusUpdate.executor": "Run",
     "Gradle.UploadRepositoryIT.testUploadUpdate.executor": "Debug",
@@ -273,6 +354,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Application.executor": "Run",
     "Spring Boot.DemoApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
@@ -282,7 +364,7 @@
     "git.auto.fetch.suggestion.counter": "1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/planning/media",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derivative",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -302,35 +384,35 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/planning/media" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/test/java/com/example/object_storage" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2" />
-      <recent name="$PROJECT_DIR$/planning" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derivative" />
+      <recent name="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/posts" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/video_metadata" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/image_metadata" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelogs" />
       <recent name="$PROJECT_DIR$/planning/media" />
-      <recent name="$PROJECT_DIR$/modules/uploads/uploads-service/guides" />
-      <recent name="$PROJECT_DIR$/.codex" />
-      <recent name="$PROJECT_DIR$/modules/posts" />
-      <recent name="$PROJECT_DIR$/guides/tests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.cockroach_db" />
+      <recent name="com.example.uploads_service.named_transformation_repository" />
+      <recent name="com.example.uploads_service.api.uploads" />
       <recent name="com.example.image_transformer.controller" />
       <recent name="com.example.object_storage.regional" />
-      <recent name="com.example.object_storage.global.internal.regional_repository" />
-      <recent name="com.example.object_storage.global.internal" />
-      <recent name="com.example.uploads_api.v2.uploads.upload_registry" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:object-storage:test]">
+  <component name="RunManager" selected="Gradle.UploadRepositoryIT">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="BlockingImageTransformerRestApiTests.testVideoApi" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ConnectionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -341,9 +423,36 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-service:test" />
+            <option value=":upload-registry:test" />
             <option value="--tests" />
-            <option value="&quot;com.example.uploads_service.transformation_service.BlockingImageTransformerRestApiTests.testVideoApi&quot;" />
+            <option value="&quot;com.example.upload_registry.ConnectionTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UploadRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":upload-registry:test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.upload_registry.upload.UploadRepositoryIT&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -419,31 +528,6 @@
         <option name="taskNames">
           <list>
             <option value=":object-storage:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="java [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -560,11 +644,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UploadRepositoryIT" />
+        <item itemvalue="Gradle.ConnectionTest" />
         <item itemvalue="Gradle.java [:object-storage:test]" />
         <item itemvalue="Gradle.java [:image-transformer:dockerIT]" />
         <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
-        <item itemvalue="Gradle.java [test]" />
-        <item itemvalue="Gradle.BlockingImageTransformerRestApiTests.testVideoApi" />
       </list>
     </recent_temporary>
   </component>

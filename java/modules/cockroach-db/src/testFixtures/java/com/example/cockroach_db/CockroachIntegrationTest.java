@@ -35,4 +35,8 @@ public abstract class CockroachIntegrationTest {
     void testConnection() {
         assertThat(COCKROACH_CONTAINER.isRunning()).isTrue();
     }
+
+    @Test
+    void contextLoads() {
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.uploads_service.api.transformations.operations;
 
-import com.example.image_transformer.api.uploads.FileType;
+import com.example.uploads_service.api.uploads.FileType;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked

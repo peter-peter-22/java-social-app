@@ -1,8 +1,6 @@
 package com.example.uploads_service.api.transformations.operations;
 
-import com.example.image_transformer.api.transformations.operations.HasVideoQuality;
-import com.example.image_transformer.api.transformations.operations.VideoEncodingPreset;
-import com.example.image_transformer.api.uploads.FileType;
+import com.example.uploads_service.api.uploads.FileType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Builder;
