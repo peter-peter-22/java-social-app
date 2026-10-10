@@ -12,9 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class UploadRepositoryIT extends CockroachIntegrationTest {
     @Autowired
-    private UploadRepository uploadRepository;
+    private UploadCrudRepository uploadRepository;
     @Autowired
-    private ImageMetadataRepository imageMetadataRepository;
+    private ImageMetadataCrudRepository imageMetadataRepository;
 
     private UploadEntity insertUpload() {
         return uploadRepository.save(
@@ -38,7 +38,7 @@ public class UploadRepositoryIT extends CockroachIntegrationTest {
     @Test
     void theInsertedImageMetadataShouldBeSaved() {
         var insertedUpload = insertUpload();
-        var referenceUpload = uploadRepository.getReferenceById(insertedUpload.getInternalId());
+        var referenceUpload = uploadRepository.getReferenceById(insertedUpload.getId());
         var insertedMetadata = imageMetadataRepository.save(
                 ImageMetadataEntity.builder()
                         .upload(referenceUpload)

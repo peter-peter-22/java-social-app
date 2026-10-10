@@ -4,7 +4,6 @@ import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.regional.args.PutLocalObjectArgs;
 import com.example.uploads_service.api.dto.ImageUploadRequest;
 import com.example.uploads_service.api.transformations.NamedImageTransformation;
-import com.example.uploads_service.api.uploads.*;
 import com.example.uploads_service.named_transformation_repository.NamedTransformationRepository;
 import com.example.uploads_service.processing.ImageProcessingApi;
 import com.example.uploads_service.processing.ImageProcessingTask;

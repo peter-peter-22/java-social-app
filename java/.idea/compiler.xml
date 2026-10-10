@@ -18,6 +18,7 @@
         <module name="java.uploads-service.main" />
         <module name="java.users-api.main" />
         <module name="com.example.java.object-storage.test" />
+        <module name="java.upload-api.test" />
         <module name="java.users-persistence.testFixtures" />
         <module name="java.upload-registry.main" />
         <module name="java.users-persistence.test" />
@@ -27,6 +28,7 @@
         <module name="java.users-persistence.main" />
         <module name="com.example.java.object-storage.main" />
         <module name="java.upload-registry.test" />
+        <module name="java.upload-api.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="25" />

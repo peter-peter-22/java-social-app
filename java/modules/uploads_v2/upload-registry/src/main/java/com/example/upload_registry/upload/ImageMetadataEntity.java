@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @SuperBuilder
 @Table(name = "image_metadata")
-public class ImageMetadataEntity {
+public final class ImageMetadataEntity {
     @Id
     private UUID uploadId;
     @Column(nullable = false, name = "resolution_x")

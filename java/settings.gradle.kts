@@ -17,7 +17,8 @@ include(
     ":object-storage",
     ":image-transformer",
     ":uploads-service",
-    ":upload-registry"
+    ":upload-registry",
+    ":upload-api"
 )
 
 project(":users-api").projectDir = file("modules/users/users-api")
@@ -32,3 +33,4 @@ project(":object-storage").projectDir = file("modules/uploads_v2/object-storage"
 project(":image-transformer").projectDir = file("modules/uploads_v2/image-transformer")
 project(":uploads-service").projectDir = file("modules/uploads_v2/uploads-service")
 project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registry")
+project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")

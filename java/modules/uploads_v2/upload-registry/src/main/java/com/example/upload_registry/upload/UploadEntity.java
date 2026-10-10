@@ -14,14 +14,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "upload")
 @SuperBuilder
-final class UploadEntity {
+public final class UploadEntity {
     @Column(nullable = false, length = 100)
     private String uploadKey;
     @Column(nullable = false)
     private String homeRegion;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID internalId;
+    private UUID id;
     @Column(nullable = false, length = 10)
     private String mimeType;
     @Column(nullable = false)
