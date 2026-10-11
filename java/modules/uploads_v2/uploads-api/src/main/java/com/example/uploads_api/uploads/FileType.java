@@ -14,8 +14,7 @@ public enum FileType {
     WEBP(new String[]{"webp"}, new String[]{"image/webp"}, "image/webp", UploadType.IMAGE),
     MP4(new String[]{"mp4"}, new String[]{"video/mp4"}, "video/mp4", UploadType.VIDEO),
     HLS(new String[]{"m3u8"}, new String[]{"application/vnd.apple.mpegurl"}, "application/vnd.apple.mpegurl", UploadType.VIDEO),
-    HLS_SEGMENT(new String[]{"ts"}, new String[]{"video/MP2T"}, "video/MP2T", UploadType.VIDEO),
-    ANY(null, null, "application/octet-stream", UploadType.RAW);
+    HLS_TS_SEGMENT(new String[]{"ts"}, new String[]{"video/MP2T"}, "video/MP2T", UploadType.VIDEO);
 
     @NonNull
     private final String[] extensions;

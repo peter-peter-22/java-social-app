@@ -1,11 +1,13 @@
 package com.example.uploads_api.transformations.operations;
 
 import com.example.uploads_api.uploads.FileType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
+import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -23,10 +25,12 @@ public class VideoEncodings {
             @JsonSubTypes.Type(value = Mp4.class, name = "mp4")
     })
     public sealed interface VideoEncoding permits Mp4, Hls {
+        @JsonIgnore
         FileType getFileType();
     }
 
     @Builder
+    @Jacksonized
     @Getter
     public final class Mp4 implements VideoEncoding, HasVideoQuality {
         @Nullable Integer videoBitrate;
@@ -44,6 +48,7 @@ public class VideoEncodings {
     }
 
     @Builder
+    @Jacksonized
     public final class Hls implements VideoEncoding {
         @Override
         public FileType getFileType() {

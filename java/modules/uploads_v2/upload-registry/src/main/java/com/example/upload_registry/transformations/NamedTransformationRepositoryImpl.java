@@ -41,20 +41,20 @@ public class NamedTransformationRepositoryImpl implements NamedTransformationRep
     @Override
     @Transactional
     public void set(InsertNamedImageTransformation insert) {
-        // Insert the named transformation if it does not exist, otherwise do nothing.
-        var named = namedTransformationCrudRepository.save(
-                NamedTransformationEntity.builder()
-                        .name(insert.name())
-                        .build()
-        );
-        // Insert the version if this name and operations pair does not exist yet.
-        var version = transformationVersionRepository.save(
-                TransformationVersionEntity.builder()
-                        .namedTransformationEntity(named)
-                        .operations(insert.operations())
-                        .build()
-        );
-        // Set the id of the currently active version on the named transformations.
+        var named = namedTransformationCrudRepository.findByName(insert.name())
+                .orElseGet(() -> namedTransformationCrudRepository.save(
+                        NamedTransformationEntity.builder()
+                                .name(insert.name())
+                                .build()
+                ));
+        var version = transformationVersionRepository
+                .findByNamedTransformationEntityAndOperations(named, insert.operations())
+                .orElseGet(() -> transformationVersionRepository.save(
+                        TransformationVersionEntity.builder()
+                                .namedTransformationEntity(named)
+                                .operations(insert.operations())
+                                .build()
+                ));
         named.setCurrentVersionEntity(version);
         namedTransformationCrudRepository.save(named);
     }
