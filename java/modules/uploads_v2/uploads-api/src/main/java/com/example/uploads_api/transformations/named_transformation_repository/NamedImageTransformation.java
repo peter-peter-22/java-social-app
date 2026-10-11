@@ -15,5 +15,5 @@ import java.util.UUID;
 public final class NamedImageTransformation {
     private String name;
     private ImageTransformationOperations operations;
-    private UUID internalId;
+    private UUID currentVersionId;
 }

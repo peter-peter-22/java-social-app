@@ -15,7 +15,7 @@ public record ImageTransformationOperations(
         @Nullable
         AspectRatio aspectRatio,
         ImageEncodings.ImageEncoding encoding
-) implements TransformationOperations {
+) implements PolymorphicTransformationOperations {
 
     @Override
     public FileType getFormat() {

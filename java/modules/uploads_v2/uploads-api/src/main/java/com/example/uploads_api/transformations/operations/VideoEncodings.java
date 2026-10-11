@@ -1,6 +1,8 @@
 package com.example.uploads_api.transformations.operations;
 
 import com.example.uploads_api.uploads.FileType;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -11,15 +13,15 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 public class VideoEncodings {
 
-//    @JsonTypeInfo(
-//            use = JsonTypeInfo.Id.NAME,
-//            include = JsonTypeInfo.As.PROPERTY,
-//            property = "type"
-//    )
-//    @JsonSubTypes({
-//            @JsonSubTypes.Type(value = Hls.class, name = "hls"),
-//            @JsonSubTypes.Type(value = Mp4.class, name = "mp4")
-//    })
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.PROPERTY,
+            property = "type"
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Hls.class, name = "hls"),
+            @JsonSubTypes.Type(value = Mp4.class, name = "mp4")
+    })
     public sealed interface VideoEncoding permits Mp4, Hls {
         FileType getFileType();
     }

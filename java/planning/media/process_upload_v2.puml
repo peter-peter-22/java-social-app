@@ -12,7 +12,7 @@ box Upload service
     participant ImageProcessor
     database MediaDB
     database ObjectStorage
-    queue Kafka
+    queue MQ
 endbox
 
 participant MainApp
@@ -25,49 +25,45 @@ note right: upload parameters + signature + file
 activate UploadApi
 
     UploadApi->UploadApi: verify signature and constraints
-    UploadApi->UploadDb:  transformation names
-    UploadDb-->UploadApi: transformation parameters
     UploadApi->ObjectStorage: upload temporary staging object
-    UploadApi->ImageProcessor: POST /transform
-    note right: transformation instructions and upload identity
+    UploadApi->MediaDB: register the upload with pending status
+    opt if eager transformations are requested
+        UploadApi->MediaDB: register the requested transformations with pending status
+    end
+    UploadApi->MediaDB: transformation names
+    MediaDB-->UploadApi: transformation parameters
 
-    activate ImageProcessor
-        ImageProcessor->ObjectStorage: get the staging object
-        ObjectStorage-->ImageProcessor: the original file
-        ImageProcessor->ImageProcessor: get image metadata
 
-        alt if incoming transformation is requested
-            ImageProcessor->ImageProcessor: process the incoming transformation, overwrite the original file
-        end
+    alt async processing
+        UploadApi->MQ: queue the processing
+    else blocking processing
+        UploadApi->ImageProcessor: POST /transform
+        activate ImageProcessor
+            ImageProcessor->ObjectStorage: get the staging object
+            ObjectStorage-->ImageProcessor: the original file
+            ImageProcessor->ImageProcessor: get image metadata
 
-        ImageProcessor->MediaDB: register the upload with pending status
-        note right: upload key, home region, uploading status, date, metadata
-        ImageProcessor->ObjectStorage: upload to the local object storage
+            opt if incoming transformation is requested
+                ImageProcessor->ImageProcessor: process the incoming transformation, overwrite the original file
+            end
 
-        opt eager transformations requested
-            alt blocking
+            opt if eager transformation is requested
                 ImageProcessor->ImageProcessor: process the transformation
                 ImageProcessor->ObjectStorage: save the transformed variants
-                ImageProcessor->MediaDB: register the transformed variants
-                ImageProcessor->MediaDB: update the upload status to ready
-                opt webhook
-                    ImageProcessor -> MainApp: POST transformation-complete webhook
-                end
-            else async
-                ImageProcessor->ImageProcessor: queue the transformation
-                ImageProcessor->MediaDB: update the upload status to processing
-                note over ImageProcessor: the ready status and the webhook are handled by the event consumer
+                ImageProcessor->MediaDB: update the status of the variants
             end
-        end
 
-        ImageProcessor-->Client: upload identity and metadata
-    deactivate ImageProcessor
+            opt if webhook requested
+                ImageProcessor -> MainApp: POST transformation-complete webhook
+            end
+        deactivate ImageProcessor
+    end
 deactivate UploadApi
 
 
 == Async processing ==
 
-Kafka -> ImageProcessor: ProcessingJob(uploadId, transformations)
+MQ -> ImageProcessor: ProcessingJob(uploadId, transformations)
 
 activate ImageProcessor
 

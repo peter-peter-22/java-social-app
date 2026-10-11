@@ -4,6 +4,6 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 public interface NamedTransformationRepository {
-    NamedImageTransformation findByName(String name) throws NamedTransformationNotFoundException;
+    NamedImageTransformation get(String name) throws NamedTransformationNotFoundException;
     void set(InsertNamedImageTransformation value);
 }

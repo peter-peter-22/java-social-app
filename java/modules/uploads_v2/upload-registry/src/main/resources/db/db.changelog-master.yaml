@@ -9,10 +9,6 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - includeAll:
-      path: changelog/transformation_versions
-      relativeToChangelogFile: true
-
-  - includeAll:
       path: changelog/image_metadata
       relativeToChangelogFile: true
 

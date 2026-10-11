@@ -4,6 +4,8 @@ import com.example.uploads_api.transformations.named_transformation_repository.I
 import com.example.uploads_api.transformations.named_transformation_repository.NamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationNotFoundException;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
+import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Repository;
@@ -12,16 +14,48 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 @NullMarked
 public class NamedTransformationRepositoryImpl implements NamedTransformationRepository {
-    private final NamedTransformationCrudRepository crud;
+    private final NamedTransformationCrudRepository namedTransformationCrudRepository;
+    private final TransformationVersionRepository transformationVersionRepository;
 
-
+    // Get a named transformation and its operations if it exists, otherwise throw
     @Override
-    public NamedImageTransformation findByName(String name) throws NamedTransformationNotFoundException {
-        throw new NamedTransformationNotFoundException(name);
+    public NamedImageTransformation get(String name) throws NamedTransformationNotFoundException {
+        var named = namedTransformationCrudRepository.findByName(name)
+                .orElseThrow(() -> new NamedTransformationNotFoundException("Could not find named transformation with name: " + name));
+
+        var version = named.getCurrentVersionEntity();
+        if (version == null) throw new RuntimeException("Could not find current version entity");
+
+        var operations = named.getCurrentVersionEntity().getOperations();
+        if (operations instanceof ImageTransformationOperations imageOperations) {
+            return NamedImageTransformation.builder()
+                    .name(named.getName())
+                    .operations(imageOperations)
+                    .currentVersionId(version.getId())
+                    .build();
+        }
+
+        throw new RuntimeException("This is not an image transformation");
     }
 
     @Override
-    public void set(InsertNamedImageTransformation value) {
-
+    @Transactional
+    public void set(InsertNamedImageTransformation insert) {
+        // Insert the named transformation if it does not exist, otherwise do nothing.
+        var named = namedTransformationCrudRepository.save(
+                NamedTransformationEntity.builder()
+                        .name(insert.name())
+                        .build()
+        );
+        // Insert the version if this name and operations pair does not exist yet.
+        var version = transformationVersionRepository.save(
+                TransformationVersionEntity.builder()
+                        .namedTransformationEntity(named)
+                        .operations(insert.operations())
+                        .build()
+        );
+        // Set the id of the currently active version on the named transformations.
+        named.setCurrentVersionEntity(version);
+        namedTransformationCrudRepository.save(named);
     }
 }

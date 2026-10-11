@@ -10,7 +10,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class UploadRepositoryIT extends CockroachIntegrationTest {
+public class UploadCrudRepositoryIT extends CockroachIntegrationTest {
     @Autowired
     private UploadCrudRepository uploadRepository;
     @Autowired

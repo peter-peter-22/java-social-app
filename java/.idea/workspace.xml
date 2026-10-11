@@ -5,61 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/derived/DerivedCrudRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/derived/DerivedEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationCrudRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/TransformationVersionEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/transformation_versions/000-create-transformation-versions-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/InsertNamedImageTransformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/TransformationVersionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/PolymorphicTransformationOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/ImageMetadataCrudRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derived/000-create-derived-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derived/000-create-derived-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/image_metadata/000-create-image-metadata-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/image_metadata/000-create-image-metadata-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-named-transformations-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-named-transformations-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/001-index-created-at.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/video_metadata/000-create-video-metadata-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/video_metadata/000-create-video-metadata-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/TransformationVersionEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/TransformationVersionEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-named-transformations-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-transformations-tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/001-index-name-and-created-at.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/transformation_versions/000-create-transformation-versions-table.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/authentication/AuthenticationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/authentication/AuthenticationType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/dto/ImageUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageUploadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/NamedImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedImageTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/AspectRatio.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/AspectRatio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/HasVideoQuality.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/HasVideoQuality.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageEncodings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/LimitResolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/LimitResolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/TransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/TransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoEncodingPreset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoEncodingPreset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoEncodings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoQualityPreset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoQualityPreset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/DisplayType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/DisplayType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/FileType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/InsertUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/OriginalUploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/Upload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/Upload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/UploadKeyTakenException.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadKeyTakenException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/UploadStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/api/uploads/UploadType.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadCrudRepositoryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/InsertNamedImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/InsertNamedImageTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedImageTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageEncodings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/ImageTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoEncodings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/operations/VideoTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/process_upload_v2.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,6 +244,7 @@
     "Gradle.TransformationServiceMarkAsReadyTests.executor": "Run",
     "Gradle.TransformationServiceMarkTests.executor": "Run",
     "Gradle.TransformationServiceTests.executor": "Run",
+    "Gradle.UploadCrudRepositoryIT.executor": "Run",
     "Gradle.UploadRepositoryIT.executor": "Run",
     "Gradle.UploadRepositoryIT.testEmptyUpdate.executor": "Run",
     "Gradle.UploadRepositoryIT.testStatusUpdate.executor": "Run",
@@ -375,7 +347,7 @@
       <recent name="com.example.image_transformer.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.UploadRepositoryIT">
+  <component name="RunManager" selected="Gradle.UploadCrudRepositoryIT">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -396,6 +368,33 @@
             <option value=":upload-registry:test" />
             <option value="--tests" />
             <option value="&quot;com.example.upload_registry.ConnectionTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UploadCrudRepositoryIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":upload-registry:test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.upload_registry.upload.UploadCrudRepositoryIT&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -448,31 +447,6 @@
         <option name="taskNames">
           <list>
             <option value=":image-transformer:dockerIT" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="java [:image-transformer:integrationTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":image-transformer:integrationTest" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -614,11 +588,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UploadCrudRepositoryIT" />
         <item itemvalue="Gradle.UploadRepositoryIT" />
         <item itemvalue="Gradle.ConnectionTest" />
         <item itemvalue="Gradle.java [:object-storage:test]" />
         <item itemvalue="Gradle.java [:image-transformer:dockerIT]" />
-        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
       </list>
     </recent_temporary>
   </component>

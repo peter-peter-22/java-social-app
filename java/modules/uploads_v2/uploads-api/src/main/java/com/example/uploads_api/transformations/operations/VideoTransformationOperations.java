@@ -2,15 +2,16 @@ package com.example.uploads_api.transformations.operations;
 
 import com.example.uploads_api.uploads.FileType;
 import lombok.Builder;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
 @Builder
+@NullMarked
 public record VideoTransformationOperations(
-        VideoEncodings.@NonNull VideoEncoding encoding
-) implements TransformationOperations {
+        VideoEncodings.VideoEncoding encoding
+) implements PolymorphicTransformationOperations {
 
     @Override
-    public @NonNull FileType getFormat() {
+    public FileType getFormat() {
         return encoding.getFileType();
     }
 }

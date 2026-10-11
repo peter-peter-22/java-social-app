@@ -3,8 +3,10 @@ package com.example.upload_registry.transformations;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -24,7 +26,10 @@ public final class NamedTransformationEntity {
     @CreationTimestamp
     private Instant createdAt;
     @Column(nullable = false)
-    @CreationTimestamp
+    @UpdateTimestamp
     private Instant lastUpdatedAt;
-    private UUID currentVersionId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "currentVersionId")
+    @Setter
+    private TransformationVersionEntity currentVersionEntity;
 }
