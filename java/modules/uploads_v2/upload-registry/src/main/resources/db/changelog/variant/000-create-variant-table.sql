@@ -5,6 +5,7 @@ create table if not exists variant (
     upload_id uuid not null references upload (id) ON DELETE CASCADE,
     transformation_version_id uuid not null references transformation_versions(id),
     created_at timestamptz not null default now(),
+    asset_id uuid not null unique references stored_asset(id),
 
     primary key (upload_id, transformation_version_id)
 );

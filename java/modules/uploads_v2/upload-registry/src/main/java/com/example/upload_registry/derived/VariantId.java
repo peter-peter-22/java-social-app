@@ -1,0 +1,18 @@
+package com.example.upload_registry.derived;
+
+import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serializable;
+import java.util.UUID;
+
+@Embeddable
+@Getter
+@NoArgsConstructor
+@SuperBuilder
+public final class VariantId implements Serializable {
+    private UUID uploadId;
+    private UUID transformationVersionId;
+}

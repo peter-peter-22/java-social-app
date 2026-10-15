@@ -1,6 +1,8 @@
 package com.example.upload_registry.upload;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
+import com.example.upload_registry.stored_asset.StoredAssetCrudRepository;
+import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,14 +17,26 @@ public class UploadCrudRepositoryIT extends CockroachIntegrationTest {
     private UploadCrudRepository uploadRepository;
     @Autowired
     private ImageMetadataCrudRepository imageMetadataRepository;
+    @Autowired
+    private VideoMetadataCrudRepository videoMetadataRepository;
+    @Autowired
+    private StoredAssetCrudRepository storedAssetRepository;
 
     private UploadEntity insertUpload() {
+        var storedAsset = storedAssetRepository.save(
+                StoredAssetEntity.builder()
+                        .homeRegion("eu-1")
+                        .objectBucket("uploads")
+                        .objectPath("my-object")
+                        .directory(false)
+                        .mimeType("image/jpeg")
+                        .bytes(1000)
+                        .build()
+        );
         return uploadRepository.save(
                 UploadEntity.builder()
                         .uploadKey("my_image" + UUID.randomUUID())
-                        .homeRegion("eu-1")
-                        .mimeType("image/jpg")
-                        .bytes(1000)
+                        .storedAsset(storedAsset)
                         .build()
         );
     }
@@ -38,10 +52,10 @@ public class UploadCrudRepositoryIT extends CockroachIntegrationTest {
     @Test
     void theInsertedImageMetadataShouldBeSaved() {
         var insertedUpload = insertUpload();
-        var referenceUpload = uploadRepository.getReferenceById(insertedUpload.getId());
+        var referenceAsset = storedAssetRepository.getReferenceById(insertedUpload.getStoredAsset().getId());
         var insertedMetadata = imageMetadataRepository.save(
                 ImageMetadataEntity.builder()
-                        .upload(referenceUpload)
+                        .storedAsset(referenceAsset)
                         .resolutionX(1920)
                         .resolutionY(1080)
                         .build()
@@ -49,6 +63,37 @@ public class UploadCrudRepositoryIT extends CockroachIntegrationTest {
         var foundUpload = uploadRepository.getByUploadKeyWithImageMetadata(insertedUpload.getUploadKey());
 
         assertThat(foundUpload.isPresent()).isTrue();
-        assertThat(foundUpload.get().imageMetadata.getUploadId()).isEqualTo(insertedMetadata.getUploadId());
+        assertThat(foundUpload.get().getStoredAsset().getImageMetadata().getAssetId())
+                .isEqualTo(insertedMetadata.getAssetId());
+    }
+
+    @Test
+    void theInsertedVideoMetadataShouldBeSaved() {
+        var insertedUpload = insertUpload();
+        var referenceAsset = storedAssetRepository.getReferenceById(insertedUpload.getStoredAsset().getId());
+        var insertedMetadata = videoMetadataRepository.save(
+                VideoMetadataEntity.builder()
+                        .storedAsset(referenceAsset)
+                        .resolutionX(1920)
+                        .resolutionY(1080)
+                        .durationSeconds(12.5)
+                        .build()
+        );
+        var foundUpload = uploadRepository.getByUploadKeyWithVideoMetadata(insertedUpload.getUploadKey());
+
+        assertThat(foundUpload).isPresent();
+        assertThat(foundUpload.orElseThrow().getStoredAsset().getVideoMetadata().getAssetId())
+                .isEqualTo(insertedMetadata.getAssetId());
+    }
+
+    @Test
+    void findsUploadAndStoredAssetWithoutMetadata() {
+        var insertedUpload = insertUpload();
+
+        var foundUpload = uploadRepository.getByUploadKeyWithStoredAsset(insertedUpload.getUploadKey());
+
+        assertThat(foundUpload).isPresent();
+        assertThat(foundUpload.orElseThrow().getStoredAsset().getId())
+                .isEqualTo(insertedUpload.getStoredAsset().getId());
     }
 }

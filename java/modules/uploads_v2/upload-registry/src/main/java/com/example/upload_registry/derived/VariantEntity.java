@@ -1,5 +1,6 @@
 package com.example.upload_registry.derived;
 
+import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
 import com.example.upload_registry.upload.UploadEntity;
 import jakarta.persistence.*;
@@ -9,23 +10,27 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
-@Table(name = "derived")
+@Table(name = "variant")
 @Getter
 @NoArgsConstructor
 @SuperBuilder
-public final class DerivedEntity {
-    @Id
-    private UUID id;
+public final class VariantEntity {
+    @EmbeddedId
+    private VariantId id;
+    @MapsId("uploadId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploadId")
+    @JoinColumn(name = "upload_id")
     private UploadEntity uploadEntity;
+    @MapsId("transformationVersionId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transformationVersionId")
+    @JoinColumn(name = "transformation_version_id")
     private TransformationVersionEntity transformationVersionEntity;
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "asset_id", nullable = false)
+    private StoredAssetEntity storedAsset;
 }

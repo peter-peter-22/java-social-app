@@ -1,5 +1,6 @@
 package com.example.upload_registry.upload;
 
+import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +18,13 @@ import java.util.UUID;
 public final class UploadEntity {
     @Column(nullable = false, length = 100)
     private String uploadKey;
-    @Column(nullable = false)
-    private String homeRegion;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(nullable = false, length = 10)
-    private String mimeType;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "asset_id", nullable = false)
+    private StoredAssetEntity storedAsset;
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
-    @Column(nullable = false)
-    private Integer bytes;
-
-    @OneToOne(mappedBy = "upload")
-    ImageMetadataEntity imageMetadata;
 }

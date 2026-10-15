@@ -1,5 +1,6 @@
 package com.example.upload_registry.upload;
 
+import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Table(name = "image_metadata")
 public final class ImageMetadataEntity {
     @Id
-    private UUID uploadId;
+    private UUID assetId;
     @Column(nullable = false, name = "resolution_x")
     private Integer resolutionX;
     @Column(nullable = false, name = "resolution_y")
@@ -22,6 +23,6 @@ public final class ImageMetadataEntity {
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploadId")
-    private UploadEntity upload;
+    @JoinColumn(name = "asset_id")
+    private StoredAssetEntity storedAsset;
 }
