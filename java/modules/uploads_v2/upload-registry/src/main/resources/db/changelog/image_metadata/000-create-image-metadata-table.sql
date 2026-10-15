@@ -2,7 +2,7 @@
 
 --changeset me:1
 create table if not exists image_metadata(
-    upload_id uuid primary key references upload(id) ON DELETE CASCADE,
+    asset_id uuid primary key references stored_asset(id) ON DELETE CASCADE,
     resolution_x integer not null,
     resolution_y integer not null
 );

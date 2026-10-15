@@ -1,11 +1,11 @@
 databaseChangeLog:
 
   - includeAll:
-      path: changelog/uploads
+      path: changelog/stored_asset
       relativeToChangelogFile: true
 
   - includeAll:
-      path: changelog/named_transformations
+      path: changelog/uploads
       relativeToChangelogFile: true
 
   - includeAll:
@@ -17,5 +17,9 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - includeAll:
-      path: changelog/derived
+      path: changelog/transformations
+      relativeToChangelogFile: true
+
+  - includeAll:
+      path: changelog/variant
       relativeToChangelogFile: true

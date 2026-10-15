@@ -14,10 +14,11 @@
     <file url="file://$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/001-index-timestamp.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/users/000-create-users-table.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/derived/000-create-derived-table.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/image_metadata/000-create-image-metadata-table.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations/000-create-transformations-tables.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/stored_asset/000-create-stored-asset-table.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/transformations/000-create-transformations-tables.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/variant/000-create-variant-table.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/video_metadata/000-create-video-metadata-table.sql" dialect="GenericSQL" />
   </component>
 </project>
