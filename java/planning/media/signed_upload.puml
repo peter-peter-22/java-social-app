@@ -19,8 +19,6 @@ endbox
 group requesting upload
 Client->MainApp: file metadata, upload category
 MainApp->MainApp: can this user create a new upload?
-MainApp->MainApp: is the upload metadata good for this category?
-MainApp->MainApp: get the upload preset name of this category
 MainApp->MainDB: store the pending upload
 note over MainDB: upload key, category, date, pending status
 return unique upload key

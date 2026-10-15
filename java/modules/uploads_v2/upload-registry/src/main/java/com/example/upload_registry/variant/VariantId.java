@@ -1,4 +1,4 @@
-package com.example.upload_registry.derived;
+package com.example.upload_registry.variant;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

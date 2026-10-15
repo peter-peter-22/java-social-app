@@ -1,4 +1,4 @@
-package com.example.upload_registry.derived;
+package com.example.upload_registry.variant;
 
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
