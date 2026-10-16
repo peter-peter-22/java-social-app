@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImplIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/ImageMetadataCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/ImageMetadataCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/VideoMetadataCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/VideoMetadataCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/InsertUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/InsertUpload.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,6 +233,7 @@
     "Gradle.UploadRepositoryIT.testStatusUpdate.executor": "Run",
     "Gradle.UploadRepositoryIT.testUploadUpdate.executor": "Debug",
     "Gradle.UploadRepositoryIT.testUserForeignKey.executor": "Run",
+    "Gradle.UploadRepositoryImplIT.executor": "Run",
     "Gradle.UploadTransformationGetOutputIdTests.executor": "Run",
     "Gradle.UploadTransformationTests.executor": "Run",
     "Gradle.UploadVariantRepositoryIT.executor": "Run",
@@ -325,38 +331,11 @@
       <recent name="com.example.uploads_service.api.uploads" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.NamedTransformationRepositoryImplIT">
+  <component name="RunManager" selected="Gradle.UploadRepositoryImplIT">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="ConnectionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":upload-registry:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.upload_registry.ConnectionTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
     <configuration name="NamedTransformationRepositoryImplIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -454,6 +433,33 @@
             <option value=":upload-registry:test" />
             <option value="--tests" />
             <option value="&quot;com.example.upload_registry.upload.UploadRepositoryIT&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="UploadRepositoryImplIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":upload-registry:test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.upload_registry.upload.UploadRepositoryImplIT&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -570,11 +576,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UploadRepositoryImplIT" />
         <item itemvalue="Gradle.NamedTransformationRepositoryImplIT" />
         <item itemvalue="Gradle.UploadEntityTest" />
         <item itemvalue="Gradle.UploadCrudRepositoryIT" />
         <item itemvalue="Gradle.UploadRepositoryIT" />
-        <item itemvalue="Gradle.ConnectionTest" />
       </list>
     </recent_temporary>
   </component>

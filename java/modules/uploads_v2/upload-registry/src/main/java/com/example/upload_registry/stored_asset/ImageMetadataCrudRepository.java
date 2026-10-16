@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-interface ImageMetadataCrudRepository extends JpaRepository<ImageMetadataEntity, UUID> {
+public interface ImageMetadataCrudRepository extends JpaRepository<ImageMetadataEntity, UUID> {
 }

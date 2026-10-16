@@ -23,4 +23,6 @@ interface UploadCrudRepository extends JpaRepository<UploadEntity, UUID> {
     @EntityGraph(attributePaths = "storedAsset")
     @Query("SELECT u FROM UploadEntity u WHERE u.uploadKey = :key")
     Optional<UploadEntity> getByUploadKeyWithStoredAsset(String key);
+
+    void deleteByUploadKey(String key);
 }

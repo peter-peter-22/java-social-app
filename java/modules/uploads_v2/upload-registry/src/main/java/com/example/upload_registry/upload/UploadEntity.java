@@ -6,6 +6,7 @@ import com.example.uploads_api.uploads.UploadStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,6 +32,7 @@ public final class UploadEntity {
     private Instant createdAt;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Setter
     private UploadStatus status;
 
     public Upload toModel() {
