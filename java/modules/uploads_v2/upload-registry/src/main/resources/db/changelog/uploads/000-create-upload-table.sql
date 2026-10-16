@@ -6,7 +6,7 @@ create table if not exists upload (
     id uuid primary key default gen_random_uuid(),
     asset_id uuid not null unique references stored_asset(id),
     created_at timestamptz not null default now(),
-    status smallint not null
+    status type varchar(20) not null
 );
 
 --rollback drop table if exists upload;

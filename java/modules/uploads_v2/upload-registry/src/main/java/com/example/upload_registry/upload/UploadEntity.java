@@ -1,6 +1,7 @@
 package com.example.upload_registry.upload;
 
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
+import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,5 +30,16 @@ public final class UploadEntity {
     @CreationTimestamp
     private Instant createdAt;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UploadStatus status;
+
+    public Upload toModel() {
+        return Upload.builder()
+                .uploadKey(uploadKey)
+                .id(id)
+                .createdAt(createdAt)
+                .status(status)
+                .storedAsset(storedAsset.toModel())
+                .build();
+    }
 }

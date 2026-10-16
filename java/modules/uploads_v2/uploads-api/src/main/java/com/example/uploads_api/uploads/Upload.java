@@ -17,7 +17,6 @@ public final class Upload {
     private final String uploadKey;
     private final UUID id;
     private final Instant createdAt;
-    private final int bytes;
     private final UploadStatus status;
     private final StoredAsset storedAsset;
 }
