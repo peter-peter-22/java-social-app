@@ -1,7 +1,5 @@
 package com.example.upload_registry.stored_asset;
 
-import com.example.upload_registry.upload.ImageMetadataEntity;
-import com.example.upload_registry.upload.VideoMetadataEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,8 +26,12 @@ public final class StoredAssetEntity {
     private String objectPath;
     @Column(nullable = false)
     private boolean directory;
+    @Column()
+    private String entryPoint;
     @Column(nullable = false, length = 50)
     private String mimeType;
+    @Column(length = 20)
+    private String extension;
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
@@ -38,8 +40,8 @@ public final class StoredAssetEntity {
     @Column(length = 20)
     private String deliveryProtocol;
 
-    @OneToOne(mappedBy = "storedAsset", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "storedAsset")
     private ImageMetadataEntity imageMetadata;
-    @OneToOne(mappedBy = "storedAsset", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "storedAsset")
     private VideoMetadataEntity videoMetadata;
 }

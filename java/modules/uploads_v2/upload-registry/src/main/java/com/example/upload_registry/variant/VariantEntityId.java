@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
-public final class VariantId implements Serializable {
+public final class VariantEntityId implements Serializable {
     private UUID uploadId;
     private UUID transformationVersionId;
 }

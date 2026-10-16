@@ -18,7 +18,7 @@ import java.time.Instant;
 @SuperBuilder
 public final class VariantEntity {
     @EmbeddedId
-    private VariantId id;
+    private VariantEntityId id;
     @MapsId("uploadId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upload_id")
