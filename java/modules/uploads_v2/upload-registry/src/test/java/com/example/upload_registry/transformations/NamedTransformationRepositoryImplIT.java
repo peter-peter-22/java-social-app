@@ -2,6 +2,7 @@ package com.example.upload_registry.transformations;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
 import com.example.uploads_api.transformations.named_transformation_repository.InsertNamedImageTransformation;
+import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationNotFoundException;
 import com.example.uploads_api.transformations.operations.ImageEncodings;
 import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 class NamedTransformationRepositoryImplIT extends CockroachIntegrationTest {
@@ -52,6 +54,13 @@ class NamedTransformationRepositoryImplIT extends CockroachIntegrationTest {
 
         assertThat(namedTransformationRepository.get(name).getOperations()).isEqualTo(newOperations);
         assertThat(transformationVersionRepository.countByNamedTransformationEntity_Name(name)).isEqualTo(2);
+    }
+
+    @Test
+    void missingTransformationsThrowsException() {
+        var name = name();
+        assertThatThrownBy(() -> namedTransformationRepository.get(name))
+                .isInstanceOf(NamedTransformationNotFoundException.class);
     }
 
     private String name() {

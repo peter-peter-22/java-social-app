@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/Upload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/Upload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImplIT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +325,7 @@
       <recent name="com.example.uploads_service.api.uploads" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.UploadEntityTest">
+  <component name="RunManager" selected="Gradle.NamedTransformationRepositoryImplIT">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -572,8 +570,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.UploadEntityTest" />
         <item itemvalue="Gradle.NamedTransformationRepositoryImplIT" />
+        <item itemvalue="Gradle.UploadEntityTest" />
         <item itemvalue="Gradle.UploadCrudRepositoryIT" />
         <item itemvalue="Gradle.UploadRepositoryIT" />
         <item itemvalue="Gradle.ConnectionTest" />
