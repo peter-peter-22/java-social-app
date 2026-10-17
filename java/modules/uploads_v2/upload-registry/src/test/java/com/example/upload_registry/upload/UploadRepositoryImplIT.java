@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -87,9 +88,23 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
         var toInsert = insertUpload("status");
         var uploadId = uploadRepository.insert(toInsert);
 
-        uploadRepository.updateStatus(uploadId, UploadStatus.UPLOADED);
+        var statistics = entityManagerFactory.unwrap(SessionFactory.class).getStatistics();
+        statistics.setStatisticsEnabled(true);
+        var statementsBefore = statistics.getPrepareStatementCount();
+        try {
+            uploadRepository.updateStatus(uploadId, UploadStatus.UPLOADED);
+            assertThat(statistics.getPrepareStatementCount()).isEqualTo(statementsBefore + 1);
+        } finally {
+            statistics.setStatisticsEnabled(false);
+        }
 
         assertThat(uploadRepository.findByKey(toInsert.getUploadKey()).getStatus()).isEqualTo(UploadStatus.UPLOADED);
+    }
+
+    @Test
+    void updatingMissingUploadThrows() {
+        assertThatThrownBy(() -> uploadRepository.updateStatus(UUID.randomUUID(), UploadStatus.UPLOADED))
+                .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

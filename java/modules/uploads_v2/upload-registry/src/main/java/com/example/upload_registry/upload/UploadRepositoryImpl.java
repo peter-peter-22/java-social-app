@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @NullMarked
@@ -37,7 +38,9 @@ public class UploadRepositoryImpl implements UploadRepository {
     @Override
     @Transactional
     public void updateStatus(UUID uploadId, UploadStatus status) {
-        uploadCrudRepository.findById(uploadId).orElseThrow().setStatus(status);//TODO optimize
+        if (uploadCrudRepository.updateStatus(uploadId, status) == 0) {
+            throw new NoSuchElementException("No value present");
+        }
     }
 
     @Override
