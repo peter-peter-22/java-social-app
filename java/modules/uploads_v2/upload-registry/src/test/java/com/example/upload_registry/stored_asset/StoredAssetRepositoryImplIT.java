@@ -55,12 +55,13 @@ class StoredAssetRepositoryImplIT extends CockroachIntegrationTest {
     }
 
     private InsertStoredAsset insert() {
+        // Here we intentionally use an impossible combination of single image file and video directory parameters to test of all parameters work.
         return InsertStoredAsset.builder()
                 .homeRegion("eu-central-1")
                 .objectBucket("uploads")
                 .objectPath("images/" + UUID.randomUUID() + ".jpg")
-                .directory(false)
-                .entryPoint("index")
+                .directory(true)
+                .entryPoint("master.m3u8")
                 .mimeType("image/jpeg")
                 .extension("jpg")
                 .bytes(42)

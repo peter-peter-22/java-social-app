@@ -7,7 +7,7 @@ create table if not exists stored_asset (
     object_bucket varchar(50) not null,
     object_path varchar(50) not null,
     directory boolean not null,
-    entry_point varchar(50) not null,
+    entry_point varchar(50),
     mime_type varchar(50) not null,
     extension varchar(10),
     created_at timestamptz not null default now(),

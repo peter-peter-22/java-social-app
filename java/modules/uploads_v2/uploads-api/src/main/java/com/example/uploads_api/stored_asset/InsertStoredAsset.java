@@ -17,7 +17,7 @@ public class InsertStoredAsset {
     private final String objectBucket;
     private final String objectPath;
     private final boolean directory;
-    private final String entryPoint;
+    @Nullable private final String entryPoint;
     private final String mimeType;
     private final String extension;
     private final Integer bytes;
