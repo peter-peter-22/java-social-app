@@ -41,7 +41,7 @@ public final class UploadEntity {
                 .id(id)
                 .createdAt(createdAt)
                 .status(status)
-                .storedAsset(storedAsset.toModel())
+                .storedAsset(StoredAssetEntity.toModel(storedAsset))
                 .build();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.upload_registry.stored_asset;
 
-import com.example.uploads_api.stored_asset.ImageMetadata;
 import com.example.uploads_api.stored_asset.StoredAsset;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -48,29 +47,21 @@ public final class StoredAssetEntity {
     @OneToOne(mappedBy = "storedAsset")
     private VideoMetadataEntity videoMetadata;
 
-    public StoredAsset toModel() {
+    public static StoredAsset toModel(StoredAssetEntity entity) {
         return StoredAsset.builder()
-                .id(id)
-                .homeRegion(homeRegion)
-                .objectBucket(objectBucket)
-                .objectPath(objectPath)
-                .directory(directory)
-                .entryPoint(entryPoint)
-                .mimeType(mimeType)
-                .extension(extension)
-                .createdAt(createdAt)
-                .bytes(bytes)
-                .deliveryProtocol(deliveryProtocol)
-                .imageMetadata(toModel(imageMetadata))
-                .build();
-    }
-
-    private static @Nullable ImageMetadata toModel(@Nullable ImageMetadataEntity imageMetadata) {
-        if (imageMetadata == null) return null;
-
-        return ImageMetadata.builder()
-                .resolutionX(imageMetadata.getResolutionX())
-                .resolutionY(imageMetadata.getResolutionY())
+                .id(entity.getId())
+                .homeRegion(entity.getHomeRegion())
+                .objectBucket(entity.getObjectBucket())
+                .objectPath(entity.getObjectPath())
+                .directory(entity.isDirectory())
+                .entryPoint(entity.getEntryPoint())
+                .mimeType(entity.getMimeType())
+                .extension(entity.getExtension())
+                .createdAt(entity.getCreatedAt())
+                .bytes(entity.getBytes())
+                .deliveryProtocol(entity.getDeliveryProtocol())
+                .imageMetadata(entity.getImageMetadata() == null ? null : ImageMetadataEntity.toModel(entity.getImageMetadata()))
+                .videoMetadata(entity.getVideoMetadata() == null ? null : VideoMetadataEntity.toModel(entity.getVideoMetadata()))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.upload_registry.stored_asset;
 
+import com.example.uploads_api.stored_asset.ImageMetadata;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,11 @@ public final class ImageMetadataEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asset_id")
     private StoredAssetEntity storedAsset;
+
+    public static ImageMetadata toModel(ImageMetadataEntity imageMetadata) {
+        return ImageMetadata.builder()
+                .resolutionX(imageMetadata.getResolutionX())
+                .resolutionY(imageMetadata.getResolutionY())
+                .build();
+    }
 }

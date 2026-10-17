@@ -1,5 +1,6 @@
 package com.example.upload_registry.stored_asset;
 
+import com.example.uploads_api.stored_asset.VideoMetadata;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,12 @@ public final class VideoMetadataEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asset_id")
     private StoredAssetEntity storedAsset;
+
+    public static VideoMetadata toModel(VideoMetadataEntity videoMetadata) {
+        return VideoMetadata.builder()
+                .resolutionX(videoMetadata.getResolutionX())
+                .resolutionY(videoMetadata.getResolutionY())
+                .durationMilliseconds(videoMetadata.getDurationMilliseconds())
+                .build();
+    }
 }

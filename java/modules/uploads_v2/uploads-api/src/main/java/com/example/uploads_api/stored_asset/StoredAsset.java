@@ -26,4 +26,5 @@ public final class StoredAsset{
     private final Integer bytes;
     private final String deliveryProtocol;
     @Nullable private final ImageMetadata imageMetadata;
+    @Nullable private final VideoMetadata videoMetadata;
 }
