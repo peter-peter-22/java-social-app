@@ -3,6 +3,7 @@ package com.example.upload_registry.variant;
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
 import com.example.upload_registry.upload.UploadEntity;
+import com.example.uploads_api.variant.VariantStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,12 @@ import java.time.Instant;
 public final class VariantEntity {
     @EmbeddedId
     private VariantEntityId id;
+    @Column(nullable = false)
+    @CreationTimestamp
+    private Instant createdAt;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VariantStatus status;
     @MapsId("uploadId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upload_id")
@@ -27,9 +34,6 @@ public final class VariantEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transformation_version_id")
     private TransformationVersionEntity transformationVersionEntity;
-    @Column(nullable = false)
-    @CreationTimestamp
-    private Instant createdAt;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "asset_id", nullable = false)
     private StoredAssetEntity storedAsset;

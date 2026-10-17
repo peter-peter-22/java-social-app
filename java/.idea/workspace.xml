@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryImplIT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/InsertVariant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/variant/000-create-variant-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/variant/000-create-variant-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/Variant.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/Variant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,11 +326,11 @@
       <recent name="$PROJECT_DIR$/planning/media" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.uploads_api.variant" />
       <recent name="com.example.uploads_api.stored_asset" />
       <recent name="com.example.upload_registry.transformations" />
       <recent name="com.example.cockroach_db" />
       <recent name="com.example.uploads_service.named_transformation_repository" />
-      <recent name="com.example.uploads_service.api.uploads" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.UploadRepositoryImplIT">

@@ -1,7 +1,10 @@
 package com.example.uploads_api.variant;
 
 public interface VariantRepository {
-    // insert variant
-    // update variant status
-    // delete
+    VariantId save(InsertVariant upload);
+
+    void updateStatus(VariantId variantId, VariantStatus status);
+
+    /** Find the lastest variant created by the specified named transformation. */
+    Variant findByTransformationName(String transformationName);
 }
