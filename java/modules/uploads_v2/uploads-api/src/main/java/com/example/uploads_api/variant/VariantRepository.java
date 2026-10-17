@@ -6,5 +6,5 @@ public interface VariantRepository {
     void updateStatus(VariantId variantId, VariantStatus status);
 
     /** Find the lastest variant created by the specified named transformation. */
-    Variant findByTransformationName(String transformationName);
+    Variant findByTransformationName(String uploadKey, String transformationName);
 }
