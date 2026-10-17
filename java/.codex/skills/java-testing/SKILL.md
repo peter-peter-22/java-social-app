@@ -35,6 +35,7 @@ description: Write and maintain Java unit and integration tests using JUnit 5, A
   the project rules require them, including in test helpers and fixtures.
 - Prefer short, focused tests with clear arrange/act/assert structure. Use parameterized tests when multiple inputs
   share the same behavior.
+- Prefer the usage of `assertThat(foundAsset).usingRecursiveComparison()` and full equality checks over field by field comparisons to ensure that field added in the future won't be silently ignored by accident.
 
 ## Typical Pattern
 
