@@ -12,4 +12,6 @@ public interface UploadRepository {
     void updateStatus(UUID uploadId, UploadStatus status);
 
     Upload findByKey(String uploadKey);
+    Upload findImageByKey(String uploadKey);
+    Upload findVideoByKey(String uploadKey);
 }

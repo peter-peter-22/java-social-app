@@ -1,6 +1,7 @@
 package com.example.upload_registry.upload;
 
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
+import com.example.uploads_api.stored_asset.StoredAsset;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadStatus;
 import jakarta.persistence.*;
@@ -36,12 +37,24 @@ public final class UploadEntity {
     private UploadStatus status;
 
     public Upload toModel() {
+        return toModel(StoredAssetEntity.toModel(storedAsset, null, null));
+    }
+
+    public Upload toModelWithImageMetadata() {
+        return toModel(StoredAssetEntity.toModel(storedAsset, storedAsset.getImageMetadata(), null));
+    }
+
+    public Upload toModelWithVideoMetadata() {
+        return toModel(StoredAssetEntity.toModel(storedAsset, null, storedAsset.getVideoMetadata()));
+    }
+
+    private Upload toModel(StoredAsset asset) {
         return Upload.builder()
                 .uploadKey(uploadKey)
                 .id(id)
                 .createdAt(createdAt)
                 .status(status)
-                .storedAsset(StoredAssetEntity.toModel(storedAsset))
+                .storedAsset(asset)
                 .build();
     }
 }

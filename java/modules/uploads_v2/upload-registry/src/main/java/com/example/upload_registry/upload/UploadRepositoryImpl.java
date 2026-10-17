@@ -45,4 +45,16 @@ public class UploadRepositoryImpl implements UploadRepository {
     public Upload findByKey(String uploadKey) {
         return uploadCrudRepository.getByUploadKeyWithStoredAsset(uploadKey).orElseThrow().toModel();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Upload findImageByKey(String uploadKey) {
+        return uploadCrudRepository.getByUploadKeyWithImageMetadata(uploadKey).orElseThrow().toModelWithImageMetadata();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Upload findVideoByKey(String uploadKey) {
+        return uploadCrudRepository.getByUploadKeyWithVideoMetadata(uploadKey).orElseThrow().toModelWithVideoMetadata();
+    }
 }

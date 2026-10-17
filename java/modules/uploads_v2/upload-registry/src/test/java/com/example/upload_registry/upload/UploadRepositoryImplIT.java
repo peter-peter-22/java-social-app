@@ -6,13 +6,17 @@ import com.example.uploads_api.stored_asset.InsertStoredAsset;
 import com.example.uploads_api.stored_asset.StoredAssetRepository;
 import com.example.uploads_api.stored_asset.VideoMetadata;
 import com.example.uploads_api.uploads.InsertUpload;
+import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadKeyTakenException;
 import com.example.uploads_api.uploads.UploadStatus;
+import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
+import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -23,6 +27,8 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
     private UploadRepositoryImpl uploadRepository;
     @Autowired
     private StoredAssetRepository storedAssetRepository;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Test
     void insertsAndFindsUpload() {
@@ -44,11 +50,17 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
         var imageMetadata = ImageMetadata.builder().resolutionX(1920).resolutionY(1080).build();
         uploadRepository.insert(toInsert);
         storedAssetRepository.setImageMetadata(toInsert.getStoredAssetId(), imageMetadata);
+        storedAssetRepository.setVideoMetadata(toInsert.getStoredAssetId(), VideoMetadata.builder()
+                .resolutionX(1280).resolutionY(720).durationMilliseconds(1_000).build());
 
-        var found = uploadRepository.findByKey(toInsert.getUploadKey());
+        var found = findUsingOneStatement(() -> uploadRepository.findImageByKey(toInsert.getUploadKey()));
 
         assertThat(found.getStoredAsset().getImageMetadata()).isEqualTo(imageMetadata);
         assertThat(found.getStoredAsset().getVideoMetadata()).isNull();
+
+        var withoutMetadata = findUsingOneStatement(() -> uploadRepository.findByKey(toInsert.getUploadKey()));
+        assertThat(withoutMetadata.getStoredAsset().getImageMetadata()).isNull();
+        assertThat(withoutMetadata.getStoredAsset().getVideoMetadata()).isNull();
     }
 
     @Test
@@ -61,8 +73,10 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
                 .build();
         uploadRepository.insert(toInsert);
         storedAssetRepository.setVideoMetadata(toInsert.getStoredAssetId(), videoMetadata);
+        storedAssetRepository.setImageMetadata(toInsert.getStoredAssetId(), ImageMetadata.builder()
+                .resolutionX(1280).resolutionY(720).build());
 
-        var found = uploadRepository.findByKey(toInsert.getUploadKey());
+        var found = findUsingOneStatement(() -> uploadRepository.findVideoByKey(toInsert.getUploadKey()));
 
         assertThat(found.getStoredAsset().getVideoMetadata()).isEqualTo(videoMetadata);
         assertThat(found.getStoredAsset().getImageMetadata()).isNull();
@@ -85,6 +99,19 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
 
         assertThatThrownBy(() -> uploadRepository.insert(toInsert))
                 .isInstanceOf(UploadKeyTakenException.class);
+    }
+
+    private Upload findUsingOneStatement(Supplier<Upload> lookup) {
+        var statistics = entityManagerFactory.unwrap(SessionFactory.class).getStatistics();
+        statistics.setStatisticsEnabled(true);
+        var statementsBefore = statistics.getPrepareStatementCount();
+        try {
+            var found = lookup.get();
+            assertThat(statistics.getPrepareStatementCount()).isEqualTo(statementsBefore + 1);
+            return found;
+        } finally {
+            statistics.setStatisticsEnabled(false);
+        }
     }
 
     private InsertUpload insertUpload(String prefix) {

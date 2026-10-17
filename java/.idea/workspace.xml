@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.codex/skills/java-testing/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/.codex/skills/java-testing/SKILL.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadEntityTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload/UploadRepositoryImplIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/UploadRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

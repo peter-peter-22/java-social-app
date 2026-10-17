@@ -48,6 +48,11 @@ public final class StoredAssetEntity {
     private VideoMetadataEntity videoMetadata;
 
     public static StoredAsset toModel(StoredAssetEntity entity) {
+        return toModel(entity, entity.getImageMetadata(), entity.getVideoMetadata());
+    }
+
+    public static StoredAsset toModel(StoredAssetEntity entity, @Nullable ImageMetadataEntity imageMetadata,
+                                      @Nullable VideoMetadataEntity videoMetadata) {
         return StoredAsset.builder()
                 .id(entity.getId())
                 .homeRegion(entity.getHomeRegion())
@@ -60,8 +65,8 @@ public final class StoredAssetEntity {
                 .createdAt(entity.getCreatedAt())
                 .bytes(entity.getBytes())
                 .deliveryProtocol(entity.getDeliveryProtocol())
-                .imageMetadata(entity.getImageMetadata() == null ? null : ImageMetadataEntity.toModel(entity.getImageMetadata()))
-                .videoMetadata(entity.getVideoMetadata() == null ? null : VideoMetadataEntity.toModel(entity.getVideoMetadata()))
+                .imageMetadata(imageMetadata == null ? null : ImageMetadataEntity.toModel(imageMetadata))
+                .videoMetadata(videoMetadata == null ? null : VideoMetadataEntity.toModel(videoMetadata))
                 .build();
     }
 }
