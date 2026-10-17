@@ -16,6 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StoredAssetRepositoryImplIT extends CockroachIntegrationTest {
     @Autowired
     private StoredAssetRepositoryImpl storedAssetRepository;
+    @Autowired
+    private ImageMetadataCrudRepository imageMetadataCrudRepository;
+    @Autowired
+    private VideoMetadataCrudRepository videoMetadataCrudRepository;
 
     @Test
     void managesStoredAssetAndMetadata() {
@@ -40,6 +44,8 @@ class StoredAssetRepositoryImplIT extends CockroachIntegrationTest {
         storedAssetRepository.delete(asset.getId());
 
         assertThat(storedAssetRepository.findById(asset.getId())).isNull();
+        assertThat(imageMetadataCrudRepository.findById(asset.getId()).isPresent()).isFalse();
+        assertThat(videoMetadataCrudRepository.findById(asset.getId()).isPresent()).isFalse();
     }
 
     private InsertStoredAsset insert() {

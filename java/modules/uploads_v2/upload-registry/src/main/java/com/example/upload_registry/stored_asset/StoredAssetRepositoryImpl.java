@@ -46,15 +46,13 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     @Override
     @Transactional
     public void delete(UUID id) {
-        imageMetadataCrudRepository.deleteById(id);
-        videoMetadataCrudRepository.deleteById(id);
         storedAssetCrudRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public void setImageMetadata(UUID storedAssetId, ImageMetadata metadata) {
-        imageMetadataCrudRepository.save(ImageMetadataEntity.builder()
+        imageMetadataCrudRepository.saveAndFlush(ImageMetadataEntity.builder()
                 .storedAsset(storedAssetCrudRepository.getReferenceById(storedAssetId))
                 .resolutionX(metadata.getResolutionX())
                 .resolutionY(metadata.getResolutionY())
@@ -64,7 +62,7 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     @Override
     @Transactional
     public void setVideoMetadata(UUID storedAssetId, VideoMetadata metadata) {
-        videoMetadataCrudRepository.save(VideoMetadataEntity.builder()
+        videoMetadataCrudRepository.saveAndFlush(VideoMetadataEntity.builder()
                 .storedAsset(storedAssetCrudRepository.getReferenceById(storedAssetId))
                 .resolutionX(metadata.getResolutionX())
                 .resolutionY(metadata.getResolutionY())

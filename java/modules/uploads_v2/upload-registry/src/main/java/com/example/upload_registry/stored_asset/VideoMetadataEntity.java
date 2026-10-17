@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.UUID;
 
@@ -26,6 +28,7 @@ public final class VideoMetadataEntity {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asset_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private StoredAssetEntity storedAsset;
 
     public static VideoMetadata toModel(VideoMetadataEntity videoMetadata) {
