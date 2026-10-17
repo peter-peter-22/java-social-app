@@ -10,19 +10,7 @@ import java.util.UUID;
 
 @NullMarked
 interface UploadCrudRepository extends JpaRepository<UploadEntity, UUID> {
-    Optional<UploadEntity> getByUploadKey(String key);
-
-    @EntityGraph(attributePaths = {"storedAsset", "storedAsset.imageMetadata"})
-    @Query("SELECT u FROM UploadEntity u WHERE u.uploadKey = :key")
-    Optional<UploadEntity> getByUploadKeyWithImageMetadata(String key);
-
-    @EntityGraph(attributePaths = {"storedAsset", "storedAsset.videoMetadata"})
-    @Query("SELECT u FROM UploadEntity u WHERE u.uploadKey = :key")
-    Optional<UploadEntity> getByUploadKeyWithVideoMetadata(String key);
-
-    @EntityGraph(attributePaths = "storedAsset")
+    @EntityGraph(attributePaths = {"storedAsset", "storedAsset.imageMetadata", "storedAsset.videoMetadata"})
     @Query("SELECT u FROM UploadEntity u WHERE u.uploadKey = :key")
     Optional<UploadEntity> getByUploadKeyWithStoredAsset(String key);
-
-    void deleteByUploadKey(String key);
 }

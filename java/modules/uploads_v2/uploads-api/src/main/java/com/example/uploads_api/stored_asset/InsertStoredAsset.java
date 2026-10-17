@@ -23,4 +23,5 @@ public class InsertStoredAsset {
     private final Integer bytes;
     private final String deliveryProtocol;
     @Nullable private final UUID imageMetadataId;
+    @Nullable private final UUID videoMetadataId;
 }

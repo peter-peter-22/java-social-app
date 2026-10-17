@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @NullMarked
 public interface StoredAssetRepository {
-    StoredAsset insert(InsertStoredAsset insert);
+    UUID insert(InsertStoredAsset insert);
     @Nullable StoredAsset findById(UUID id);
     void delete(UUID id);
     void setImageMetadata(UUID storedAssetId, ImageMetadata metadata);

@@ -19,9 +19,8 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
 
     @Override
     @Transactional
-    public StoredAsset insert(InsertStoredAsset insert) {
-        return StoredAssetEntity.toModel(
-                storedAssetCrudRepository.saveAndFlush(StoredAssetEntity.builder()
+    public UUID insert(InsertStoredAsset insert) {
+        return storedAssetCrudRepository.saveAndFlush(StoredAssetEntity.builder()
                         .homeRegion(insert.getHomeRegion())
                         .objectBucket(insert.getObjectBucket())
                         .objectPath(insert.getObjectPath())
@@ -32,19 +31,18 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
                         .bytes(insert.getBytes())
                         .deliveryProtocol(insert.getDeliveryProtocol())
                         .build())
-        );
+                .getId();
     }
 
     @Override
     @Transactional(readOnly = true)
     public @Nullable StoredAsset findById(UUID id) {
-        return storedAssetCrudRepository.findById(id)
+        return storedAssetCrudRepository.findByIdWithMetadata(id)
                 .map(StoredAssetEntity::toModel)
                 .orElse(null);
     }
 
     @Override
-    @Transactional
     public void delete(UUID id) {
         storedAssetCrudRepository.deleteById(id);
     }

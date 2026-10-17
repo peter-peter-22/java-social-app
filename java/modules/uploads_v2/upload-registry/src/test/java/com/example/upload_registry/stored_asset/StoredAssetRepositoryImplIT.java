@@ -23,29 +23,35 @@ class StoredAssetRepositoryImplIT extends CockroachIntegrationTest {
 
     @Test
     void managesStoredAssetAndMetadata() {
-        var asset = storedAssetRepository.insert(insert());
-        var imageMetadata = ImageMetadata.builder().resolutionX(1920).resolutionY(1080).build();
-        var videoMetadata = VideoMetadata.builder()
-                .resolutionX(1920)
-                .resolutionY(1080)
-                .durationMilliseconds(1_000)
-                .build();
+        // insert
+        var inserted=insert();
+        var assetId = storedAssetRepository.insert(inserted);
+        var foundAsset = storedAssetRepository.findById(assetId);
 
-        assertThat(storedAssetRepository.findById(asset.getId())).isEqualTo(asset);
-
-        storedAssetRepository.setImageMetadata(asset.getId(), imageMetadata);
-        storedAssetRepository.setVideoMetadata(asset.getId(), videoMetadata);
-
-        var foundAsset = storedAssetRepository.findById(asset.getId());
         assertThat(foundAsset).isNotNull();
-        assertThat(foundAsset.getImageMetadata()).isEqualTo(imageMetadata);
-        assertThat(foundAsset.getVideoMetadata()).isEqualTo(videoMetadata);
+        assertThat(foundAsset.getId()).isEqualTo(assetId);
+        assertThat(foundAsset.getCreatedAt()).isNotNull();
+        assertThat(foundAsset).usingRecursiveComparison()
+                .ignoringFields("id", "createdAt", "imageMetadata", "videoMetadata")
+                .isEqualTo(inserted);
 
-        storedAssetRepository.delete(asset.getId());
+        // set metadata
+        var imageMetadata = ImageMetadata.builder().resolutionX(1920).resolutionY(1080).build();
+        var videoMetadata = VideoMetadata.builder().resolutionX(1920).resolutionY(1080).durationMilliseconds(1_000).build();
+        storedAssetRepository.setImageMetadata(assetId, imageMetadata);
+        storedAssetRepository.setVideoMetadata(assetId, videoMetadata);
+        var foundAssetWithMetadata = storedAssetRepository.findById(assetId);
 
-        assertThat(storedAssetRepository.findById(asset.getId())).isNull();
-        assertThat(imageMetadataCrudRepository.findById(asset.getId()).isPresent()).isFalse();
-        assertThat(videoMetadataCrudRepository.findById(asset.getId()).isPresent()).isFalse();
+        assertThat(foundAssetWithMetadata).isNotNull();
+        assertThat(foundAssetWithMetadata.getImageMetadata()).isEqualTo(imageMetadata);
+        assertThat(foundAssetWithMetadata.getVideoMetadata()).isEqualTo(videoMetadata);
+
+        // delete
+        storedAssetRepository.delete(assetId);
+
+        assertThat(storedAssetRepository.findById(assetId)).isNull();
+        assertThat(imageMetadataCrudRepository.findById(assetId).isPresent()).isFalse();
+        assertThat(videoMetadataCrudRepository.findById(assetId).isPresent()).isFalse();
     }
 
     private InsertStoredAsset insert() {
