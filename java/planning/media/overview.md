@@ -1,4 +1,4 @@
-# Upload service
+# Upload service overview
 
 ## Summary
 
@@ -10,7 +10,7 @@ Main conceptual differences compared to Cloudinary:
 - There are only named transformations, the client cannot set custom transformation parameters.
 - The upload response does not contain anything. The webhook transfers the file metadata instead.
 - Progress tracking webhook for async eager transformations.
-- All uploads must be signed.
+- All uploads require signature or admin key.
 
 ## Definitions
 
@@ -25,10 +25,10 @@ Main conceptual differences compared to Cloudinary:
   changed.
 - Upload request: A file upload with a defined upload key, signature, and optional eager+incoming transformations or
   other parameters.
-- Upload preset: A pre-defined upload request parameters. Any parameter can be overridden.
 - Read: The uploads and their variants can be read from the client.
 - On-demand transformation: A transformation that is executed during read and then cached.
 - Authorization: The access limitation of an upload. Some uploads are private. They require a signature to be read.
 - Completion webhook: A URL that is called after the upload and it's transformations are completed if provided.
 - Progress webhook: Webhook for async transformation progress tracking.
 - Media metadata: Video or image specific metadata (e.g., resolution) that is sent to the completion webhook.
+- Main application: The application that communicates with the upload service, has the admin key, can define transformations, can create signatures.
