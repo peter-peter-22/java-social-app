@@ -7,6 +7,10 @@ An upload can be created by a user with an upload request that has a valid signa
 The file, the parameters and the signature are uploaded together.
 Eager and incoming transformations happen after upload.
 
+Duplicated uploads, duplicated transformations should be prevented.
+A separate data format for pending uploads will might be necessary to make sure the
+uploads and transformations are atomic and idempotent.
+
 ### Reading
 When reading from the browser client, the upload service returns the searched file from the object storage.
 Some uploads require authentication.
