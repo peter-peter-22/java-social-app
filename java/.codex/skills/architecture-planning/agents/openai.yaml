@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture planning guidelines"
+  short_description: "Follow the existing industry standards"
+  default_prompt: "Use $architecture-planning to create a plan while following the guidelines."
