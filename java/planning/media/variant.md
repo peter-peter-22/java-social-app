@@ -1,4 +1,4 @@
-# Upload variants
+# Upload variants plan
 
 ## Expected behavior
 
@@ -28,6 +28,12 @@ A separate table that tracks the pending transformation and uploads will might b
 A unique key to each attempt will might be necessary to check to make an asynchronous process to know
 that it was supposed to be canceled and cannot write the result.
 
+### Eager retry steps and requirements
+An upload and it's eager transformations are retriable as long as the file is saved.
+The file upload is saved into a temporary staging file soon after the upload process starts.
+If the process is retried, it checks if the file exists. If not, the upload is failed, and it returns an error.
+The retries don't have other retry points after the upload, the whole thing restarts so it's must be idempotent.
+
 ### Eager transformation unrecoverable error
 When an error does not cause a retry, the whole upload is considered failed
 because it can be ready only after all transformation are done.
@@ -40,3 +46,42 @@ variant is overwritten in the registry only when the whole thing is complete.
 The access for this variant won't be blocked during the process.
 
 ## Practical use cases
+
+### Upload request with eager transformations
+A signed upload from the client can contain eager transformations.
+These are processed after the upload and the upload are considered ready only after they are done.
+These can be blocking or asynchronous.
+This means that all variants will be readable when the upload is ready.
+
+### Tracking
+In an ideal case, the main application tracks the created signatures, and the upload completion webhook calls to
+determined what uploads exist, and optionally to track the variants and their transformation versions.
+
+### Reading
+A variant can be read from the client by combining the upload key with the transformation name.
+This returns the file(s) those were created by the active version of the given transformation name
+during the upload.
+Requesting a non-existent upload key + transformation name combination results in 404 error. 
+
+### Variant formats
+A variant can be a single file, e.g., an image, or a directory, e.g., a HLS file.
+In the case of the directory, the reading URL contains the relative path in the directory.
+
+The directory variants also register an entry-point. 
+The entrypoint tells where the main file is in a directory (typically the master.m3u8 file of a HLS video)
+The entrypoint might not be necessary if the client knows how to read a HLS directory.
+
+### Deletion
+When a variant is deleted or overwritten then all files are removed from the object storage.
+In the case of a directory variant, the object storage API must first filter all existing objects with
+the object key prefix of the directory.
+To avoid race conditions, the processed upload key or variant identity must be somehow locked to avoid
+accidental orphan objects.
+
+### Migration
+When a named transformation changes, the application will might want to update the existing variants.
+The main application must track the transformation versions of the variants and use the admin API to request the newer versions.
+There could be an endpoint in the admin API that provides a list of the variants those were made with the older transformation versions.
+
+The full migration work could be in the upload service, but this would be more complex.
+This would require to prevent the running migration work that is excepted to be long from overwhelming the upload service.

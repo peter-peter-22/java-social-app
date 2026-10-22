@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/planning/media/variant.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/media/multi-region.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/media/transformation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/media/upload.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/media/requirements.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/overview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/signed_upload.puml" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/signed_upload.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/media/variant.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/variant.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/plantuml.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/plantuml.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -19,10 +19,11 @@ endbox
 group requesting upload
 Client->MainApp: file metadata, upload category
 MainApp->MainApp: can this user create a new upload?
+MainApp->MainApp: what eager transformations and others this upload need?
 MainApp->MainDB: store the pending upload
 note over MainDB: upload key, category, date, pending status
 return unique upload key
-MainApp->MainApp: create signed upload token with the upload id and preset name
+MainApp->MainApp: create a cryptographic upload signature
 MainApp-->Client: upload parameters + signature
 end
 
@@ -33,7 +34,7 @@ group webhook
 UploadApp->MainApp: upload identity and metadata
 MainApp->MainDB: update the status of the upload key to ready
 end
-UploadApp-->Client: upload identity and metadata
+UploadApp-->Client: ok / async transformation data
 end
 
 group submit post
@@ -43,7 +44,6 @@ MainApp->MainDB: insert the post
 return post id
 MainApp->MainDB: insert upload links between the post and uploads
 note over MainDB: post id, upload key
-note over MainDB: should the upload record status be updated from "ready" to "linked"?
 MainApp-->Client: post id
 end
 
