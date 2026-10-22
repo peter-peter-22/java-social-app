@@ -13,5 +13,5 @@ import java.util.UUID;
 @Getter
 public class VariantId {
     private final UUID uploadId;
-    private final UUID transformationVersionId;
+    private final UUID namedTransformationId;
 }

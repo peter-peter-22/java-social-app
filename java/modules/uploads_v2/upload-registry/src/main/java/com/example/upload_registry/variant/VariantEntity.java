@@ -1,6 +1,7 @@
 package com.example.upload_registry.variant;
 
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
+import com.example.upload_registry.transformations.NamedTransformationEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
 import com.example.upload_registry.upload.UploadEntity;
 import com.example.uploads_api.variant.VariantStatus;
@@ -30,10 +31,13 @@ public final class VariantEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upload_id")
     private UploadEntity uploadEntity;
-    @MapsId("transformationVersionId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transformation_version_id")
     private TransformationVersionEntity transformationVersionEntity;
+    @MapsId("namedTransformationId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "named_transformation_id")
+    private NamedTransformationEntity namedTransformationEntity;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "asset_id", nullable = false)
     private StoredAssetEntity storedAsset;

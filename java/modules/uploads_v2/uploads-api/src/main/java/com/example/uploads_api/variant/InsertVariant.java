@@ -13,6 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class InsertVariant {
     private final VariantId id;
+    private final UUID transformationVersionId;
     private final VariantStatus status;
     private final UUID storedAssetId;
 }

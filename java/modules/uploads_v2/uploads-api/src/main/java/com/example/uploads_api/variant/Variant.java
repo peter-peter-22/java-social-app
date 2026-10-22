@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @EqualsAndHashCode
 public class Variant {
-    private final UUID uploadId;
+    private final VariantId id;
     private final UUID transformationVersionId;
     private final Instant createdAt;
     private final VariantStatus status;

@@ -14,5 +14,5 @@ import java.util.UUID;
 @SuperBuilder
 public final class VariantEntityId implements Serializable {
     private UUID uploadId;
-    private UUID transformationVersionId;
+    private UUID namedTransformationId;
 }
