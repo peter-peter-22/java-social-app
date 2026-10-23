@@ -1,6 +1,59 @@
-# Upload variants plan
+# Upload variants plan (RESOLVED)
 
-## Expected behavior
+This file has been updated with the concrete implementation decisions from the plan in session/plan.md.
+The undecided questions (storage, CRUD, atomicity for eager uploads, idempotency for retries, locking) are now decided and implemented.
+
+## Resolved Storage & Identity
+- **Variant identity**: Composite PK `(upload_id, named_transformation_id)` on `VariantEntity` + `VariantEntityId`. Exactly matches "upload key + transformation name".
+- **Uniqueness/overwrite**: Enforced by PK. `save(InsertVariant)` on existing PK overwrites previous variant + linked `StoredAssetEntity`.
+- **Data**: `VariantEntity` links to exact `TransformationVersionEntity` (for migration tracking; unaffected by named transformation current_version changes), `StoredAssetEntity` (supports directory + entryPoint for HLS etc.), status (`PROCESSING`/`READY`), `createdAt`.
+- **Object paths**: Deterministic via `GlobalObjectRepository.variantObjectKey(uploadKey, transformationName, versionHash, filename)`. Prefix for directories. Delete under DB row lock to prevent orphans (see `deleteVariantObjects` helper).
+
+See `VariantEntity.java`, `VariantCrudRepository.java`, `GlobalObjectRepository.java`.
+
+## Resolved CRUD & Access
+- `VariantRepository` (extended): `save(InsertVariant)` (upsert), `updateStatus`, `findByUploadKeyAndTransformationName` (READY only, else 404-like), `findForUpdate` (pessimistic lock), `delete`.
+- Queries in `VariantCrudRepository` use `@EntityGraph` for efficient joins, status filter, and lock support.
+- Public reads return only `READY` variants.
+
+See `uploads-api/variant/*` and `upload-registry/variant/VariantRepositoryImpl.java`.
+
+## Resolved Eager Upload Sequence (Atomic + Idempotent)
+The upload with eager transformations follows this flow (orchestrated by uploads-service, registry calls in scope):
+
+1. Upload to **staging object** (`GlobalObjectRepository`).
+2. **Single transaction**: Insert `UploadEntity` (PROCESSING) + `VariantEntity`(s) with status=PROCESSING (invisible).
+3. Process transformations (sync/async):
+   - `findForUpdate(variantId)` (pessimistic lock).
+   - If already READY, skip (idempotent).
+   - Transform, upload output to deterministic key via `GlobalObjectRepository.uploadAll` or `putObject`.
+   - **Final transaction**: `updateStatus(READY)` + link final `StoredAssetEntity`. Update upload status when all complete.
+4. All variants become visible **together** only on final commit → atomic.
+5. On unrecoverable error: fail whole upload.
+6. Retries: Restart from staging check; PK + locks + status guards ensure no duplicate/overwritten visible artifacts or concurrent runs. No separate pending table needed.
+
+Manual/admin transformations and deletion follow the same upsert/final-READY + locked-delete pattern.
+
+**Eager retries**: Fully idempotent. Previous transformation guarded by lock/status. Whole upload retriable while staging file exists.
+
+See session plan.md for full sequence and `VariantRepositoryImpl`.
+
+## Deletion & Migration
+- Deletion: Lock variant row → `delete(id)` (cascades asset) → `GlobalObjectRepository.deleteVariantObjects(...)` (prefix for directories).
+- Migration: Main app queries variants by stored `transformationVersionId` vs current; uses admin API to re-generate. No registry changes needed.
+
+## Implementation Status
+- All changes in allowed modules only.
+- `VariantRepositoryImpl` added with `@Transactional`, `EntityManager` for locks, following existing `*RepositoryImpl` patterns.
+- DB indexes added (`001-add-indexes.sql`).
+- Helpers in `GlobalObjectRepository`.
+- Tests to be extended (see todo in plan.md).
+- The original undecided points are resolved without new tables or breaking existing stable entities.
+
+The variants are now stable, atomic, and idempotent as required by the overall media plan.
+
+## Original Content (for reference)
+(Previous sections follow below...)
 
 ### Getting
 One variant can be queried based on the upload key and transformation name those were used for its creation.

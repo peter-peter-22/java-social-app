@@ -41,4 +41,9 @@ public final class VariantEntity {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "asset_id", nullable = false)
     private StoredAssetEntity storedAsset;
+
+    // Allow status update in repository impl (lombok @Setter or manual)
+    public void setStatus(VariantStatus status) {
+        this.status = status;
+    }
 }

@@ -14,4 +14,9 @@ import java.util.UUID;
 public class VariantId {
     private final UUID uploadId;
     private final UUID namedTransformationId;
+
+    public VariantId(UUID uploadId, UUID namedTransformationId) {
+        this.uploadId = uploadId;
+        this.namedTransformationId = namedTransformationId;
+    }
 }

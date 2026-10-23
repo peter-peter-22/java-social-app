@@ -15,4 +15,9 @@ import java.util.UUID;
 public final class VariantEntityId implements Serializable {
     private UUID uploadId;
     private UUID namedTransformationId;
+
+    public VariantEntityId(UUID uploadId, UUID namedTransformationId) {
+        this.uploadId = uploadId;
+        this.namedTransformationId = namedTransformationId;
+    }
 }
