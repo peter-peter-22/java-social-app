@@ -1,6 +1,7 @@
 package com.example.object_storage.regional;
 
 import com.example.object_storage.regional.args.*;
+import com.example.object_storage.tags.ObjectTag;
 import io.minio.*;
 import io.minio.errors.ErrorResponseException;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     @Override
     public boolean objectExists(LocalObjectExistsArgs args) {
         try {
-            var stat = minioClient.statObject(
+            minioClient.statObject(
                     StatObjectArgs.builder()
                             .bucket(args.getBucket())
                             .object(args.getKey())
@@ -68,6 +69,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .object(args.getKey())
                             .stream(args.getInputStream(), args.getContentLength(), -1)
                             .contentType(args.getContentType())
+                            .tags(args.getTags()==null?null:ObjectTag.toMap(args.getTags()))
                             .build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload input stream", e);
@@ -98,6 +100,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .object(args.getKey())
                             .filename(args.getSourcePath())
                             .contentType(args.getContentType())
+                            .tags(args.getTags()==null?null:ObjectTag.toMap(args.getTags()))
                             .build()
             );
         } catch (Exception e) {

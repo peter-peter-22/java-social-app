@@ -4,7 +4,6 @@ import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.upload_registry.transformations.NamedTransformationEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
 import com.example.upload_registry.upload.UploadEntity;
-import com.example.uploads_api.variant.VariantStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +23,6 @@ public final class VariantEntity {
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private VariantStatus status;
     @MapsId("uploadId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upload_id")
@@ -41,9 +37,4 @@ public final class VariantEntity {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "asset_id", nullable = false)
     private StoredAssetEntity storedAsset;
-
-    // Allow status update in repository impl (lombok @Setter or manual)
-    public void setStatus(VariantStatus status) {
-        this.status = status;
-    }
 }

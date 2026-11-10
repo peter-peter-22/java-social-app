@@ -16,6 +16,5 @@ public class Variant {
     private final VariantId id;
     private final UUID transformationVersionId;
     private final Instant createdAt;
-    private final VariantStatus status;
     private final UUID storedAssetId;
 }

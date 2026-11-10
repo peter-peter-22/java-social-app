@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 @NullMarked
@@ -36,6 +39,11 @@ public class NamedTransformationRepositoryImpl implements NamedTransformationRep
         }
 
         throw new RuntimeException("This is not an image transformation");
+    }
+
+    @Override
+    public List<NamedImageTransformation> getAll(Collection<String> name) throws NamedTransformationNotFoundException {
+        return List.of(); // TODO implement
     }
 
     @Override

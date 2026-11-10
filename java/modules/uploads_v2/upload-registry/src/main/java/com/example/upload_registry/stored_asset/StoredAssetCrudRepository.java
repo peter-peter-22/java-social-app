@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @NullMarked
 public interface StoredAssetCrudRepository extends JpaRepository<StoredAssetEntity, UUID> {
+    // TODO decide if we really need the metadata here
     @EntityGraph(attributePaths = {"imageMetadata", "videoMetadata"})
     @Query("SELECT s FROM StoredAssetEntity s WHERE s.id = :id")
     Optional<StoredAssetEntity> findByIdWithMetadata(UUID id);

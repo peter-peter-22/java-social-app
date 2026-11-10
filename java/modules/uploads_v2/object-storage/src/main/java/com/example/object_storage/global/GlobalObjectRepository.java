@@ -16,18 +16,18 @@ import java.util.concurrent.Executors;
 public class GlobalObjectRepository {
     private final RegionalObjectRepositories regionalObjectRepositories;
 
-    public void download(String region, DownloadLocalObjectArgs args) {
+    public void downloadFile(String region, DownloadLocalObjectArgs args) {
         regionalObjectRepositories.getByRegion(region).downloadObject(args);
     }
 
-    public void upload(String region, UploadLocalObjectArgs args) {
+    public void uploadFile(String region, UploadLocalObjectArgs args) {
         regionalObjectRepositories.getByRegion(region).uploadObject(args);
     }
 
     public void uploadAll(String region, Collection<UploadLocalObjectArgs> args) {
         try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             for (UploadLocalObjectArgs arg : args) {
-                executor.submit(() -> upload(region, arg));
+                executor.submit(() -> uploadFile(region, arg));
             }
         }
     }
@@ -46,27 +46,5 @@ public class GlobalObjectRepository {
 
     public String getHomeRegion() {
         return regionalObjectRepositories.getHomeRegion();
-    }
-
-    /**
-     * Helper for variants: compute deterministic object key/path.
-     * Use with uploadKey + transformationName + version to ensure idempotency.
-     * For directories, the key is a prefix; use delete with prefix support in regional impl if added.
-     */
-    public static String variantObjectKey(String uploadKey, String transformationName, String versionHash, String filename) {
-        return "variants/" + uploadKey + "/" + transformationName + "/v" + versionHash + "/" + filename;
-    }
-
-    /**
-     * For directory variants (e.g. HLS), delete all objects under the prefix.
-     * Must be called under DB row lock on the VariantEntity to avoid races/orphans.
-     * (Current regional delete is single-key; extend with listObjects + removeObjects for prefix if needed.)
-     */
-    public void deleteVariantObjects(String region, String uploadKey, String transformationName, String versionHash) {
-        // Placeholder: implement prefix delete via regionalObjectRepositories when full support added.
-        // For now, delete known entryPoint or main object.
-        String prefix = "variants/" + uploadKey + "/" + transformationName + "/v" + versionHash + "/";
-        // regional... .removeObjects with prefix filter (MinIO supports RemoveObjects with filter).
-        delete(region, DeleteLocalObjectArgs.builder().bucket("media").key(prefix).build()); // update as needed
     }
 }

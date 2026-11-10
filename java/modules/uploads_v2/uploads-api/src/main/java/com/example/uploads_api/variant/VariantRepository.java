@@ -6,8 +6,6 @@ public interface VariantRepository {
     /** Saves or overwrites (upsert by PK). Returns the stable VariantId. */
     VariantId save(InsertVariant insert);
 
-    void updateStatus(VariantId variantId, VariantStatus status);
-
     /** Returns only READY variants. Throws if not found (404 semantics). */
     Variant findByUploadKeyAndTransformationName(String uploadKey, String transformationName);
 

@@ -2,8 +2,7 @@ package com.example.uploads_service.controller;
 
 import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.regional.args.PutLocalObjectArgs;
-import com.example.uploads_service.api.dto.ImageUploadRequest;
-import com.example.uploads_service.api.transformations.NamedImageTransformation;
+import com.example.uploads_api.dto.ImageUploadRequest;
 import com.example.uploads_service.named_transformation_repository.NamedTransformationRepository;
 import com.example.uploads_service.processing.ImageProcessingApi;
 import com.example.uploads_service.processing.ImageProcessingTask;
@@ -34,7 +33,7 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     void upload(@RequestPart("file") MultipartFile file, @RequestPart("metadata") @Validated ImageUploadRequest uploadRequest) {
 
-        var fileType = FileType.getByContentType(uploadRequest.getContentType());
+        var contentType = uploadRequest.getDesiredContentType();
         var uploadType = UploadType.IMAGE;
         var extension = fileType == null ? null : fileType.getExtension();
         var registeredContentType = fileType == null ? "application/octet-stream" : fileType.getContentType();
@@ -42,9 +41,9 @@ public class ClientController {
 
         // TODO process error
         // check if the constraints pass
-        if (uploadRequest.getBytes() != null && file.getSize() != uploadRequest.getBytes())
+        if (uploadRequest.getDesiredBytes() != null && file.getSize() != uploadRequest.getDesiredBytes())
             throw new RuntimeException("The file size does not match the excepted value.");
-        if (uploadRequest.getContentType() != null && !uploadRequest.getContentType().equals(file.getContentType()))
+        if (uploadRequest.getDesiredContentType() != null && !uploadRequest.getDesiredContentType().equals(file.getContentType()))
             throw new RuntimeException("The file content type does not match the excepted value.");
 
         // get the named transformations
@@ -92,7 +91,7 @@ public class ClientController {
                 .progressUrl(uploadRequest.getProgressUrl())
                 .build();
 
-        if (uploadRequest.isAsyncEager())
+        if (uploadRequest.isAsync())
             imageProcessingApi.processAsync(task);
         else
             imageProcessingApi.processBlocking(task);

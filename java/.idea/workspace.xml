@@ -4,17 +4,96 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Implement the variant storage plan">
+      <change afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/guides/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/tags/ObjectTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/CreateStoredAsset.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_service/StartedUploadAttempt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_service/UploadService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageProcessingTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/UploadCreatedResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/AssetDeliveryProtocol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/InsertUploadAttempt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttempt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttemptStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/MediaWorkerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/UploadProcessingProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/docker/docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/git.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/git/git.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/interview.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/modules.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/gradle/modules.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/openapi.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/gradle/openapi.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/parallel.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/java/parallel.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/placeholder/master.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/placeholder/res.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/production.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/roadmap.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/tests/copying dependencies.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/gradle/copying dependencies.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides/tests/test suite.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/gradle/test suite.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/guides/error codes.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/guides/liquibase.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/java/com/example/cockroach_db/ForeignKeyErrorReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/java/com/example/cockroach_db/SQLErrorCodes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/lazy_transformation_sessions/000-create-lazy-transformations-sessions-table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/pending_lazy_transformations/000-create-pending-lazy-transformations-table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/posts/000-create-posts-table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/posts/001-index-name-and-created-at.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/000-create-uploads-table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/uploads/001-index-timestamp.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/changelog/users/000-create-users-table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/test/java/com/example/cockroach_db/ConnectionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/test/java/com/example/cockroach_db/TestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db-old/src/testFixtures/resources/database-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/ApplyReconciliation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/ApplyReconciliation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/ReconciliationProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist/buckets/Private.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist/buckets/Uploads.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/ObjectStorageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/ObjectStorageRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/PutLocalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/PutLocalObjectArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/UploadLocalObjectArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/args/UploadLocalObjectArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetCrudRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantCrudRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantCrudRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntityId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantEntityId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantId.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/variant/VariantRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageUploadRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedTransformationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/Variant.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/Variant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/media/variant.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/media/variant.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/variant/VariantStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/InsertNamedImageTransformation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/named_transformation_repository/NamedTransformationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/ImageProcessingApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/processing/ImageProcessingTask.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,11 +165,12 @@
         <option value="Dockerfile" />
         <option value="Kotlin File" />
         <option value="package-info" />
-        <option value="Enum" />
-        <option value="Exception" />
-        <option value="Record" />
         <option value="Interface" />
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="Kotlin Script MainKts.main" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -294,7 +374,7 @@
     "git.auto.fetch.suggestion.counter": "1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/.codex/skills",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -314,25 +394,25 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service" />
       <recent name="$PROJECT_DIR$/.codex/skills" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/stored_media" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/transformation_versions" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/guides/gradle" />
+      <recent name="$PROJECT_DIR$/guides/docker" />
+      <recent name="$PROJECT_DIR$/guides/git" />
+      <recent name="$PROJECT_DIR$/guides/java" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/named_transformations" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelogs" />
-      <recent name="$PROJECT_DIR$/planning/media" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.uploads_api.variant" />
+      <recent name="com.example.object_storage.reconciliation.changelist.buckets" />
       <recent name="com.example.uploads_api.stored_asset" />
+      <recent name="com.example.uploads_api.uploads.upload_process" />
+      <recent name="com.example.uploads_api.variant" />
       <recent name="com.example.upload_registry.transformations" />
-      <recent name="com.example.cockroach_db" />
-      <recent name="com.example.uploads_service.named_transformation_repository" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.UploadRepositoryImplIT">
@@ -981,7 +1061,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update messages" />
     <MESSAGE value="fix warning in TaskServiceTest" />
     <MESSAGE value="refractor TransformationSourceBase" />
     <MESSAGE value="update the uploads-api and uploads-service modules to use the new transformation task DTO" />
@@ -1006,7 +1085,8 @@
     <MESSAGE value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="Implement the variant storage plan" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement the variant storage plan" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

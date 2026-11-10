@@ -19,19 +19,18 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
 
     @Override
     @Transactional
-    public UUID insert(InsertStoredAsset insert) {
-        return storedAssetCrudRepository.saveAndFlush(StoredAssetEntity.builder()
-                        .homeRegion(insert.getHomeRegion())
-                        .objectBucket(insert.getObjectBucket())
-                        .objectPath(insert.getObjectPath())
-                        .directory(insert.isDirectory())
-                        .entryPoint(insert.getEntryPoint())
-                        .mimeType(insert.getMimeType())
-                        .extension(insert.getExtension())
-                        .bytes(insert.getBytes())
-                        .deliveryProtocol(insert.getDeliveryProtocol())
-                        .build())
-                .getId();
+    public StoredAsset insert(InsertStoredAsset insert) {
+        var inserted = storedAssetCrudRepository.saveAndFlush(StoredAssetEntity.builder()
+                .homeRegion(insert.getHomeRegion())
+                .objectBucket(insert.getObjectBucket())
+                .directory(insert.isDirectory())
+                .entryPoint(insert.getEntryPoint())
+                .mimeType(insert.getMimeType())
+                .extension(insert.getExtension())
+                .bytes(insert.getBytes())
+                .deliveryProtocol(insert.getDeliveryProtocol())
+                .build());
+        return StoredAssetEntity.toModel(inserted);
     }
 
     @Override

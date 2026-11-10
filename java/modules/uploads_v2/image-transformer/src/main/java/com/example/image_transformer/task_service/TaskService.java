@@ -48,7 +48,7 @@ public class TaskService {
                 .homeRegion(original.getHomeRegion())
                 .destination(inputFile)
                 .build();
-        globalObjectRepository.download(downloadArgs);
+        globalObjectRepository.downloadFile(downloadArgs);
 
         // process the tasks
         for (var variant : task.getVariants()) {

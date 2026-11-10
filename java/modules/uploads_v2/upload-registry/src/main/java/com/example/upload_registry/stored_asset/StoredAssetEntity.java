@@ -22,10 +22,9 @@ public final class StoredAssetEntity {
     private UUID id;
     @Column(nullable = false, length = 50)
     private String homeRegion;
+    // TODO remove the bucket from the stored asset
     @Column(nullable = false, length = 50)
     private String objectBucket;
-    @Column(nullable = false, length = 50)
-    private String objectPath;
     @Column(nullable = false)
     private boolean directory;
     @Column()
@@ -38,7 +37,7 @@ public final class StoredAssetEntity {
     @CreationTimestamp
     private Instant createdAt;
     @Column(nullable = false)
-    private Integer bytes;
+    private Long bytes;
     @Column(length = 20)
     private String deliveryProtocol;
 
@@ -56,8 +55,6 @@ public final class StoredAssetEntity {
         return StoredAsset.builder()
                 .id(entity.getId())
                 .homeRegion(entity.getHomeRegion())
-                .objectBucket(entity.getObjectBucket())
-                .objectPath(entity.getObjectPath())
                 .directory(entity.isDirectory())
                 .entryPoint(entity.getEntryPoint())
                 .mimeType(entity.getMimeType())
