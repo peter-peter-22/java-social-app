@@ -107,4 +107,22 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
             throw new RuntimeException("Failed to upload file", e);
         }
     }
+
+    @Override
+    public void setTags(SetTagsForLocalObjectArgs args){
+        // TODO test if this function keep the previous tags or not
+        // TODO test what happens with null tags
+        try {
+            minioClient.setObjectTags(
+                    SetObjectTagsArgs.builder()
+                            .bucket(args.getBucket())
+                            .object(args.getKey())
+                            .tags(args.getTags() == null ? null : ObjectTag.toMap(args.getTags()))
+                            .build()
+            );
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Failed to set tags for object", e);
+        }
+    }
 }

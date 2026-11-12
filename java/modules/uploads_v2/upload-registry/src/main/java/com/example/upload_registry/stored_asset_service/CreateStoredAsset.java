@@ -7,8 +7,6 @@ import lombok.Getter;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
-import java.time.Instant;
-
 @NullMarked
 @Getter
 @Builder
@@ -21,5 +19,4 @@ public class CreateStoredAsset {
     private final long bytes;
     // TODO add the delivery protocol field to the entity and SQL table
     private final AssetDeliveryProtocol deliveryProtocol;
-    private final Instant expiration; // TODO add expiration field to entity and SQL
 }

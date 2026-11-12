@@ -1,10 +1,10 @@
-package com.example.image_transformer.operations;
+package com.example.image_transformer.transformation;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
 import app.photofox.vipsffm.enums.VipsCompassDirection;
-import com.example.uploads_api.v2.transformations.operations.AspectRatio;
-import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.operations.AspectRatio;
 import org.jspecify.annotations.NonNull;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 @Order(1)
-class AspectRatioTransformation implements ImageTransformation {
+class AspectRatioTransformation implements ImageTransformationOperation {
     @NonNull
     public VImage apply(@NonNull VImage image, @NonNull ImageTransformationOperations operations) {
         var aspectRatio = operations.aspectRatio();

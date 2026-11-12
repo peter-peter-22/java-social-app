@@ -54,5 +54,6 @@ class Uploads extends MinioReconciliation {
         } catch (Exception e) {
             throw  new RuntimeException("Failed to set bucket lifecycle", e);
         }
+        // TODO disable multi region replication for the tagged objects
     }
 }

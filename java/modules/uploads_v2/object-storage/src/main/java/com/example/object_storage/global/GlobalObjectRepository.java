@@ -7,8 +7,6 @@ import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.concurrent.Executors;
 
 @Repository
 @NullMarked
@@ -24,14 +22,6 @@ public class GlobalObjectRepository {
         regionalObjectRepositories.getByRegion(region).uploadObject(args);
     }
 
-    public void uploadAll(String region, Collection<UploadLocalObjectArgs> args) {
-        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            for (UploadLocalObjectArgs arg : args) {
-                executor.submit(() -> uploadFile(region, arg));
-            }
-        }
-    }
-
     public void delete(String region, DeleteLocalObjectArgs args) {
         regionalObjectRepositories.getByRegion(region).deleteObject(args);
     }
@@ -42,6 +32,10 @@ public class GlobalObjectRepository {
 
     public void putObject(String region, PutLocalObjectArgs args) {
         regionalObjectRepositories.getByRegion(region).putObject(args);
+    }
+
+    public void setTags(String region, SetTagsForLocalObjectArgs args) {
+        regionalObjectRepositories.getByRegion(region).setTags(args);
     }
 
     public String getHomeRegion() {

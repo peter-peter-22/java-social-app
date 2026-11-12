@@ -10,6 +10,8 @@ import java.util.UUID;
 public interface StoredAssetRepository {
     StoredAsset insert(InsertStoredAsset insert);
 
+    StoredAsset insertAll(Collection<InsertStoredAsset> insert);
+
     @Nullable StoredAsset findById(UUID id);
 
     /** Insert an image metadata that belongs to the given stored asset. */

@@ -7,42 +7,58 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.UUID;
 
 @NullMarked
 @Getter
 @Builder
 @EqualsAndHashCode
-public final class StoredAsset{
+public final class StoredAsset {
     private final UUID id;
     private final String homeRegion;
     private final boolean directory;
-    @Nullable private final String entryPoint; // TODO make this not nullable
+    /** The entrypoint is a relative path, it contains the extension. */
+    private final String entryPoint;
     private final String mimeType;
-    @Nullable private final String extension;
+    @Nullable
+    private final String extension;
     private final String contentType; // TODO add the content type to the underlying entity repository and SQL
     private final Instant createdAt;
     private final long bytes;
     private final String deliveryProtocol;
     private final StoredAssetStatus status;
-    /** After this date, the ongoing uploads stop, and the asset is awaiting deletion.
-     * Used for removing failed uploads reliably.
-     * An upload that is not linked */
-    private final Instant expirationDate;
-    @Nullable private final ImageMetadata imageMetadata;
-    @Nullable private final VideoMetadata videoMetadata;
+    /** The relative path of all objects in this asset, including the entrypoint. */
+    private final Collection<String> objects;
+    @Nullable
+    private final ImageMetadata imageMetadata;
+    @Nullable
+    private final VideoMetadata videoMetadata;
+    // TODO add an array of the relative paths
 
-    // TODO should the stored asset directory get a list of it's files
-
-    /** The contents of a stored asset are relative to this object key prefix. */
-    public String getDirectoryPrefix(){
+    /**
+     * The contents of a stored asset are relative to this object key prefix.
+     */
+    public String getDirectoryPrefix() {
         return id.toString();
     }
 
-    /** The object key of the entrypoint.
-     * If this is not a directory, it returns the path of the only object.
-     * Otherwise, it returns the entrypoint file of the directory (typically the HLS master file). */
-    public String getMainObjectKey(){
-        return getDirectoryPrefix()+"/entryPoint."+extension;
+    /** Return the object key based on the local path. */
+    public String getObjectKey(String relativePath){
+        return getDirectoryPrefix() + "/" + relativePath;
+    }
+
+    /**
+     * The object key of the entrypoint.
+     */
+    public String getMainObjectKey() {
+        return getObjectKey(entryPoint);
+    }
+
+    /**
+     * Return all object keys of this asset, including the entrypoint.
+     */
+    public Collection<String> getAllObjectKeys() {
+        return objects.stream().map(this::getObjectKey).toList();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.image_transformer;
+package com.example.uploads_api.transformations;
 
 import lombok.experimental.UtilityClass;
 

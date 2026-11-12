@@ -1,90 +1,158 @@
 package com.example.image_transformer.task_service;
 
-import com.example.image_transformer.operations.ImageTransformationService;
-import com.example.object_storage.global.DownloadGlobalObjectArgs;
-import com.example.object_storage.global.GlobalObjectRepository;
-import com.example.object_storage.global.UploadGlobalObjectArgs;
-import com.example.transformer_contracts.persistence.FileUtils;
-import com.example.transformer_contracts.webhook.WebhookService;
-import com.example.uploads_api.v2.transformations.tasks.ImageTask;
-import com.example.uploads_api.v2.uploads.upload_registry.FileType;
-import com.example.uploads_api.v2.uploads.upload_registry.InsertUploadVariant;
-import com.example.uploads_api.v2.uploads.upload_registry.UploadVariantRepository;
+import com.example.image_transformer.transformation.ImageTransformationService;
+import com.example.upload_registry.stored_asset_service.CreateStoredAsset;
+import com.example.upload_registry.stored_asset_service.StoredAssetService;
+import com.example.uploads_api.dto.ImageProcessingTask;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.named_transformation_repository.NamedImageTransformation;
+import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
+@NullMarked
 public class TaskService {
-    private final WebhookService webhookService;
-    private final ImageTransformationService transformationService;
-    private final GlobalObjectRepository globalObjectRepository;
-    private final UploadVariantRepository uploadVariantRepository;
+    private final ImageTransformationService imageTransformationService;
+    private final StoredAssetService storedAssetService;
+    private final NamedTransformationRepository namedTransformationRepository;
 
-    public void processTask(@NonNull ImageTask task) {
-        // define download path and task directory with path manager
-        // download original to disk
-        // process task
-        // upload all outputs, use variant key manager
+    public void processTask(ImageProcessingTask task) {
+        log.info("Processing image task {}", task);
 
-        // requirements: create path manage in transformer contracts and object key manage in upload contracts or upload persistence
+        // get the transformations
+        var transformations = getTransformations(task.getEagerTransformationNames(), task.getIncomingTransformationName());
 
-
-        // define the used paths
-        var original = task.getOriginal();
-
-        Path taskDir = Path.of("1");
-        Path inputFile = taskDir.resolve("input." + original.getExtension());
-        Path outputDir = taskDir.resolve("output");
-
-        // download the original to disk
-        var downloadArgs = DownloadGlobalObjectArgs.builder()
-                .bucket(original.getObjectBucket())
-                .key(original.getObjectKey())
-                .homeRegion(original.getHomeRegion())
-                .destination(inputFile)
-                .build();
-        globalObjectRepository.downloadFile(downloadArgs);
-
-        // process the tasks
-        for (var variant : task.getVariants()) {
-            Path variantDir = taskDir.resolve(variant.name());
-            String keyPrefix = original.getUploadKey() + "/" + variant.name();
-
-            var mainFile = transformationService.transformFile(inputFile.toString(), outputDir, variant.operations());
-
-            uploadVariantRepository.insert(
-                    InsertUploadVariant.builder()
-                            .mainObjectContentType()// no main object and content type. object roles need to be defined
-            )
-
+        // complete the transformations
+        if (transformations != null) {
+            Path workDir = null;
             try {
-                var files = FileUtils.getFilesInDir(variantDir);
+                // create the working directory
+                // TODO ensure that the ubuntu tmpfs `/tmp` folder is used and the directory is in the memory
+                workDir = Files.createTempDirectory(Path.of("/uploads"), null);
 
-                var uploadArgs = files.stream()
-                        .map(file -> {
-                            var fileType = FileType.fromPath(file);
-                            var contentType = fileType != null ? fileType.getContentType() : "application/octet-stream";
-                            var relativePath = variantDir.relativize(file);
-                            UploadGlobalObjectArgs args;
-                            args = UploadGlobalObjectArgs.builder()
-                                    .source(file)
-                                    .contentType(contentType)
-                                    .bucket("variants")
-                                    .key(keyPrefix + "/" + relativePath)
-                                    .build();
-                            return args;
-                        })
-                        .toList();
+                // download the original upload
+                var originalFilePath = workDir.resolve("original." + task.getOriginalAsset().getExtension());
+                storedAssetService.downloadMainFile(task.getOriginalAsset(), originalFilePath);
 
-                globalObjectRepository.uploadAll(uploadArgs);
-            } catch (IOException e) {
-                throw new RuntimeException(String.format("Failed to read the files in the variant directory '%s'", variantDir), e);
+                var transformationsDir = workDir.resolve("transformations");
+
+Path processedFilePath;
+                // apply the incoming transformation
+                if (transformations.incoming() != null) {
+                    log.info("Applying incoming transformation");
+                    var incomingTransformationDir = transformationsDir.resolve("incoming");
+                    // TODO do th incoming transformation
+                }
+                else processedFilePath=originalFilePath;
+
+                // apply the eager transformations and upload the results
+                if (transformations.eager() != null) {
+                    log.info("Applying eager transformations");
+                    // TODO replace with executors service
+                    for (var transformation : transformations.eager()) {
+
+                        // create the transformed files
+                        var transformationInstanceDir = transformationsDir.resolve(transformation.getName());
+                        Files.createDirectories(transformationInstanceDir);
+                       processAndSaveTransformation(transformationsDir,processedFilePath,transformation.getOperations());
+                        // TODO delete transformation instance dir
+                    }
+                }
+
+                // finalize the assets and publish the upload
+                // TODO set each status to finalized
+                storedAssetService.tagAllAssets();
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error while transforming image", e);
+            } finally {
+                try {
+                    if (workDir != null)
+                        FileUtils.deleteRecursively(workDir);
+                } catch (IOException e) {
+                    log.warn("Error while deleting temporary directory", e);
+                }
             }
         }
+
+
+
+    }
+
+    private void processAndSaveTransformation(Path workDir, Path inputFile, ImageTransformationOperations operations) throws IOException {
+        // TODO add the directory lifecycle here
+
+        // create the transformed files
+        var entryPoint = imageTransformationService.transformFile(
+                inputFile.toString(),
+                workDir,
+                operations
+        );
+
+        // register the results
+        saveTransformationResultsAsStoredAsset(entryPoint, inputFile, operations);
+    }
+
+    private void saveTransformationResultsAsStoredAsset(Path savedDirectory, Path entryPoint, ImageTransformationOperations operations) throws IOException {
+
+        // register the results
+        var encoding = operations.encoding();
+        var paths = FileUtils.getFilesInDir(savedDirectory);
+        var size = FileUtils.getSizeSum(paths);
+
+        // TODO add paths to the stored assets
+        // TODO add stored asset status
+        var asset = storedAssetService.createStoredAsset(
+                CreateStoredAsset.builder()
+                        .directory(encoding.isDirectory())
+                        .entryPoint(savedDirectory.relativize(entryPoint).toString())
+                        .mimeType(encoding.getMimeType())
+                        .extension(FileUtils.getFileExtension(entryPoint.getFileName().toString()))
+                        .bytes(size)
+                        .build()
+        );
+
+        // upload the files
+        storedAssetService.setTemporaryFiles(asset, paths);
+        // TODO set to uploaded if using status?
+    }
+
+    private record Transformations(
+            @Nullable Collection<NamedImageTransformation> eager,
+            @Nullable NamedImageTransformation incoming
+    ) {
+    }
+
+    /**
+     * Get the eager and incoming transformations.
+     */
+    private @Nullable Transformations getTransformations(@Nullable Collection<String> eagerNames, @Nullable String incomingName) {
+        if ((eagerNames == null || eagerNames.isEmpty()) && incomingName == null) return null;
+
+        List<String> allNames = new ArrayList<>();
+        if (eagerNames != null)
+            allNames.addAll(eagerNames);
+        if (incomingName != null)
+            allNames.add(incomingName);
+
+        var allTransformations = namedTransformationRepository.getAll(allNames);
+
+        return new Transformations(
+                eagerNames == null ? null : allTransformations.stream().filter(t -> allNames.contains(t.getName())).toList(),
+                incomingName == null ? null : allTransformations.stream().filter(t -> t.getName().equals(incomingName)).findFirst().orElse(null)
+        );
     }
 }

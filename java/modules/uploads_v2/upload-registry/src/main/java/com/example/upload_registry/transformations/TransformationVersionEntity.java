@@ -1,6 +1,6 @@
 package com.example.upload_registry.transformations;
 
-import com.example.uploads_api.transformations.operations.PolymorphicTransformationOperations;
+import com.example.uploads_api.transformations.PolymorphicTransformationOperations;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

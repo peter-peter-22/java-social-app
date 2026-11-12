@@ -1,4 +1,4 @@
-package com.example.uploads_api.transformations.operations;
+package com.example.uploads_api.transformations;
 
 import com.example.uploads_api.uploads.FileType;
 import lombok.Builder;

@@ -21,9 +21,9 @@ dependencies {
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
 
     // modules
-
+    implementation(project(":upload-api"))
     implementation(project(":object-storage"))
-
+    implementation(project(":upload-registry"))
 
     // test fixtures
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")

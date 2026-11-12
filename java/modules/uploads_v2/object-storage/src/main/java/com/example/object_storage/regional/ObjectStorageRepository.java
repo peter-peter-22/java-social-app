@@ -18,4 +18,6 @@ public interface ObjectStorageRepository {
     void downloadObject(DownloadLocalObjectArgs args);
 
     void uploadObject(UploadLocalObjectArgs args);
+
+    void setTags(SetTagsForLocalObjectArgs args);
 }

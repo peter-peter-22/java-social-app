@@ -1,6 +1,6 @@
 package com.example.image_transformer.task_service;
 
-import com.example.image_transformer.operations.ImageTransformationService;
+import com.example.image_transformer.transformation.ImageTransformationService;
 import com.example.object_storage.global.DownloadGlobalObjectArgs;
 import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.global.UploadGlobalObjectArgs;

@@ -1,10 +1,10 @@
 package com.example.upload_registry.transformations;
 
+import com.example.uploads_api.transformations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.named_transformation_repository.InsertNamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationNotFoundException;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;

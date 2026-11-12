@@ -1,16 +1,16 @@
-package com.example.image_transformer.operations;
+package com.example.image_transformer.transformation;
 
 import app.photofox.vipsffm.VImage;
 import app.photofox.vipsffm.VipsOption;
-import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
-import com.example.uploads_api.v2.transformations.operations.LimitResolution;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.operations.LimitResolution;
 import org.jspecify.annotations.NonNull;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-class LimitResolutionTransformation implements ImageTransformation {
+class LimitResolutionTransformation implements ImageTransformationOperation {
     @NonNull
     public VImage apply(@NonNull VImage image, @NonNull ImageTransformationOperations operations) {
         var scale = scaleFor(image, operations);

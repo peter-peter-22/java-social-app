@@ -1,6 +1,5 @@
-package com.example.uploads_api.transformations.operations;
+package com.example.uploads_api.transformations;
 
-import com.example.uploads_api.uploads.FileType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -25,7 +24,9 @@ public class ImageEncodings {
     })
     public sealed interface ImageEncoding permits Jpeg, Webp {
         @JsonIgnore
-        FileType getFileType();
+        String getMimeType();
+        @JsonIgnore
+        boolean isDirectory();
     }
 
     @Builder
@@ -37,8 +38,13 @@ public class ImageEncodings {
         private final int quality=100;
 
         @Override
-        public FileType getFileType() {
-            return FileType.JPEG;
+        public String getMimeType() {
+            return "image/jpeg";
+        }
+
+        @Override
+        public boolean isDirectory() {
+            return false;
         }
     }
 
@@ -51,8 +57,13 @@ public class ImageEncodings {
         private final int quality=100;
 
         @Override
-        public FileType getFileType() {
-            return FileType.WEBP;
+        public String getMimeType() {
+            return "image/webp";
+        }
+
+        @Override
+        public boolean isDirectory() {
+            return false;
         }
     }
 }

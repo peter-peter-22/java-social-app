@@ -1,7 +1,7 @@
-package com.example.image_transformer.operations;
+package com.example.image_transformer.transformation;
 
 import app.photofox.vipsffm.VImage;
-import com.example.uploads_api.v2.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 class ImageTransformationPipeline {
-    private final ImageTransformation[] transformations;
+    private final ImageTransformationOperation[] transformations =  new ImageTransformationOperation[]{
+            new AspectRatioTransformation(),
+            new LimitResolutionTransformation()
+    };
 
     @NonNull
     VImage apply(

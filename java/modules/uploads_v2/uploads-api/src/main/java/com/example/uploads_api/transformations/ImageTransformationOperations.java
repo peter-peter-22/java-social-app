@@ -1,6 +1,7 @@
-package com.example.image_transformer.api.transformations.operations;
+package com.example.uploads_api.transformations;
 
-import com.example.image_transformer.api.uploads.FileType;
+import com.example.uploads_api.transformations.operations.AspectRatio;
+import com.example.uploads_api.transformations.operations.LimitResolution;
 import lombok.Builder;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -15,10 +16,5 @@ public record ImageTransformationOperations(
         @Nullable
         AspectRatio aspectRatio,
         ImageEncodings.ImageEncoding encoding
-) implements TransformationOperations {
-
-    @Override
-    public FileType getFormat() {
-        return encoding.getFileType();
-    }
+) implements PolymorphicTransformationOperations {
 }

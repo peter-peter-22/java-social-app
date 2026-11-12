@@ -5,31 +5,24 @@ import com.example.upload_registry.upload_service.UploadService;
 import com.example.uploads_api.dto.ImageProcessingTask;
 import com.example.uploads_api.dto.ImageUploadRequest;
 import com.example.uploads_api.dto.UploadCreatedResponse;
-import com.example.uploads_api.transformations.named_transformation_repository.NamedImageTransformation;
-import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
 import com.example.uploads_api.uploads.UploadType;
 import com.example.uploads_service.processing.MediaWorkerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Service
 @NullMarked
 @RequiredArgsConstructor
 @Slf4j
 public class ImageUploadProcessingService {
-    private final NamedTransformationRepository namedTransformationRepository;
     private final UploadService uploadService;
     private final StoredAssetService storedAssetService;
-    private final MediaWorkerService  mediaWorkerService;
+    private final MediaWorkerService mediaWorkerService;
 
     /**
      * The upload process:
@@ -81,35 +74,19 @@ public class ImageUploadProcessingService {
         }
 
         // process or queue the requested transformations
-        var task=ImageProcessingTask.builder();//TODO send message and build the worker
-        mediaWorkerService.processImageBlocking();
+        var task = ImageProcessingTask.builder()
+                .originalAsset(startedAttempt.originalUpload())
+                .uploadKey(imageUploadRequest.getUploadKey())
+                .attemptId(startedAttempt.attemptId())
+                .eagerTransformationNames(imageUploadRequest.getEagerTransformations())
+                .incomingTransformationName(imageUploadRequest.getIncomingTransformation())
+                .build();
+
+        if (imageUploadRequest.isAsync())
+            mediaWorkerService.processImageBlocking(task);
+        else
+            mediaWorkerService.processImageAsync(task);
 
         return new UploadCreatedResponse(imageUploadRequest.isAsync());
-    }
-
-    private record Transformations(
-            @Nullable Collection<NamedImageTransformation> eager,
-            @Nullable NamedImageTransformation incoming
-    ) {
-    }
-
-    /**
-     * Get the eager and incoming transformations.
-     */
-    private @Nullable Transformations getTransformations(@Nullable Collection<String> eagerNames, @Nullable String incomingName) {
-        if ((eagerNames == null || eagerNames.isEmpty()) && incomingName == null) return null;
-
-        List<String> allNames = new ArrayList<>();
-        if (eagerNames != null)
-            allNames.addAll(eagerNames);
-        if (incomingName != null)
-            allNames.add(incomingName);
-
-        var allTransformations = namedTransformationRepository.getAll(allNames);
-
-        return new Transformations(
-                eagerNames == null ? null : allTransformations.stream().filter(t -> allNames.contains(t.getName())).toList(),
-                incomingName == null ? null : allTransformations.stream().filter(t -> t.getName().equals(incomingName)).findFirst().orElse(null)
-        );
     }
 }

@@ -1,10 +1,10 @@
 package com.example.upload_registry.transformations;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
+import com.example.uploads_api.transformations.ImageEncodings;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.named_transformation_repository.InsertNamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationNotFoundException;
-import com.example.uploads_api.transformations.operations.ImageEncodings;
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

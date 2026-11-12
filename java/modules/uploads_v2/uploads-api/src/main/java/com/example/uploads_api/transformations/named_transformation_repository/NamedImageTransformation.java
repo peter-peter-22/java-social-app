@@ -1,6 +1,6 @@
 package com.example.uploads_api.transformations.named_transformation_repository;
 
-import com.example.uploads_api.transformations.operations.ImageTransformationOperations;
+import com.example.uploads_api.transformations.ImageTransformationOperations;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
