@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 
 import java.io.InputStream;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @NullMarked
@@ -60,17 +61,18 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
         }
     }
 
-    @Override
+    @Override// TODO check integration test
     public void putObject(PutLocalObjectArgs args) {
         try {
-            minioClient.putObject(
-                    PutObjectArgs.builder()
-                            .bucket(args.getBucket())
-                            .object(args.getKey())
-                            .stream(args.getInputStream(), args.getContentLength(), -1)
-                            .contentType(args.getContentType())
-                            .tags(args.getTags()==null?null:ObjectTag.toMap(args.getTags()))
-                            .build());
+            var builder = PutObjectArgs.builder()
+                    .bucket(args.getBucket())
+                    .object(args.getKey())
+                    .stream(args.getInputStream(), args.getContentLength(), -1)
+                    .contentType(args.getContentType())
+                    .tags(args.getTags() == null ? null : ObjectTag.toMap(args.getTags()));
+            if (!args.isAllowOverwrite())
+                builder.extraHeaders(Map.of("If-None-Match", "*"));
+            minioClient.putObject(builder.build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload input stream", e);
         }
@@ -91,25 +93,25 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
         }
     }
 
-    @Override
+    @Override// TODO check integration test
     public void uploadObject(UploadLocalObjectArgs args) {
         try {
-            minioClient.uploadObject(
-                    UploadObjectArgs.builder()
-                            .bucket(args.getBucket())
-                            .object(args.getKey())
-                            .filename(args.getSourcePath())
-                            .contentType(args.getContentType())
-                            .tags(args.getTags()==null?null:ObjectTag.toMap(args.getTags()))
-                            .build()
-            );
+            var builder = UploadObjectArgs.builder()
+                    .bucket(args.getBucket())
+                    .object(args.getKey())
+                    .filename(args.getSourcePath())
+                    .contentType(args.getContentType())
+                    .tags(args.getTags() == null ? null : ObjectTag.toMap(args.getTags()));
+            if (!args.isAllowOverwrite())
+                builder.extraHeaders(Map.of("If-None-Match", "*"));
+            minioClient.uploadObject(builder.build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload file", e);
         }
     }
 
-    @Override
-    public void setTags(SetTagsForLocalObjectArgs args){
+    @Override// TODO check integration test
+    public void setTags(SetTagsForLocalObjectArgs args) {
         // TODO test if this function keep the previous tags or not
         // TODO test what happens with null tags
         try {
@@ -120,8 +122,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .tags(args.getTags() == null ? null : ObjectTag.toMap(args.getTags()))
                             .build()
             );
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Failed to set tags for object", e);
         }
     }

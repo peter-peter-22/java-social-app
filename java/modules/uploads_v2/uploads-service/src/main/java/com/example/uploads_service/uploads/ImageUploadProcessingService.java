@@ -33,12 +33,6 @@ public class ImageUploadProcessingService {
      * <p>
      * We imply that the input stream is always new and the object storage cleans up the temporal files based on the tag.
      * </p>
-     * <p>
-     * Significant points of failure:
-     * - Before finalization: The temporary files are orphaned and should eventually disappear. The SQL rows of the attempt remain.
-     * - During finalization: The (persistent) stored assets with expired finalizing status are periodically cleaned up.
-     * - After finalization: The transaction rolls back and removes the finalization status.
-     * </p>
      * TODO format this comment properly
      */
     public UploadCreatedResponse processUpload(ImageUploadRequest imageUploadRequest, MultipartFile file) {

@@ -62,6 +62,13 @@ public class StoredAssetService {
     }
 
     public void setTemporaryFiles(StoredAsset storedAsset, Collection<Path> paths) {
+        if(paths.isEmpty())
+            throw new IllegalStateException("The directory that is uploaded for a stored asset is empty.");
+        if (!storedAsset.isDirectory() && paths.size()>1)
+            throw new IllegalStateException("""
+                    Attempted to upload multiple files to a stored asset that is not marked as a directory.
+                    The uploaded directory must contain exactly one file.
+                    The encoding if a transformation is registered as single output instead of directory by mistake?""");
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try (executor) {
             var futures = paths.stream()
