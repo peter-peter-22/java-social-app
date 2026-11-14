@@ -1,6 +1,10 @@
 # Baseline application
 Consider to use database rows instead of encrypted signatures for the upload permissions.
 
+Make the image uploads alone to work.
+
+Add the video and raw uploads.
+
 Build a minimal functioning media cloud.
 
 Do a complete refractor to make the code readable enough.
