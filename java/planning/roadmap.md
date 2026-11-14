@@ -3,6 +3,8 @@ Consider to use database rows instead of encrypted signatures for the upload per
 
 Build a minimal functioning media cloud.
 
+Do a complete refractor to make the code readable enough.
+
 Check if the multi region object storage is used properly.
 
 Build a minimal functioning post creation web API.
@@ -10,6 +12,10 @@ Build a minimal functioning post creation web API.
 Replace the @NotNull annotations with @Nullmarked. (Beware of the Jakarta validation not null.)
 
 Build a minimal client, enough to test the full post and file upload.
+
+Implement upload read authentication.
+
+Implement live streams.
 
 # Verify the behavior of the used services
 
