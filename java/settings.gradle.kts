@@ -7,12 +7,6 @@ rootProject.name = "java"
 
 include(
     ":cockroach-db",
-    // posts
-    ":posts-persistence",
-    ":posts-api",
-    // users
-    ":users-api",
-    ":users-persistence",
     // uploads
     ":object-storage",
     ":image-transformer",
@@ -20,12 +14,6 @@ include(
     ":upload-registry",
     ":upload-api"
 )
-
-project(":users-api").projectDir = file("modules/users/users-api")
-project(":users-persistence").projectDir = file("modules/users/users-persistence")
-
-project(":posts-persistence").projectDir = file("modules/posts/posts-persistence")
-project(":posts-api").projectDir = file("modules/posts/posts-api")
 
 project(":cockroach-db").projectDir = file("modules/cockroach-db")
 

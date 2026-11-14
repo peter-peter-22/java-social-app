@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="re-order plan steps">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update todos and plans">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/uploads/overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/overview.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -981,7 +974,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add empty module video-transformer" />
     <MESSAGE value="refractor ImageTransformationTaskGroupDTO" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="refractor transformation task DTOs and their usage" />
@@ -1006,7 +998,8 @@
     <MESSAGE value="remove uncertain plans" />
     <MESSAGE value="update plans" />
     <MESSAGE value="re-order plan steps" />
-    <option name="LAST_COMMIT_MESSAGE" value="re-order plan steps" />
+    <MESSAGE value="update todos and plans" />
+    <option name="LAST_COMMIT_MESSAGE" value="update todos and plans" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
