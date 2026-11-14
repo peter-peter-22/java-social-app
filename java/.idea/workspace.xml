@@ -4,19 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="wip">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="clean up some unused modules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/global/GlobalObjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/CreateStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/CreateStoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset_service/StoredAssetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAssetStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttempt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/FileTransformationArgs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/FileTransformer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/TransformationManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/UploadResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/UploadVariant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/file_repository/FileBucketRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/file_repository/OriginalFileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/file_repository/ProcessedFileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/file_repository/SetFileArgs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/file_repository/TransformedFileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/notifications/NotificationsApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/notifications/ProgressTracker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/notifications/ProgressTrackerFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/persistence/PersistenceUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/persistence/TaskSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/persistence/TransformationPersistenceSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/persistence/TransformationPersistenceSessionFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/storage/FileStreamStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/storage/ObjectStorageStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/stream_processing/FileStreamProcessingManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/main/java/com/example/transformer_contracts/webhook/WebhookService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/java/com/example/transformer_contracts/storage/LocalStreamStorageTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/java/com/example/transformer_contracts/storage/ObjectStorageTransformationStorageTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/ReadPropertiesTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/java/com/example/transformer_contracts/webhook/WebhookServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/resources/test-files/copied.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/test/resources/test-files/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/LocalStorageConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/LocalStreamStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/testFixtures/java/com/example/transformer_contracts/storage/TestResourcesDirectory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/transformer-contracts/src/testFixtures/resources/image-transformation-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/uploads/future.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/future.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,11 +351,11 @@
       <recent name="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/guides/java" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation" />
       <recent name="$PROJECT_DIR$/guides/gradle" />
-      <recent name="$PROJECT_DIR$/guides/docker" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.object_storage.regional.args" />
@@ -984,8 +1011,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix warning in TaskServiceTest" />
-    <MESSAGE value="refractor TransformationSourceBase" />
     <MESSAGE value="update the uploads-api and uploads-service modules to use the new transformation task DTO" />
     <MESSAGE value="fix image transformer integration tests" />
     <MESSAGE value="refractor ReadPropertiesTest" />
@@ -1009,7 +1034,9 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="Implement the variant storage plan" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="get a full prototype for the image upload and transformation service" />
+    <MESSAGE value="clean up some unused modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up some unused modules" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
