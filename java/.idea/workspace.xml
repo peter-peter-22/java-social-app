@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="remove uncertain plans">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="update plans">
       <change beforePath="$PROJECT_DIR$/planning/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/uploads/overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/overview.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -975,7 +973,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refractor TransformationRestIT" />
     <MESSAGE value="add new module template" />
     <MESSAGE value="add empty module video-transformer" />
     <MESSAGE value="refractor ImageTransformationTaskGroupDTO" />
@@ -1000,7 +997,8 @@
     <MESSAGE value="more clean up" />
     <MESSAGE value="adjust the roadmap" />
     <MESSAGE value="remove uncertain plans" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove uncertain plans" />
+    <MESSAGE value="update plans" />
+    <option name="LAST_COMMIT_MESSAGE" value="update plans" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
