@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -129,7 +128,6 @@ public class StoredAssetService {
                         .extension(insert.getExtension())
                         .bytes(insert.getBytes())
                         .deliveryProtocol(insert.getDeliveryProtocol())
-                        .expiration(Instant.now().plus(storedAssetConfiguration.getPendingUploadExpiration()))
                         .build()
         );
     }

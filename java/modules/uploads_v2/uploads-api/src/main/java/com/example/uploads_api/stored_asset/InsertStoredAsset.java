@@ -6,8 +6,6 @@ import lombok.Getter;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
-import java.time.Instant;
-
 @NullMarked
 @Getter
 @Builder
@@ -21,5 +19,4 @@ public class InsertStoredAsset {
    @Nullable private final String extension;
     private final long bytes;
     private final AssetDeliveryProtocol deliveryProtocol;
-    private  final Instant expiration;
 }

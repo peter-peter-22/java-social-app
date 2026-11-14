@@ -47,6 +47,7 @@ public class TaskService {
         // apply the transformations
         StoredAsset incomingAsset = null;
         ArrayList<StoredAsset> eagerAssets = null;
+        // TODO read and save the file metadata with lipvips even if no transformations are required
         if (transformations != null) {
             AtomicReference<@Nullable Path> workDirRef = new AtomicReference<>();
             try {

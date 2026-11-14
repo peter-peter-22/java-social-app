@@ -22,3 +22,4 @@ Similar to Cloudinary.
 - Authorization: The access limitation of an upload. Some uploads are private. They require a signature to be read.
 - Completion webhook: A URL that is called after the upload and it's transformations are completed if provided.
 - Main application: The application that communicates with the upload service, has the admin key, can define transformations, can create signatures.
+- Asset: Objects registered into the database with a directory-like structure. All assets have an entrypoint, this highlights one of their objects. Some assets have a single object while some others have multiple (these are also called directory assets).

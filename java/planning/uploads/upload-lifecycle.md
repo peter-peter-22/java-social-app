@@ -79,7 +79,6 @@ If the file will be written with the valid asset prefix, the access for this fil
 Since it's asset record no longer exists (two assets cannot overlap otherwise) the object cannot be permanent and it will expire.
 
 ### An expired object is replaced by a de-registered, slow upload
-The chance for this is too small, effectively 0.
 This would require to:
 - 2 assets those got the same UUID
 - one asset failed and it's registration was removed
@@ -91,5 +90,5 @@ This would require to:
 If this happened, an object would be replaced with another.
 
 Possible fixes:
-- Avoid the finalization of uploads those are older than the object expiration time.
+- Avoid the finalization of assets those are older than the expiration time.
 - Never delete the asset ids of failed uploads.

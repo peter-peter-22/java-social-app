@@ -17,6 +17,8 @@ import java.util.UUID;
 public final class StoredAsset {
     private final UUID id;
     private final String homeRegion;
+    private final String objectBucket; // TODO instead of deriving the object key from the asset id and using a fixed object bucket, generate them on insert and record them from the database to make this more migration friendly
+    private final String objectKey;
     private final boolean directory;
     /** The entrypoint is a relative path, it contains the extension. */
     private final String entryPoint;
@@ -29,19 +31,18 @@ public final class StoredAsset {
     private final String deliveryProtocol;
     private final StoredAssetStatus status;
     /** The relative path of all objects in this asset, including the entrypoint. */
-    private final Collection<String> objects;
+    private final Collection<String> objects; // TODO sync with SQL and entities
     @Nullable
     private final ImageMetadata imageMetadata;
     @Nullable
     private final VideoMetadata videoMetadata;
-    // TODO add an array of the relative paths
 
     /**
      * The contents of a stored asset are relative to this object key prefix.
      */
     public String getDirectoryPrefix() {
         return id.toString();
-    }
+    } // TODO replace with row field access
 
     /** Return the object key based on the local path. */
     public String getObjectKey(String relativePath){

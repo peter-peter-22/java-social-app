@@ -7,6 +7,7 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.UUID;
 
 @Repository
@@ -28,9 +29,14 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
                 .mimeType(insert.getMimeType())
                 .extension(insert.getExtension())
                 .bytes(insert.getBytes())
-                .deliveryProtocol(insert.getDeliveryProtocol())
+                //.deliveryProtocol(insert.getDeliveryProtocol()) //TODO sync with entity
                 .build());
         return StoredAssetEntity.toModel(inserted);
+    }
+
+    @Override
+    public StoredAsset insertAll(Collection<InsertStoredAsset> insert) {
+        return null;
     }
 
     @Override
@@ -39,11 +45,6 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
         return storedAssetCrudRepository.findByIdWithMetadata(id)
                 .map(StoredAssetEntity::toModel)
                 .orElse(null);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        storedAssetCrudRepository.deleteById(id);
     }
 
     @Override
@@ -65,5 +66,10 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
                 .resolutionY(metadata.getResolutionY())
                 .durationMilliseconds(metadata.getDurationMilliseconds())
                 .build());
+    }
+
+    @Override
+    public void setStatusAll(Collection<UUID> ids, StoredAssetStatus status) {
+
     }
 }
