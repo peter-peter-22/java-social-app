@@ -16,7 +16,9 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +64,10 @@ public class UploadService {
         log.info("Created upload attempt {} and asset {} for upload process {}.", attemptId, storedAsset.getId(), process.getUploadKey());
 
         return new StartedUploadAttempt(process.getUploadKey(), attemptId, storedAsset);
+    }
+
+    public Upload finalizeAttempt(UUID attemptId, String uploadKey, @Nullable Collection<UploadProcessRepository.RegisterVariantArgs> variants, UUID originalAssetId) {
+        return uploadProcessRepository.finalizeAttempt(attemptId, uploadKey, variants, originalAssetId);
     }
 
     public Upload findUploadByKey(String key) {

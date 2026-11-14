@@ -7,6 +7,7 @@ import com.example.object_storage.tags.ObjectTag;
 import com.example.uploads_api.stored_asset.InsertStoredAsset;
 import com.example.uploads_api.stored_asset.StoredAsset;
 import com.example.uploads_api.stored_asset.StoredAssetRepository;
+import com.example.uploads_api.stored_asset.StoredAssetStatus;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -19,7 +20,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -62,9 +67,9 @@ public class StoredAssetService {
     }
 
     public void setTemporaryFiles(StoredAsset storedAsset, Collection<Path> paths) {
-        if(paths.isEmpty())
+        if (paths.isEmpty())
             throw new IllegalStateException("The directory that is uploaded for a stored asset is empty.");
-        if (!storedAsset.isDirectory() && paths.size()>1)
+        if (!storedAsset.isDirectory() && paths.size() > 1)
             throw new IllegalStateException("""
                     Attempted to upload multiple files to a stored asset that is not marked as a directory.
                     The uploaded directory must contain exactly one file.
@@ -129,7 +134,9 @@ public class StoredAssetService {
         );
     }
 
-    /** Set object storage tags for all object keys in the provided assets. The assets must be from the same region. */
+    /**
+     * Set object storage tags for all object keys in the provided assets. The assets must be from the same region.
+     */
     public void tagAllAssets(Collection<StoredAsset> assets, @Nullable Collection<ObjectTag> tags) {
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try (executor) {
@@ -153,18 +160,41 @@ public class StoredAssetService {
             for (var future : futures) {
                 future.get();
             }
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             executor.shutdownNow();
-            throw new RuntimeException("Error while setting the tags of the assets:",e);
+            throw new RuntimeException("Error while setting the tags of the assets:", e);
         }
     }
 
-    public void deleteFailedStoredAssets() {
-        // Query for stored assets where the date of expiration is less than current date + upload shutdown duration
-        // Delete the files and rows of the found assets
-        // Call periodically.
-        // How concurrency will work?
-        // How failed delete attempts will be handled?
-        // TODO implement
+    public void setAssetStatus(Collection<UUID> assetIds, StoredAssetStatus status) {
+        storedAssetRepository.setStatusAll(assetIds, status);
+    }
+
+    /**
+     * Returns true if all registered objects of all assets exist, returns false otherwise.
+     */
+    public boolean objectsExist(Collection<StoredAsset> assets) {
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+        try (executor) {
+            var futures = new ArrayList<Future<Boolean>>();
+            for (StoredAsset asset : assets) {
+                for (var key : asset.getAllObjectKeys()) {
+                    futures.add(
+                            executor.submit(() -> globalObjectRepository.objectExists(
+                                    asset.getHomeRegion(),
+                                    LocalObjectExistsArgs.builder().key(key).bucket(bucket).build()
+                            ))
+                    );
+                }
+            }
+            for (var future : futures) {
+                if (!future.get())
+                    return false;
+            }
+            return true;
+        } catch (Exception e) {
+            executor.shutdownNow();
+            throw new RuntimeException("Error while setting the tags of the assets:", e);
+        }
     }
 }

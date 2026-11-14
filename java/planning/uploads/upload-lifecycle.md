@@ -89,4 +89,7 @@ This would require to:
 - either the client or the upload worker is waiting until the original object expires
 
 If this happened, an object would be replaced with another.
-Checking the object hashes after finalization could prevent this, but we consider this situation unreachable.
+
+Possible fixes:
+- Avoid the finalization of uploads those are older than the object expiration time.
+- Never delete the asset ids of failed uploads.

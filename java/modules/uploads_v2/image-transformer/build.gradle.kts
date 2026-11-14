@@ -19,6 +19,7 @@ idea {
 dependencies {
     // lipvips
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // modules
     implementation(project(":upload-api"))

@@ -38,6 +38,10 @@ public class GlobalObjectRepository {
         regionalObjectRepositories.getByRegion(region).setTags(args);
     }
 
+    public boolean objectExists(String region, LocalObjectExistsArgs args){
+        return regionalObjectRepositories.getByRegion(region).objectExists(args);
+    }
+
     public String getHomeRegion() {
         return regionalObjectRepositories.getHomeRegion();
     }

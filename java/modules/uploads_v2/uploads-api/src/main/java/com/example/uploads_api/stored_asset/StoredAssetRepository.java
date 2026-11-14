@@ -20,5 +20,5 @@ public interface StoredAssetRepository {
     /** Insert a video metadata that belongs to the given stored asset. */
     void setVideoMetadata(UUID storedAssetId, VideoMetadata metadata);
 
-    void setStatusAll(Collection<UUID> ids,  StoredAssetStatus status);
+    void setStatusAll(Collection<UUID> ids,  StoredAssetStatus status);//TODO implement
 }
