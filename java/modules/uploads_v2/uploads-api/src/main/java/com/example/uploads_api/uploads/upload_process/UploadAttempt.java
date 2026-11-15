@@ -14,13 +14,21 @@ import java.util.UUID;
 @Builder
 public final class UploadAttempt {
     private final UUID attemptId;
+    /**
+     * The upload key also marks the primary key of the upload process.
+     * The attempt depends on the process and must be cleaned up when it's deleted.
+     */
     private final String uploadKey;
     private final @Nullable List<String> eagerTransformationNames;
     private final @Nullable String incomingTransformationName;
-    /** The original file from the upload request without incoming transformation. */
+    /**
+     * The original file from the upload request without incoming transformation.
+     */
     private final UUID originalAssetId;
     private final Instant createdAt;
-    /** Initial status: PENDING */
+    /**
+     * Initial status: PENDING
+     */
     private final UploadAttemptStatus status;
     private final @Nullable Instant finishedAt;
 }

@@ -4,28 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="add integration test for the stored asset repository">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="clean up previous prototypes and fix compiler errors in image worker">
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadAttemptCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadAttemptEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessPersistence.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessPersistenceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/upload_process/000-create-upload-process-tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload_process/UploadProcessPersistenceImplIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/compose-test.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/controller/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/stored_asset_service/StoredAssetConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/upload_service/StartedUploadAttempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/StartedUploadAttempt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/test/java/com/example/upload-services/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/test/java/com/example/upload_services/TestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageEncodings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttempt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttemptStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadAttemptStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +314,7 @@
     "git.auto.fetch.suggestion.counter": "1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -362,7 +355,7 @@
       <recent name="com.example.uploads_api.variant" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:image-transformer:integrationTest]">
+  <component name="RunManager" selected="Gradle.java [:upload-registry:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -444,7 +437,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:upload-services:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -455,7 +448,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-services:check" />
+            <option value=":upload-registry:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -597,11 +590,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Gradle.java [:image-transformer:test]" />
         <item itemvalue="Gradle.java [:image-transformer:check]" />
         <item itemvalue="Gradle.java [:uploads-service:check]" />
-        <item itemvalue="Gradle.java [:upload-services:check]" />
       </list>
     </recent_temporary>
   </component>
@@ -998,7 +991,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="Implement the variant storage plan" />
     <MESSAGE value="wip" />
@@ -1023,7 +1015,8 @@
     <MESSAGE value="remove unused stored asset metadata fetching" />
     <MESSAGE value="add delete function for the stored asset repository" />
     <MESSAGE value="add integration test for the stored asset repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="add integration test for the stored asset repository" />
+    <MESSAGE value="clean up previous prototypes and fix compiler errors in image worker" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up previous prototypes and fix compiler errors in image worker" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

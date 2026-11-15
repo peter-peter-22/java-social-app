@@ -23,11 +23,6 @@ public interface UploadProcessRepository {
     UUID createAttempt(InsertUploadAttempt insert);
 
     /**
-     * Get an upload attempt by id. Use pessimistic locking.
-     */
-    @Nullable UploadAttempt getAndLockAttempt(UUID attemptId);
-
-    /**
      * Set an upload attempt as active in an upload process.
      * Has effect only when the upload process has no upload ID set. (So when the upload is not finished.)
      * Throws error when the process is finished.

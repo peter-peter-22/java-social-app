@@ -9,6 +9,10 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - includeAll:
+      path: changelog/upload_process
+      relativeToChangelogFile: true
+
+  - includeAll:
       path: changelog/image_metadata
       relativeToChangelogFile: true
 

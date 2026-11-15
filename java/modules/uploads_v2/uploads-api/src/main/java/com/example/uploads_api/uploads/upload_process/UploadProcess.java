@@ -14,6 +14,6 @@ import java.util.UUID;
 public final class UploadProcess {
     /** The upload key serves as the unique ID of the upload process. */
     private final String uploadKey;
-    private final UUID activeAttemptId;
+    private final @Nullable UUID activeAttemptId;
     private final @Nullable UUID uploadId;
 }
