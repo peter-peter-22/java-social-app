@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="move the default stored asset status outside the database table definition">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="remove the mime type from the stored asset">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload/UploadRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/uploads/000-create-upload-table.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,20 +54,20 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-api" type="2d1252cf:ModuleNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-api" type="2d1252cf:ModuleNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-api" type="2d1252cf:ModuleNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -260,6 +262,7 @@
     "Gradle.java [:transformer-contracts:test].executor": "Run",
     "Gradle.java [:upload-api:build].executor": "Run",
     "Gradle.java [:upload-api:testClasses].executor": "Run",
+    "Gradle.java [:upload-registry:test].executor": "Run",
     "Gradle.java [:uploads-api:test].executor": "Run",
     "Gradle.java [:uploads-persistence:test].executor": "Run",
     "Gradle.java [:uploads-service:test].executor": "Run",
@@ -976,7 +979,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refractor upload DTOs and their usage" />
     <MESSAGE value="fix unintended comparison function in BlockingTransformerRestApiTests" />
     <MESSAGE value="fix the error that stops the test on failure instead of throwing in TransformationRestIT" />
     <MESSAGE value="update plan" />
@@ -1001,7 +1003,8 @@
     <MESSAGE value="synchronize the database implementations with the domain models" />
     <MESSAGE value="remove insert all from the stored asset repository" />
     <MESSAGE value="move the default stored asset status outside the database table definition" />
-    <option name="LAST_COMMIT_MESSAGE" value="move the default stored asset status outside the database table definition" />
+    <MESSAGE value="remove the mime type from the stored asset" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove the mime type from the stored asset" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

@@ -70,7 +70,7 @@ public class UploadRepositoryImpl implements UploadRepository {
         for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
             if (cause instanceof SQLException sqlException
                     && SQLErrorCodes.UNIQUE_VIOLATION.equals(sqlException.getSQLState())
-                    && sqlException.getMessage().contains("upload_key_ready_unique")) {
+                    && sqlException.getMessage().contains("upload_key_unique")) {
                 return true;
             }
         }

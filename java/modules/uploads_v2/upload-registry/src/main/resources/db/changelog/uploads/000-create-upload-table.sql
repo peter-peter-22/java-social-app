@@ -10,8 +10,6 @@ create table if not exists upload (
 );
 
 -- The upload key is taken only while the upload is accessible.
-create unique index if not exists upload_key_ready_unique
-    on upload (upload_key)
-    where status = 'READY';
+create unique index if not exists upload_key_unique on upload (upload_key);
 
 --rollback drop table if exists upload;
