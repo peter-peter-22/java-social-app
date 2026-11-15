@@ -1,8 +1,8 @@
-package com.example.upload_registry.upload_service;
+package com.example.upload_services.upload_service;
 
-import com.example.upload_registry.stored_asset_service.CreateStoredAsset;
-import com.example.upload_registry.stored_asset_service.StoredAssetService;
+import com.example.upload_services.stored_asset_service.StoredAssetService;
 import com.example.uploads_api.stored_asset.AssetDeliveryProtocol;
+import com.example.uploads_api.stored_asset.InsertStoredAsset;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadRepository;
 import com.example.uploads_api.uploads.UploadType;
@@ -36,17 +36,18 @@ public class UploadService {
             String uploadKey,
             @Nullable List<String> eagerTransformationNames,
             @Nullable String incomingTransformationName,
-            UploadType uploadType
+            UploadType uploadType,
+            String contentType
     ) throws UploadAlreadyExistsException {
 
         var process = uploadProcessRepository.createProcessIfNotExistsThenLock(uploadKey);
 
-        // The previous attempt always has a file, we must decide if its the same
         var storedAsset = storedAssetService.createStoredAsset(
-                CreateStoredAsset.builder()
+                InsertStoredAsset.builder()
                         .directory(false)
                         .entryPoint("original")
                         .extension(extension)
+                        .contentType(contentType)
                         .bytes(bytes)
                         .deliveryProtocol(AssetDeliveryProtocol.uploadTypeToDeliveryProtocol(uploadType))
                         .build()

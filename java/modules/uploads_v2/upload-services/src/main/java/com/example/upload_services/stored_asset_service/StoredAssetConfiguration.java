@@ -1,4 +1,4 @@
-package com.example.upload_registry.stored_asset_service;
+package com.example.upload_services.stored_asset_service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

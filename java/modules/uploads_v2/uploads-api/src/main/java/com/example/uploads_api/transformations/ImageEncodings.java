@@ -24,7 +24,7 @@ public class ImageEncodings {
     })
     public sealed interface ImageEncoding permits Jpeg, Webp {
         @JsonIgnore
-        String getMimeType();
+        String getContentType();
         @JsonIgnore
         boolean isDirectory();
     }
@@ -38,7 +38,7 @@ public class ImageEncodings {
         private final int quality=100;
 
         @Override
-        public String getMimeType() {
+        public String getContentType() {
             return "image/jpeg";
         }
 
@@ -57,7 +57,7 @@ public class ImageEncodings {
         private final int quality=100;
 
         @Override
-        public String getMimeType() {
+        public String getContentType() {
             return "image/webp";
         }
 

@@ -1,4 +1,4 @@
-package com.example.upload_registry.upload_service;
+package com.example.upload_services.upload_service;
 
 import com.example.uploads_api.stored_asset.StoredAsset;
 

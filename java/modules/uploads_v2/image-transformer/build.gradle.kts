@@ -23,6 +23,7 @@ dependencies {
 
     // modules
     implementation(project(":upload-api"))
+    implementation(project(":upload-services"))
     implementation(project(":object-storage"))
     implementation(project(":upload-registry"))
 
@@ -63,33 +64,4 @@ testing {
 
 sourceSets.named("integrationTest") {
     resources.srcDir("src/test/resources")
-}
-
-// CLEAN: should this be grouped with other docker test tasks in the future?
-// CLEAN: should I use the docker test plugin?
-tasks.register<Exec>("dockerIT") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Runs image-transformer integration tests inside Docker."
-
-    workingDir(rootProject.projectDir)
-
-    /**
-     * This shell command does the following:
-     * - Starts the docker compose file.
-     * - Saves the exit value of the java container to a variable.
-     * - Stops all containers and remove all volumes.
-     * - Exits the process with the saved exit value.
-     *
-     * This achieves complete cleanup after running the containers.
-     * Without this complex cleanup, the containers would keep running after the test suite finishes.
-     * "$?" means the exit value of the last command in the shell.
-     * "-c" passes the command as string to avoid parsing "$?" before it reaches the docker compose shell.
-     * */
-    commandLine(
-        "sh", "-c",
-        "docker compose -f modules/uploads/image-transformer/docker/compose-test.yaml up --build --abort-on-container-exit --exit-code-from image-transformer;",
-        "test_status=\$?;",
-        "docker compose -f modules/uploads/image-transformer/docker/compose-test.yaml down --volumes --remove-orphans;",
-        "exit \$test_status"
-    )
 }

@@ -11,6 +11,7 @@ dependencies {
 	testImplementation(testFixtures(project(":object-storage")))
 
     implementation(project(":upload-api"))
+	implementation(project(":upload-services"))
 
 	implementation(project(":upload-registry"))
 }

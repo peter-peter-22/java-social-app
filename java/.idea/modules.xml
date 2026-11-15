@@ -12,6 +12,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" />
     </modules>
   </component>

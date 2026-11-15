@@ -1,4 +1,4 @@
-package com.example.upload_registry.stored_asset_service;
+package com.example.upload_services.stored_asset_service;
 
 import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.regional.args.*;
@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
 @Service
 @RequiredArgsConstructor
 @NullMarked
-@EnableConfigurationProperties(com.example.upload_registry.stored_asset_service.StoredAssetConfiguration.class)
+@EnableConfigurationProperties(StoredAssetConfiguration.class)
 public class StoredAssetService {
     private final GlobalObjectRepository globalObjectRepository;
     private final StoredAssetRepository storedAssetRepository;
@@ -114,19 +114,8 @@ public class StoredAssetService {
         );
     }
 
-    public StoredAsset createStoredAsset(com.example.upload_registry.stored_asset_service.CreateStoredAsset insert) {
-        return storedAssetRepository.insert(
-                InsertStoredAsset.builder()
-                        .homeRegion(globalObjectRepository.getHomeRegion())
-                        .objectBucket(bucket)
-                        .directory(insert.isDirectory())
-                        .entryPoint(insert.getEntryPoint())
-                        .mimeType(insert.getMimeType())
-                        .extension(insert.getExtension())
-                        .bytes(insert.getBytes())
-                        .deliveryProtocol(insert.getDeliveryProtocol())
-                        .build()
-        );
+    public StoredAsset createStoredAsset(InsertStoredAsset insert) {
+        return storedAssetRepository.insert(insert);
     }
 
     /**

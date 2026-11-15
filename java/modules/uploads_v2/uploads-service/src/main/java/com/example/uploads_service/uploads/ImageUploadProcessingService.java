@@ -1,7 +1,7 @@
 package com.example.uploads_service.uploads;
 
-import com.example.upload_registry.stored_asset_service.StoredAssetService;
-import com.example.upload_registry.upload_service.UploadService;
+import com.example.upload_services.stored_asset_service.StoredAssetService;
+import com.example.upload_services.upload_service.UploadService;
 import com.example.uploads_api.dto.ImageProcessingTask;
 import com.example.uploads_api.dto.ImageUploadRequest;
 import com.example.uploads_api.dto.UploadCreatedResponse;
@@ -20,7 +20,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class ImageUploadProcessingService {
-    // TODO update the class imports
     private final UploadService uploadService;
     private final StoredAssetService storedAssetService;
     private final MediaWorkerService mediaWorkerService;
@@ -34,7 +33,7 @@ public class ImageUploadProcessingService {
      * <p>
      * We imply that the input stream is always new and the object storage cleans up the temporal files based on the tag.
      * </p>
-     * TODO format this comment properly
+     * TODO format this comment properly, separate each step into a new row
      */
     public UploadCreatedResponse processUpload(ImageUploadRequest imageUploadRequest, MultipartFile file) {
         log.info("Starting processing of image upload. Upload request: {}", imageUploadRequest);
@@ -52,13 +51,15 @@ public class ImageUploadProcessingService {
             throw new RuntimeException("The file content type does not match the excepted value.");
 
         // register the pending upload
+        String defaultContentType = "application/octet-stream";
         var startedAttempt = uploadService.startUploadProcess(
                 imageUploadRequest.getExtension(),
                 bytes,
                 imageUploadRequest.getUploadKey(),
                 imageUploadRequest.getEagerTransformations(),
                 imageUploadRequest.getIncomingTransformation(),
-                UploadType.IMAGE
+                UploadType.IMAGE,
+                contentType == null ? defaultContentType : contentType
         );
 
         // upload to the object storage

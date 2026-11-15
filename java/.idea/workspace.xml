@@ -4,8 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="add delete function for the stored asset repository">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImplIT.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="add integration test for the stored asset repository">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/compose-test.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/TransformationRestIT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/TaskServiceIT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/stored_asset_service/StoredAssetConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/upload_service/StartedUploadAttempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/StartedUploadAttempt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload-services/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/test/java/com/example/upload-services/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/test/java/com/example/upload_services/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageEncodings.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageEncodings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,18 +72,18 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
@@ -222,6 +242,7 @@
     "Gradle.ReadPropertiesTest.executor": "Run",
     "Gradle.RegionalObjectRepositoriesIT.executor": "Run",
     "Gradle.StoredAssetRepositoryImplIT.executor": "Run",
+    "Gradle.TestApplication.executor": "Run",
     "Gradle.TransformationApiSelectorTest.executor": "Run",
     "Gradle.TransformationFiltersTests.executor": "Run",
     "Gradle.TransformationServiceApplyTests.executor": "Run",
@@ -261,8 +282,12 @@
     "Gradle.java [:upload-api:build].executor": "Run",
     "Gradle.java [:upload-api:testClasses].executor": "Run",
     "Gradle.java [:upload-registry:test].executor": "Run",
+    "Gradle.java [:upload-services:build].executor": "Run",
+    "Gradle.java [:upload-services:check].executor": "Run",
+    "Gradle.java [:upload-services:testClasses].executor": "Run",
     "Gradle.java [:uploads-api:test].executor": "Run",
     "Gradle.java [:uploads-persistence:test].executor": "Run",
+    "Gradle.java [:uploads-service:check].executor": "Run",
     "Gradle.java [:uploads-service:test].executor": "Run",
     "Gradle.java [:uploads:check].executor": "Run",
     "Gradle.java [:uploads:test].executor": "Run",
@@ -337,68 +362,14 @@
       <recent name="com.example.uploads_api.variant" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:upload-registry:test]">
+  <component name="RunManager" selected="Gradle.java [:image-transformer:integrationTest]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="RegionalObjectRepositoriesIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":object-storage:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.object_storage.regional.RegionalObjectRepositoriesIT&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="UploadRepositoryImplIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":upload-registry:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.upload_registry.upload.UploadRepositoryImplIT&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="java [:upload-api:build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:image-transformer:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -409,7 +380,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-api:build" />
+            <option value=":image-transformer:check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -423,7 +394,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:upload-api:testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:image-transformer:integrationTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -434,7 +405,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-api:testClasses" />
+            <option value=":image-transformer:integrationTest" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -448,7 +419,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:image-transformer:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -459,7 +430,57 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-registry:test" />
+            <option value=":image-transformer:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="java [:upload-services:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":upload-services:check" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="java [:uploads-service:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":uploads-service:check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -576,11 +597,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java [:upload-registry:test]" />
-        <item itemvalue="Gradle.java [:upload-api:build]" />
-        <item itemvalue="Gradle.java [:upload-api:testClasses]" />
-        <item itemvalue="Gradle.UploadRepositoryImplIT" />
-        <item itemvalue="Gradle.RegionalObjectRepositoriesIT" />
+        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
+        <item itemvalue="Gradle.java [:image-transformer:test]" />
+        <item itemvalue="Gradle.java [:image-transformer:check]" />
+        <item itemvalue="Gradle.java [:uploads-service:check]" />
+        <item itemvalue="Gradle.java [:upload-services:check]" />
       </list>
     </recent_temporary>
   </component>
@@ -977,7 +998,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start the upload v2 directory, copy the usable legacy code" />
     <MESSAGE value="Make the uploadAll of GlobalObjectRepository parallel and add parallelism guide parallel.md" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="Implement the variant storage plan" />
@@ -1002,7 +1022,8 @@
     <MESSAGE value="remove the upload status" />
     <MESSAGE value="remove unused stored asset metadata fetching" />
     <MESSAGE value="add delete function for the stored asset repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="add delete function for the stored asset repository" />
+    <MESSAGE value="add integration test for the stored asset repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="add integration test for the stored asset repository" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

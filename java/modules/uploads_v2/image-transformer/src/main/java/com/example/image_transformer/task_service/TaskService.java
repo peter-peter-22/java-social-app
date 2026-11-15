@@ -1,10 +1,10 @@
 package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.transformation.ImageTransformationService;
-import com.example.upload_registry.stored_asset_service.CreateStoredAsset;
-import com.example.upload_registry.stored_asset_service.StoredAssetService;
-import com.example.upload_registry.upload_service.UploadService;
+import com.example.upload_services.stored_asset_service.StoredAssetService;
+import com.example.upload_services.upload_service.UploadService;
 import com.example.uploads_api.dto.ImageProcessingTask;
+import com.example.uploads_api.stored_asset.InsertStoredAsset;
 import com.example.uploads_api.stored_asset.StoredAsset;
 import com.example.uploads_api.stored_asset.StoredAssetStatus;
 import com.example.uploads_api.transformations.ImageTransformationOperations;
@@ -210,11 +210,11 @@ public class TaskService {
         var size = FileUtils.getSizeSum(paths);
 
         var asset = storedAssetService.createStoredAsset(
-                CreateStoredAsset.builder()
+                InsertStoredAsset.builder()
                         .directory(encoding.isDirectory())
                         .entryPoint(savedDirectory.relativize(entryPoint).toString())
                         .objects(relativePaths)
-                        .mimeType(encoding.getMimeType())
+                        .contentType(encoding.getContentType())
                         .extension(FileUtils.getFileExtension(entryPoint.getFileName().toString()))
                         .bytes(size)
                         .build()
