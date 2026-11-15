@@ -61,7 +61,9 @@ class VariantRepositoryImplIT extends CockroachIntegrationTest {
         assertThat(found.getTransformationVersionId()).isEqualTo(transformation.getCurrentVersionId());
 
         variantRepository.delete(inserted);
-        assertThat(storedAssetRepository.findById(variantAsset.getId()).getStatus()).isEqualTo(StoredAssetStatus.DELETE);
+        var foundAsset = storedAssetRepository.findById(variantAsset.getId());
+        assertThat(foundAsset).isNotNull();
+        assertThat(foundAsset.getStatus()).isEqualTo(StoredAssetStatus.DELETE);
     }
 
     private com.example.uploads_api.stored_asset.StoredAsset insertAsset() {

@@ -54,7 +54,7 @@ public final class StoredAssetEntity {
     @OneToOne(mappedBy = "storedAsset")
     private @Nullable ImageMetadataEntity imageMetadata;
     @OneToOne(mappedBy = "storedAsset")
-    private VideoMetadataEntity videoMetadata;
+    private @Nullable VideoMetadataEntity videoMetadata;
 
     public static StoredAsset toModel(StoredAssetEntity entity) {
         return toModel(entity, entity.getImageMetadata(), entity.getVideoMetadata());
