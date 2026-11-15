@@ -29,7 +29,7 @@ public final class NamedTransformationEntity {
     @UpdateTimestamp
     private Instant lastUpdatedAt;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "currentVersionId")
+    @JoinColumn(name = "current_version_id")
     @Setter
     private TransformationVersionEntity currentVersionEntity;
 }

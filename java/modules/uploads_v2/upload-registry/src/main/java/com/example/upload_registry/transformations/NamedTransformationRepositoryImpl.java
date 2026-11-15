@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,21 +31,33 @@ public class NamedTransformationRepositoryImpl implements NamedTransformationRep
         var version = named.getCurrentVersionEntity();
         if (version == null) throw new RuntimeException("Could not find current version entity");
 
-        var operations = named.getCurrentVersionEntity().getOperations();
-        if (operations instanceof ImageTransformationOperations imageOperations) {
+        return toImageTransformation(named);
+    }
+
+    @Override
+    @Transactional
+    public List<NamedImageTransformation> getAll(Collection<String> names) throws NamedTransformationNotFoundException {
+        var found = namedTransformationCrudRepository.findAllByNameIn(names).stream()
+                .collect(Collectors.toMap(NamedTransformationEntity::getName, Function.identity()));
+        var missing = names.stream().filter(name -> !found.containsKey(name)).toList();
+        if (!missing.isEmpty()) {
+            throw new NamedTransformationNotFoundException("Could not find named transformations: " + missing);
+        }
+        return names.stream().map(name -> toImageTransformation(found.get(name))).toList();
+    }
+
+    private static NamedImageTransformation toImageTransformation(NamedTransformationEntity named) {
+        var version = named.getCurrentVersionEntity();
+        if (version == null) throw new RuntimeException("Could not find current version entity");
+
+        if (version.getOperations() instanceof ImageTransformationOperations imageOperations) {
             return NamedImageTransformation.builder()
                     .name(named.getName())
                     .operations(imageOperations)
                     .currentVersionId(version.getId())
                     .build();
         }
-
         throw new RuntimeException("This is not an image transformation");
-    }
-
-    @Override
-    public List<NamedImageTransformation> getAll(Collection<String> name) throws NamedTransformationNotFoundException {
-        return List.of(); // TODO implement
     }
 
     @Override

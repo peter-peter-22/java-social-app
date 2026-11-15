@@ -4,6 +4,8 @@ import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.upload_registry.transformations.NamedTransformationEntity;
 import com.example.upload_registry.transformations.TransformationVersionEntity;
 import com.example.upload_registry.upload.UploadEntity;
+import com.example.uploads_api.variant.Variant;
+import com.example.uploads_api.variant.VariantId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +39,16 @@ public final class VariantEntity {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "asset_id", nullable = false)
     private StoredAssetEntity storedAsset;
+
+    public Variant toModel() {
+        return Variant.builder()
+                .id(VariantId.builder()
+                        .uploadId(id.getUploadId())
+                        .namedTransformationId(id.getNamedTransformationId())
+                        .build())
+                .transformationVersionId(transformationVersionEntity.getId())
+                .createdAt(createdAt)
+                .storedAssetId(storedAsset.getId())
+                .build();
+    }
 }

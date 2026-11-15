@@ -24,13 +24,13 @@ public final class StoredAsset {
     private final String mimeType;
     @Nullable
     private final String extension;
-    private final String contentType; // TODO add the content type to the underlying entity repository and SQL
+    private final String contentType;
     private final Instant createdAt;
     private final long bytes;
     private final AssetDeliveryProtocol deliveryProtocol;
     private final StoredAssetStatus status;
     /** The relative path of all objects in this asset, including the entrypoint. */
-    private final Collection<String> objects; // TODO sync with SQL and entities
+    private final Collection<String> objects;
     @Nullable
     private final ImageMetadata imageMetadata;
     @Nullable

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -109,7 +110,11 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
         var toInsert = insertUpload("duplicate");
         uploadRepository.insert(toInsert);
 
-        assertThatThrownBy(() -> uploadRepository.insert(toInsert))
+        assertThatThrownBy(() -> uploadRepository.insert(InsertUpload.builder()
+                .uploadKey(toInsert.getUploadKey())
+                .status(UploadStatus.READY)
+                .storedAssetId(insertAsset("duplicate-asset", "image/jpeg", "jpg").getId())
+                .build()))
                 .isInstanceOf(UploadKeyTakenException.class);
     }
 
@@ -131,19 +136,25 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
     }
 
     private InsertUpload insertUpload(String prefix, String mimeType, String extension) {
-        var storedAsset = storedAssetRepository.insert(InsertStoredAsset.builder()
-                .homeRegion("eu-central-1")
-                .objectBucket("uploads")
-                .directory(false)
-                .mimeType(mimeType)
-                .extension(extension)
-                .bytes(42)
-                .deliveryProtocol(AssetDeliveryProtocol.IMAGE)
-                .build());
+        var storedAsset = insertAsset(prefix, mimeType, extension);
         return InsertUpload.builder()
                 .uploadKey(prefix + "-" + UUID.randomUUID())
                 .status(UploadStatus.READY)
                 .storedAssetId(storedAsset.getId())
                 .build();
+    }
+
+    private StoredAsset insertAsset(String prefix, String mimeType, String extension) {
+        return storedAssetRepository.insert(InsertStoredAsset.builder()
+                .homeRegion("eu-central-1")
+                .objectBucket("uploads")
+                .directory(false)
+                .entryPoint("original." + extension)
+                .mimeType(mimeType)
+                .extension(extension)
+                .bytes(42)
+                .objects(List.of("original." + extension))
+                .deliveryProtocol(AssetDeliveryProtocol.IMAGE)
+                .build());
     }
 }

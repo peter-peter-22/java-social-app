@@ -22,8 +22,7 @@ public final class TransformationVersionEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "namedTransformationId")
-    // add FK here too but make the column nullable
+    @JoinColumn(name = "named_transformation_id")
     private NamedTransformationEntity namedTransformationEntity;
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb", nullable = false)

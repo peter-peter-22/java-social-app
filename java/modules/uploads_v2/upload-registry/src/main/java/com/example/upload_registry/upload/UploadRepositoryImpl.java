@@ -1,5 +1,6 @@
 package com.example.upload_registry.upload;
 
+import com.example.cockroach_db.SQLErrorCodes;
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.uploads_api.uploads.*;
 import jakarta.persistence.EntityManager;
@@ -9,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -31,7 +33,10 @@ public class UploadRepositoryImpl implements UploadRepository {
                             .build())
                     .getId();
         } catch (DataIntegrityViolationException e) {
-            throw new UploadKeyTakenException("An upload already exists with key: " + upload.getUploadKey());
+            if (isUploadKeyTaken(e)) {
+                throw new UploadKeyTakenException("An upload already exists with key: " + upload.getUploadKey());
+            }
+            throw e;
         }
     }
 
@@ -59,5 +64,16 @@ public class UploadRepositoryImpl implements UploadRepository {
     @Transactional(readOnly = true)
     public Upload findVideoByKey(String uploadKey) {
         return uploadCrudRepository.getByUploadKeyWithVideoMetadata(uploadKey).orElseThrow().toModelWithVideoMetadata();
+    }
+
+    private static boolean isUploadKeyTaken(DataIntegrityViolationException exception) {
+        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
+            if (cause instanceof SQLException sqlException
+                    && SQLErrorCodes.UNIQUE_VIOLATION.equals(sqlException.getSQLState())
+                    && sqlException.getMessage().contains("upload_key_ready_unique")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

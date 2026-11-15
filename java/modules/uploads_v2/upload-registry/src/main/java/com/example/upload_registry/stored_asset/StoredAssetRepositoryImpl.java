@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -28,15 +29,19 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
                 .entryPoint(insert.getEntryPoint())
                 .mimeType(insert.getMimeType())
                 .extension(insert.getExtension())
+                .contentType(insert.getMimeType())
                 .bytes(insert.getBytes())
                 .deliveryProtocol(insert.getDeliveryProtocol())
+                .status(StoredAssetStatus.UPLOADING)
+                .objects(List.copyOf(insert.getObjects()))
                 .build());
         return StoredAssetEntity.toModel(inserted);
     }
 
     @Override
-    public StoredAsset insertAll(Collection<InsertStoredAsset> insert) {
-        return null;
+    @Transactional
+    public List<StoredAsset> insertAll(Collection<InsertStoredAsset> insert) {
+        return insert.stream().map(this::insert).toList();
     }
 
     @Override
@@ -69,7 +74,10 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     }
 
     @Override
+    @Transactional
     public void setStatusAll(Collection<UUID> ids, StoredAssetStatus status) {
-// TODO implement
+        if (storedAssetCrudRepository.updateStatusAll(ids, status) != ids.size()) {
+            throw new IllegalArgumentException("Could not update the status of every stored asset");
+        }
     }
 }
