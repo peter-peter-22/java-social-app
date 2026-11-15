@@ -13,7 +13,7 @@ create table if not exists stored_asset (
     created_at timestamptz not null default now(),
     bytes bigint not null,
     delivery_protocol varchar(20) not null,
-    status varchar(20) not null default 'UPLOADING',
+    status varchar(20) not null,
     objects varchar(255)[] not null
 );
 

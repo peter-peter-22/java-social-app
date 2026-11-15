@@ -1,8 +1,8 @@
 package com.example.uploads_api.stored_asset;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Value;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -11,17 +11,17 @@ import java.util.Collection;
 @NullMarked
 @Getter
 @Builder
-@EqualsAndHashCode
+@Value
 public class InsertStoredAsset {
-    private final String homeRegion;
-    private final String objectBucket;
-    private final boolean directory;
+    String homeRegion;
+    String objectBucket;
+    boolean directory;
     @Nullable
-    private final String entryPoint;
-    private final String mimeType;
+    String entryPoint;
+    String mimeType;
     @Nullable
-    private final String extension;
-    private final long bytes;
-    private final Collection<String> objects;
-    private final AssetDeliveryProtocol deliveryProtocol;
+    String extension;
+    long bytes;
+    Collection<String> objects;
+    AssetDeliveryProtocol deliveryProtocol;
 }
