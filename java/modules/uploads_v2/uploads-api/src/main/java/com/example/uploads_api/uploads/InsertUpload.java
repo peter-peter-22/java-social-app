@@ -13,6 +13,5 @@ import java.util.UUID;
 @NullMarked
 public final class InsertUpload {
     private final String uploadKey;
-    private final UploadStatus status;
     private final UUID storedAssetId;
 }

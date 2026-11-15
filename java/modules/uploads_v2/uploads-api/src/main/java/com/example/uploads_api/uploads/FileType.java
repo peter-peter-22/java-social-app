@@ -7,6 +7,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.nio.file.Path;
 
+/** NOT USED in the currently active codes, kept for later reuse. */
 @AllArgsConstructor
 @Getter
 public enum FileType {

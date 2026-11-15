@@ -12,7 +12,6 @@ import com.example.uploads_api.transformations.ImageEncodings;
 import com.example.uploads_api.transformations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.named_transformation_repository.InsertNamedImageTransformation;
 import com.example.uploads_api.uploads.InsertUpload;
-import com.example.uploads_api.uploads.UploadStatus;
 import com.example.uploads_api.variant.InsertVariant;
 import com.example.uploads_api.variant.VariantId;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,6 @@ class VariantRepositoryImplIT extends CockroachIntegrationTest {
         var uploadKey = "variant-" + UUID.randomUUID();
         var uploadId = uploadRepository.insert(InsertUpload.builder()
                 .uploadKey(uploadKey)
-                .status(UploadStatus.READY)
                 .storedAssetId(insertAsset().getId())
                 .build());
         var transformation = namedTransformationRepository.get(insertTransformation());

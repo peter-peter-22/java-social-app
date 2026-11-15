@@ -5,7 +5,6 @@ import com.example.uploads_api.stored_asset.*;
 import com.example.uploads_api.uploads.InsertUpload;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadKeyTakenException;
-import com.example.uploads_api.uploads.UploadStatus;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -82,38 +80,13 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
     }
 
     @Test
-    void updatesStatus() {
-        var toInsert = insertUpload("status");
-        var uploadId = uploadRepository.insert(toInsert);
-
-        var statistics = entityManagerFactory.unwrap(SessionFactory.class).getStatistics();
-        statistics.setStatisticsEnabled(true);
-        var statementsBefore = statistics.getPrepareStatementCount();
-        try {
-            uploadRepository.updateStatus(uploadId, UploadStatus.DELETING);
-            assertThat(statistics.getPrepareStatementCount()).isEqualTo(statementsBefore + 1);
-        } finally {
-            statistics.setStatisticsEnabled(false);
-        }
-
-        assertThat(uploadRepository.findByKey(toInsert.getUploadKey()).getStatus()).isEqualTo(UploadStatus.DELETING);
-    }
-
-    @Test
-    void updatingMissingUploadThrows() {
-        assertThatThrownBy(() -> uploadRepository.updateStatus(UUID.randomUUID(), UploadStatus.READY))
-                .isInstanceOf(NoSuchElementException.class);
-    }
-
-    @Test
     void duplicateKeyThrowsException() {
         var toInsert = insertUpload("duplicate");
         uploadRepository.insert(toInsert);
 
         assertThatThrownBy(() -> uploadRepository.insert(InsertUpload.builder()
                 .uploadKey(toInsert.getUploadKey())
-                .status(UploadStatus.READY)
-                .storedAssetId(insertAsset("duplicate-asset", "image/jpeg", "jpg").getId())
+                .storedAssetId(insertAsset("image/jpeg", "jpg").getId())
                 .build()))
                 .isInstanceOf(UploadKeyTakenException.class);
     }
@@ -136,15 +109,14 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
     }
 
     private InsertUpload insertUpload(String prefix, String mimeType, String extension) {
-        var storedAsset = insertAsset(prefix, mimeType, extension);
+        var storedAsset = insertAsset(mimeType, extension);
         return InsertUpload.builder()
                 .uploadKey(prefix + "-" + UUID.randomUUID())
-                .status(UploadStatus.READY)
                 .storedAssetId(storedAsset.getId())
                 .build();
     }
 
-    private StoredAsset insertAsset(String prefix, String mimeType, String extension) {
+    private StoredAsset insertAsset(String mimeType, String extension) {
         return storedAssetRepository.insert(InsertStoredAsset.builder()
                 .homeRegion("eu-central-1")
                 .objectBucket("uploads")

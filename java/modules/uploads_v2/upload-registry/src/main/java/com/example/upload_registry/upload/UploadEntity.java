@@ -3,7 +3,6 @@ package com.example.upload_registry.upload;
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
 import com.example.uploads_api.stored_asset.StoredAsset;
 import com.example.uploads_api.uploads.Upload;
-import com.example.uploads_api.uploads.UploadStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,9 +29,6 @@ public final class UploadEntity {
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UploadStatus status;
 
     public Upload toModel() {
         return toModel(StoredAssetEntity.toModel(storedAsset, null, null));
@@ -51,7 +47,6 @@ public final class UploadEntity {
                 .uploadKey(uploadKey)
                 .id(id)
                 .createdAt(createdAt)
-                .status(status)
                 .storedAsset(asset)
                 .build();
     }

@@ -2,7 +2,10 @@ package com.example.upload_registry.upload;
 
 import com.example.cockroach_db.SQLErrorCodes;
 import com.example.upload_registry.stored_asset.StoredAssetEntity;
-import com.example.uploads_api.uploads.*;
+import com.example.uploads_api.uploads.InsertUpload;
+import com.example.uploads_api.uploads.Upload;
+import com.example.uploads_api.uploads.UploadKeyTakenException;
+import com.example.uploads_api.uploads.UploadRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
@@ -11,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @NullMarked
@@ -28,7 +30,6 @@ public class UploadRepositoryImpl implements UploadRepository {
             var storedAssetEntity = entityManager.getReference(StoredAssetEntity.class, upload.getStoredAssetId());
             return uploadCrudRepository.saveAndFlush(UploadEntity.builder()
                             .uploadKey(upload.getUploadKey())
-                            .status(upload.getStatus())
                             .storedAsset(storedAssetEntity)
                             .build())
                     .getId();
@@ -37,14 +38,6 @@ public class UploadRepositoryImpl implements UploadRepository {
                 throw new UploadKeyTakenException("An upload already exists with key: " + upload.getUploadKey());
             }
             throw e;
-        }
-    }
-
-    @Override
-    @Transactional
-    public void updateStatus(UUID uploadId, UploadStatus status) {
-        if (uploadCrudRepository.updateStatus(uploadId, status) == 0) {
-            throw new NoSuchElementException("No value present");
         }
     }
 
