@@ -33,8 +33,6 @@ public final class StoredAssetEntity {
     private boolean directory;
     @Column(nullable = false)
     private String entryPoint;
-    @Column(nullable = false, length = 127)
-    private String mimeType;
     @Column(length = 20)
     private String extension;
     @Column(nullable = false, length = 127)
@@ -70,7 +68,6 @@ public final class StoredAssetEntity {
                 .directory(entity.isDirectory())
                 .entryPoint(entity.getEntryPoint())
                 .objectBucket(entity.getObjectBucket())
-                .mimeType(entity.getMimeType())
                 .extension(entity.getExtension())
                 .contentType(entity.getContentType())
                 .createdAt(entity.getCreatedAt())

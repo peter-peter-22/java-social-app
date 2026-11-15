@@ -21,7 +21,6 @@ public final class StoredAsset {
     private final boolean directory;
     /** The entrypoint is a relative path, it contains the extension. */
     private final String entryPoint;
-    private final String mimeType;
     @Nullable
     private final String extension;
     private final String contentType;

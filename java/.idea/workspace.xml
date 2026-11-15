@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="synchronize the database implementations with the domain models">
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/stored_asset/000-create-stored-asset-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/stored_asset/000-create-stored-asset-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="move the default stored asset status outside the database table definition">
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,7 +336,7 @@
       <recent name="com.example.uploads_api.variant" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.java [:upload-registry:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -358,33 +357,6 @@
             <option value=":object-storage:test" />
             <option value="--tests" />
             <option value="&quot;com.example.object_storage.regional.RegionalObjectRepositoriesIT&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="StoredAssetRepositoryImplIT" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":upload-registry:test" />
-            <option value="--tests" />
-            <option value="&quot;com.example.upload_registry.stored_asset.StoredAssetRepositoryImplIT&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -462,6 +434,31 @@
         <option name="taskNames">
           <list>
             <option value=":upload-api:testClasses" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":upload-registry:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -578,11 +575,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Gradle.java [:upload-api:build]" />
         <item itemvalue="Gradle.java [:upload-api:testClasses]" />
         <item itemvalue="Gradle.UploadRepositoryImplIT" />
         <item itemvalue="Gradle.RegionalObjectRepositoriesIT" />
-        <item itemvalue="Gradle.StoredAssetRepositoryImplIT" />
       </list>
     </recent_temporary>
   </component>
@@ -979,8 +976,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="extract common logic from the image-transformer and video-transformer modules to the transformer-contracts module" />
-    <MESSAGE value="implement basic logic in video-transformer" />
     <MESSAGE value="refractor upload DTOs and their usage" />
     <MESSAGE value="fix unintended comparison function in BlockingTransformerRestApiTests" />
     <MESSAGE value="fix the error that stops the test on failure instead of throwing in TransformationRestIT" />
@@ -1004,7 +999,9 @@
     <MESSAGE value="prepare for fixing the SQL by separating the service beans and fixing the object storage" />
     <MESSAGE value="verify and fix the domain models before syncing with database" />
     <MESSAGE value="synchronize the database implementations with the domain models" />
-    <option name="LAST_COMMIT_MESSAGE" value="synchronize the database implementations with the domain models" />
+    <MESSAGE value="remove insert all from the stored asset repository" />
+    <MESSAGE value="move the default stored asset status outside the database table definition" />
+    <option name="LAST_COMMIT_MESSAGE" value="move the default stored asset status outside the database table definition" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

@@ -150,7 +150,7 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
                 .objectBucket("uploads")
                 .directory(false)
                 .entryPoint("original." + extension)
-                .mimeType(mimeType)
+                .contentType(mimeType)
                 .extension(extension)
                 .bytes(42)
                 .objects(List.of("original." + extension))

@@ -72,7 +72,7 @@ class VariantRepositoryImplIT extends CockroachIntegrationTest {
                 .objectBucket("uploads")
                 .directory(false)
                 .entryPoint("file.jpg")
-                .mimeType("image/jpeg")
+                .contentType("image/jpeg")
                 .extension("jpg")
                 .bytes(42)
                 .objects(List.of("file.jpg"))

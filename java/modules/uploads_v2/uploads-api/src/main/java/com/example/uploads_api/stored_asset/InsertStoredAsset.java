@@ -18,7 +18,7 @@ public class InsertStoredAsset {
     boolean directory;
     @Nullable
     String entryPoint;
-    String mimeType;
+    String contentType;
     @Nullable
     String extension;
     long bytes;
