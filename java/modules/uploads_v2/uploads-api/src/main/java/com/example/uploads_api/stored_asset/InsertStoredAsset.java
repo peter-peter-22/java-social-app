@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Collection;
+
 @NullMarked
 @Getter
 @Builder
@@ -14,9 +16,12 @@ public class InsertStoredAsset {
     private final String homeRegion;
     private final String objectBucket;
     private final boolean directory;
-    @Nullable private final String entryPoint;
+    @Nullable
+    private final String entryPoint;
     private final String mimeType;
-   @Nullable private final String extension;
+    @Nullable
+    private final String extension;
     private final long bytes;
+    private final Collection<String> objects;
     private final AssetDeliveryProtocol deliveryProtocol;
 }

@@ -1,10 +1,7 @@
 package com.example.upload_registry.upload;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.uploads_api.stored_asset.ImageMetadata;
-import com.example.uploads_api.stored_asset.InsertStoredAsset;
-import com.example.uploads_api.stored_asset.StoredAssetRepository;
-import com.example.uploads_api.stored_asset.VideoMetadata;
+import com.example.uploads_api.stored_asset.*;
 import com.example.uploads_api.uploads.InsertUpload;
 import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.UploadKeyTakenException;
@@ -92,18 +89,18 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
         statistics.setStatisticsEnabled(true);
         var statementsBefore = statistics.getPrepareStatementCount();
         try {
-            uploadRepository.updateStatus(uploadId, UploadStatus.UPLOADED);
+            uploadRepository.updateStatus(uploadId, UploadStatus.DELETING);
             assertThat(statistics.getPrepareStatementCount()).isEqualTo(statementsBefore + 1);
         } finally {
             statistics.setStatisticsEnabled(false);
         }
 
-        assertThat(uploadRepository.findByKey(toInsert.getUploadKey()).getStatus()).isEqualTo(UploadStatus.UPLOADED);
+        assertThat(uploadRepository.findByKey(toInsert.getUploadKey()).getStatus()).isEqualTo(UploadStatus.DELETING);
     }
 
     @Test
     void updatingMissingUploadThrows() {
-        assertThatThrownBy(() -> uploadRepository.updateStatus(UUID.randomUUID(), UploadStatus.UPLOADED))
+        assertThatThrownBy(() -> uploadRepository.updateStatus(UUID.randomUUID(), UploadStatus.READY))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -134,20 +131,19 @@ class UploadRepositoryImplIT extends CockroachIntegrationTest {
     }
 
     private InsertUpload insertUpload(String prefix, String mimeType, String extension) {
-        var storedAssetId = storedAssetRepository.insert(InsertStoredAsset.builder()
+        var storedAsset = storedAssetRepository.insert(InsertStoredAsset.builder()
                 .homeRegion("eu-central-1")
                 .objectBucket("uploads")
-                .objectPath("assets/" + UUID.randomUUID() + "." + extension)
                 .directory(false)
                 .mimeType(mimeType)
                 .extension(extension)
                 .bytes(42)
-                .deliveryProtocol("https")
+                .deliveryProtocol(AssetDeliveryProtocol.IMAGE)
                 .build());
         return InsertUpload.builder()
                 .uploadKey(prefix + "-" + UUID.randomUUID())
-                .status(UploadStatus.UPLOADING)
-                .storedAssetId(storedAssetId)
+                .status(UploadStatus.READY)
+                .storedAssetId(storedAsset.getId())
                 .build();
     }
 }

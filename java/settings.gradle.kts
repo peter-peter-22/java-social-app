@@ -12,7 +12,8 @@ include(
     ":image-transformer",
     ":uploads-service",
     ":upload-registry",
-    ":upload-api"
+    ":upload-api",
+    ":upload-services"
 )
 
 project(":cockroach-db").projectDir = file("modules/cockroach-db")
@@ -22,3 +23,4 @@ project(":image-transformer").projectDir = file("modules/uploads_v2/image-transf
 project(":uploads-service").projectDir = file("modules/uploads_v2/uploads-service")
 project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registry")
 project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")
+project(":upload-services").projectDir = file("modules/uploads_v2/upload-services")

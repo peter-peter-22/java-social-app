@@ -60,9 +60,4 @@ public class UploadRepositoryImpl implements UploadRepository {
     public Upload findVideoByKey(String uploadKey) {
         return uploadCrudRepository.getByUploadKeyWithVideoMetadata(uploadKey).orElseThrow().toModelWithVideoMetadata();
     }
-
-    @Override
-    public Upload selectForUpdateByKey(String uploadKey) {
-        return null;
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.upload_registry.stored_asset;
 
+import com.example.uploads_api.stored_asset.AssetDeliveryProtocol;
 import com.example.uploads_api.stored_asset.StoredAsset;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.jspecify.annotations.Nullable;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +24,6 @@ public final class StoredAssetEntity {
     private UUID id;
     @Column(nullable = false, length = 50)
     private String homeRegion;
-    // TODO remove the bucket from the stored asset
     @Column(nullable = false, length = 50)
     private String objectBucket;
     @Column(nullable = false)
@@ -38,9 +39,11 @@ public final class StoredAssetEntity {
     private Instant createdAt;
     @Column(nullable = false)
     private Long bytes;
-    @Column(length = 20)
-    private String deliveryProtocol;
-
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AssetDeliveryProtocol deliveryProtocol;
+    @Column(nullable = false)
+    private List<String> objects;
     @OneToOne(mappedBy = "storedAsset")
     private @Nullable ImageMetadataEntity imageMetadata;
     @OneToOne(mappedBy = "storedAsset")

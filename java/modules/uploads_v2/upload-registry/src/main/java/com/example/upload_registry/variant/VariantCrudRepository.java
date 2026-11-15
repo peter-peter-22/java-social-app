@@ -12,12 +12,8 @@ public interface VariantCrudRepository extends JpaRepository<VariantEntity, Vari
 
     @EntityGraph(attributePaths = {"storedAsset", "transformationVersionEntity"})
     @Query("SELECT v FROM VariantEntity v " +
-           "WHERE v.uploadEntity.uploadKey = :uploadKey " +
-           "AND v.namedTransformationEntity.name = :transformationName ")
-    Optional<VariantEntity> findByUploadKeyAndTransformationNameAndStatus(
+            "WHERE v.uploadEntity.uploadKey = :uploadKey " +
+            "AND v.namedTransformationEntity.name = :transformationName ")
+    Optional<VariantEntity> findByUploadKeyAndTransformationName(
             String uploadKey, String transformationName);
-
-    @EntityGraph(attributePaths = {"storedAsset", "transformationVersionEntity", "uploadEntity"})
-    @Query("SELECT v FROM VariantEntity v WHERE v.id = :id")
-    Optional<VariantEntity> findByIdForUpdate(VariantEntityId id);
 }

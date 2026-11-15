@@ -2,4 +2,7 @@ minio:
   reconciliation:
     enabled: true
   home-region: test
+  uploads-configuration:
+    bucket-name: uploads
+    expiration-days: 1
   # The object storage of the "test" region is configured by the MinioIntegrationTest class.

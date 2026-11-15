@@ -16,5 +16,7 @@ public enum StoredAssetStatus {
      * The upload process that owns this asset was finished successfully.
      * This asset is no longer the target of cleanup.
      */
-    READY
+    READY,
+    /** Marked for deletion immediate deletion.  */
+    DELETE
 }

@@ -29,7 +29,7 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
                 .mimeType(insert.getMimeType())
                 .extension(insert.getExtension())
                 .bytes(insert.getBytes())
-                //.deliveryProtocol(insert.getDeliveryProtocol()) //TODO sync with entity
+                .deliveryProtocol(insert.getDeliveryProtocol())
                 .build());
         return StoredAssetEntity.toModel(inserted);
     }
@@ -70,6 +70,6 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
 
     @Override
     public void setStatusAll(Collection<UUID> ids, StoredAssetStatus status) {
-
+// TODO implement
     }
 }

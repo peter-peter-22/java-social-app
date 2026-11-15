@@ -15,5 +15,4 @@ dependencies {
     implementation(project(":cockroach-db"))
     testImplementation(testFixtures(project(":cockroach-db")))
     implementation(project(":upload-api"))
-    implementation(project(":object-storage"))
 }

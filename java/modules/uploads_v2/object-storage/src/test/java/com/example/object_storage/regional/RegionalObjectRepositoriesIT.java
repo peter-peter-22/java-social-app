@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @NullMarked
 public class RegionalObjectRepositoriesIT extends MinioIntegrationTest {
-    private static final String BUCKET = "private";
+    private static final String BUCKET = "uploads";
     private static final String REGION = "test";
     private static final String CONTENT_TYPE = "text/plain";
 

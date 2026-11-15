@@ -32,12 +32,11 @@ public class VideoEncodings {
     @Builder
     @Jacksonized
     @Getter
-    public final class Mp4 implements VideoEncoding, HasVideoQuality {
+    public final class Mp4 implements VideoEncoding {
         @Nullable Integer videoBitrate;
         @Nullable Integer audioBitrate;
         @Nullable Integer videoFrameRate;
         @Nullable Integer constantRateFactor;
-        @Nullable VideoQualityPreset videoQualityPreset;
 
         VideoEncodingPreset encodingPreset;
 

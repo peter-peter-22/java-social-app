@@ -1,7 +1,6 @@
 package com.example.upload_registry.stored_asset_service;
 
 import com.example.object_storage.global.GlobalObjectRepository;
-import com.example.object_storage.regional.MinioProperties;
 import com.example.object_storage.regional.args.*;
 import com.example.object_storage.tags.ObjectTag;
 import com.example.uploads_api.stored_asset.InsertStoredAsset;
@@ -28,14 +27,12 @@ import java.util.concurrent.Future;
 @Service
 @RequiredArgsConstructor
 @NullMarked
-@EnableConfigurationProperties(StoredAssetConfiguration.class)
+@EnableConfigurationProperties(com.example.upload_registry.stored_asset_service.StoredAssetConfiguration.class)
 public class StoredAssetService {
     private final GlobalObjectRepository globalObjectRepository;
     private final StoredAssetRepository storedAssetRepository;
-    private final StoredAssetConfiguration storedAssetConfiguration;
-    private final MinioProperties minioProperties;
 
-    private final String bucket = minioProperties.uploadsConfiguration().bucketName();
+    private final String bucket = "uploads";
     private final List<ObjectTag> expirationTags = List.of(ObjectTag.EXPIRES);
 
     public void setTemporaryFile(StoredAsset storedAsset, InputStream inputStream) {
@@ -117,7 +114,7 @@ public class StoredAssetService {
         );
     }
 
-    public StoredAsset createStoredAsset(CreateStoredAsset insert) {
+    public StoredAsset createStoredAsset(com.example.upload_registry.stored_asset_service.CreateStoredAsset insert) {
         return storedAssetRepository.insert(
                 InsertStoredAsset.builder()
                         .homeRegion(globalObjectRepository.getHomeRegion())

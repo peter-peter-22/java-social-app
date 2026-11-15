@@ -14,7 +14,7 @@ import java.util.List;
 public record MinioProperties(
         @NotBlank String homeRegion,
         @NotNull ReconciliationConfiguration reconciliation,
-    @NotNull UploadsConfiguration uploadsConfiguration,
+        @NotNull UploadsConfiguration uploadsConfiguration,
         @NotEmpty List<MinioRegion> regions
 ) {
     public record MinioRegion(
@@ -32,7 +32,7 @@ public record MinioProperties(
 
     /**
      * @param expirationDays This controls how long the uploads can wait before being finalized.
-     *                            Both successful and ongoing uploads are marked for removal after this duration.
+     *                       Both successful and ongoing uploads are marked for removal after this duration.
      */
     public record UploadsConfiguration(
             @NotNull String bucketName,
