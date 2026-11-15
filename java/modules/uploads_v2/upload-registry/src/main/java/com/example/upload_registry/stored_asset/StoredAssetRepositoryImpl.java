@@ -39,12 +39,6 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     }
 
     @Override
-    @Transactional
-    public List<StoredAsset> insertAll(Collection<InsertStoredAsset> insert) {
-        return insert.stream().map(this::insert).toList();
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public @Nullable StoredAsset findById(UUID id) {
         return storedAssetCrudRepository.findByIdWithMetadata(id)

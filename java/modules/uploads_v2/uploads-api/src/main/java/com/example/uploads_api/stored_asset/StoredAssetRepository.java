@@ -4,14 +4,11 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @NullMarked
 public interface StoredAssetRepository {
     StoredAsset insert(InsertStoredAsset insert);
-
-    List<StoredAsset> insertAll(Collection<InsertStoredAsset> insert);
 
     @Nullable StoredAsset findById(UUID id);
 
@@ -21,5 +18,5 @@ public interface StoredAssetRepository {
     /** Insert a video metadata that belongs to the given stored asset. */
     void setVideoMetadata(UUID storedAssetId, VideoMetadata metadata);
 
-    void setStatusAll(Collection<UUID> ids,  StoredAssetStatus status);//TODO implement
+    void setStatusAll(Collection<UUID> ids,  StoredAssetStatus status);
 }
