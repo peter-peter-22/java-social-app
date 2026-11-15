@@ -40,7 +40,7 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     @Override
     @Transactional(readOnly = true)
     public @Nullable StoredAsset findById(UUID id) {
-        return storedAssetCrudRepository.findByIdWithMetadata(id)
+        return storedAssetCrudRepository.findById(id)
                 .map(StoredAssetEntity::toModel)
                 .orElse(null);
     }
@@ -72,5 +72,11 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
         if (storedAssetCrudRepository.updateStatusAll(ids, status) != ids.size()) {
             throw new IllegalArgumentException("Could not update the status of every stored asset");
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll(Collection<UUID> ids){
+        storedAssetCrudRepository.deleteAll(ids);
     }
 }

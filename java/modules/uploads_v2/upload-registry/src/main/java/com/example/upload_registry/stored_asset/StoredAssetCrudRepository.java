@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 
 @NullMarked
 public interface StoredAssetCrudRepository extends JpaRepository<StoredAssetEntity, UUID> {
-    @Query("SELECT s FROM StoredAssetEntity s WHERE s.id = :id")
-    Optional<StoredAssetEntity> findByIdWithMetadata(UUID id);
-
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE StoredAssetEntity s SET s.status = :status WHERE s.id IN :ids")
     int updateStatusAll(Collection<UUID> ids, StoredAssetStatus status);
+
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("DELETE FROM StoredAssetEntity s WHERE s.id IN :ids")
+    void deleteAll(Collection<UUID> ids);
 }

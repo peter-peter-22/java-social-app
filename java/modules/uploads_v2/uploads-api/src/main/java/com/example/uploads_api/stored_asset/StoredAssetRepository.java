@@ -19,4 +19,7 @@ public interface StoredAssetRepository {
     void setVideoMetadata(UUID storedAssetId, VideoMetadata metadata);
 
     void setStatusAll(Collection<UUID> ids,  StoredAssetStatus status);
+
+    /** Complete deletion. */
+    void deleteAll(Collection<UUID> ids);
 }
