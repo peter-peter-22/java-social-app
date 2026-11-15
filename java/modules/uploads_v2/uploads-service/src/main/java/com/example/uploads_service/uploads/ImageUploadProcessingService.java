@@ -20,6 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class ImageUploadProcessingService {
+    // TODO update the class imports
     private final UploadService uploadService;
     private final StoredAssetService storedAssetService;
     private final MediaWorkerService mediaWorkerService;

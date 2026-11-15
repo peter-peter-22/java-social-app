@@ -35,11 +35,6 @@ public interface UploadProcessRepository {
     // TODO should throw UploadAlreadyExistsException("Upload with uploadKey %s is already finished, cannot start a new attempt.".formatted(uploadKey));
     void setAttemptAsActive(String uploadKey, UUID attemptId) throws UploadAlreadyExistsException;
 
-    /**
-     * Add a new asset to the created assets of an attempt.
-     */
-    void registerCreatedAsset(UUID attemptId, UUID assetId);
-
     record RegisterVariantArgs(NamedImageTransformation transformation, UUID storedAssetId){}
 
     /**
