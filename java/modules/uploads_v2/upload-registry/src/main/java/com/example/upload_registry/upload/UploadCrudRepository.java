@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @NullMarked
-interface UploadCrudRepository extends JpaRepository<UploadEntity, UUID> {
+public interface UploadCrudRepository extends JpaRepository<UploadEntity, UUID> {
 
     @EntityGraph(attributePaths = "storedAsset")
     @Query("SELECT u FROM UploadEntity u WHERE u.uploadKey = :key")

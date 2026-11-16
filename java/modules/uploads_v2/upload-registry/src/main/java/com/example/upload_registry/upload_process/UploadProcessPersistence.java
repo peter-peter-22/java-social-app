@@ -8,7 +8,6 @@ import java.util.UUID;
 
 /**
  * Basic save and read access used to verify conversion between the upload process domain models and JPA entities.
- * The richer {@code UploadProcessRepository} operations are intentionally not implemented yet.
  */
 @NullMarked
 public interface UploadProcessPersistence {
