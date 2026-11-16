@@ -3,6 +3,8 @@ Consider to use database rows instead of encrypted signatures for the upload per
 
 Make the image uploads alone to work.
 
+Find a reliable cleanup mechanism.
+
 Do a complete refractor to make the code readable enough.
 
 Add the video and raw uploads.
