@@ -16,7 +16,7 @@ include(
     ":upload-services"
 )
 
-project(":cockroach-db").projectDir = file("modules/cockroach-db")
+project(":cockroach-db").projectDir = file("modules/common/cockroach-db")
 
 project(":object-storage").projectDir = file("modules/uploads_v2/object-storage")
 project(":image-transformer").projectDir = file("modules/uploads_v2/image-transformer")

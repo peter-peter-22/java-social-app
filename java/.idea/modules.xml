@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" />

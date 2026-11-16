@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="create upload process and upload attempt entities">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make some comments more understandable">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/planning/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/cockroach-db/java.cockroach-db.testFixtures.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/regional/MinioProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/guides/error codes.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/guides/error codes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/guides/liquibase.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/guides/liquibase.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/java/com/example/cockroach_db/ForeignKeyErrorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/main/java/com/example/cockroach_db/ForeignKeyErrorReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/main/java/com/example/cockroach_db/SQLErrorCodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/main/java/com/example/cockroach_db/SQLErrorCodes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/test/java/com/example/cockroach_db/ConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/test/java/com/example/cockroach_db/ConnectionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/test/java/com/example/cockroach_db/TestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/test/java/com/example/cockroach_db/TestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/test/resources/db/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/test/resources/db/db.changelog-master.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/testFixtures/java/com/example/cockroach_db/CockroachIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/cockroach-db/src/testFixtures/resources/database-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/modules/common/cockroach-db/src/testFixtures/resources/database-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -331,11 +356,11 @@
       <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/resources/db/changelog/stored_media" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/common" />
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage" />
       <recent name="$PROJECT_DIR$/guides/java" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation/changelist" />
-      <recent name="$PROJECT_DIR$/modules/uploads_v2/object-storage/src/main/java/com/example/object_storage/reconciliation" />
-      <recent name="$PROJECT_DIR$/guides/gradle" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.object_storage.regional.args" />
@@ -981,7 +1006,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implement the variant storage plan" />
     <MESSAGE value="wip" />
     <MESSAGE value="get a full prototype for the image upload and transformation service" />
     <MESSAGE value="clean up some unused modules" />
@@ -1006,7 +1030,8 @@
     <MESSAGE value="add integration test for the stored asset repository" />
     <MESSAGE value="clean up previous prototypes and fix compiler errors in image worker" />
     <MESSAGE value="create upload process and upload attempt entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="create upload process and upload attempt entities" />
+    <MESSAGE value="Make some comments more understandable" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make some comments more understandable" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
