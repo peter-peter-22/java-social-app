@@ -31,8 +31,8 @@ public record MinioProperties(
     }
 
     /**
-     * @param expirationDays This controls how long the uploads can wait before being finalized.
-     *                       Both successful and ongoing uploads are marked for removal after this duration.
+     * @param expirationDays This controls the max lifespan of the temporal objects and the uploads.
+     *                       Days are the smallest unit Minio can set for object expiration and upload expiration.
      */
     public record UploadsConfiguration(
             @NotNull String bucketName,

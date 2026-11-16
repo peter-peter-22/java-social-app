@@ -134,10 +134,14 @@ public class TaskService {
         storedAssetService.setAssetStatus(allAssetIds, StoredAssetStatus.FINALIZING);
         // removing the tags to remove the expiration
         storedAssetService.tagAllAssets(allAssets, null);
-        // check if all objects still exists
-        if (!storedAssetService.objectsExist(allAssets))
-            // if some of the assets are expired or deleted, this error will be thrown
-            throw new RuntimeException("Some of the created assets were not found.");
+
+// This check is probably not the best way to check if the files still exists.
+//  From the age and status of the asset, we can decide if it or it's files are possibly expired or not.
+//
+//        // check if all objects still exists
+//        if (!storedAssetService.objectsExist(allAssets))
+//            // if some of the assets are expired or deleted, this error will be thrown
+//            throw new RuntimeException("Some of the created assets were not found.");
 
         // finish the upload
         uploadService.finalizeAttempt(

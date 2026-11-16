@@ -35,12 +35,15 @@ public interface UploadProcessRepository {
     /**
      * Publish the final upload if the selected attempt is still active.
      * Steps:
-     * Select and lock the upload process.
-     * Check if the current attempt is active in the retrieved process, and if it does not have a completed upload.
      * Create the upload and variant rows.
-     * Update the upload process to register the upload.
+     * Modify the status of the stored assets of the upload and the variants to READY.
      * Update the status of the attempt to SUCCESS, set the finish date, also lock it and check if it exists.
+     * Update the upload process to register the upload, lock the row, return it.
+     * Check if the current attempt is active in the retrieved process, and if it does not have a completed upload.
      * If all successful, the complete upload is published, otherwise an error is thrown and the transaction is rolled back.
+     *
+     * Here, additional checks about the asset expiration could be introduced in the future.
+     * (e.g., if the asset is older than the expiration, its objects might be expired, abort the upload.)
      */
     Upload finalizeAttempt(UUID attemptId, String uploadKey, @Nullable Collection<RegisterVariantArgs> variants, UUID originalAssetId);
 }
