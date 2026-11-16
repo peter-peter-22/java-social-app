@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Move the cockroachDB module to the common directory">
-      <change afterPath="$PROJECT_DIR$/modules/common/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/common/cockroach-db/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/planning/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planning/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Prepare the upload process repository for implementation.">
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,11 +85,11 @@
         <option value="Kotlin File" />
         <option value="package-info" />
         <option value="Interface" />
-        <option value="Exception" />
         <option value="Enum" />
         <option value="Kotlin Script MainKts.main" />
         <option value="Class" />
         <option value="Record" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -352,7 +342,7 @@
       <recent name="com.example.uploads_api.variant" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:image-transformer:check]">
+  <component name="RunManager" selected="Gradle.java [:upload-api:check]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -434,7 +424,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:upload-api:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -445,7 +435,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-registry:test" />
+            <option value=":upload-api:check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -459,7 +449,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:uploads-service:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -470,7 +460,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-service:check" />
+            <option value=":upload-registry:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -587,11 +577,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:upload-api:check]" />
         <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Gradle.java [:image-transformer:test]" />
         <item itemvalue="Gradle.java [:image-transformer:check]" />
-        <item itemvalue="Gradle.java [:uploads-service:check]" />
       </list>
     </recent_temporary>
   </component>
@@ -988,8 +978,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="get a full prototype for the image upload and transformation service" />
-    <MESSAGE value="clean up some unused modules" />
     <MESSAGE value="more clean up" />
     <MESSAGE value="adjust the roadmap" />
     <MESSAGE value="remove uncertain plans" />
@@ -1013,7 +1001,9 @@
     <MESSAGE value="create upload process and upload attempt entities" />
     <MESSAGE value="Make some comments more understandable" />
     <MESSAGE value="Move the cockroachDB module to the common directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move the cockroachDB module to the common directory" />
+    <MESSAGE value="Add more documentation" />
+    <MESSAGE value="Prepare the upload process repository for implementation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prepare the upload process repository for implementation." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
