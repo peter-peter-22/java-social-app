@@ -1,5 +1,6 @@
 package com.example.image_transformer.task_service;
 
+import com.example.image_transformer.metadata.ImageMetadataService;
 import com.example.image_transformer.transformation.ImageTransformationService;
 import com.example.upload_services.stored_asset_service.StoredAssetService;
 import com.example.upload_services.upload_service.UploadService;
@@ -26,7 +27,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +37,7 @@ public class TaskService {
     private final StoredAssetService storedAssetService;
     private final NamedTransformationRepository namedTransformationRepository;
     private final UploadService uploadService;
+    private final ImageMetadataService imageMetadataService;
 
     public void processTask(ImageProcessingTask task) {
         log.info("Processing image task {}", task);
@@ -47,25 +48,27 @@ public class TaskService {
         // apply the transformations
         StoredAsset incomingAsset = null;
         ArrayList<StoredAsset> eagerAssets = null;
-        // TODO read and save the file metadata with lipvips even if no transformations are required
-        if (transformations != null) {
-            AtomicReference<@Nullable Path> workDirRef = new AtomicReference<>();
-            try {
-                // create the working directory
-                // TODO ensure that the ubuntu tmpfs `/tmp` folder is used and the directory is in the memory
-                // TODO what happens when the tmp folder exceeds the memory size
-                var workDir = Files.createTempDirectory(Path.of("/uploads"), null);
-                workDirRef.set(workDir);
-                var transformationsDir = workDir.resolve("transformations");
+        Path workDirRef = null;
+        try {
+            // create the working directory
+            // TODO ensure that the ubuntu tmpfs `/tmp` folder is used and the directory is in the memory
+            // TODO what happens when the tmp folder exceeds the memory size
+            var workDir = Files.createTempDirectory(Path.of("/uploads"), null);
+            workDirRef = workDir;
+            var transformationsDir = workDir.resolve("transformations");
 
-                // download the original upload
-                var originalFilePath = workDir.resolve("original." + task.getOriginalAsset().getExtension());
-                storedAssetService.downloadMainFile(task.getOriginalAsset(), originalFilePath);
+            // download the original upload
+            var originalFilePath = workDir.resolve("original." + task.getOriginalAsset().getExtension());
+            storedAssetService.downloadMainFile(task.getOriginalAsset(), originalFilePath);
 
-                try (var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
+            try (var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
 
+                Future<StoredAsset> incomingTransformationFuture = null;
+                ArrayList<Future<StoredAsset>> eagerTransformationFutures = null;
+                Future<?> metadataFuture = null;
+
+                if (transformations != null) {
                     // create the futures of the incoming transformation
-                    Future<StoredAsset> incomingTransformationFuture = null;
                     if (transformations.incoming() != null) {
                         if (transformations.incoming().getOperations().encoding().isDirectory())
                             throw new RuntimeException("""
@@ -82,7 +85,7 @@ public class TaskService {
                     }
 
                     // create the futures of the eager transformations
-                    var eagerTransformationFutures = new ArrayList<Future<StoredAsset>>();
+                    eagerTransformationFutures = new ArrayList<>();
                     if (transformations.eager() != null) {
                         for (var transformation : transformations.eager()) {
                             eagerTransformationFutures.add(
@@ -96,31 +99,45 @@ public class TaskService {
                             );
                         }
                     }
+                }
 
-                    // await the futures
-                    try {
-                        incomingAsset = incomingTransformationFuture == null ? null : incomingTransformationFuture.get();
+                // create the metadata future.
+                //  this is needed only if there are no incoming transformations.
+                //  otherwise the incoming transformation asset that will be registered as original asset already has it's metadata saved.
+                if (incomingTransformationFuture == null) {
+                    metadataFuture = executor.submit(() -> {
+                        var metadata = imageMetadataService.readMetadata(originalFilePath.toString());
+                        storedAssetService.setImageMetadata(task.getOriginalAsset().getId(), metadata);
+                    });
+                }
 
-                        eagerAssets = new ArrayList<StoredAsset>();
+                // await the futures
+                try {
+                    incomingAsset = incomingTransformationFuture == null ? null : incomingTransformationFuture.get();
+
+                    if (eagerTransformationFutures != null) {
+                        eagerAssets = new ArrayList<>();
                         for (Future<StoredAsset> future : eagerTransformationFutures) {
                             StoredAsset storedAsset = future.get();
                             eagerAssets.add(storedAsset);
                         }
-                    } catch (Exception e) {
-                        executor.shutdownNow();
-                        throw new RuntimeException("Error while awaiting transformation futures: ", e);
                     }
+
+                    if (metadataFuture != null)
+                        metadataFuture.get();
+                } catch (Exception e) {
+                    executor.shutdownNow();
+                    throw new RuntimeException("Error while awaiting transformation futures: ", e);
                 }
-            } catch (Exception e) {
-                throw new RuntimeException("Error while transforming image", e);
-            } finally {
-                try {
-                    var workDir = workDirRef.get();
-                    if (workDir != null)
-                        FileUtils.deleteRecursively(workDir);
-                } catch (IOException e) {
-                    log.warn("Error while deleting temporary directory", e);
-                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while transforming image", e);
+        } finally {
+            try {
+                if (workDirRef != null)
+                    FileUtils.deleteRecursively(workDirRef);
+            } catch (IOException e) {
+                log.warn("Error while deleting temporary directory", e);
             }
         }
 
@@ -183,14 +200,14 @@ public class TaskService {
             Files.createDirectories(workDir);
 
             // create the transformed files
-            var entryPoint = imageTransformationService.transformFile(
+            var result = imageTransformationService.transformFile(
                     inputFile.toString(),
                     workDir,
                     operations
             );
 
             // register the results
-            return saveTransformationResultsAsStoredAsset(entryPoint, inputFile, operations);
+            return saveTransformationResultsAsStoredAsset(inputFile, result, operations);
         } catch (IOException e) {
             throw new RuntimeException("Error while processing transformation", e);
         } finally {
@@ -206,7 +223,11 @@ public class TaskService {
      * Take the contents of a directory and the entrypoint, register a stored asset, upload the files to its object keys.
      * In short, create a stored asset from a directory.
      */
-    private StoredAsset saveTransformationResultsAsStoredAsset(Path savedDirectory, Path entryPoint, ImageTransformationOperations operations) throws IOException {
+    private StoredAsset saveTransformationResultsAsStoredAsset(
+            Path savedDirectory,
+            ImageTransformationService.TransformationResult result,
+            ImageTransformationOperations operations
+    ) throws IOException {
         // register the results
         var encoding = operations.encoding();
         var paths = FileUtils.getFilesInDir(savedDirectory);
@@ -216,13 +237,15 @@ public class TaskService {
         var asset = storedAssetService.createStoredAsset(
                 InsertStoredAsset.builder()
                         .directory(encoding.isDirectory())
-                        .entryPoint(savedDirectory.relativize(entryPoint).toString())
+                        .entryPoint(savedDirectory.relativize(result.entryPoint()).toString())
                         .objects(relativePaths)
                         .contentType(encoding.getContentType())
-                        .extension(FileUtils.getFileExtension(entryPoint.getFileName().toString()))
+                        .extension(FileUtils.getFileExtension(result.entryPoint().getFileName().toString()))
                         .bytes(size)
                         .build()
         );
+
+        storedAssetService.setImageMetadata(asset.getId(), result.metadata());
 
         // upload the files
         storedAssetService.setTemporaryFiles(asset, paths);

@@ -3,10 +3,7 @@ package com.example.upload_services.stored_asset_service;
 import com.example.object_storage.global.GlobalObjectRepository;
 import com.example.object_storage.regional.args.*;
 import com.example.object_storage.tags.ObjectTag;
-import com.example.uploads_api.stored_asset.InsertStoredAsset;
-import com.example.uploads_api.stored_asset.StoredAsset;
-import com.example.uploads_api.stored_asset.StoredAssetRepository;
-import com.example.uploads_api.stored_asset.StoredAssetStatus;
+import com.example.uploads_api.stored_asset.*;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -180,5 +177,9 @@ public class StoredAssetService {
             executor.shutdownNow();
             throw new RuntimeException("Error while setting the tags of the assets:", e);
         }
+    }
+
+    public void setImageMetadata(UUID storedAssetId, ImageMetadata metadata) {
+        storedAssetRepository.setImageMetadata(storedAssetId, metadata);
     }
 }
