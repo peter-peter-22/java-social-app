@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: upload-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable
+    username: root
+    password: ""
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 50
+      minimum-idle: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+
+  liquibase:
+    change-log: classpath:db/db.changelog-master.yaml
+    enabled: true
+
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 200
+
+logging:
+  level:
+    org.hibernate.type: trace
+
+uploads:
+  processing:
+    image-processing-url: http://localhost:8081
+    video-processing-url: http://localhost:8081
+
+minio:
+  reconciliation:
+    enabled: true
+
+  uploads-configuration:
+    bucket-name: uploads
+    expiration-days: 1
+
+  home-region: test
+  regions:
+    - name: test
+      endpoint: http://localhost:9000
+      access-key: minioadmin
+      secret-key: minioadmin

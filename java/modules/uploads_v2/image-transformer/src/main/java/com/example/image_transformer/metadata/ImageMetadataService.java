@@ -5,10 +5,12 @@ import app.photofox.vipsffm.Vips;
 import com.example.uploads_api.stored_asset.ImageMetadata;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 @NullMarked
+@Service
 public class ImageMetadataService {
 
     /**

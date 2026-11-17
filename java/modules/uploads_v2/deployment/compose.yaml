@@ -11,6 +11,9 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: ""
+      UPLOADS_PROCESSING_IMAGE_PROCESSING_URL: "http://localhost:8081"
+      UPLOADS_PROCESSING_VIDEO_PROCESSING_URL: "http://localhost:8081"
+      MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
     volumes:
       - ../../..:/workspace
       - gradle-cache:/root/.gradle
