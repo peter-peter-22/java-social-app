@@ -4,9 +4,7 @@ import app.photofox.vipsffm.VImage;
 import com.example.uploads_api.transformations.ImageTransformationOperations;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 class ImageTransformationPipeline {
     private final ImageTransformationOperation[] transformations =  new ImageTransformationOperation[]{

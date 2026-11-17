@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequiredArgsConstructor
 @NullMarked
 public class ImageTransformationService {
-    private final ImageTransformationPipeline pipeline;
+    private final ImageTransformationPipeline pipeline = new  ImageTransformationPipeline();
 
     /**
      * The entrypoint and the media metadata of the result of a transformation.

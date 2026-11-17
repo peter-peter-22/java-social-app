@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Fix inconsistent logs in the reconciliation manager">
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the image worker server to start">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationPipeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationPipeline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,36 +56,18 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-service" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-service" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="java" type="f1a62948:ProjectNode" />
-                <item name="uploads-service" type="2d1252cf:ModuleNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
@@ -223,6 +204,7 @@
     "Docker.deployment/compose.yaml.upload-service: Compose Deployment.executor": "Run",
     "Docker.deployment/compose.yaml: Compose Deployment.executor": "Run",
     "Docker.deployment/java.Dockerfile.executor": "Run",
+    "Docker.docker/Dockerfile.executor": "Run",
     "Docker.docker/compose-test.yaml: Compose Deployment.executor": "Run",
     "Docker.image_transformer/Dockerfile.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
@@ -377,7 +359,7 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:image-transformer:integrationTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -388,7 +370,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":upload-registry:test" />
+            <option value=":image-transformer:integrationTest" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -402,7 +384,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:uploads-service:check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -413,7 +395,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":uploads-service:check" />
+            <option value=":upload-registry:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -571,11 +553,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Docker.deployment/compose.yaml: Compose Deployment" />
         <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Docker.deployment/compose.yaml.upload-service: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml.db: Compose Deployment" />
-        <item itemvalue="Gradle.java [:uploads-service:check]" />
       </list>
     </recent_temporary>
   </component>
@@ -972,7 +954,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update todos and plans" />
     <MESSAGE value="remove the unused modules from the gradle settings" />
     <MESSAGE value="prepare for fixing the SQL by separating the service beans" />
     <MESSAGE value="prepare for fixing the SQL by separating the service beans and fixing the object storage" />
@@ -997,7 +978,8 @@
     <MESSAGE value="Add and adjust the main classes of the upload service and image worker" />
     <MESSAGE value="Make the upload service application to start" />
     <MESSAGE value="Fix inconsistent logs in the reconciliation manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix inconsistent logs in the reconciliation manager" />
+    <MESSAGE value="Make the image worker server to start" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make the image worker server to start" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

@@ -38,7 +38,10 @@ testing {
                 implementation(project())
                 implementation(testFixtures(project()))
 
+                implementation(project(":upload-api"))
+                implementation(project(":upload-services"))
                 implementation(project(":object-storage"))
+                implementation(project(":upload-registry"))
 
                 implementation("org.springframework.boot:spring-boot-starter-test")
                 implementation("org.springframework.boot:spring-boot-starter-webmvc")
