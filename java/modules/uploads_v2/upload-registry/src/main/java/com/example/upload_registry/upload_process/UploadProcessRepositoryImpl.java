@@ -12,12 +12,7 @@ import com.example.upload_registry.variant.VariantEntity;
 import com.example.upload_registry.variant.VariantEntityId;
 import com.example.uploads_api.stored_asset.StoredAssetStatus;
 import com.example.uploads_api.uploads.Upload;
-import com.example.uploads_api.uploads.upload_process.AttemptNotActiveException;
-import com.example.uploads_api.uploads.upload_process.InsertUploadAttempt;
-import com.example.uploads_api.uploads.upload_process.UploadAlreadyExistsException;
-import com.example.uploads_api.uploads.upload_process.UploadAttemptStatus;
-import com.example.uploads_api.uploads.upload_process.UploadProcess;
-import com.example.uploads_api.uploads.upload_process.UploadProcessRepository;
+import com.example.uploads_api.uploads.upload_process.*;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
@@ -100,9 +95,7 @@ public class UploadProcessRepositoryImpl implements UploadProcessRepository {
         assetIds.add(originalAssetId);
         if (variants != null) {
             for (var variant : variants) {
-                var namedTransformation = namedTransformationCrudRepository.findByName(variant.transformation().getName())
-                        .orElseThrow();
-                variantCrudRepository.save(variantEntity(upload, namedTransformation, variant));
+                variantCrudRepository.save(variantEntity(upload, variant));
                 assetIds.add(variant.storedAssetId());
             }
         }
@@ -133,18 +126,19 @@ public class UploadProcessRepositoryImpl implements UploadProcessRepository {
 
     private UploadProcessEntity lockProcess(String uploadKey) {
         uploadProcessCrudRepository.insertIfNotExists(uploadKey);
+        // TODO this looks weird. maybe it can be simplified
         return uploadProcessCrudRepository.findByUploadKeyForUpdate(uploadKey).orElseThrow();
     }
 
     private VariantEntity variantEntity(
             UploadEntity upload,
-            NamedTransformationEntity namedTransformation,
             RegisterVariantArgs variant
     ) {
         return VariantEntity.builder()
-                .id(new VariantEntityId(upload.getId(), namedTransformation.getId()))
+                .id(new VariantEntityId(upload.getId(), variant.transformation().getId()))
                 .uploadEntity(upload)
-                .namedTransformationEntity(namedTransformation)
+                .namedTransformationEntity(entityManager.getReference(
+                        NamedTransformationEntity.class, variant.transformation().getId()))
                 .transformationVersionEntity(entityManager.getReference(
                         TransformationVersionEntity.class, variant.transformation().getCurrentVersionId()))
                 .storedAsset(entityManager.getReference(StoredAssetEntity.class, variant.storedAssetId()))

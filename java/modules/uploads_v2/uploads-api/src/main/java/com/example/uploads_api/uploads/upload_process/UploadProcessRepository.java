@@ -27,7 +27,6 @@ public interface UploadProcessRepository {
      * Has effect only when the upload process has no upload ID set. (So when the upload is not finished.)
      * Throws error when the process is finished.
      */
-    // TODO should throw UploadAlreadyExistsException("Upload with uploadKey %s is already finished, cannot start a new attempt.".formatted(uploadKey));
     void setAttemptAsActive(String uploadKey, UUID attemptId) throws UploadAlreadyExistsException;
 
     record RegisterVariantArgs(NamedImageTransformation transformation, UUID storedAssetId){}

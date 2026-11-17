@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Prepare the upload process repository for implementation.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/upload_process/UploadProcessRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload_process/UploadProcessRepositoryImplIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/upload_process/UploadProcessRepositoryImplIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedImageTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/named_transformation_repository/NamedImageTransformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/uploads/upload_process/UploadProcessRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,18 +57,18 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="upload-api" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="upload-api" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
-                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="upload-api" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
@@ -260,6 +265,7 @@
     &quot;Gradle.java [:posts-persistence:test].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [:transformer-contracts:test].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [:upload-api:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [:upload-api:check].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [:upload-api:testClasses].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [:upload-registry:test].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [:upload-services:build].executor&quot;: &quot;Run&quot;,
@@ -298,7 +304,7 @@
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;test-grok&quot;,
-    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
+    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;2&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/upload-registry/src/main/resources/db/db.changelog-master.yaml&quot;,
@@ -342,7 +348,7 @@
       <recent name="com.example.uploads_api.variant" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java [:upload-api:check]">
+  <component name="RunManager" selected="Gradle.java [:upload-registry:test]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -577,8 +583,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java [:upload-api:check]" />
         <item itemvalue="Gradle.java [:upload-registry:test]" />
+        <item itemvalue="Gradle.java [:upload-api:check]" />
         <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Gradle.java [:image-transformer:test]" />
         <item itemvalue="Gradle.java [:image-transformer:check]" />

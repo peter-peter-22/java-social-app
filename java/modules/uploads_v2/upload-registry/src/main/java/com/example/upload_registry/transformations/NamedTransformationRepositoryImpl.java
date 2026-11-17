@@ -52,6 +52,7 @@ public class NamedTransformationRepositoryImpl implements NamedTransformationRep
 
         if (version.getOperations() instanceof ImageTransformationOperations imageOperations) {
             return NamedImageTransformation.builder()
+                    .id(named.getId())
                     .name(named.getName())
                     .operations(imageOperations)
                     .currentVersionId(version.getId())

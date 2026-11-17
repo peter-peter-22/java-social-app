@@ -1,20 +1,12 @@
 package com.example.upload_registry.upload_process;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
-import com.example.uploads_api.stored_asset.AssetDeliveryProtocol;
-import com.example.uploads_api.stored_asset.InsertStoredAsset;
-import com.example.uploads_api.stored_asset.StoredAsset;
-import com.example.uploads_api.stored_asset.StoredAssetRepository;
-import com.example.uploads_api.stored_asset.StoredAssetStatus;
+import com.example.uploads_api.stored_asset.*;
 import com.example.uploads_api.transformations.ImageEncodings;
 import com.example.uploads_api.transformations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.named_transformation_repository.InsertNamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
-import com.example.uploads_api.uploads.upload_process.AttemptNotActiveException;
-import com.example.uploads_api.uploads.upload_process.InsertUploadAttempt;
-import com.example.uploads_api.uploads.upload_process.UploadAlreadyExistsException;
-import com.example.uploads_api.uploads.upload_process.UploadAttemptStatus;
-import com.example.uploads_api.uploads.upload_process.UploadProcessRepository;
+import com.example.uploads_api.uploads.upload_process.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,6 +63,7 @@ class UploadProcessRepositoryImplIT extends CockroachIntegrationTest {
         assertThat(uploadProcessPersistence.findProcess(uploadKey).getUploadId()).isEqualTo(upload.getId());
         assertThat(uploadProcessPersistence.findAttempt(attemptId).getStatus()).isEqualTo(UploadAttemptStatus.SUCCESS);
         assertThat(uploadProcessPersistence.findAttempt(attemptId).getFinishedAt()).isNotNull();
+// TODO can this comparison be shoter?
 
         assertThatThrownBy(() -> uploadProcessRepository.setAttemptAsActive(uploadKey, attemptId))
                 .isInstanceOf(UploadAlreadyExistsException.class);
