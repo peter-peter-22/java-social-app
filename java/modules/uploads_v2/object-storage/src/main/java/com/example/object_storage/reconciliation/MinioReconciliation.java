@@ -4,8 +4,12 @@ import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NullMarked;
 
 @RequiredArgsConstructor
+@NullMarked
+@Slf4j
 public abstract class MinioReconciliation {
     public abstract String getName();
 
@@ -18,14 +22,14 @@ public abstract class MinioReconciliation {
                     BucketExistsArgs.builder().bucket(name).build()
             );
             if (exists) {
-                System.out.printf("Bucket already '%s' already exists.%n", name);
+                log.info("Bucket already '{}' already exists.", name);
                 return;
             }
-            System.out.printf("Creating bucket '%s'.", name);
+            log.info("Creating bucket '{}'.", name);
             client.makeBucket(
                     MakeBucketArgs.builder().bucket(name).build()
             );
-            System.out.printf("Created bucket '%s' successfully.%n", name);
+            log.info("Created bucket '{}' successfully.", name);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
