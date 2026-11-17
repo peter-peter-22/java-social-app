@@ -1,0 +1,54 @@
+services:
+
+  upload-service:
+    container_name: upload-service-dev
+    image: eclipse-temurin:25-jdk-noble
+    working_dir: /workspace
+    # Dev-only: compose file lives in modules/uploads_v2/deployment, so mount the Gradle root.
+    # Seed a container-local Gradle home once, then run as the host user so build outputs stay writable.
+    command: ./gradlew --no-daemon :uploads-service:bootRun
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: ""
+    volumes:
+      - ../../..:/workspace
+      - gradle-cache:/root/.gradle
+    stdin_open: true
+    tty: true
+    ports:
+      - '8080:8080'
+
+  db:
+    # CLI: cockroach sql --insecure; use defaultdb;
+    # SHOW DATABASES;
+    # SHOW TABLES;
+    # SHOW TABLES FROM database;
+    container_name: cockroach-db-dev
+    image: cockroachdb/cockroach:v25.3.2
+    command: start-single-node --insecure
+    ports:
+      - "26257:26257" #db
+      - "8081:8080" #ui
+    # environment:
+      # COCKROACH_DATABASE: defaultdb
+      # COCKROACH_USER: user
+      # COCKROACH_PASSWORD: user
+    #volumes:
+    #  - cockroach-data:/cockroach/cockroach-data
+
+  minio:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    container_name: minio-object-storage
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    #    volumes:
+    #      - minio_data:/data
+    ports:
+      - "9000:9000" # API endpoint
+      - "9001:9001" # Web console
+
+volumes:
+  gradle-cache:
