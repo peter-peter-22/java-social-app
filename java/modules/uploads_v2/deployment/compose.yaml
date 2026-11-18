@@ -4,8 +4,6 @@ services:
     container_name: upload-service-dev
     image: eclipse-temurin:25-jdk-noble
     working_dir: /workspace
-    # Dev-only: compose file lives in modules/uploads_v2/deployment, so mount the Gradle root.
-    # Seed a container-local Gradle home once, then run as the host user so build outputs stay writable.
     command: ./gradlew --no-daemon :uploads-service:bootRun
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
@@ -14,6 +12,9 @@ services:
       UPLOADS_PROCESSING_IMAGE_PROCESSING_URL: "http://localhost:8081"
       UPLOADS_PROCESSING_VIDEO_PROCESSING_URL: "http://localhost:8081"
       MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
+      MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
+      MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
+      MINIO_REGIONS_0_NAME: "test"
     volumes:
       - ../../..:/workspace
       - gradle-cache:/root/.gradle

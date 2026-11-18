@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the image worker server to start">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Add example code to the image transformation tests.">
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/build.bash" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/media.Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/run-directly.bash" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/run.bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/jemalloc.Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationPipeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationPipeline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,6 +310,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/home/peter/.local/share/JetBrains/IntelliJIdea2026.2/Shell Script/shellcheck",
+    "Shell Script.run.bash.executor": "Run",
     "Spring Boot.Application.executor": "Run",
     "Spring Boot.DemoApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
@@ -311,7 +321,7 @@
     "git.auto.fetch.suggestion.counter": "2",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/image-transformer/src/main/resources",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/image-transformer/docker",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -331,11 +341,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/resources" />
       <recent name="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service" />
-      <recent name="$PROJECT_DIR$/.codex/skills" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/modules/common" />
@@ -553,8 +563,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Docker.deployment/compose.yaml: Compose Deployment" />
+        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
         <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Docker.deployment/compose.yaml.upload-service: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml.db: Compose Deployment" />
@@ -954,7 +964,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove the unused modules from the gradle settings" />
     <MESSAGE value="prepare for fixing the SQL by separating the service beans" />
     <MESSAGE value="prepare for fixing the SQL by separating the service beans and fixing the object storage" />
     <MESSAGE value="verify and fix the domain models before syncing with database" />
@@ -979,7 +988,8 @@
     <MESSAGE value="Make the upload service application to start" />
     <MESSAGE value="Fix inconsistent logs in the reconciliation manager" />
     <MESSAGE value="Make the image worker server to start" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make the image worker server to start" />
+    <MESSAGE value="Add example code to the image transformation tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add example code to the image transformation tests." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

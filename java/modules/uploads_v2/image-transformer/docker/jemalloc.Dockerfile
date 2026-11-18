@@ -1,4 +1,6 @@
-FROM eclipse-temurin:24-jdk-noble
+# Similar to media.Dockerfile but with jemalloc setup (recommended by lipvips and ffmpeg). Reserved for later use.
+
+FROM eclipse-temurin:25-jdk-noble
 
 WORKDIR /workspace
 
@@ -6,7 +8,7 @@ WORKDIR /workspace
 # jemalloc is installed for better memory management
 # (recommended by the official docs of vipsffm https://github.com/lopcode/vips-ffm?tab=readme-ov-file#memory-allocation)
 
-RUN apt-get update && apt-get install -y --no-install-recommends libjemalloc2 libvips42 kotlin && \
+RUN apt-get update && apt-get install -y --no-install-recommends libjemalloc2 libvips42t64 && \
     rm -rf /var/lib/apt/lists/*
 
 # Enable jemalloc for all processes in the container
@@ -24,10 +26,3 @@ ENV MALLOC_CONF="dirty_decay_ms:1000,muzzy_decay_ms:1000,background_thread:true"
 # ldd /path/to/your/java | grep jemalloc   # or check /proc/<pid>/maps
 # or
 # java -XshowSettings:properties -version 2>&1 | grep malloc
-
-ENV GRADLE_USER_HOME=/gradle-cache
-
-RUN mkdir -p "${GRADLE_USER_HOME}" /gradle-project-cache && \
-    chmod 0777 "${GRADLE_USER_HOME}" /gradle-project-cache
-
-CMD ["./gradlew", "--no-daemon", ":image-transformer:integrationTest"]
