@@ -1,11 +1,19 @@
 services:
 
   upload-service:
+    # Dev-only. Do not set `user:` — the container must start as root so
+    # entrypoint.bash can chown the Gradle volume, then drop to HOST_UID:HOST_GID.
+    # Launch with ./run.bash so those ids match the host user (same idea as
+    # image-transformer/docker/run.bash). Build files are then writable by the IDE.
     container_name: upload-service-dev
     image: eclipse-temurin:25-jdk-noble
     working_dir: /workspace
-    command: ./gradlew --no-daemon :uploads-service:bootRun
+    entrypoint: ["/entrypoint.bash"]
+    command: ["./gradlew", "--no-daemon", ":uploads-service:bootRun"]
     environment:
+      HOST_UID: ${HOST_UID:?set HOST_UID to the host uid, or run ./run.bash}
+      HOST_GID: ${HOST_GID:?set HOST_GID to the host gid, or run ./run.bash}
+      GRADLE_USER_HOME: /gradle-home
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: ""
@@ -17,7 +25,8 @@ services:
       MINIO_REGIONS_0_NAME: "test"
     volumes:
       - ../../..:/workspace
-      - gradle-cache:/root/.gradle
+      - ./entrypoint.bash:/entrypoint.bash:ro
+      - gradle-cache:/gradle-home
     stdin_open: true
     tty: true
     ports:
@@ -34,7 +43,7 @@ services:
     ports:
       - "26257:26257" #db
       - "8081:8080" #ui
-    # environment:
+    # environment:s
       # COCKROACH_DATABASE: defaultdb
       # COCKROACH_USER: user
       # COCKROACH_PASSWORD: user
@@ -42,7 +51,10 @@ services:
     #  - cockroach-data:/cockroach/cockroach-data
 
   minio:
-    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    # Third party minio container that works for now.
+    #  It will might stop working.
+    #  It has its own minio console container.
+    image: docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z
     container_name: minio-object-storage
     command: server /data --console-address ":9001"
     environment:
@@ -55,4 +67,6 @@ services:
       - "9001:9001" # Web console
 
 volumes:
+  # Kept as gradle-cache so an existing dev volume is reused. It is mounted at
+  # /gradle-home, not /root/.gradle, because the process is no longer root.
   gradle-cache:
