@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Prevent docker compose from creating root owned files in the mounted directory.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Simplify the entrypoint script of the media service docker compose.">
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/build.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/build.bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/run.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/run.bash" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -950,7 +950,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove the upload status" />
     <MESSAGE value="remove unused stored asset metadata fetching" />
     <MESSAGE value="add delete function for the stored asset repository" />
     <MESSAGE value="add integration test for the stored asset repository" />
@@ -975,7 +974,8 @@
     <MESSAGE value="Fix the switched blocking async logic" />
     <MESSAGE value="Add rest controller for the upload service." />
     <MESSAGE value="Prevent docker compose from creating root owned files in the mounted directory." />
-    <option name="LAST_COMMIT_MESSAGE" value="Prevent docker compose from creating root owned files in the mounted directory." />
+    <MESSAGE value="Simplify the entrypoint script of the media service docker compose." />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplify the entrypoint script of the media service docker compose." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

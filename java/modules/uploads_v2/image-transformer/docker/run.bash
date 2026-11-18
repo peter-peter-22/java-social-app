@@ -10,7 +10,7 @@ docker run --rm -it \
   -e HOST_GID="$(id -g)" \
   -e GRADLE_USER_HOME=/gradle-home \
   -v "$PWD/../../../..":/workspace \
-  -v java-social-image-test-gradle:/gradle-home \
+  -v java-image-test-gradle:/gradle-home \
   -w /workspace \
-  java-social-image-test \
+  java-image-test \
   ./gradlew --no-daemon :image-transformer:integrationTest
