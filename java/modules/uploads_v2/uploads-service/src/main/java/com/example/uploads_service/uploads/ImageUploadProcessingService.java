@@ -38,6 +38,9 @@ public class ImageUploadProcessingService {
     public UploadCreatedResponse processUpload(ImageUploadRequest imageUploadRequest, MultipartFile file) {
         log.info("Starting processing of image upload. Upload request: {}", imageUploadRequest);
 
+        if (file.isEmpty())
+            throw new IllegalArgumentException("File is empty");
+
         var contentType = file.getContentType();
         var bytes = file.getSize();
 
@@ -46,9 +49,9 @@ public class ImageUploadProcessingService {
 
         // validate constraints
         if (imageUploadRequest.getDesiredBytes() != null && bytes != imageUploadRequest.getDesiredBytes())
-            throw new RuntimeException("The file size does not match the excepted value.");
+            throw new IllegalArgumentException("The file size does not match the excepted value.");
         if (imageUploadRequest.getDesiredContentType() != null && !imageUploadRequest.getDesiredContentType().equals(contentType))
-            throw new RuntimeException("The file content type does not match the excepted value.");
+            throw new IllegalArgumentException("The file content type does not match the excepted value.");
 
         // register the pending upload
         String defaultContentType = "application/octet-stream";
@@ -79,9 +82,9 @@ public class ImageUploadProcessingService {
                 .build();
 
         if (imageUploadRequest.isAsync())
-            mediaWorkerService.processImageBlocking(task);
-        else
             mediaWorkerService.processImageAsync(task);
+        else
+            mediaWorkerService.processImageBlocking(task);
 
         return new UploadCreatedResponse(imageUploadRequest.isAsync());
     }
