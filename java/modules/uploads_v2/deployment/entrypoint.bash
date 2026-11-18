@@ -13,9 +13,7 @@ mkdir -p "${gradle_home}"
 
 # Docker creates a new volume as root:root. chown only when that is still true,
 # including a cache previously filled by a root container. Later starts skip the walk.
-if [[ "$(stat -c '%u' "${gradle_home}")" != "${HOST_UID}" || "$(stat -c '%g' "${gradle_home}")" != "${HOST_GID}" ]]; then
-  chown -R "${HOST_UID}:${HOST_GID}" "${gradle_home}"
-fi
+chown -R "${HOST_UID}:${HOST_GID}" "${gradle_home}"
 
 # The image default HOME is /root, which is not writable after the privilege drop.
 home_dir=/home/dev

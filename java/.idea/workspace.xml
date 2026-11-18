@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Add rest controller for the upload service.">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Prevent docker compose from creating root owned files in the mounted directory.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides/docker/docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/guides/docker/docker.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +60,13 @@
                 <item name="java" type="f1a62948:ProjectNode" />
                 <item name="image-transformer" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="image-transformer" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -256,6 +262,7 @@
     "Gradle.java [:application:build].executor": "Run",
     "Gradle.java [:application:org.example.Main.main()].executor": "Run",
     "Gradle.java [:cockroach-db:test].executor": "Run",
+    "Gradle.java [:image-transformer:bootJar].executor": "Run",
     "Gradle.java [:image-transformer:check].executor": "Run",
     "Gradle.java [:image-transformer:dockerIT].executor": "Run",
     "Gradle.java [:image-transformer:dockerIntegrationTest].executor": "Run",
@@ -353,14 +360,14 @@
       <recent name="com.example.uploads_api.uploads.upload_process" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.java [:image-transformer:bootJar]">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="java [:image-transformer:integrationTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:image-transformer:bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -371,7 +378,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":image-transformer:integrationTest" />
+            <option value=":image-transformer:bootJar" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -542,11 +549,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.java [:image-transformer:bootJar]" />
         <item itemvalue="Docker.deployment/compose.yaml.upload-service: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml.minio: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml.db: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml: Compose Deployment" />
-        <item itemvalue="Gradle.java [:image-transformer:integrationTest]" />
       </list>
     </recent_temporary>
   </component>
@@ -943,7 +950,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove the status condition from the uniqueness of the upload key" />
     <MESSAGE value="remove the upload status" />
     <MESSAGE value="remove unused stored asset metadata fetching" />
     <MESSAGE value="add delete function for the stored asset repository" />
@@ -968,7 +974,8 @@
     <MESSAGE value="Fix gitignore behavior in the image test" />
     <MESSAGE value="Fix the switched blocking async logic" />
     <MESSAGE value="Add rest controller for the upload service." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add rest controller for the upload service." />
+    <MESSAGE value="Prevent docker compose from creating root owned files in the mounted directory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prevent docker compose from creating root owned files in the mounted directory." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
