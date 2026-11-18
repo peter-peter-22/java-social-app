@@ -35,11 +35,6 @@ logging:
   level:
     org.hibernate.type: trace
 
-uploads:
-  processing:
-    image-processing-url: http://localhost:8081
-    video-processing-url: http://localhost:8081
-
 minio:
   reconciliation:
     enabled: true

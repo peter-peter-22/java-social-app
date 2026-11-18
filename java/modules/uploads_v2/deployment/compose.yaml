@@ -9,16 +9,45 @@ services:
     image: eclipse-temurin:25-jdk-noble
     working_dir: /workspace
     entrypoint: ["/entrypoint.bash"]
-    command: ["./gradlew", "--no-daemon", ":uploads-service:bootRun"]
+    # Keep each token as its own array item. A single string is one exec argument,
+    # so Java looks for an executable named "java -jar ...jar" and reports that the jar is missing.
+    command: ["java", "-jar", "modules/uploads_v2/uploads-service/build/libs/uploads-service-0.0.1-SNAPSHOT.jar"]
     environment:
-      HOST_UID: ${HOST_UID:?set HOST_UID to the host uid, or run ./run.bash}
-      HOST_GID: ${HOST_GID:?set HOST_GID to the host gid, or run ./run.bash}
+      HOST_UID: ${HOST_UID:?HOST_UID is required}
+      HOST_GID: ${HOST_GID:?HOST_GID is required}
       GRADLE_USER_HOME: /gradle-home
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: ""
-      UPLOADS_PROCESSING_IMAGE_PROCESSING_URL: "http://localhost:8081"
-      UPLOADS_PROCESSING_VIDEO_PROCESSING_URL: "http://localhost:8081"
+      UPLOADS_PROCESSING_IMAGE_PROCESSING_URL: "http://localhost:8082"
+      UPLOADS_PROCESSING_VIDEO_PROCESSING_URL: "http://localhost:8083"
+      MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
+      MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
+      MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
+      MINIO_REGIONS_0_NAME: "test"
+
+      SPRING_LIQUIBASE_ENABLED: false
+      MINIO_RECONCILIATION_ENABLED: false
+    volumes:
+      - ../../..:/workspace
+      - ./entrypoint.bash:/entrypoint.bash:ro
+    stdin_open: true
+    tty: true
+    ports:
+      - '8080:8080'
+
+  image-worker:
+    container_name: image-worker-dev
+    image: eclipse-temurin:25-jdk-noble
+    working_dir: /workspace
+    entrypoint: ["/entrypoint.bash"]
+    command: ["java", "-jar", "modules/uploads_v2/image-transformer/build/libs/image-transformer-0.0.1-SNAPSHOT.jar"]
+    environment:
+      HOST_UID: ${HOST_UID:?HOST_UID is required}
+      HOST_GID: ${HOST_GID:?HOST_GID is required}
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: ""
       MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
       MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
       MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
@@ -26,11 +55,10 @@ services:
     volumes:
       - ../../..:/workspace
       - ./entrypoint.bash:/entrypoint.bash:ro
-      - gradle-cache:/gradle-home
     stdin_open: true
     tty: true
     ports:
-      - '8080:8080'
+      - '8082:8080'
 
   db:
     # CLI: cockroach sql --insecure; use defaultdb;

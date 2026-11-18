@@ -21,6 +21,13 @@ mkdir -p "${home_dir}"
 chown "${HOST_UID}:${HOST_GID}" "${home_dir}"
 export HOME="${home_dir}"
 
+echo "entrypoint workdir:"
+pwd
+echo "workdir contents:"
+ls
+echo "available jar files:"
+find modules -type f -name "*.jar"
+
 exec setpriv \
   --reuid="${HOST_UID}" \
   --regid="${HOST_GID}" \
