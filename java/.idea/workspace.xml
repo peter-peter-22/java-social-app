@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Fix the missing gradle cache error and document the code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Implement image transformer integration test">
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -953,7 +952,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="synchronize the database implementations with the domain models" />
     <MESSAGE value="remove insert all from the stored asset repository" />
     <MESSAGE value="move the default stored asset status outside the database table definition" />
     <MESSAGE value="remove the mime type from the stored asset" />
@@ -978,7 +976,8 @@
     <MESSAGE value="Make the image worker docker tests to run" />
     <MESSAGE value="Fix the root permission of the files written by docker" />
     <MESSAGE value="Fix the missing gradle cache error and document the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix the missing gradle cache error and document the code" />
+    <MESSAGE value="Implement image transformer integration test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement image transformer integration test" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

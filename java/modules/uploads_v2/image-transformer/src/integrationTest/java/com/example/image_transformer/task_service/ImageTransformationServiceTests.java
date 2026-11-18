@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ImageTransformationServiceTests {
     private final ImageTransformationService imageTransformationService = new ImageTransformationService();
     private final Path inputFile = Path.of("./src/test/resources/test-images/image.jpg");
-    private final Path outputDir = Path.of("./src/test/resources/test-images/output");
+    private final Path outputDir = Path.of("./src/test/resources/test-images/output/gitignore");
 
     @Test
     void inputFileExists() {
