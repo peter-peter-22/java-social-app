@@ -173,6 +173,7 @@
       <module name="java.uploads-persistence.test" options="-parameters -parameters" />
       <module name="java.uploads-persistence.testFixtures" options="-parameters -parameters" />
       <module name="java.uploads-service" options="-parameters -parameters" />
+      <module name="java.uploads-service.integrationTest" options="-parameters -parameters" />
       <module name="java.uploads-service.main" options="-parameters -parameters" />
       <module name="java.uploads-service.test" options="-parameters -parameters" />
       <module name="java.uploads-service.testFixtures" options="-parameters -parameters" />

@@ -1,10 +1,8 @@
 package com.example.uploads_api.dto;
 
 import com.example.uploads_api.authentication.AuthenticationType;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -15,8 +13,11 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @NullMarked
+@AllArgsConstructor
+@Jacksonized
 public final class ImageUploadRequest {
     private final String uploadKey;
+    // TODO for image and video requests, the content type and extension should not be optional
     @Nullable
     private final String extension;
     @Nullable
