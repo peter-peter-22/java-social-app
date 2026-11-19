@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Start the end to end test">
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/PolymorphicTransformationTests.java" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Fix the errors those prevent the uploads-service server from forwarding the task to the image worker. The image worker remains under construction.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/run.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/run.bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageProcessingTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageProcessingTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageTransformationOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,7 +329,7 @@
     "git.auto.fetch.suggestion.counter": "2",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/deployment/compose.yaml",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/image-transformer/docker/media.Dockerfile",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -994,7 +979,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="clean up previous prototypes and fix compiler errors in image worker" />
     <MESSAGE value="create upload process and upload attempt entities" />
     <MESSAGE value="Make some comments more understandable" />
     <MESSAGE value="Move the cockroachDB module to the common directory" />
@@ -1019,7 +1003,8 @@
     <MESSAGE value="Give a shorter name to the lipvips ffmpeg docker image" />
     <MESSAGE value="Make both services to start together" />
     <MESSAGE value="Start the end to end test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start the end to end test" />
+    <MESSAGE value="Fix the errors those prevent the uploads-service server from forwarding the task to the image worker. The image worker remains under construction." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the errors those prevent the uploads-service server from forwarding the task to the image worker. The image worker remains under construction." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

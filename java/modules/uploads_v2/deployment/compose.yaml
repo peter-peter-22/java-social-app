@@ -11,7 +11,9 @@ services:
     entrypoint: ["/entrypoint.bash"]
     # Keep each token as its own array item. A single string is one exec argument,
     # so Java looks for an executable named "java -jar ...jar" and reports that the jar is missing.
-    command: ["java", "-jar", "jar.jar"]
+    # Same native-access flag as image-transformer integrationTest. Without it, Java 25 warns
+    # that SymbolLookup::libraryLookup will be blocked, which breaks vips-ffm.
+    command: ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "jar.jar"]
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
       SPRING_DATASOURCE_USERNAME: "root"

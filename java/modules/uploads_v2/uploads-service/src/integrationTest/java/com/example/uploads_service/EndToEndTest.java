@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -100,11 +101,12 @@ public class EndToEndTest {
                 objectMapper.writeValueAsBytes(params)
         );
 
+        // Must be a real image. The worker downloads this object and libvips rejects unknown formats.
         var filePart = new MockMultipartFile(
                 "file",
-                "image.png",
-                MediaType.IMAGE_PNG_VALUE,
-                new byte[]{1, 2, 3}
+                "image.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                new ClassPathResource("image.jpg").getContentAsByteArray()
         );
 
         mockMvc.perform(multipart("/api/upload/image")

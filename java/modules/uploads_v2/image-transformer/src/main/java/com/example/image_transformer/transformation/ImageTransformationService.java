@@ -11,7 +11,6 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,8 +38,8 @@ public class ImageTransformationService {
         AtomicReference<@Nullable TransformationResult> result = new AtomicReference<>();
 
         Vips.run(arena -> {
-            System.out.println("workdir exists: " + Files.exists(workDir));
-            System.out.println("input exists: " + Files.exists(inputFilePath));
+//            System.out.println("workdir exists: " + Files.exists(workDir));
+//            System.out.println("input exists: " + Files.exists(inputFilePath));
             var inputVImage = VImage.newFromFile(arena, inputFilePath.toAbsolutePath().toString());
             var outputVImage = pipeline.apply(inputVImage, operations);
 
