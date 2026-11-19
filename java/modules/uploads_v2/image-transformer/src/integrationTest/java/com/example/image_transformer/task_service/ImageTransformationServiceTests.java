@@ -101,7 +101,7 @@ class ImageTransformationServiceTests {
             customizer.accept(builder);
 
         return imageTransformationService.transformFile(
-                inputFile.toString(),
+                inputFile,
                 testDir,
                 builder.build()
         );

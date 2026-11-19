@@ -3,6 +3,7 @@ package com.example.uploads_api.stored_asset;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.extern.jackson.Jacksonized;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @EqualsAndHashCode
+@Jacksonized
 public final class StoredAsset {
     private final UUID id;
     private final String homeRegion;

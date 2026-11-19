@@ -13,9 +13,6 @@ pwd
 
 ./gradlew --no-daemon :uploads-service:bootJar :image-transformer:bootJar
 
-export HOST_UID="$(id -u)"
-export HOST_GID="$(id -g)"
-
 cd "$(dirname "$0")"
 
 # TODO investigate what this means

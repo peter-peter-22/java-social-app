@@ -90,7 +90,7 @@ public class EndToEndTest {
                 .uploadKey(uploadKey)
                 .extension("jpg")
                 .eagerTransformations(List.of(profile.name()))
-                .incomingTransformation(profile.name())
+                .incomingTransformation(optimize.name())
                 .build();
 
         var jsonPart = new MockMultipartFile(

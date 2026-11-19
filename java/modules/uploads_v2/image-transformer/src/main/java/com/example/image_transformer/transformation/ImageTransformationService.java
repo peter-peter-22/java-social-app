@@ -11,6 +11,7 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequiredArgsConstructor
 @NullMarked
 public class ImageTransformationService {
-    private final ImageTransformationPipeline pipeline = new  ImageTransformationPipeline();
+    private final ImageTransformationPipeline pipeline = new ImageTransformationPipeline();
 
     /**
      * The entrypoint and the media metadata of the result of a transformation.
@@ -34,11 +35,13 @@ public class ImageTransformationService {
      * Write the resulting files of a transformation into the work directory, return the entrypoint and the metadata.
      * // TODO remove the location metadata added by android
      */
-    public TransformationResult transformFile(String inputFilePath, Path workDir, ImageTransformationOperations operations) {
+    public TransformationResult transformFile(Path inputFilePath, Path workDir, ImageTransformationOperations operations) {
         AtomicReference<@Nullable TransformationResult> result = new AtomicReference<>();
 
         Vips.run(arena -> {
-            var inputVImage = VImage.newFromFile(arena, inputFilePath);
+            System.out.println("workdir exists: " + Files.exists(workDir));
+            System.out.println("input exists: " + Files.exists(inputFilePath));
+            var inputVImage = VImage.newFromFile(arena, inputFilePath.toAbsolutePath().toString());
             var outputVImage = pipeline.apply(inputVImage, operations);
 
             var metadata = ImageMetadata.builder()

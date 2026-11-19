@@ -22,6 +22,7 @@ public class InsertStoredAsset {
     @Nullable
     String extension;
     long bytes;
+    // TODO giving a null value to this does not causes error when using the builder. it doesn't show a null safety warning either. something might be wrong with jspecify or the builder.
     Collection<String> objects;
     AssetDeliveryProtocol deliveryProtocol;
 }

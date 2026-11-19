@@ -39,6 +39,8 @@ public class TaskService {
     private final UploadService uploadService;
     private final ImageMetadataService imageMetadataService;
 
+    private final Path uploadDir=Path.of("/uploads");
+
     public void processTask(ImageProcessingTask task) {
         log.info("Processing image task {}", task);
 
@@ -53,7 +55,8 @@ public class TaskService {
             // create the working directory
             // TODO ensure that the ubuntu tmpfs `/tmp` folder is used and the directory is in the memory
             // TODO what happens when the tmp folder exceeds the memory size
-            var workDir = Files.createTempDirectory(Path.of("/uploads"), null);
+            Files.createDirectories(uploadDir);
+            var workDir = Files.createTempDirectory(uploadDir, null);
             workDirRef = workDir;
             var transformationsDir = workDir.resolve("transformations");
 
@@ -201,7 +204,7 @@ public class TaskService {
 
             // create the transformed files
             var result = imageTransformationService.transformFile(
-                    inputFile.toString(),
+                    inputFile,
                     workDir,
                     operations
             );

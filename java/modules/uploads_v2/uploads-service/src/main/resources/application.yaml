@@ -37,8 +37,8 @@ logging:
 
 uploads:
   processing:
-    image-processing-url: http://localhost:8081
-    video-processing-url: http://localhost:8081
+    image-processing-url: http://localhost:8082
+    video-processing-url: http://localhost:8083
 
 minio:
   reconciliation:

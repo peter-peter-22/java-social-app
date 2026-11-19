@@ -4,18 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make both services to start together">
-      <change afterPath="$PROJECT_DIR$/guides/java/endpoints.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guides/tests/mockmvc.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/test/resources/image.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.test.iml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Start the end to end test">
+      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/test/java/com/example/upload_registry/transformations/PolymorphicTransformationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageUploadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/entrypoint.bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/run.bash" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/run.bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/integrationTest/java/com/example/image_transformer/task_service/ImageTransformationServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/transformation/ImageTransformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageProcessingTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/dto/ImageProcessingTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/InsertStoredAsset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/stored_asset/StoredAsset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageTransformationOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-api/src/main/java/com/example/uploads_api/transformations/ImageTransformationOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +65,24 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="java" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java" type="f1a62948:ProjectNode" />
+                <item name="upload-registry" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -201,6 +225,7 @@
     "Docker.compose-test.yaml: Compose Deployment.executor": "Run",
     "Docker.compose.yaml: Compose Deployment.executor": "Run",
     "Docker.deployment/compose.yaml.db: Compose Deployment.executor": "Run",
+    "Docker.deployment/compose.yaml.image-worker: Compose Deployment.executor": "Run",
     "Docker.deployment/compose.yaml.minio: Compose Deployment.executor": "Run",
     "Docker.deployment/compose.yaml.upload-service: Compose Deployment.executor": "Run",
     "Docker.deployment/compose.yaml: Compose Deployment.executor": "Run",
@@ -215,7 +240,8 @@
     "Gradle.ConnectionTest.executor": "Run",
     "Gradle.Download Sources.executor": "Run",
     "Gradle.Empty.executor": "Run",
-    "Gradle.EndToEndTest.executor": "Debug",
+    "Gradle.EndToEndTest (1).executor": "Run",
+    "Gradle.EndToEndTest.executor": "Run",
     "Gradle.ImageTransformationServiceTests.executor": "Run",
     "Gradle.ImageTransformerRestApiTest.executor": "Run",
     "Gradle.LazyTransformationRepositoryTests.executor": "Run",
@@ -227,6 +253,7 @@
     "Gradle.ObjectStorageRepositoryIT.should_upload_from_path.executor": "Run",
     "Gradle.ObjectStorageTransformationStorageTest.executor": "Run",
     "Gradle.ParralelTransformationApiTest.executor": "Run",
+    "Gradle.PolymorphicTransformationTests.executor": "Run",
     "Gradle.PostRepositoryIT.executor": "Run",
     "Gradle.PostServiceIT (1).executor": "Run",
     "Gradle.PostServiceIT.executor": "Run",
@@ -317,7 +344,7 @@
     "git.auto.fetch.suggestion.counter": "2",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/uploads-service/src/test/resources",
+    "last_opened_file_path": "/mnt/hdd/projects/IdeaProjects/java_social_app/java/modules/uploads_v2/deployment/compose.yaml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
@@ -358,7 +385,7 @@
       <recent name="com.example.uploads_api.uploads.upload_process" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.EndToEndTest">
+  <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -392,7 +419,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="java [:image-transformer:bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="java [:upload-registry:test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -403,7 +430,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":image-transformer:bootJar" />
+            <option value=":upload-registry:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -525,12 +552,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="deployment/compose.yaml.db: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="deployment/compose.yaml.image-worker: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="db" />
+              <option value="image-worker" />
             </list>
           </option>
           <option name="sourceFilePath" value="modules/uploads_v2/deployment/compose.yaml" />
@@ -566,11 +593,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.deployment/compose.yaml.image-worker: Compose Deployment" />
+        <item itemvalue="Gradle.java [:upload-registry:test]" />
         <item itemvalue="Gradle.EndToEndTest" />
         <item itemvalue="Docker.deployment/compose.yaml.minio: Compose Deployment" />
         <item itemvalue="Docker.deployment/compose.yaml.upload-service: Compose Deployment" />
-        <item itemvalue="Gradle.java [:image-transformer:bootJar]" />
-        <item itemvalue="Docker.deployment/compose.yaml.db: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -967,7 +994,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add integration test for the stored asset repository" />
     <MESSAGE value="clean up previous prototypes and fix compiler errors in image worker" />
     <MESSAGE value="create upload process and upload attempt entities" />
     <MESSAGE value="Make some comments more understandable" />
@@ -992,7 +1018,8 @@
     <MESSAGE value="Simplify the entrypoint script of the media service docker compose." />
     <MESSAGE value="Give a shorter name to the lipvips ffmpeg docker image" />
     <MESSAGE value="Make both services to start together" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make both services to start together" />
+    <MESSAGE value="Start the end to end test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start the end to end test" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1004,9 +1031,12 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/uploads/ImageUploadProcessingService.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/transformations/NamedTransformationRepositoryImpl.java</url>
+          <line>74</line>
+          <properties>
+            <option name="lambda-ordinal" value="0" />
+          </properties>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="org.junit.jupiter.api.extension.ParameterResolutionException" package="org.junit.jupiter.api.extension" />

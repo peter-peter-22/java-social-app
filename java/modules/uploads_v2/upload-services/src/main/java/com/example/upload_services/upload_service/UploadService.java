@@ -42,19 +42,23 @@ public class UploadService {
 
         var process = uploadProcessRepository.createProcessIfNotExistsThenLock(uploadKey);
 
+        // when uploading a single file with an input stream, the entrypoint can be anything as long as it matches the objects field.
+        var entryPoint = "original";
         var storedAsset = storedAssetService.createStoredAsset(
                 InsertStoredAsset.builder()
                         .directory(false)
-                        .entryPoint("original")
+                        .entryPoint(entryPoint)
                         .extension(extension)
                         .contentType(contentType)
                         .bytes(bytes)
                         .deliveryProtocol(AssetDeliveryProtocol.uploadTypeToDeliveryProtocol(uploadType))
+                        .objects(List.of(entryPoint + extension))
                         .build()
         );
 
         var attemptId = uploadProcessRepository.createAttempt(
                 InsertUploadAttempt.builder()
+                        .uploadKey(uploadKey) // TODO the jspecify ignored this missing field, it might does not works with builders
                         .eagerTransformationNames(eagerTransformationNames)
                         .incomingTransformationName(incomingTransformationName)
                         .originalAssetId(storedAsset.getId())

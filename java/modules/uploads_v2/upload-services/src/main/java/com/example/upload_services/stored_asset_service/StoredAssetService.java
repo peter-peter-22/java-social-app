@@ -112,7 +112,22 @@ public class StoredAssetService {
     }
 
     public StoredAsset createStoredAsset(InsertStoredAsset insert) {
-        return storedAssetRepository.insert(insert);
+
+        // set the uploads bucket and the home region
+        //  the inserted stored assets should always have these and use a separate object for this function that does not have these 2 fields
+        var insert_repository=InsertStoredAsset.builder()
+                .homeRegion(globalObjectRepository.getHomeRegion())
+                .objectBucket(bucket)
+                .directory(insert.isDirectory())
+                .entryPoint(insert.getEntryPoint())
+                .contentType(insert.getContentType())
+                .extension(insert.getExtension())
+                .bytes(insert.getBytes())
+                .objects(insert.getObjects())
+                .deliveryProtocol(insert.getDeliveryProtocol())
+                .build();
+
+        return storedAssetRepository.insert(insert_repository);
     }
 
     /**
