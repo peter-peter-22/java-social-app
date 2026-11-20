@@ -5,7 +5,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 ## Status
 
 - [x] Record this plan and add empty `media-contract`, `media-api`, and `image-worker` modules.
-- [ ] Move domain types and ports into `media-contract`.
+- [x] Move domain types and ports into `media-contract`.
 - [ ] Move the registry adapter.
 - [ ] Hide Minio behind an `ObjectStore` port.
 - [ ] Build the API use cases and the slim worker.
@@ -52,7 +52,7 @@ The existing `modules/uploads_v2/object-storage` module stays as the Minio adapt
 
 ## Dependency direction
 
-- `media-contract` depends on nothing.
+- `media-contract` depends on nothing but Jackson annotations, which define the JSON shape of the transformation specs and worker messages.
 - `media-registry` and the Minio adapter depend on the contract, not on each other.
 - `media-api` depends on the contract, the registry, and the Minio adapter.
 - `image-worker` depends on the contract and the Minio adapter. It must not depend on `media-registry`, `media-api`, or a shared Spring service module.
@@ -63,7 +63,7 @@ Inside `media-api`:
 - Driving adapters: client upload and read, worker completion, admin named transformations.
 - Application services: one use case per action.
 - Domain: upload, attempt, asset, variant, transformation spec.
-- Driven ports: `UploadRegistry`, `AssetStore`, `TransformationCatalog`, `ObjectStore`, `ImageTransformer`.
+- Driven ports: `UploadRegistry`, `AssetStore` (asset rows and metadata), `TransformationCatalog`, `ObjectStore`, `ImageTransformer`.
 
 ArchUnit is a guard after the move, not a new architecture. The contract cannot import Spring, JPA, or Minio. The worker cannot import the registry.
 
@@ -93,6 +93,8 @@ Keep:
 - The lifecycle rules in `planning/uploads/upload-lifecycle.md`.
 - The current tables and Liquibase changelogs. Do not redesign the schema while moving code.
 - Cockroach, Minio expiration tags, named transformations, and the incoming-versus-eager distinction.
+- The object key rules: the asset id is the prefix, `.` becomes `_` in keys, and `ObjectPrefix.resolve` is the single policy the API and the workers share.
+- The JSON shape of the transformation specs and worker messages. The `media-contract` tests are the lock; the only deliberate change is the video discriminator, fixed from `webp` to `video` (no video rows exist to migrate).
 - Testcontainers fixtures for registry and object-storage tests.
 - The slow infrastructure checks in `planning/roadmap.md` as a separate suite, not part of the normal build.
 
@@ -125,5 +127,5 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 3. Copy the domain concepts into `media-contract` as immutable types and ports. Do not switch the prototype to them yet.
+Step 4. Move the registry adapter into `media-registry` to implement the contract ports. Move the existing repository integration tests with it. The application service, not the repository, owns the finalize transaction boundary.
 

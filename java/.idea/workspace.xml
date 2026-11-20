@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Add usage instruction to the end-to-end test.">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Complete step 3 of the clean-media-service.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1004,7 +1000,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add a mechanism to extract and save the image metadata." />
     <MESSAGE value="Add and adjust the main classes of the upload service and image worker" />
     <MESSAGE value="Make the upload service application to start" />
     <MESSAGE value="Fix inconsistent logs in the reconciliation manager" />
@@ -1029,7 +1024,8 @@
     <MESSAGE value="Make the end-to-end test run." />
     <MESSAGE value="Add more documentation" />
     <MESSAGE value="Add usage instruction to the end-to-end test." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add usage instruction to the end-to-end test." />
+    <MESSAGE value="Complete step 3 of the clean-media-service.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete step 3 of the clean-media-service.md" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
