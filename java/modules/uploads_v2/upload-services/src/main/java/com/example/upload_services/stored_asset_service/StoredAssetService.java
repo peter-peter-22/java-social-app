@@ -200,4 +200,8 @@ public class StoredAssetService {
     public void setImageMetadata(UUID storedAssetId, ImageMetadata metadata) {
         storedAssetRepository.setImageMetadata(storedAssetId, metadata);
     }
+
+    public @Nullable StoredAsset getStoredAsset(UUID storedAssetId) {
+        return storedAssetRepository.findById(storedAssetId);
+    }
 }

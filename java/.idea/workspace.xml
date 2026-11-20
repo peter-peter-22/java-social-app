@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the upload sequence to work.">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Add and test a basic get path.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/controller/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/src/main/java/com/example/image_transformer/task_service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/src/main/java/com/example/upload_registry/stored_asset/StoredAssetRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/stored_asset_service/StoredAssetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-services/src/main/java/com/example/upload_services/upload_service/UploadService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/integrationTest/java/com/example/uploads_service/EndToEndTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/uploads-service/src/main/java/com/example/uploads_service/controller/ClientController.java" afterDir="false" />
     </list>
@@ -230,7 +230,7 @@
     "Gradle.Empty.executor": "Run",
     "Gradle.EndToEndTest (1).executor": "Run",
     "Gradle.EndToEndTest.executor": "Run",
-    "Gradle.EndToEndTest.testtest.executor": "Run",
+    "Gradle.EndToEndTest.testtest.executor": "Debug",
     "Gradle.ImageTransformationServiceTests.executor": "Run",
     "Gradle.ImageTransformerRestApiTest.executor": "Run",
     "Gradle.LazyTransformationRepositoryTests.executor": "Run",
@@ -374,7 +374,7 @@
       <recent name="com.example.uploads_api.uploads.upload_process" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.EndToEndTest.testtest">
+  <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -997,7 +997,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Move the cockroachDB module to the common directory" />
     <MESSAGE value="Add more documentation" />
     <MESSAGE value="Prepare the upload process repository for implementation." />
     <MESSAGE value="Replace the redundant read of the named transformation in the upload process repository." />
@@ -1022,7 +1021,8 @@
     <MESSAGE value="Fix the errors those prevent the uploads-service server from forwarding the task to the image worker. The image worker remains under construction." />
     <MESSAGE value="Fix the upload format error and lipvips warning" />
     <MESSAGE value="Make the upload sequence to work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make the upload sequence to work." />
+    <MESSAGE value="Add and test a basic get path." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add and test a basic get path." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

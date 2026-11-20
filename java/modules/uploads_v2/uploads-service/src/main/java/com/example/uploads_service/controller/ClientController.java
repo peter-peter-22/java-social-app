@@ -32,6 +32,42 @@ public class ClientController {
     void home() {
     }
 
+    @GetMapping(path = "/get/image/{uploadKey}/{transformation}.{extension}")
+    ResponseEntity<InputStreamResource> downloadTransformedImage(
+            @PathVariable String uploadKey,
+            @PathVariable String transformation,
+            @PathVariable String extension, // the extension is not used. it's for making sure that the browser displays the image instead of attempting to download when opened directly.
+            HttpServletResponse response
+    ) {
+        try{
+            var variant = uploadService.findVariant(uploadKey, transformation);
+            if (variant == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // TODO the stored asset of the variant should be retrieved with entity graph similarly to the upload's asset to reduce round trips
+            var asset = storedAssetService.getStoredAsset(variant.getStoredAssetId());
+            // the asset should never be null because of the database foreign key
+            if (asset == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            InputStream inputStream = storedAssetService.getMainFileStream(asset);
+
+            response.setContentType(asset.getContentType());
+            InputStreamResource resource = new InputStreamResource(inputStream);
+
+            // Maybe it would be possible to redirect behind the future nginx proxy to make this more efficient
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"%s\"".formatted(asset.getMainObjectKey()))
+                    .body(resource);
+        }
+        catch (Exception e) {
+            // TODO add a global error handle and formal null checks. currently an error stops the server instead of returning the 5xx or 4xx errors
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping(path = "/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     void uploadImage(
             @Valid @RequestPart("body") ImageUploadRequest body,
@@ -46,18 +82,23 @@ public class ClientController {
             @PathVariable String extension, // the extension is not used. it's for making sure that the browser displays the image instead of attempting to download when opened directly.
             HttpServletResponse response
     ) throws IOException {
-        var upload = uploadService.findUploadByKey(uploadKey);
+        try {
+            var upload = uploadService.findUploadByKey(uploadKey);
+// TODO missing null check here
 
-        InputStream inputStream = storedAssetService.getMainFileStream(upload.getStoredAsset());
+            InputStream inputStream = storedAssetService.getMainFileStream(upload.getStoredAsset());
 
-        // TODO this is not tested
-        response.setContentType(upload.getStoredAsset().getContentType());
-        InputStreamResource resource = new InputStreamResource(inputStream);
+            // TODO here the content type of the asset is used. this is one value per asset. for assets those contain multiple objects, this wont work.
+            response.setContentType(upload.getStoredAsset().getContentType());
+            InputStreamResource resource = new InputStreamResource(inputStream);
 
-        // Maybe it would be possible to redirect behind the future nginx proxy to make this more efficient
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"%s\"".formatted(upload.getStoredAsset().getMainObjectKey()))
-                .body(resource);
+            // Maybe it would be possible to redirect behind the future nginx proxy to make this more efficient
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"%s\"".formatted(upload.getStoredAsset().getMainObjectKey()))
+                    .body(resource);
+        } catch (Exception e) {
+            // TODO add a global error handle and formal null checks. currently an error stops the server instead of returning the 5xx or 4xx errors
+            return ResponseEntity.notFound().build();
+        }
     }
 }

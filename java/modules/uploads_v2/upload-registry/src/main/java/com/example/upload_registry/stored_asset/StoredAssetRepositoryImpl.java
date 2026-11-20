@@ -41,7 +41,8 @@ public class StoredAssetRepositoryImpl implements StoredAssetRepository {
     @Transactional(readOnly = true)
     public @Nullable StoredAsset findById(UUID id) {
         return storedAssetCrudRepository.findById(id)
-                .map(StoredAssetEntity::toModel)
+                // the metadata free to model must be used otherwise it will try to read the metadata from the entity and cause error
+                .map(entity->StoredAssetEntity.toModel(entity,null,null))
                 .orElse(null);
     }
 

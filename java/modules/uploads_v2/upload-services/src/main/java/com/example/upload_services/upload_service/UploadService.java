@@ -9,6 +9,8 @@ import com.example.uploads_api.uploads.UploadType;
 import com.example.uploads_api.uploads.upload_process.InsertUploadAttempt;
 import com.example.uploads_api.uploads.upload_process.UploadAlreadyExistsException;
 import com.example.uploads_api.uploads.upload_process.UploadProcessRepository;
+import com.example.uploads_api.variant.Variant;
+import com.example.uploads_api.variant.VariantRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ public class UploadService {
     private final UploadProcessRepository uploadProcessRepository;
     private final UploadRepository uploadRepository;
     private final StoredAssetService storedAssetService;
+    private final VariantRepository variantRepository;
 
     @Transactional
     public StartedUploadAttempt startUploadProcess(
@@ -43,7 +46,7 @@ public class UploadService {
         var process = uploadProcessRepository.createProcessIfNotExistsThenLock(uploadKey);
 
         // when uploading a single file with an input stream, the entrypoint can be anything as long as it matches the objects field.
-        var entryPoint = "original."+extension;
+        var entryPoint = "original." + extension;
         var storedAsset = storedAssetService.createStoredAsset(
                 InsertStoredAsset.builder()
                         .directory(false)
@@ -81,6 +84,10 @@ public class UploadService {
 
     public Upload findImageUploadByKey(String key) {
         return uploadRepository.findImageByKey(key);
+    }
+
+    public @Nullable Variant findVariant(String uploadKey, String transformationName) {
+        return variantRepository.findByUploadKeyAndTransformationName(uploadKey, transformationName);
     }
 
     public Upload findVideoUploadByKey(String key) {

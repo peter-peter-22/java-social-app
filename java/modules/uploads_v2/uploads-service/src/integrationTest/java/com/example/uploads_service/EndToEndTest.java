@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -86,7 +87,7 @@ public class EndToEndTest {
 
 
         // upload
-        var uploadKey = "test";
+        var uploadKey = "test"+ UUID.randomUUID().toString();
 
         var params = ImageUploadRequest.builder()
                 .uploadKey(uploadKey)
@@ -116,14 +117,22 @@ public class EndToEndTest {
                 .andExpect(status().isOk());
 
 
-    }
-
-    @Test
-    void testtest() throws Exception {
-
-        mockMvc.perform(get("/api/get/image/%s.jpg".formatted("test")))
+        // read the original
+        mockMvc.perform(get("/api/get/image/%s.jpg".formatted(uploadKey)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("image/jpeg"));
+                .andExpect(content().contentType("image/webp"));
 
+        // try to read not existing upload key
+        mockMvc.perform(get("/api/get/image/1.jpg"))
+                .andExpect(status().isNotFound());
+
+        // read the profile transformation
+        mockMvc.perform(get("/api/get/image/%s/profile.webp".formatted(uploadKey)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("image/webp"));
+
+        // try to read a non-existent variant
+        mockMvc.perform(get("/api/get/image/%s/profile1.webp".formatted(uploadKey)))
+                .andExpect(status().is4xxClientError());
     }
 }
