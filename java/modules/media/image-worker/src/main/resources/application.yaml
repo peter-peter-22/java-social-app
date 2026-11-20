@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: image-worker
+
+server:
+  port: 8092

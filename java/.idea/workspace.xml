@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Make the end-to-end test run.">
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/deployment/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/image-transformer/docker/docker test.md" afterDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Add usage instruction to the end-to-end test.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/uploads_v2/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/uploads_v2/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/planning/roadmap.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/roadmap.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -995,8 +996,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Prepare the upload process repository for implementation." />
-    <MESSAGE value="Replace the redundant read of the named transformation in the upload process repository." />
     <MESSAGE value="Add a mechanism to extract and save the image metadata." />
     <MESSAGE value="Add and adjust the main classes of the upload service and image worker" />
     <MESSAGE value="Make the upload service application to start" />
@@ -1020,7 +1019,9 @@
     <MESSAGE value="Make the upload sequence to work." />
     <MESSAGE value="Add and test a basic get path." />
     <MESSAGE value="Make the end-to-end test run." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make the end-to-end test run." />
+    <MESSAGE value="Add more documentation" />
+    <MESSAGE value="Add usage instruction to the end-to-end test." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add usage instruction to the end-to-end test." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

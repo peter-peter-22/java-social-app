@@ -7,13 +7,17 @@ rootProject.name = "java"
 
 include(
     ":cockroach-db",
-    // uploads
+    // uploads prototype
     ":object-storage",
     ":image-transformer",
     ":uploads-service",
     ":upload-registry",
     ":upload-api",
-    ":upload-services"
+    ":upload-services",
+    // clean media service, built beside the prototype
+    ":media-contract",
+    ":media-api",
+    ":image-worker"
 )
 
 project(":cockroach-db").projectDir = file("modules/common/cockroach-db")
@@ -24,3 +28,7 @@ project(":uploads-service").projectDir = file("modules/uploads_v2/uploads-servic
 project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registry")
 project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")
 project(":upload-services").projectDir = file("modules/uploads_v2/upload-services")
+
+project(":media-contract").projectDir = file("modules/media/media-contract")
+project(":media-api").projectDir = file("modules/media/media-api")
+project(":image-worker").projectDir = file("modules/media/image-worker")

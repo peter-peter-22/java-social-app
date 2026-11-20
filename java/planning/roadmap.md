@@ -39,6 +39,9 @@ After confirming what happens, a test should be created that checks if the servi
 Rebuild the documentation.
 
 # Clean up
+The media-service cleanup is specified in `planning/uploads/clean-media-service.md`.
+Build it under `modules/media`. Do not refactor `uploads_v2` in place.
+
 Refractor code and Gradle files, check architecture, check folder structure.
 
 Validate the seemingly pointless usage of transactions adn flushing on some repositories.
