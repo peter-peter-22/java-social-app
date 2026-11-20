@@ -1,11 +1,9 @@
 # Baseline application
+Do a complete refractor, achieve the targeted hexagonal architecture..
+
 Consider to use database rows instead of encrypted signatures for the upload permissions.
 
-Make the image uploads alone to work.
-
 Find a reliable cleanup mechanism.
-
-Do a complete refractor to make the code readable enough.
 
 Add the video and raw uploads.
 
