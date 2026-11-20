@@ -25,6 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * To run this test, the image-worker, database, and object storage services must run.
+ * See the `uploads_v2/deployment` folder to check how to start these.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EndToEndTest {
@@ -87,7 +91,7 @@ public class EndToEndTest {
 
 
         // upload
-        var uploadKey = "test"+ UUID.randomUUID().toString();
+        var uploadKey = "test" + UUID.randomUUID().toString();
 
         var params = ImageUploadRequest.builder()
                 .uploadKey(uploadKey)
