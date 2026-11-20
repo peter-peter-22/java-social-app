@@ -5,6 +5,6 @@ pwd
 echo "workdir contents:"
 ls
 echo "available jar files:"
-find "/" -type f -name "*.jar"
+find "./" -type f -name "*.jar"
 
 exec "$@"

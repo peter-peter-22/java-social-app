@@ -1,5 +1,6 @@
 package com.example.uploads_api.transformations;
 
+import com.example.uploads_api.stored_asset.AssetDeliveryProtocol;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -27,6 +28,8 @@ public class ImageEncodings {
         String getContentType();
         @JsonIgnore
         boolean isDirectory();
+        @JsonIgnore
+        AssetDeliveryProtocol getDeliveryProtocol();
     }
 
     @Builder
@@ -46,6 +49,9 @@ public class ImageEncodings {
         public boolean isDirectory() {
             return false;
         }
+
+        @Override
+        public AssetDeliveryProtocol getDeliveryProtocol() {return AssetDeliveryProtocol.IMAGE;}
     }
 
     @Builder
@@ -65,5 +71,8 @@ public class ImageEncodings {
         public boolean isDirectory() {
             return false;
         }
+
+        @Override
+        public AssetDeliveryProtocol getDeliveryProtocol() {return AssetDeliveryProtocol.IMAGE;}
     }
 }

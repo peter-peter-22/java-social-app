@@ -113,7 +113,8 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
     @Override// TODO check integration test
     public void setTags(SetTagsForLocalObjectArgs args) {
         // TODO test if this function keep the previous tags or not
-        // TODO test what happens with null tags
+        // giving null as tags causes an error instead of removing all tags, so the tags are probably imperative
+        // this means that the tag list must not be nullable anymore and the way the tags are stored need to be reworked
         try {
             minioClient.setObjectTags(
                     SetObjectTagsArgs.builder()

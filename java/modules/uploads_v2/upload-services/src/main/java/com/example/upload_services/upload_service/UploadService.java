@@ -43,7 +43,7 @@ public class UploadService {
         var process = uploadProcessRepository.createProcessIfNotExistsThenLock(uploadKey);
 
         // when uploading a single file with an input stream, the entrypoint can be anything as long as it matches the objects field.
-        var entryPoint = "original";
+        var entryPoint = "original."+extension;
         var storedAsset = storedAssetService.createStoredAsset(
                 InsertStoredAsset.builder()
                         .directory(false)
@@ -52,7 +52,7 @@ public class UploadService {
                         .contentType(contentType)
                         .bytes(bytes)
                         .deliveryProtocol(AssetDeliveryProtocol.uploadTypeToDeliveryProtocol(uploadType))
-                        .objects(List.of(entryPoint + extension))
+                        .objects(List.of(entryPoint))
                         .build()
         );
 

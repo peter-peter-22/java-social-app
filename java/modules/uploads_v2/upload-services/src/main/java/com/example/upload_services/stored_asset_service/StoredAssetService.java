@@ -33,6 +33,7 @@ public class StoredAssetService {
     private final List<ObjectTag> expirationTags = List.of(ObjectTag.EXPIRES);
 
     public void setTemporaryFile(StoredAsset storedAsset, InputStream inputStream) {
+        System.out.println("Uploading file from input stream to object '%s'".formatted(storedAsset.getMainObjectKey()));
         globalObjectRepository.putObject(
                 storedAsset.getHomeRegion(),
                 PutLocalObjectArgs.builder()
@@ -46,32 +47,33 @@ public class StoredAssetService {
         );
     }
 
-    public void setTemporaryFile(StoredAsset storedAsset, Path path) {
+    public void setTemporaryFile(StoredAsset storedAsset, Path path, Path relativePath) {
+        System.out.println("Uploading file from path '%s' to object '%s'".formatted(path, storedAsset.getMainObjectKey()));
         globalObjectRepository.uploadFile(
                 storedAsset.getHomeRegion(),
                 UploadLocalObjectArgs.builder()
                         .sourcePath(path.toString())
                         .contentType(storedAsset.getContentType())
-                        .key(storedAsset.getMainObjectKey())
+                        .key(storedAsset.getObjectKey(relativePath.toString()))
                         .tags(expirationTags)
                         .bucket(bucket)
                         .build()
         );
     }
 
-    public void setTemporaryFiles(StoredAsset storedAsset, Collection<Path> paths) {
-        if (paths.isEmpty())
+    public void setTemporaryFiles(StoredAsset storedAsset, Collection<Path> relativePaths, Path uploadedDirectory) {
+        if (relativePaths.isEmpty())
             throw new IllegalStateException("The directory that is uploaded for a stored asset is empty.");
-        if (!storedAsset.isDirectory() && paths.size() > 1)
+        if (!storedAsset.isDirectory() && relativePaths.size() > 1)
             throw new IllegalStateException("""
                     Attempted to upload multiple files to a stored asset that is not marked as a directory.
                     The uploaded directory must contain exactly one file.
                     The encoding if a transformation is registered as single output instead of directory by mistake?""");
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try (executor) {
-            var futures = paths.stream()
+            var futures = relativePaths.stream()
                     .map(path -> CompletableFuture.runAsync(
-                            () -> setTemporaryFile(storedAsset, path),
+                            () -> setTemporaryFile(storedAsset, uploadedDirectory.resolve(path), path),
                             executor
                     ))
                     .toArray(CompletableFuture[]::new);
@@ -115,7 +117,7 @@ public class StoredAssetService {
 
         // set the uploads bucket and the home region
         //  the inserted stored assets should always have these and use a separate object for this function that does not have these 2 fields
-        var insert_repository=InsertStoredAsset.builder()
+        var insert_repository = InsertStoredAsset.builder()
                 .homeRegion(globalObjectRepository.getHomeRegion())
                 .objectBucket(bucket)
                 .directory(insert.isDirectory())
@@ -138,6 +140,7 @@ public class StoredAssetService {
         try (executor) {
             var futures = new ArrayList<Future<?>>();
             for (StoredAsset asset : assets) {
+                System.out.println("Tagging the objects of asset '%s', object list: %s".formatted(asset.getId(), asset.getObjects()));
                 for (var key : asset.getAllObjectKeys()) {
                     futures.add(
                             executor.submit(

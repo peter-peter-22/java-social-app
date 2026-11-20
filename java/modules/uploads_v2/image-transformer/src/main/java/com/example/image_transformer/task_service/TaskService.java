@@ -2,6 +2,7 @@ package com.example.image_transformer.task_service;
 
 import com.example.image_transformer.metadata.ImageMetadataService;
 import com.example.image_transformer.transformation.ImageTransformationService;
+import com.example.object_storage.tags.ObjectTag;
 import com.example.upload_services.stored_asset_service.StoredAssetService;
 import com.example.upload_services.upload_service.UploadService;
 import com.example.uploads_api.dto.ImageProcessingTask;
@@ -39,7 +40,7 @@ public class TaskService {
     private final UploadService uploadService;
     private final ImageMetadataService imageMetadataService;
 
-    private final Path uploadDir=Path.of("/uploads");
+    private final Path uploadDir = Path.of("/uploads");
 
     public void processTask(ImageProcessingTask task) {
         log.info("Processing image task {}", task);
@@ -153,7 +154,7 @@ public class TaskService {
         var allAssetIds = allAssets.stream().map(StoredAsset::getId).toList();
         storedAssetService.setAssetStatus(allAssetIds, StoredAssetStatus.FINALIZING);
         // removing the tags to remove the expiration
-        storedAssetService.tagAllAssets(allAssets, null);
+        storedAssetService.tagAllAssets(allAssets, List.of(ObjectTag.PERMANENT));
 
 // This check is probably not the best way to check if the files still exists.
 //  From the age and status of the asset, we can decide if it or it's files are possibly expired or not.
@@ -210,7 +211,7 @@ public class TaskService {
             );
 
             // register the results
-            return saveTransformationResultsAsStoredAsset(inputFile, result, operations);
+            return saveTransformationResultsAsStoredAsset(workDir, result, operations);
         } catch (IOException e) {
             throw new RuntimeException("Error while processing transformation", e);
         } finally {
@@ -234,16 +235,21 @@ public class TaskService {
         // register the results
         var encoding = operations.encoding();
         var paths = FileUtils.getFilesInDir(savedDirectory);
-        var relativePaths = paths.stream().map(path -> savedDirectory.relativize(path).toString()).toList();
+        var relativePaths = paths.stream().map(path -> savedDirectory.relativize(path)).toList();
         var size = FileUtils.getSizeSum(paths);
+
+        System.out.println("Adding multiple files to a asset from directory: " + savedDirectory);
+        System.out.println("Files: " + relativePaths);
+        System.out.println("Relative paths: " + relativePaths);
 
         var asset = storedAssetService.createStoredAsset(
                 InsertStoredAsset.builder()
                         .directory(encoding.isDirectory())
                         .entryPoint(savedDirectory.relativize(result.entryPoint()).toString())
-                        .objects(relativePaths)
+                        .objects(relativePaths.stream().map(Path::toString).toList())
                         .contentType(encoding.getContentType())
                         .extension(FileUtils.getFileExtension(result.entryPoint().getFileName().toString()))
+                        .deliveryProtocol(encoding.getDeliveryProtocol())
                         .bytes(size)
                         .build()
         );
@@ -251,7 +257,7 @@ public class TaskService {
         storedAssetService.setImageMetadata(asset.getId(), result.metadata());
 
         // upload the files
-        storedAssetService.setTemporaryFiles(asset, paths);
+        storedAssetService.setTemporaryFiles(asset, relativePaths, savedDirectory);
 
         return asset;
     }

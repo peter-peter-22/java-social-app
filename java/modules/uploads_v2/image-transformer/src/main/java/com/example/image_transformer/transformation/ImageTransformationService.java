@@ -34,7 +34,7 @@ public class ImageTransformationService {
      * Write the resulting files of a transformation into the work directory, return the entrypoint and the metadata.
      * // TODO remove the location metadata added by android
      */
-    public TransformationResult transformFile(Path inputFilePath, Path workDir, ImageTransformationOperations operations) {
+    public TransformationResult transformFile(Path inputFilePath, Path outputDir, ImageTransformationOperations operations) {
         AtomicReference<@Nullable TransformationResult> result = new AtomicReference<>();
 
         Vips.run(arena -> {
@@ -48,7 +48,7 @@ public class ImageTransformationService {
                     .resolutionY(outputVImage.getHeight())
                     .build();
 
-            var entryPoint = applyEncoding(outputVImage, workDir, operations.encoding());
+            var entryPoint = applyEncoding(outputVImage, outputDir, operations.encoding());
 
             result.set(new TransformationResult(entryPoint, metadata));
         });

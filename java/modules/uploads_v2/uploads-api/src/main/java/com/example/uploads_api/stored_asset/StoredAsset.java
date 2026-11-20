@@ -65,7 +65,8 @@ public final class StoredAsset {
      * Return the object key based on the local path.
      */
     public String getObjectKey(String relativePath) {
-        return getDirectoryPrefix() + "/" + relativePath;
+        // The '.' character must be replaced because the Minio object key cannot contain this.
+        return getDirectoryPrefix() + "/" + relativePath.replace('.','_');
     }
 
     /**
