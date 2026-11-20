@@ -1,4 +1,4 @@
 .gradle
 .kotlin
 build
-gitignore/*
+gitignore/
