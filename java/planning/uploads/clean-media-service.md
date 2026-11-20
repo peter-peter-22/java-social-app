@@ -5,7 +5,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 ## Status
 
 - [x] Record this plan and add empty `media-contract`, `media-api`, and `image-worker` modules.
-- [ ] Move domain types and ports into `media-contract`.
+- [x] Move domain types and ports into `media-contract`.
 - [ ] Move the registry adapter.
 - [ ] Hide Minio behind an `ObjectStore` port.
 - [ ] Build the API use cases and the slim worker.
@@ -125,5 +125,5 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 3. Copy the domain concepts into `media-contract` as immutable types and ports. Do not switch the prototype to them yet.
+Step 4. Move the registry adapter into `media-registry`. Implement the `media-contract` ports there. Do not switch the prototype to them yet.
 
