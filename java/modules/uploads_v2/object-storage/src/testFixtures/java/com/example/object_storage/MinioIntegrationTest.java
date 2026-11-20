@@ -7,6 +7,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.MinIOContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,7 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class MinioIntegrationTest {
     @Container
     private static final MinIOContainer MINIO_CONTAINER =
-            new MinIOContainer("minio/minio:RELEASE.2025-09-07T16-13-09Z");
+            new MinIOContainer(DockerImageName
+                    .parse("docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z")
+                    .asCompatibleSubstituteFor("minio/minio"));
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
