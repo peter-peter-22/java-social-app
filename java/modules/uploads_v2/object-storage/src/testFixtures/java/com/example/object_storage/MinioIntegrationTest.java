@@ -5,21 +5,28 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.MinIOContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Testcontainers
 @TestPropertySource(locations = "classpath:object-storage-test.properties")
 public abstract class MinioIntegrationTest {
-    @Container
-    private static final MinIOContainer MINIO_CONTAINER =
-            new MinIOContainer(DockerImageName
-                    .parse("docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z")
-                    .asCompatibleSubstituteFor("minio/minio"));
 
+    private static final MinIOContainer MINIO_CONTAINER = startContainer();
+
+    private static MinIOContainer startContainer() {
+        var container = new MinIOContainer(DockerImageName
+                .parse("docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z")
+                .asCompatibleSubstituteFor("minio/minio"));
+        container.start();
+        return container;
+    }
+
+    /**
+     * The container is shared by all integration-test classes in a test JVM.
+     * Using {@code @Container} here would make the JUnit extension stop this
+     * shared container after the first test class.
+     */
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
         registry.add("minio.regions[0].name", () -> "test");

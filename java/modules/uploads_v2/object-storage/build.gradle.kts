@@ -7,6 +7,11 @@ version = "0.0.1-SNAPSHOT"
 
 dependencies {
 
+    // The Minio adapter implements the ObjectStore port of the clean media service.
+    // It is an implementation dependency on purpose: the contract types stay behind the port and
+    // do not leak onto the compile classpath of the prototype modules using this adapter.
+    implementation(project(":media-contract"))
+
     // minio
     implementation("io.minio:minio:8.6.0") // PRODUCTION: upgrade
 

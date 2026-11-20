@@ -7,7 +7,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Record this plan and add empty `media-contract`, `media-api`, and `image-worker` modules.
 - [x] Move domain types and ports into `media-contract`.
 - [x] Move the registry adapter.
-- [ ] Hide Minio behind an `ObjectStore` port.
+- [x] Hide Minio behind an `ObjectStore` port.
 - [ ] Build the API use cases and the slim worker.
 - [ ] Point Compose and `EndToEndTest` at the new jars, then remove unused `uploads_v2` modules.
 - [ ] Add async on the same file path.
@@ -127,5 +127,5 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 5. Hide Minio behind `ObjectStore`. The adapter keeps regions, tags, and reconciliation.
+Step 6. Build the API use cases: start image upload, complete image upload, read original, and read variant. The controller only maps HTTP. A missing upload is 404. Bad input is 400. An unexpected failure is 500.
 
