@@ -6,7 +6,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 
 - [x] Record this plan and add empty `media-contract`, `media-api`, and `image-worker` modules.
 - [x] Move domain types and ports into `media-contract`.
-- [ ] Move the registry adapter.
+- [x] Move the registry adapter.
 - [ ] Hide Minio behind an `ObjectStore` port.
 - [ ] Build the API use cases and the slim worker.
 - [ ] Point Compose and `EndToEndTest` at the new jars, then remove unused `uploads_v2` modules.
@@ -127,5 +127,5 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 4. Move the registry adapter into `media-registry` to implement the contract ports. Move the existing repository integration tests with it. The application service, not the repository, owns the finalize transaction boundary.
+Step 5. Hide Minio behind `ObjectStore`. The adapter keeps regions, tags, and reconciliation.
 

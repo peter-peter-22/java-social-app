@@ -4,9 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Complete step 3 of the clean-media-service.md">
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Automatic refactor by the IDE">
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/AssetCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/AssetEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/ImageMetadataCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/ImageMetadataEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/JpaAssetStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/VideoMetadataCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/asset/VideoMetadataEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/transformation/JpaTransformationCatalog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/transformation/NamedTransformationCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/transformation/NamedTransformationEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/transformation/TransformationVersionCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/transformation/TransformationVersionEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/JpaUploadRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadAttemptCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadAttemptEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadProcessCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/upload/UploadProcessEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/variant/VariantCrudRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/variant/VariantEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/main/java/com/example/media/registry/variant/VariantEntityId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/test/java/com/example/media/registry/TestApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/test/java/com/example/media/registry/asset/JpaAssetStoreIT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/test/java/com/example/media/registry/transformation/JpaTransformationCatalogIT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/test/java/com/example/media/registry/transformation/TransformationSpecPersistenceJsonTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/media/media-registry/src/test/java/com/example/media/registry/upload/JpaUploadRegistryIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/AGENTS.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1000,8 +1033,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add and adjust the main classes of the upload service and image worker" />
-    <MESSAGE value="Make the upload service application to start" />
     <MESSAGE value="Fix inconsistent logs in the reconciliation manager" />
     <MESSAGE value="Make the image worker server to start" />
     <MESSAGE value="Add example code to the image transformation tests." />
@@ -1025,7 +1056,9 @@
     <MESSAGE value="Add more documentation" />
     <MESSAGE value="Add usage instruction to the end-to-end test." />
     <MESSAGE value="Complete step 3 of the clean-media-service.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete step 3 of the clean-media-service.md" />
+    <MESSAGE value="Update the plan after completing step 3" />
+    <MESSAGE value="Automatic refactor by the IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Automatic refactor by the IDE" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

@@ -16,11 +16,13 @@
         <module name="java.image-transformer.test" />
         <module name="java.media-api.test" />
         <module name="java.uploads-service.main" />
+        <module name="java.media-registry.main" />
         <module name="java.media-contract.test" />
         <module name="com.example.java.object-storage.test" />
         <module name="java.upload-api.test" />
         <module name="java.media-api.main" />
         <module name="java.upload-registry.main" />
+        <module name="java.media-registry.test" />
         <module name="java.cockroach-db.test" />
         <module name="java.image-worker.main" />
         <module name="java.upload-services.main" />
@@ -85,6 +87,9 @@
       <module name="java.media-api.main" options="-parameters" />
       <module name="java.media-api.test" options="-parameters" />
       <module name="java.media-api.testFixtures" options="-parameters -parameters" />
+      <module name="java.media-registry" options="-parameters -parameters" />
+      <module name="java.media-registry.main" options="-parameters -parameters" />
+      <module name="java.media-registry.test" options="-parameters -parameters" />
       <module name="java.modules.cockroach_db" options="-parameters -parameters" />
       <module name="java.modules.cockroach_db.main" options="-parameters -parameters" />
       <module name="java.modules.cockroach_db.test" options="-parameters -parameters" />

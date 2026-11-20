@@ -16,6 +16,7 @@ include(
     ":upload-services",
     // clean media service, built beside the prototype
     ":media-contract",
+    ":media-registry",
     ":media-api",
     ":image-worker"
 )
@@ -29,6 +30,8 @@ project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registr
 project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")
 project(":upload-services").projectDir = file("modules/uploads_v2/upload-services")
 
+// clean media service, built beside the prototype
 project(":media-contract").projectDir = file("modules/media/media-contract")
+project(":media-registry").projectDir = file("modules/media/media-registry")
 project(":media-api").projectDir = file("modules/media/media-api")
 project(":image-worker").projectDir = file("modules/media/image-worker")
