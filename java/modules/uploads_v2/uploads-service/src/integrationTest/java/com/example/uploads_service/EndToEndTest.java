@@ -21,6 +21,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -113,5 +114,16 @@ public class EndToEndTest {
                         .file(jsonPart)
                         .file(filePart))
                 .andExpect(status().isOk());
+
+
+    }
+
+    @Test
+    void testtest() throws Exception {
+
+        mockMvc.perform(get("/api/get/image/%s.jpg".formatted("test")))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("image/jpeg"));
+
     }
 }

@@ -12,6 +12,7 @@ import com.example.uploads_api.stored_asset.StoredAssetStatus;
 import com.example.uploads_api.transformations.ImageTransformationOperations;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedImageTransformation;
 import com.example.uploads_api.transformations.named_transformation_repository.NamedTransformationRepository;
+import com.example.uploads_api.uploads.Upload;
 import com.example.uploads_api.uploads.upload_process.UploadProcessRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class TaskService {
 
     private final Path uploadDir = Path.of("/uploads");
 
-    public void processTask(ImageProcessingTask task) {
+    public Upload processTask(ImageProcessingTask task) {
         log.info("Processing image task {}", task);
 
         // get the transformations
@@ -165,7 +166,7 @@ public class TaskService {
 //            throw new RuntimeException("Some of the created assets were not found.");
 
         // finish the upload
-        uploadService.finalizeAttempt(
+        return uploadService.finalizeAttempt(
                 task.getAttemptId(),
                 task.getUploadKey(),
                 buildVariants(transformations, eagerAssets),

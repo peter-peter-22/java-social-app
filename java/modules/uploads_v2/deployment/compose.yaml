@@ -29,6 +29,7 @@ services:
     tty: true
     ports:
       - '8082:8080'
+    # should depend on db and minio
 
   db:
     # CLI: cockroach sql --insecure; use defaultdb;
