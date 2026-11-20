@@ -1,4 +1,12 @@
+# Java
 .gradle
 .kotlin
 build
+
+# Personal
 gitignore/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
