@@ -8,7 +8,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Move domain types and ports into `media-contract`.
 - [x] Move the registry adapter.
 - [x] Hide Minio behind an `ObjectStore` port.
-- [ ] Build the API use cases and the slim worker.
+- [x] Build the API use cases and the slim worker.
 - [ ] Point Compose and `EndToEndTest` at the new jars, then remove unused `uploads_v2` modules.
 - [ ] Add async on the same file path.
 - [ ] Conventions pass: names, Gradle, ArchUnit.
@@ -127,7 +127,7 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 7. Slim the worker to download, transform, upload under the given prefixes, and return the result. Remove the database, Liquibase, and `upload-services` dependencies. Keep libvips and the native-access flag inside this deployable.
+Step 8. Point Compose and `EndToEndTest` at the new jars. The API runs Liquibase. The worker does not. Only after this test passes, remove the unused `uploads_v2` modules.
 
-Step 6 is done: `media-api` has the start-image-upload, complete-image-upload, read-original, and read-variant use cases with controllers that only map HTTP. The blocking worker call goes through the `ImageTransformer` port; the HTTP client adapter lands with the worker's endpoint in the next steps, and the Spring wiring of the adapters lands with step 8.
+Step 7 is done: the image worker downloads the source, transforms it with libvips, uploads the results under the given prefixes with the expiration tags, and returns the result. It has no database, no Liquibase, and no `upload-services` dependency, and libvips and the native-access flag stay inside this deployable. The blocking `ImageTransformer` call has its HTTP client adapter in `media-api` next to the worker's transform endpoint; the Spring wiring of the adapters lands with step 8.
 
