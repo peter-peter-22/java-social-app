@@ -121,7 +121,7 @@ Each step must leave the current end-to-end path runnable. Do not change behavio
 7. Slim the worker to download, transform, upload under the given prefixes, and return the result. Remove the database, Liquibase, and `upload-services` dependencies. Keep libvips and the native-access flag inside this deployable.
 8. Point Compose and `EndToEndTest` at the new jars. The API runs Liquibase. The worker does not. Only after this test passes, remove the unused `uploads_v2` modules.
 9. Add the async port without changing the file path. The completion endpoint calls the same finalize use case. Retries must be safe.
-10. Conventions pass: `buildSrc` conventions instead of copied plugin versions, ArchUnit checks, and no duplicated `application.yaml`.
+10. Conventions pass: `buildSrc` conventions instead of copied plugin versions, ArchUnit checks, and no duplicated `application.yaml`. Now that no prototype code shares the Minio adapter, rework its tag types: one non-null tag representation instead of `ObjectTag` and the nullable tag arguments, and pinned replace-or-merge semantics for `setTags`. The expiration tags and the lifecycle rule stay.
 
 Verification for every step is the existing registry and object-storage integration tests, plus `EndToEndTest` once the new API is wired. Do not fold the Compose-backed test into the normal unit-test run.
 
