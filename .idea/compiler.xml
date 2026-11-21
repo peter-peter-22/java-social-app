@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="java.cockroach-db.main" />
+        <module name="java.image-transformer.main" />
+        <module name="java.object-storage.test" />
+        <module name="java.upload-services.test" />
+        <module name="java.uploads-service.testFixtures" />
+        <module name="java.uploads-service.test" />
+        <module name="java.media-contract.main" />
+        <module name="java.image-transformer.test" />
+        <module name="java.media-api.test" />
+        <module name="java.object-storage.main" />
+        <module name="java.uploads-service.main" />
+        <module name="java.media-registry.main" />
+        <module name="java.media-contract.test" />
+        <module name="java.upload-api.test" />
+        <module name="java.media-api.main" />
+        <module name="java.upload-registry.main" />
+        <module name="java.media-registry.test" />
+        <module name="java.cockroach-db.test" />
+        <module name="java.image-worker.main" />
+        <module name="java.upload-services.main" />
+        <module name="java.image-worker.test" />
+        <module name="java.upload-registry.test" />
+        <module name="java.upload-api.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="java.image-transformer-2" target="24" />
+      <module name="java.image-transformer-2.integrationTest" target="24" />
+      <module name="java.image-transformer-2.main" target="24" />
+      <module name="java.image-transformer-2.test" target="24" />
+      <module name="java.image-transformer-2.testFixtures" target="24" />
+      <module name="java.transformer-contracts" target="24" />
+      <module name="java.transformer-contracts-2" target="24" />
+      <module name="java.transformer-contracts-2.main" target="24" />
+      <module name="java.transformer-contracts-2.test" target="24" />
+      <module name="java.transformer-contracts-2.testFixtures" target="24" />
+      <module name="java.transformer-contracts.main" target="24" />
+      <module name="java.transformer-contracts.test" target="24" />
+      <module name="java.transformer-contracts.testFixtures" target="24" />
+      <module name="java.uploads-api" target="24" />
+      <module name="java.uploads-api.main" target="24" />
+      <module name="java.uploads-api.test" target="24" />
+      <module name="java.uploads-api.testFixtures" target="24" />
+      <module name="java.uploads-persistence" target="24" />
+      <module name="java.uploads-persistence.main" target="24" />
+      <module name="java.uploads-persistence.test" target="24" />
+      <module name="java.uploads-persistence.testFixtures" target="24" />
+      <module name="java.video-transformer" target="24" />
+      <module name="java.video-transformer.integrationTest" target="24" />
+      <module name="java.video-transformer.main" target="24" />
+      <module name="java.video-transformer.test" target="24" />
+      <module name="java.video-transformer.testFixtures" target="24" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="com.example.java.image-transformer" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.integrationTest" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.main" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.test" options="-parameters -parameters" />
+      <module name="com.example.java.image-transformer.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.main" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.test" options="-parameters -parameters" />
+      <module name="com.example.java.object-storage.testFixtures" options="-parameters -parameters" />
+      <module name="java.cockroach-db" options="-parameters -parameters" />
+      <module name="java.cockroach-db.main" options="-parameters -parameters" />
+      <module name="java.cockroach-db.test" options="-parameters -parameters" />
+      <module name="java.cockroach-db.testFixtures" options="-parameters -parameters" />
+      <module name="java.image-transformer" options="-parameters -parameters" />
+      <module name="java.image-transformer-2" options="-parameters -parameters" />
+      <module name="java.image-transformer-2.integrationTest" options="-parameters -parameters" />
+      <module name="java.image-transformer-2.main" options="-parameters -parameters" />
+      <module name="java.image-transformer-2.test" options="-parameters -parameters" />
+      <module name="java.image-transformer-2.testFixtures" options="-parameters -parameters" />
+      <module name="java.image-transformer.integrationTest" options="-parameters -parameters" />
+      <module name="java.image-transformer.main" options="-parameters -parameters" />
+      <module name="java.image-transformer.test" options="-parameters -parameters" />
+      <module name="java.image-transformer.testFixtures" options="-parameters -parameters" />
+      <module name="java.image-worker" options="-parameters" />
+      <module name="java.image-worker.main" options="-parameters" />
+      <module name="java.image-worker.test" options="-parameters" />
+      <module name="java.media-api" options="-parameters" />
+      <module name="java.media-api.main" options="-parameters" />
+      <module name="java.media-api.test" options="-parameters" />
+      <module name="java.media-registry" options="-parameters -parameters" />
+      <module name="java.media-registry.main" options="-parameters -parameters" />
+      <module name="java.media-registry.test" options="-parameters -parameters" />
+      <module name="java.object-storage" options="-parameters -parameters" />
+      <module name="java.object-storage.main" options="-parameters -parameters" />
+      <module name="java.object-storage.test" options="-parameters -parameters" />
+      <module name="java.object-storage.testFixtures" options="-parameters -parameters" />
+      <module name="java.posts-persistence" options="-parameters -parameters" />
+      <module name="java.posts-persistence.main" options="-parameters -parameters" />
+      <module name="java.posts-persistence.test" options="-parameters -parameters" />
+      <module name="java.transformer-contracts" options="-parameters -parameters" />
+      <module name="java.transformer-contracts-2" options="-parameters -parameters" />
+      <module name="java.transformer-contracts-2.main" options="-parameters -parameters" />
+      <module name="java.transformer-contracts-2.test" options="-parameters -parameters" />
+      <module name="java.transformer-contracts-2.testFixtures" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.main" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.test" options="-parameters -parameters" />
+      <module name="java.transformer-contracts.testFixtures" options="-parameters -parameters" />
+      <module name="java.upload-registry" options="-parameters -parameters" />
+      <module name="java.upload-registry.main" options="-parameters -parameters" />
+      <module name="java.upload-registry.test" options="-parameters -parameters" />
+      <module name="java.upload-registry.testFixtures" options="-parameters -parameters" />
+      <module name="java.upload-services" options="-parameters -parameters" />
+      <module name="java.upload-services.main" options="-parameters -parameters" />
+      <module name="java.upload-services.test" options="-parameters -parameters" />
+      <module name="java.upload-services.testFixtures" options="-parameters -parameters" />
+      <module name="java.uploads-api" options="-parameters -parameters" />
+      <module name="java.uploads-api.main" options="-parameters -parameters" />
+      <module name="java.uploads-api.test" options="-parameters -parameters" />
+      <module name="java.uploads-api.testFixtures" options="-parameters -parameters" />
+      <module name="java.uploads-persistence" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.main" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.test" options="-parameters -parameters" />
+      <module name="java.uploads-persistence.testFixtures" options="-parameters -parameters" />
+      <module name="java.uploads-service" options="-parameters -parameters" />
+      <module name="java.uploads-service.integrationTest" options="-parameters -parameters" />
+      <module name="java.uploads-service.main" options="-parameters -parameters" />
+      <module name="java.uploads-service.test" options="-parameters -parameters" />
+      <module name="java.uploads-service.testFixtures" options="-parameters -parameters" />
+      <module name="java.users-persistence" options="-parameters -parameters" />
+      <module name="java.users-persistence.main" options="-parameters -parameters" />
+      <module name="java.users-persistence.test" options="-parameters -parameters" />
+      <module name="java.users-persistence.testFixtures" options="-parameters -parameters" />
+      <module name="java.video-transformer" options="-parameters -parameters" />
+      <module name="java.video-transformer.integrationTest" options="-parameters -parameters" />
+      <module name="java.video-transformer.main" options="-parameters -parameters" />
+      <module name="java.video-transformer.test" options="-parameters -parameters" />
+      <module name="java.video-transformer.testFixtures" options="-parameters -parameters" />
+    </option>
+  </component>
+</project>

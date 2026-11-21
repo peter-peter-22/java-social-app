@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/java-social-app.iml" filepath="$PROJECT_DIR$/.idea/java-social-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/java.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/java.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/java.object-storage.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/java.object-storage.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" />
+    </modules>
+  </component>
+</project>

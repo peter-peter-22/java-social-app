@@ -127,5 +127,7 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 6. Build the API use cases: start image upload, complete image upload, read original, and read variant. The controller only maps HTTP. A missing upload is 404. Bad input is 400. An unexpected failure is 500.
+Step 7. Slim the worker to download, transform, upload under the given prefixes, and return the result. Remove the database, Liquibase, and `upload-services` dependencies. Keep libvips and the native-access flag inside this deployable.
+
+Step 6 is done: `media-api` has the start-image-upload, complete-image-upload, read-original, and read-variant use cases with controllers that only map HTTP. The blocking worker call goes through the `ImageTransformer` port; the HTTP client adapter lands with the worker's endpoint in the next steps, and the Spring wiring of the adapters lands with step 8.
 
