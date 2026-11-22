@@ -6,30 +6,21 @@ pluginManagement {
 rootProject.name = "java"
 
 include(
+    // common
     ":cockroach-db",
-    // uploads prototype
+
+    // media service
     ":object-storage",
-    ":image-transformer",
-    ":uploads-service",
-    ":upload-registry",
-    ":upload-api",
-    ":upload-services",
-    // clean media service, built beside the prototype
     ":media-contract",
     ":media-registry",
     ":media-api",
     ":image-worker"
 )
 
+// common
 project(":cockroach-db").projectDir = file("modules/common/cockroach-db")
 
-project(":image-transformer").projectDir = file("modules/uploads_v2/image-transformer")
-project(":uploads-service").projectDir = file("modules/uploads_v2/uploads-service")
-project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registry")
-project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")
-project(":upload-services").projectDir = file("modules/uploads_v2/upload-services")
-
-// clean media service, built beside the prototype
+// media service
 project(":object-storage").projectDir = file("modules/media/object-storage")
 project(":media-contract").projectDir = file("modules/media/media-contract")
 project(":media-registry").projectDir = file("modules/media/media-registry")

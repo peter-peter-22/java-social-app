@@ -27,11 +27,6 @@
             <option value="$PROJECT_DIR$/java/modules/media/media-contract" />
             <option value="$PROJECT_DIR$/java/modules/media/media-registry" />
             <option value="$PROJECT_DIR$/java/modules/media/object-storage" />
-            <option value="$PROJECT_DIR$/java/modules/uploads_v2/image-transformer" />
-            <option value="$PROJECT_DIR$/java/modules/uploads_v2/upload-registry" />
-            <option value="$PROJECT_DIR$/java/modules/uploads_v2/upload-services" />
-            <option value="$PROJECT_DIR$/java/modules/uploads_v2/uploads-api" />
-            <option value="$PROJECT_DIR$/java/modules/uploads_v2/uploads-service" />
           </set>
         </option>
       </GradleProjectSettings>

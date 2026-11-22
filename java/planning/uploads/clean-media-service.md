@@ -128,7 +128,6 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 8 is nearly done: Compose and `EndToEndTest` now point at the new jars, the API runs Liquibase while the worker does not, the adapters are wired, and the end-to-end test passes. What remains of step 8 is to remove the unused `uploads_v2` modules — after the Minio object store and the docker tests are moved into this tree.
+With step 8, the new modules are ready, all tests pass (including the end-to-end test), and the prototypes were removed.
 
-Step 7 is done: the image worker downloads the source, transforms it with libvips, uploads the results under the given prefixes with the expiration tags, and returns the result. It has no database, no Liquibase, and no shared service module, and libvips and the native-access flag stay inside this deployable. The blocking `ImageTransformer` call has its HTTP client adapter in `media-api` next to the worker's transform endpoint, and it is wired to the worker in `MediaApiConfiguration`.
-
+The next step is step 9, which adds the async port. The architecture and behavior of this mechanism is not certain yet and needs to be planned.
