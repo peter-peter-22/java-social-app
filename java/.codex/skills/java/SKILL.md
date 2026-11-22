@@ -15,3 +15,4 @@ Apply these conventions to generic Java implementation, refactoring, and code-re
 - Prefer the shortest clear implementation. Avoid unnecessary abstractions, indirection, duplication, and ceremony.
 - Follow the repository's existing Java, framework, naming, formatting, and dependency conventions when they are more
   specific.
+- The code must follow the hexagonal architecture.
