@@ -32,7 +32,7 @@ media:
 
 minio:
   reconciliation:
-    enabled: true
+    enabled: false
 
   uploads-configuration:
     bucket-name: uploads
