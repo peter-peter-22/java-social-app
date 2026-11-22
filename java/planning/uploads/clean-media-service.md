@@ -11,6 +11,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Build the API use cases and the slim worker.
 - [x] Point Compose and `EndToEndTest` at the new jars; the API runs Liquibase, the worker does not. The end-to-end test passes.
 - [x] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
+- [x] Move the JSON shape of the specs and worker messages out of the domain into `media-json`: Jackson mixins and one shared configuration for the web, the registry, and the future queue.
 - [ ] Add async on the same file path.
 - [ ] Conventions pass: names, Gradle, ArchUnit.
 
@@ -43,6 +44,7 @@ The happy path works. The boundaries do not.
 ```text
 modules/media/
   media-contract/     pure Java. No Spring, JPA, or Minio.
+  media-json/         pure Java. Jackson mixins and the shared JSON configuration.
   media-registry/     JPA + Liquibase adapter. Implements contract ports.
   media-api/          Spring Boot app. HTTP in, registry and object storage out.
   image-worker/       Spring Boot app. HTTP in, libvips, object storage out. No database.
@@ -53,10 +55,11 @@ The existing `modules/uploads_v2/object-storage` module stays as the Minio adapt
 
 ## Dependency direction
 
-- `media-contract` depends on nothing but Jackson annotations, which define the JSON shape of the transformation specs and worker messages.
-- `media-registry` and the Minio adapter depend on the contract, not on each other.
-- `media-api` depends on the contract, the registry, and the Minio adapter.
-- `image-worker` depends on the contract and the Minio adapter. It must not depend on `media-registry`, `media-api`, or a shared Spring service module.
+- `media-contract` depends on nothing. The domain types carry no serialization framework.
+- `media-json` depends on the contract and Jackson 3. Its mixins define the JSON shape of the transformation specs and worker messages; the shape tests there are the lock. The web, the registry's jsonb columns, and the future message queue all serialize through its configuration, so the shape cannot drift and the format versioning has one home.
+- `media-registry` and the Minio adapter depend on the contract, not on each other. The registry depends on `media-json` for the jsonb shape.
+- `media-api` depends on the contract, `media-json`, the registry, and the Minio adapter.
+- `image-worker` depends on the contract, `media-json`, and the Minio adapter. It must not depend on `media-registry`, `media-api`, or a shared Spring service module.
 - Cockroach and Minio remain infrastructure, not services we write.
 
 Inside `media-api`:
@@ -66,9 +69,19 @@ Inside `media-api`:
 - Domain: upload, attempt, asset, variant, transformation spec.
 - Driven ports: `UploadRegistry`, `AssetStore` (asset rows and metadata), `TransformationCatalog`, `ObjectStore`, `ImageTransformer`.
 
-ArchUnit is a guard after the move, not a new architecture. The contract cannot import Spring, JPA, or Minio. The worker cannot import the registry.
+ArchUnit is a guard after the move, not a new architecture. The contract cannot import Spring, JPA, Minio, or Jackson. `media-json` cannot import Spring, JPA, or Minio. The worker cannot import the registry.
 
 Package root: `com.example.media`. No underscores.
+
+## JSON serialization
+
+The domain types are plain Java. The JSON shape of the transformation specs and worker messages lives in `media-json` as Jackson mixins, applied through one shared configuration (`MediaJson`):
+
+- The web serializes through the auto-configured Jackson mapper, customized with the same mixins (`JsonMapperBuilderCustomizer`).
+- The registry persists the jsonb `operations` column through Hibernate's `FormatMapper`, bridged to the same configuration (`MediaJsonFormatMapper`).
+- The future message queue uses the same configuration, so the same shape and versioning apply there.
+
+The polymorphic `type` property is the versioning seam: format versions are planned to be handled by extending the polymorphic serializer and adding a version field that is empty for the first version. A missing or empty version reads as the first version. This stays inside `media-json`; no domain or consumer changes.
 
 ## File and control flow
 
@@ -95,7 +108,7 @@ Keep:
 - The current tables and Liquibase changelogs. Do not redesign the schema while moving code.
 - Cockroach, Minio expiration tags, named transformations, and the incoming-versus-eager distinction.
 - The object key rules: the asset id is the prefix, `.` becomes `_` in keys, and `ObjectPrefix.resolve` is the single policy the API and the workers share.
-- The JSON shape of the transformation specs and worker messages. The `media-contract` tests are the lock; the only deliberate change is the video discriminator, fixed from `webp` to `video` (no video rows exist to migrate).
+- The JSON shape of the transformation specs and worker messages. The `media-json` tests are the lock; the only deliberate change is the video discriminator, fixed from `webp` to `video` (no video rows exist to migrate).
 - Testcontainers fixtures for registry and object-storage tests.
 - The slow infrastructure checks in `planning/roadmap.md` as a separate suite, not part of the normal build.
 

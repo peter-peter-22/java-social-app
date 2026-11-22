@@ -7,6 +7,8 @@ version = "0.0.1-SNAPSHOT"
 dependencies {
     // modules
     implementation(project(":media-contract"))
+    // The shared JSON shape of the worker messages and the transformation specs.
+    implementation(project(":media-json"))
     // The Minio adapter behind the ObjectStore port. The worker moves files through object
     // storage and nothing else: no registry, no database, no upload services.
     implementation(project(":object-storage"))

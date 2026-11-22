@@ -1,8 +1,5 @@
 package com.example.media.contract.transformation;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.Objects;
 
 /**
@@ -20,15 +17,6 @@ public record VideoTransformationSpec(VideoEncoding encoding) implements Transfo
      * The placeholder variants mirror the prototype's names so the JSON discriminators stay stable.
      * Their fields arrive with the video worker slice.
      */
-    @JsonTypeInfo(
-            use = JsonTypeInfo.Id.NAME,
-            include = JsonTypeInfo.As.PROPERTY,
-            property = "type"
-    )
-    @JsonSubTypes({
-            @JsonSubTypes.Type(value = VideoEncoding.Mp4.class, name = "mp4"),
-            @JsonSubTypes.Type(value = VideoEncoding.Hls.class, name = "hls")
-    })
     public sealed interface VideoEncoding permits VideoEncoding.Mp4, VideoEncoding.Hls {
 
         /** Reserved: bitrate, frame rate, CRF, and preset fields arrive with the video worker. */

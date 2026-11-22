@@ -13,8 +13,10 @@ dependencies {
     // modules
     implementation(project(":cockroach-db"))
     implementation(project(":media-contract"))
+    // The shared JSON shape of the jsonb transformation specs.
+    implementation(project(":media-json"))
     testImplementation(testFixtures(project(":cockroach-db")))
 
-    // Hibernate 7.2 persists the jsonb transformation specs with the Jackson 2 databind.
-    implementation("com.fasterxml.jackson.core:jackson-databind")
+    // The properties customizer that installs the shared JSON format mapper into Hibernate.
+    implementation("org.springframework.boot:spring-boot-hibernate")
 }

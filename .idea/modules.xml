@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/java.cockroach-db.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" />

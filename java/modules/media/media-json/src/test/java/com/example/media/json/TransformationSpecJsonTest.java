@@ -1,5 +1,6 @@
-package com.example.media.contract.transformation;
+package com.example.media.json;
 
+import com.example.media.contract.transformation.*;
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.ObjectMapper;
 
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class TransformationSpecJsonTest {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = MediaJson.create();
 
     @Test
     void imageSpecRoundTripKeepsThePersistedShape() {

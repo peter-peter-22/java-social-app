@@ -11,9 +11,11 @@ import com.example.media.contract.worker.CompletedImageOutput;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.PlannedImageOutput;
+import com.example.media.json.MediaJson;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -38,8 +40,12 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 class HttpImageTransformerTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final RestClient.Builder restClientBuilder = RestClient.builder().baseUrl("http://worker.test");
+    private final ObjectMapper objectMapper = MediaJson.create();
+    private final RestClient.Builder restClientBuilder = RestClient.builder()
+            .baseUrl("http://worker.test")
+            // The client speaks the shared media JSON shape, like the production adapter does.
+            .configureMessageConverters(converters ->
+                    converters.withJsonConverter(new JacksonJsonHttpMessageConverter(MediaJson.create())));
     private final MockRestServiceServer server = MockRestServiceServer.bindTo(restClientBuilder).build();
     private final HttpImageTransformer adapter = new HttpImageTransformer(restClientBuilder.build());
 

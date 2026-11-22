@@ -16,6 +16,8 @@ idea {
 dependencies {
     // modules
     implementation(project(":media-contract"))
+    // The shared JSON shape of the worker messages and the transformation specs.
+    implementation(project(":media-json"))
     // The driven adapters: the JPA registry and the Minio object store behind the contract ports.
     implementation(project(":media-registry"))
     implementation(project(":object-storage"))

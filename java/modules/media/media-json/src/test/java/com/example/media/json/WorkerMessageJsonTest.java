@@ -1,4 +1,4 @@
-package com.example.media.contract.worker;
+package com.example.media.json;
 
 import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.asset.ImageMetadata;
@@ -7,6 +7,10 @@ import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.upload.AttemptId;
+import com.example.media.contract.worker.CompletedImageOutput;
+import com.example.media.contract.worker.ImageTransformCommand;
+import com.example.media.contract.worker.ImageTransformResult;
+import com.example.media.contract.worker.PlannedImageOutput;
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.ObjectMapper;
 
@@ -21,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class WorkerMessageJsonTest {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = MediaJson.create();
 
     private final AttemptId attemptId = new AttemptId(UUID.randomUUID());
 

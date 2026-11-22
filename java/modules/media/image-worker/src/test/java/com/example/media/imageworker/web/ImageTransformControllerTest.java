@@ -11,10 +11,12 @@ import com.example.media.contract.worker.CompletedImageOutput;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.PlannedImageOutput;
+import com.example.media.imageworker.MediaJsonConfiguration;
 import com.example.media.imageworker.transform.TransformImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,6 +38,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * is 400 and an unexpected failure is 500.
  */
 @WebMvcTest(ImageTransformController.class)
+// The slice does not scan the application's configuration; the JSON customizer must be imported
+// so the mapper speaks the shared media shape.
+@Import(MediaJsonConfiguration.class)
 class ImageTransformControllerTest {
 
     @Autowired
