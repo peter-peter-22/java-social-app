@@ -9,7 +9,8 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Move the registry adapter.
 - [x] Hide Minio behind an `ObjectStore` port.
 - [x] Build the API use cases and the slim worker.
-- [ ] Point Compose and `EndToEndTest` at the new jars, then remove unused `uploads_v2` modules.
+- [x] Point Compose and `EndToEndTest` at the new jars; the API runs Liquibase, the worker does not. The end-to-end test passes.
+- [ ] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
 - [ ] Add async on the same file path.
 - [ ] Conventions pass: names, Gradle, ArchUnit.
 
@@ -127,7 +128,7 @@ Verification for every step is the existing registry and object-storage integrat
 
 ## Next slice
 
-Step 8. Point Compose and `EndToEndTest` at the new jars. The API runs Liquibase. The worker does not. Only after this test passes, remove the unused `uploads_v2` modules.
+Step 8 is nearly done: Compose and `EndToEndTest` now point at the new jars, the API runs Liquibase while the worker does not, the adapters are wired, and the end-to-end test passes. What remains of step 8 is to remove the unused `uploads_v2` modules — after the Minio object store and the docker tests are moved into this tree.
 
-Step 7 is done: the image worker downloads the source, transforms it with libvips, uploads the results under the given prefixes with the expiration tags, and returns the result. It has no database, no Liquibase, and no `upload-services` dependency, and libvips and the native-access flag stay inside this deployable. The blocking `ImageTransformer` call has its HTTP client adapter in `media-api` next to the worker's transform endpoint; the Spring wiring of the adapters lands with step 8.
+Step 7 is done: the image worker downloads the source, transforms it with libvips, uploads the results under the given prefixes with the expiration tags, and returns the result. It has no database, no Liquibase, and no shared service module, and libvips and the native-access flag stay inside this deployable. The blocking `ImageTransformer` call has its HTTP client adapter in `media-api` next to the worker's transform endpoint, and it is wired to the worker in `MediaApiConfiguration`.
 

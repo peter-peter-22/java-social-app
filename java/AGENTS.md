@@ -4,5 +4,5 @@ This is a learning project about java spring boot, scalable architecture, large 
 
 ## Important locations
 - Plans and descriptions: `/plans` contains a high level overview of the functions.
-- Modules: `/modules` contains all Java code modules. `uploads_v2` is the working media prototype. `media` is the clean media service being built beside it. See `planning/uploads/clean-media-service.md`.
+- Modules: `/modules` contains all Java code modules. `media` is the media service: it registers named transformations, accepts image uploads, transforms them through a worker, and serves the originals and named variants. See `planning/uploads/clean-media-service.md`.
 - Templates: `/templates` modules templates. Copying a template is a quick way to create a new module.

@@ -1,10 +1,10 @@
-# Clean media service
+# Media service
 
-This tree is the clean media service. It is built beside `modules/uploads_v2`, not by editing that prototype.
+This tree is the media service: it registers named transformations, accepts image uploads, transforms them through a worker, and serves the originals and named variants.
 
 The plan is `planning/uploads/clean-media-service.md`.
 
-- `media-api` owns the registry and the upload lifecycle.
-- `image-worker` only transforms files and moves them through object storage.
-- `media-registry` implements the registry ports with JPA and Liquibase. The prototype keeps its own copy of the adapter until the new path passes the end-to-end test.
+- `media-api` owns the registry and the upload lifecycle. It runs the registry's migrations and finalizes each upload.
+- `image-worker` only transforms files and moves them through object storage. No database and no migrations.
+- `media-registry` implements the registry ports with JPA and Liquibase.
 - Shared code is plain Java in `media-contract`, not a Spring service library.
