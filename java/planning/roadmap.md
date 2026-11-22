@@ -1,5 +1,5 @@
 # Baseline application
-Do a complete refractor, achieve the targeted hexagonal architecture..
+Do a complete refractor, achieve the targeted hexagonal architecture, implement the full refactoring plan.
 
 Consider to use database rows instead of encrypted signatures for the upload permissions.
 
@@ -36,21 +36,10 @@ After confirming what happens, a test should be created that checks if the servi
 # Prepare clean up
 Rebuild the documentation.
 
-# Clean up
-The media-service cleanup is specified in `planning/uploads/clean-media-service.md`.
-Build it under `modules/media`. Do not refactor `uploads_v2` in place.
-
-Refractor code and Gradle files, check architecture, check folder structure.
-
+# Seek improvements
 Validate the seemingly pointless usage of transactions adn flushing on some repositories.
 
-Refine lombok usage. (Add @Value annotations where beneficial, explore other shortcuts.)
-
 Check the advantages of package scoped constructors.
-
-Validate the used tools and methods.
-
-Implement hexagonal and microservice architectures properly.
 
 Seek for improvements. (gRPC? Arch unit? value classes?)
 
