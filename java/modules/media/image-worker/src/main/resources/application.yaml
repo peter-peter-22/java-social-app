@@ -4,3 +4,19 @@ spring:
 
 server:
   port: 8092
+
+# The worker moves files through object storage and nothing else: no database, no migrations.
+minio:
+  reconciliation:
+    enabled: false
+
+  uploads-configuration:
+    bucket-name: uploads
+    expiration-days: 1
+
+  home-region: test
+  regions:
+    - name: test
+      endpoint: http://localhost:9000
+      access-key: minioadmin
+      secret-key: minioadmin

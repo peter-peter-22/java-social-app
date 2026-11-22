@@ -90,6 +90,7 @@
       <module name="java.image-worker.main" options="-parameters" />
       <module name="java.image-worker.test" options="-parameters" />
       <module name="java.media-api" options="-parameters" />
+      <module name="java.media-api.integrationTest" options="-parameters" />
       <module name="java.media-api.main" options="-parameters" />
       <module name="java.media-api.test" options="-parameters" />
       <module name="java.media-registry" options="-parameters -parameters" />

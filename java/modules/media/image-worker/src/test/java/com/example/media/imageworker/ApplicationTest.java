@@ -1,19 +1,15 @@
 package com.example.media.imageworker;
 
-import com.example.media.contract.port.ObjectStore;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 /**
- * The context smoke test. The driven adapters arrive with the wiring step; until then the port
- * stands in as a mock so the application context still loads.
+ * The context smoke test: the fully wired worker context loads with the real Minio object store.
+ * The object storage is not contacted at startup (reconciliation is off and the Minio clients
+ * connect lazily). The worker has no database and no migrations.
  */
 @SpringBootTest
 class ApplicationTest {
-
-    @MockitoBean
-    ObjectStore objectStore;
 
     @Test
     void contextLoads() {

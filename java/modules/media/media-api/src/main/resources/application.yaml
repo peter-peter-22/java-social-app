@@ -2,5 +2,45 @@ spring:
   application:
     name: media-api
 
+  datasource:
+    url: jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable
+    username: root
+    password: ""
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # The API runs the registry's migrations. The worker has no database and runs none.
+  liquibase:
+    change-log: classpath:db/db.changelog-master.yaml
+    enabled: true
+
 server:
   port: 8090
+
+# The blocking image worker the API calls over HTTP.
+media:
+  worker:
+    base-url: http://localhost:8082
+
+minio:
+  reconciliation:
+    enabled: true
+
+  uploads-configuration:
+    bucket-name: uploads
+    expiration-days: 1
+
+  home-region: test
+  regions:
+    - name: test
+      endpoint: http://localhost:9000
+      access-key: minioadmin
+      secret-key: minioadmin

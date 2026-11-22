@@ -15,7 +15,8 @@ import org.springframework.web.client.RestClient;
  * <p>The worker only downloads, transforms, and uploads, so the lifecycle stays here: the complete
  * use case turns the result into the finalize. The failures of the call propagate to the caller;
  * the recoverable and unrecoverable classification and the retry limits of the failure policy land
- * with the retrying caller. The Spring wiring of this adapter lands with the adapters step.</p>
+ * with the retrying caller. This adapter is wired to the worker's base URL in
+ * {@code com.example.media.api.MediaApiConfiguration}.</p>
  */
 @NullMarked
 public class HttpImageTransformer implements ImageTransformer {

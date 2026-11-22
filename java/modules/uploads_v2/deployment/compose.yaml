@@ -11,25 +11,28 @@ services:
     entrypoint: ["/entrypoint.bash"]
     # Keep each token as its own array item. A single string is one exec argument,
     # so Java looks for an executable named "java -jar ...jar" and reports that the jar is missing.
-    # Same native-access flag as image-transformer integrationTest. Without it, Java 25 warns
+    # Same native-access flag the worker's tests use. Without it, Java 25 warns
     # that SymbolLookup::libraryLookup will be blocked, which breaks vips-ffm.
     command: ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "jar.jar"]
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:26257/defaultdb?sslmode=disable"
-      SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: ""
+      # The image worker has no database and runs no migrations. It only moves objects through Minio.
+      MINIO_RECONCILIATION_ENABLED: "false"
+      MINIO_HOME_REGION: "test"
+      MINIO_UPLOADS_CONFIGURATION_BUCKET_NAME: "uploads"
+      MINIO_UPLOADS_CONFIGURATION_EXPIRATION_DAYS: "1"
       MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
       MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
       MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
       MINIO_REGIONS_0_NAME: "test"
     volumes:
-      - ../image-transformer/build/libs/image-transformer-0.0.1-SNAPSHOT.jar:/workspace/jar.jar
+      - ../../media/image-worker/build/libs/image-worker-0.0.1-SNAPSHOT.jar:/workspace/jar.jar
       - ./entrypoint.bash:/entrypoint.bash:ro
+    depends_on:
+      - minio
     stdin_open: true
     tty: true
     ports:
-      - '8082:8080'
-    # should depend on db and minio
+      - '8082:8092'
 
   db:
     # CLI: cockroach sql --insecure; use defaultdb;

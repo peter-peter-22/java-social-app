@@ -2,7 +2,7 @@
 # Compose cannot call `id` itself. Export the host ids, then forward to
 # docker compose so Gradle drops to this user (see entrypoint.bash).
 # Usage: ./run.bash up
-#        ./run.bash logs -f upload-service
+#        ./run.bash logs -f image-worker
 
 set -euo pipefail
 
@@ -11,11 +11,12 @@ cd ../../../
 echo "work directory:"
 pwd
 
-./gradlew --no-daemon :uploads-service:bootJar :image-transformer:bootJar
+./gradlew --no-daemon :media-api:bootJar :image-worker:bootJar
 
 cd "$(dirname "$0")"
 
-# TODO investigate what this means
+# If the number of the parameters provided for the script is 0, default to "-- up", to make the script directly runnable.
+# This will result in running "docker compose --up" when the script is started without arguments.
 if [[ $# -eq 0 ]]; then
   set -- up
 fi
