@@ -23,7 +23,6 @@ include(
 
 project(":cockroach-db").projectDir = file("modules/common/cockroach-db")
 
-project(":object-storage").projectDir = file("modules/uploads_v2/object-storage")
 project(":image-transformer").projectDir = file("modules/uploads_v2/image-transformer")
 project(":uploads-service").projectDir = file("modules/uploads_v2/uploads-service")
 project(":upload-registry").projectDir = file("modules/uploads_v2/upload-registry")
@@ -31,6 +30,7 @@ project(":upload-api").projectDir = file("modules/uploads_v2/uploads-api")
 project(":upload-services").projectDir = file("modules/uploads_v2/upload-services")
 
 // clean media service, built beside the prototype
+project(":object-storage").projectDir = file("modules/media/object-storage")
 project(":media-contract").projectDir = file("modules/media/media-contract")
 project(":media-registry").projectDir = file("modules/media/media-registry")
 project(":media-api").projectDir = file("modules/media/media-api")

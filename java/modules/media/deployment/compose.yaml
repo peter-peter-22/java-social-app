@@ -1,0 +1,74 @@
+services:
+
+  image-worker:
+    # Dev-only. Do not set `user:` — the container must start as root so
+    # entrypoint.bash can chown the Gradle volume, then drop to HOST_UID:HOST_GID.
+    # Launch with ./run.bash so those ids match the host user (same idea as
+    # image-transformer/docker/run.bash). Build files are then writable by the IDE.
+    container_name: image-worker-dev
+    image: java-image-test
+    working_dir: /workspace
+    entrypoint: ["/entrypoint.bash"]
+    # Keep each token as its own array item. A single string is one exec argument,
+    # so Java looks for an executable named "java -jar ...jar" and reports that the jar is missing.
+    # Same native-access flag the worker's tests use. Without it, Java 25 warns
+    # that SymbolLookup::libraryLookup will be blocked, which breaks vips-ffm.
+    command: ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "jar.jar"]
+    environment:
+      # The image worker has no database and runs no migrations. It only moves objects through Minio.
+      MINIO_RECONCILIATION_ENABLED: "false"
+      MINIO_HOME_REGION: "test"
+      MINIO_UPLOADS_CONFIGURATION_BUCKET_NAME: "uploads"
+      MINIO_UPLOADS_CONFIGURATION_EXPIRATION_DAYS: "1"
+      MINIO_REGIONS_0_ENDPOINT: "http://minio:9000"
+      MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
+      MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
+      MINIO_REGIONS_0_NAME: "test"
+    volumes:
+      - ../../media/image-worker/build/libs/image-worker-0.0.1-SNAPSHOT.jar:/workspace/jar.jar
+      - ./entrypoint.bash:/entrypoint.bash:ro
+    depends_on:
+      - minio
+    stdin_open: true
+    tty: true
+    ports:
+      - '8082:8092'
+
+  db:
+    # CLI: cockroach sql --insecure; use defaultdb;
+    # SHOW DATABASES;
+    # SHOW TABLES;
+    # SHOW TABLES FROM database;
+    container_name: cockroach-db-dev
+    image: cockroachdb/cockroach:v25.3.2
+    command: start-single-node --insecure
+    ports:
+      - "26257:26257" #db
+      - "8081:8080" #ui
+    # environment:s
+      # COCKROACH_DATABASE: defaultdb
+      # COCKROACH_USER: user
+      # COCKROACH_PASSWORD: user
+    #volumes:
+    #  - cockroach-data:/cockroach/cockroach-data
+
+  minio:
+    # Third party minio container that works for now.
+    #  It will might stop working.
+    #  It has its own minio console container.
+    image: docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z
+    container_name: minio-object-storage
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    #    volumes:
+    #      - minio_data:/data
+    ports:
+      - "9000:9000" # API endpoint
+      - "9001:9001" # Web console
+
+volumes:
+  # Kept as gradle-cache so an existing dev volume is reused. It is mounted at
+  # /gradle-home, not /root/.gradle, because the process is no longer root.
+  gradle-cache:
