@@ -129,5 +129,6 @@ Verification for every step is the existing registry and object-storage integrat
 ## Next slice
 
 With step 8, the new modules are ready, all tests pass (including the end-to-end test), and the prototypes were removed.
+Only the refactored uploads_v2 directory was removed, the other uploads directory remains for later recycle.
 
 The next step is step 9, which adds the async port. The architecture and behavior of this mechanism is not certain yet and needs to be planned.
