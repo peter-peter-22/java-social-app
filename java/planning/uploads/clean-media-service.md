@@ -1,6 +1,6 @@
 # Clean media service
 
-The prototype in `modules/uploads_v2` stays until the new path passes the same end-to-end test. Do not clean it up in place.
+The prototype in `modules/uploads_v2` stays until the new path passes the same end-to-end test. Do not clean it up in place. (done)
 
 ## Status
 
@@ -10,7 +10,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Hide Minio behind an `ObjectStore` port.
 - [x] Build the API use cases and the slim worker.
 - [x] Point Compose and `EndToEndTest` at the new jars; the API runs Liquibase, the worker does not. The end-to-end test passes.
-- [ ] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
+- [x] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
 - [ ] Add async on the same file path.
 - [ ] Conventions pass: names, Gradle, ArchUnit.
 
