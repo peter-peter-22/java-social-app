@@ -92,9 +92,9 @@ Blocking and async use the same bytes path. Only the control message changes.
 3. The worker downloads the source, transforms it, allocates a fresh asset id and prefix for every output on that execution, and uploads the results with expiration tags. It returns metadata and the object list. It does not insert rows, change tags to permanent, or finalize the attempt.
 4. The API removes the expiration tags (which fails when a kept object is missing), and then commits one transaction: assets become ready, the upload and variant rows are inserted, and the attempt becomes successful. If that transaction fails, the objects expire and the existing cleanup rules apply.
 5. Blocking waits for the worker HTTP call, then runs step 4 before responding.
-6. Async publishes the same command after the attempt is marked processing, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`.
+6. Async publishes the same command as the blocking transformation, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`, the first writing wins is duplicated work is requested by accident.
 
-Do not add a broker during the structural move. `ImageTransformer` has `transform` for the blocking adapter. `enqueue` is added later. Async should use a normal broker plus a transactional outbox so the database state and the queued command cannot diverge.
+`ImageTransformer` has `transform` for the blocking adapter and `transformAsync` will be added for the async adapter, 
 
 Failure policy, already stated in `upload-lifecycle.md`: retry recoverable worker failures, and mark the attempt failed when retries are exhausted or the error is unrecoverable. Fresh result asset ids per execution are what make the retry safe for both blocking and async delivery.
 
