@@ -7,6 +7,7 @@ description: "Follow the existing industry standards when building and planning 
 
 - Use the existing industry standard, follow real examples, do not improvise new architecture concepts.
 - It's a plus if you mention how real applications implement the desired functionality, how they use the given tools.
+- Use the simplest approach.
 
 ## Reason
 The project isn't using anything special, it should be possible to be built without inventing anything new.
