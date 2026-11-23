@@ -1,10 +1,6 @@
 package com.example.media.api.upload;
 
-import com.example.media.contract.asset.AssetDeliveryProtocol;
-import com.example.media.contract.asset.AssetId;
-import com.example.media.contract.asset.AssetPlacement;
-import com.example.media.contract.asset.AssetStatus;
-import com.example.media.contract.asset.NewAsset;
+import com.example.media.contract.asset.*;
 import com.example.media.contract.object.ObjectLifetime;
 import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
@@ -124,8 +120,10 @@ public class CompleteImageUpload {
             for (var object : output.objects())
                 keptRefs.add(prefixOf(placement, output.assetId()).resolve(object));
 
+        // TODO we might risk permanent orphan objects here during restart
         assetStore.setStatus(keptIds, AssetStatus.FINALIZING);
         objectStore.setLifetime(keptRefs, ObjectLifetime.PERMANENT);
+        // TODO the setLifetime should throw an error on missing object, this existence check is redundant and expensive
         for (var ref : keptRefs) {
             if (!objectStore.exists(ref))
                 throw new IllegalStateException(

@@ -92,3 +92,11 @@ If this happened, an object would be replaced with another.
 Possible fixes:
 - Avoid the finalization of assets those are older than the expiration time.
 - Never delete the asset ids of failed uploads.
+
+### A transformation task is retried
+If the previous attempts written files to the object storage, the following attempts will fail
+to overwrite them. 
+This might be a problem.
+
+If no file was written, (e.g., connection error or failed early) then 
+the retry will work as intended.
