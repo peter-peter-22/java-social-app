@@ -138,7 +138,7 @@ public class CompleteImageUpload {
         // missing object, so no rows are committed for objects that expired during the upload.
         objectStore.setLifetime(keptRefs, ObjectLifetime.PERMANENT);
 
-        return transactions.execute(status -> {
+        return transactions.execute(_ -> {
             assetStore.setStatus(keptIds, AssetStatus.READY);
             var upload = uploadRegistry.registerUpload(
                     new NewUpload(attempt.key(), attemptId, mainAssetId));
