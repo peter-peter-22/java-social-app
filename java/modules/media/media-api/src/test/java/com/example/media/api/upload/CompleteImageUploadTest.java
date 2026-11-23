@@ -59,7 +59,6 @@ class CompleteImageUploadTest {
                 UploadAttemptStatus.PENDING, Instant.now(), null)));
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
-        when(objectStore.exists(any())).thenReturn(true);
         when(assetStore.findAsset(ORIGINAL_ID)).thenReturn(Optional.of(new Asset(
                 ORIGINAL_ID, PLACEMENT, AssetStatus.UPLOADING, AssetDeliveryProtocol.IMAGE,
                 "image/jpeg", "original.jpg", "jpg", false, 3, List.of("original.jpg"),
@@ -96,7 +95,6 @@ class CompleteImageUploadTest {
         InOrder inOrder = inOrder(assetStore, objectStore, uploadRegistry);
         inOrder.verify(assetStore).setStatus(kept, AssetStatus.FINALIZING);
         inOrder.verify(objectStore).setLifetime(refs.capture(), eq(ObjectLifetime.PERMANENT));
-        inOrder.verify(objectStore, org.mockito.Mockito.times(2)).exists(any());
         assertThat(refs.getValue()).containsExactlyInAnyOrder(
                 prefix(INCOMING_ID).resolve("original.webp"),
                 prefix(EAGER_ID).resolve("profile.webp"));
@@ -114,7 +112,6 @@ class CompleteImageUploadTest {
                 UploadAttemptStatus.PENDING, Instant.now(), null)));
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
-        when(objectStore.exists(any())).thenReturn(true);
         var originalAsset = new Asset(ORIGINAL_ID, PLACEMENT, AssetStatus.UPLOADING, AssetDeliveryProtocol.IMAGE,
                 "image/jpeg", "original.jpg", "jpg", false, 3, List.of("original.jpg"), null, null, Instant.now());
         when(assetStore.findAsset(ORIGINAL_ID)).thenReturn(Optional.of(originalAsset));
@@ -247,9 +244,11 @@ class CompleteImageUploadTest {
     }
 
     @Test
-    void failsWhenAnObjectDisappearedBeforeTheCommit() {
+    void failsWhenTheObjectsCannotBeMadePermanent() {
         stubRegistry();
-        when(objectStore.exists(any())).thenReturn(false);
+        // The store fails the lifetime change when an object disappeared during the upload.
+        doThrow(new RuntimeException("the object disappeared")).when(objectStore)
+                .setLifetime(any(), eq(ObjectLifetime.PERMANENT));
         var incomingOutput = new CompletedImageOutput(
                 INCOMING_ID, prefix(INCOMING_ID), "original.webp", List.of("original.webp"),
                 10, "image/webp", new ImageMetadata(100, 50));
@@ -259,7 +258,9 @@ class CompleteImageUploadTest {
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(incomingOutput, eagerOutput), null);
 
         assertThatThrownBy(() -> useCase.complete(ATTEMPT_ID, result))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("the object disappeared");
+        verify(assetStore, never()).setStatus(any(), eq(AssetStatus.READY));
         verify(uploadRegistry, never()).registerUpload(any());
         verify(uploadRegistry, never()).finishAttempt(ATTEMPT_ID, AttemptOutcome.SUCCESS);
     }

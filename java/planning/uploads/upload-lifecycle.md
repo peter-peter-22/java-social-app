@@ -14,7 +14,7 @@ The goal of the defined upload lifecycle mechanisms is to ensure that there are 
 - Every worker execution allocates fresh result asset ids, so a retried transformation never reuses a key.
 - The registered assets are immutable.
 - The failed uploads are periodically cleaned up.
-- The existence of the file is checked after their expiration is removed.
+- The existence of the file is proved by removing its expiration, which fails on a missing file.
 - The contents of the asset directories are recorded, other objects cannot be reached from the access methods of this asset.
 
 ## Practical problems
@@ -61,7 +61,7 @@ The maximum upload duration is limited to 1 day by the object storage.
 (This is the shortest possible value.)
 
 ### Fail while writing the final upload registry
-The final write checks for existence, and it's done in a transaction.
+The files are proved to exist by the expiration change, and the final write is done in a transaction.
 Any duplication or invalid value causes constraint error and transaction rollback.
 
 ### The blocking transformation fails
@@ -78,11 +78,13 @@ Exceeding the retry count or reaching an unrecoverable error marks the attempt a
 Completion is idempotent on the attempt id.
 
 ### A file expires during finalization
-The existence check after finalization fails.
+Removing the expiration of the missing file fails, so no rows are committed. The files tagged
+before the failure stay permanent, their asset rows remain in the finalizing state, and the
+periodic cleanup handles them.
 
 ### A file expires before finalization
-Altering the lifespan of a missing file causes error.
-// TODO verify
+Altering the lifespan of a missing file causes error. The object store tag write is the existence
+check of the finalization; `MinioObjectStoreIT` pins this behavior with `NoSuchKey`.
 
 ### An upload is stuck for a long time, it's database records are deleted, and another upload takes it's key by accident
 The uploads cannot be overwritten, no effect.

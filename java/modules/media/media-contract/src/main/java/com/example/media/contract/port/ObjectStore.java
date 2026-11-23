@@ -34,10 +34,15 @@ public interface ObjectStore {
     /** Downloads an object into a local file. Used by workers that transform from disk. */
     void download(ObjectRef ref, Path target);
 
-    /** Sets the lifetime of every given object. Used at finalize to make results permanent. */
+    /**
+     * Sets the lifetime of every given object. Used at finalize to make the results permanent.
+     * The objects must exist: a missing object fails the call, so the finalize relies on this
+     * write to prove that nothing expired and does not stat the objects separately. The objects
+     * already processed are not rolled back when a later one fails.
+     */
     void setLifetime(List<ObjectRef> refs, ObjectLifetime lifetime);
 
-    /** Whether the object exists. Checked after the expiration is removed and before commit. */
+    /** Whether the object exists. */
     boolean exists(ObjectRef ref);
 
     void delete(ObjectRef ref);

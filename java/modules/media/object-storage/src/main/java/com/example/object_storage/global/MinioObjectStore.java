@@ -77,6 +77,11 @@ public class MinioObjectStore implements ObjectStore {
                 .build());
     }
 
+    /**
+     * Tags every object with the lifetime. The tag write is also the existence check: Minio rejects
+     * the tagging of a missing object with {@code NoSuchKey}, so the finalize fails on an object
+     * that expired before it could be made permanent.
+     */
     @Override
     public void setLifetime(List<ObjectRef> refs, ObjectLifetime lifetime) {
         for (var ref : refs) {

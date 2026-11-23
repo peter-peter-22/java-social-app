@@ -4,42 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Update the upload lifecycle documentation, add todos to CompleteImageUpload.">
-      <change afterPath="$PROJECT_DIR$/modules/media/media-contract/src/test/java/com/example/media/contract/worker/CompletedImageOutputTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/object-storage/HELP.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/uploads_v2/upload-registry/HELP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/image-transformer/java.image-transformer.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/object-storage/com.example.java.object-storage.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-registry/java.upload-registry.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/upload-services/java.upload-services.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-api/java.upload-api.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/modules/uploads_v2/uploads-service/java.uploads-service.test.iml" beforeDir="false" />
+    <list default="true" id="d41a23c8-b5e8-4601-8816-2f3afeb6fdaa" name="Changes" comment="Fix a lifecycle bug that prevents further retries because object overwrites are not allowed and the object lifecycle.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-worker/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-worker/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-worker/src/main/java/com/example/media/imageworker/transform/TransformImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-worker/src/main/java/com/example/media/imageworker/transform/TransformImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-worker/src/test/java/com/example/media/imageworker/transform/TransformImageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-worker/src/test/java/com/example/media/imageworker/transform/TransformImageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/image-worker/src/test/java/com/example/media/imageworker/web/ImageTransformControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/image-worker/src/test/java/com/example/media/imageworker/web/ImageTransformControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/MediaApiConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/MediaApiConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/upload/CompleteImageUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/upload/CompleteImageUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/upload/StartImageUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/upload/StartImageUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/worker/HttpImageTransformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/java/com/example/media/api/worker/HttpImageTransformer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/upload/CompleteImageUploadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/upload/CompleteImageUploadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/upload/StartImageUploadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/upload/StartImageUploadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/worker/HttpImageTransformerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-api/src/test/java/com/example/media/api/worker/HttpImageTransformerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/asset/Asset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/asset/AssetPlacement.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/asset/AssetPlacement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/port/ImageTransformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/port/ImageTransformer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/CompletedImageOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/CompletedImageOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/ImageTransformCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/ImageTransformCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/PlannedImageOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/worker/PlannedImageOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/media/media-json/src/test/java/com/example/media/json/WorkerMessageJsonTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-json/src/test/java/com/example/media/json/WorkerMessageJsonTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/port/ObjectStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/media-contract/src/main/java/com/example/media/contract/port/ObjectStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/object-storage/src/main/java/com/example/object_storage/global/MinioObjectStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object-storage/src/main/java/com/example/object_storage/global/MinioObjectStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/media/object-storage/src/test/java/com/example/object_storage/global/MinioObjectStoreIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/media/object-storage/src/test/java/com/example/object_storage/global/MinioObjectStoreIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/clean-media-service.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" beforeDir="false" afterPath="$PROJECT_DIR$/planning/uploads/upload-lifecycle.md" afterDir="false" />
     </list>
@@ -319,6 +290,7 @@
     &quot;Gradle.java [:video-transformer:test].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [dockerIT].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [generateOpenApiDocs].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.java [integrationTest].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.java [test].executor&quot;: &quot;Run&quot;,
     &quot;JUnit.MinioIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -1048,7 +1020,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix the root permission of the files written by docker" />
     <MESSAGE value="Fix the missing gradle cache error and document the code" />
     <MESSAGE value="Implement image transformer integration test" />
     <MESSAGE value="Fix gitignore behavior in the image test" />
@@ -1073,7 +1044,8 @@
     <MESSAGE value="Add hexagonal architecture to the java code guidelines." />
     <MESSAGE value="Update the roadmap." />
     <MESSAGE value="Update the upload lifecycle documentation, add todos to CompleteImageUpload." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update the upload lifecycle documentation, add todos to CompleteImageUpload." />
+    <MESSAGE value="Fix a lifecycle bug that prevents further retries because object overwrites are not allowed and the object lifecycle." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix a lifecycle bug that prevents further retries because object overwrites are not allowed and the object lifecycle." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

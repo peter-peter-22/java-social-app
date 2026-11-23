@@ -8,6 +8,7 @@ import com.example.media.contract.port.ObjectStore;
 import com.example.object_storage.MinioIntegrationTest;
 import com.example.object_storage.regional.MinioConfig;
 import io.minio.GetObjectTagsArgs;
+import io.minio.errors.ErrorResponseException;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -111,6 +112,21 @@ public class MinioObjectStoreIT extends MinioIntegrationTest {
 
         assertThat(tagsOf(original)).isEqualTo(Map.of("expires", "disabled"));
         assertThat(tagsOf(variant)).isEqualTo(Map.of("expires", "disabled"));
+    }
+
+    @Test
+    void setLifetimeFailsWhenAnObjectIsMissing() throws IOException {
+        var present = prefix.resolve("original.jpg");
+        var missing = prefix.resolve("missing.jpg");
+        var source = new ClassPathResource("test.txt").getFile().toPath();
+        objectStore.put(present, source, CONTENT_TYPE, ObjectLifetime.TEMPORARY);
+
+        // The finalize relies on this failure: making the kept objects permanent proves that they
+        // exist, so the application service does not stat every object before the commit.
+        assertThatThrownBy(() -> objectStore.setLifetime(List.of(present, missing), ObjectLifetime.PERMANENT))
+                .isInstanceOfSatisfying(RuntimeException.class, failure -> assertThat(failure.getCause())
+                        .isInstanceOfSatisfying(ErrorResponseException.class, cause -> assertThat(
+                                cause.errorResponse().code()).isEqualTo("NoSuchKey")));
     }
 
     private Map<String, String> tagsOf(ObjectRef ref) throws Exception {

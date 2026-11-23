@@ -134,14 +134,9 @@ public class CompleteImageUpload {
                 keptRefs.add(output.prefix().resolve(object));
 
         assetStore.setStatus(keptIds, AssetStatus.FINALIZING);
+        // Making the kept objects permanent proves that they still exist: the tag write fails on a
+        // missing object, so no rows are committed for objects that expired during the upload.
         objectStore.setLifetime(keptRefs, ObjectLifetime.PERMANENT);
-        // TODO The setLifetime should throw an error on missing object, this existence check is redundant and expensive.
-        //  The current Minio integration test does not cover this behavior. The test must be extended before this is removed.
-        for (var ref : keptRefs) {
-            if (!objectStore.exists(ref))
-                throw new IllegalStateException(
-                        "an object disappeared before the upload could be finalized: " + ref.key());
-        }
 
         return transactions.execute(status -> {
             assetStore.setStatus(keptIds, AssetStatus.READY);
