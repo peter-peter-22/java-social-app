@@ -1,0 +1,7 @@
+# Personal
+gitignore/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
