@@ -1,5 +1,6 @@
 package com.example.media.imageworker.transform;
 
+import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.object.ObjectLifetime;
 import com.example.media.contract.port.ObjectStore;
 import com.example.media.contract.worker.CompletedImageOutput;
@@ -21,13 +22,16 @@ import java.util.List;
 
 /**
  * The transform use case of the worker: download the source, transform it, upload the results
- * under the given prefixes, and return the result.
+ * under newly allocated asset prefixes, and return the result.
  *
  * <p>The worker owns no lifecycle: every result object is written as
  * {@link ObjectLifetime#TEMPORARY} and the result reports what was produced. The API removes the
  * expiration tags, checks the objects, registers the rows, and finalizes the attempt in one
- * transaction, so a failed run leaves only objects that expire on their own. The outputs are
- * reported in the command's order, which is the wire contract with the API.</p>
+ * transaction, so a failed run leaves only objects that expire on their own.</p>
+ *
+ * <p>Every execution allocates a fresh asset id and prefix for each output. A retried execution
+ * therefore never tries to overwrite objects from an earlier, partially completed execution. The
+ * outputs are reported in the command's order, which is the wire contract with the API.</p>
  */
 @Service
 @RequiredArgsConstructor
@@ -54,9 +58,14 @@ public class TransformImage {
         }
     }
 
-    /** Transforms the source for one planned output and uploads the produced files under its prefix. */
+    /**
+     * Transforms the source for one planned output and uploads the produced files under a freshly
+     * allocated asset prefix. The fresh identity is what makes retries safe.
+     */
     private CompletedImageOutput processOutput(Path workDir, PlannedImageOutput planned, Path source) {
-        var outputDir = workDir.resolve(planned.assetId().value().toString());
+        var assetId = AssetId.generate();
+        var prefix = planned.placement().prefixOf(assetId);
+        var outputDir = workDir.resolve(assetId.value().toString());
         createOutputDirectory(outputDir);
         var processed = imageProcessor.process(source, outputDir, planned.spec());
 
@@ -65,14 +74,14 @@ public class TransformImage {
         var contentType = planned.spec().encoding().contentType();
         for (var file : files)
             objectStore.put(
-                    planned.prefix().resolve(outputDir.relativize(file).toString()),
+                    prefix.resolve(outputDir.relativize(file).toString()),
                     file,
                     contentType,
                     ObjectLifetime.TEMPORARY);
 
         return new CompletedImageOutput(
-                planned.assetId(),
-                planned.prefix(),
+                assetId,
+                prefix,
                 outputDir.relativize(processed.entryPoint()).toString(),
                 objects,
                 totalBytes(files),

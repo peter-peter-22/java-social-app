@@ -1,7 +1,6 @@
 package com.example.media.contract.worker;
 
-import com.example.media.contract.asset.AssetId;
-import com.example.media.contract.object.ObjectPrefix;
+import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import org.jspecify.annotations.Nullable;
 
@@ -9,18 +8,20 @@ import java.util.Objects;
 
 /**
  * One planned result of an image transform.
- * The worker only writes under {@code prefix}; the API reserved the asset id and the prefix
- * before the command was sent.
+ *
+ * <p>The command does not carry a result asset id. The worker allocates a fresh
+ * {@link com.example.media.contract.asset.AssetId} for this output on every execution, under the
+ * given placement, and reports it in the result. A retry therefore writes to new object keys and
+ * cannot collide with the objects of a previous, partially completed execution. The API registers
+ * the reported assets only for the execution it accepts.</p>
  */
 public record PlannedImageOutput(
-        AssetId assetId,
-        ObjectPrefix prefix,
         @Nullable String transformationName,
+        AssetPlacement placement,
         ImageTransformationSpec spec
 ) {
     public PlannedImageOutput {
-        Objects.requireNonNull(assetId, "assetId");
-        Objects.requireNonNull(prefix, "prefix");
+        Objects.requireNonNull(placement, "placement");
         Objects.requireNonNull(spec, "spec");
     }
 

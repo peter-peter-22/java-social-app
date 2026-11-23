@@ -2,17 +2,13 @@ package com.example.media.api.upload;
 
 import com.example.media.contract.asset.*;
 import com.example.media.contract.object.ObjectLifetime;
-import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.port.AssetStore;
 import com.example.media.contract.port.ObjectStore;
 import com.example.media.contract.port.TransformationCatalog;
 import com.example.media.contract.port.UploadRegistry;
 import com.example.media.contract.transformation.NamedTransformation;
-import com.example.media.contract.upload.AttemptId;
-import com.example.media.contract.upload.AttemptOutcome;
-import com.example.media.contract.upload.NewUpload;
-import com.example.media.contract.upload.Upload;
+import com.example.media.contract.upload.*;
 import com.example.media.contract.variant.NewVariant;
 import com.example.media.contract.variant.VariantId;
 import com.example.media.contract.worker.CompletedImageOutput;
@@ -22,9 +18,7 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * The complete-image-upload use case: finish one attempt from a worker's result.
@@ -66,6 +60,16 @@ public class CompleteImageUpload {
             throw new IllegalArgumentException(
                     "the worker result is for a different attempt: " + result.attemptId().value());
 
+        // Async completion may be retried. A successful attempt returns its existing upload and
+        // ignores later results; a failed attempt accepts no completion at all.
+        if (attempt.status() == UploadAttemptStatus.SUCCESS)
+            return uploadRegistry.findUpload(attempt.key())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "the successful attempt " + attemptId.value() + " has no upload"));
+        if (attempt.status() == UploadAttemptStatus.FAILED)
+            throw new IllegalStateException(
+                    "the attempt " + attemptId.value() + " failed and cannot be completed");
+
         var eagerNames = attempt.eagerTransformationNames();
         var incomingName = attempt.incomingTransformationName();
         var plannedCount = eagerNames.size() + (incomingName == null ? 0 : 1);
@@ -82,23 +86,32 @@ public class CompleteImageUpload {
 
         var placement = objectStore.homePlacement();
 
-        // The result assets: their ids were reserved at start, they are registered now that the
-        // worker reported their objects.
+        // The worker allocates fresh result asset ids on every execution. Validate them before
+        // anything is registered: each id must be unique and its prefix must be the asset id
+        // under the placement the command carried.
+        var resultIds = new HashSet<AssetId>();
         for (var output : result.outputs()) {
-            assetStore.registerAsset(new NewAsset(
-                    output.assetId(),
-                    placement,
-                    AssetDeliveryProtocol.IMAGE,
-                    output.contentType(),
-                    output.entryPoint(),
-                    extensionOf(output.entryPoint()),
-                    output.objects().size() > 1,
-                    output.bytes(),
-                    output.objects()));
-            assetStore.setImageMetadata(output.assetId(), output.metadata());
+            if (!resultIds.add(output.assetId()))
+                throw new IllegalStateException(
+                        "the worker returned the same asset id twice for attempt " + attemptId.value());
+            if (!placement.prefixOf(output.assetId()).equals(output.prefix()))
+                throw new IllegalStateException(
+                        "the worker returned an unexpected prefix for asset " + output.assetId().value());
         }
-        if (result.sourceMetadata() != null)
-            assetStore.setImageMetadata(attempt.originalAssetId(), result.sourceMetadata());
+
+        // The result assets: the successful execution reports their ids and objects. A retried
+        // completion of the same result may already have registered some of them; those rows are
+        // still uploading and identical, so they are reused instead of inserted again.
+        for (var output : result.outputs())
+            registerResultAsset(placement, output);
+
+        if (result.sourceMetadata() != null) {
+            var originalAsset = assetStore.findAsset(attempt.originalAssetId())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "the original asset of attempt " + attemptId.value() + " is missing"));
+            if (originalAsset.image() == null)
+                assetStore.setImageMetadata(attempt.originalAssetId(), result.sourceMetadata());
+        }
 
         // The kept assets: the incoming result replaces the uploaded original as the main asset.
         var mainAssetId = incomingOutput == null ? attempt.originalAssetId() : incomingOutput.assetId();
@@ -118,12 +131,12 @@ public class CompleteImageUpload {
         }
         for (var output : result.outputs())
             for (var object : output.objects())
-                keptRefs.add(prefixOf(placement, output.assetId()).resolve(object));
+                keptRefs.add(output.prefix().resolve(object));
 
-        // TODO we might risk permanent orphan objects here during restart
         assetStore.setStatus(keptIds, AssetStatus.FINALIZING);
         objectStore.setLifetime(keptRefs, ObjectLifetime.PERMANENT);
-        // TODO the setLifetime should throw an error on missing object, this existence check is redundant and expensive
+        // TODO The setLifetime should throw an error on missing object, this existence check is redundant and expensive.
+        //  The current Minio integration test does not cover this behavior. The test must be extended before this is removed.
         for (var ref : keptRefs) {
             if (!objectStore.exists(ref))
                 throw new IllegalStateException(
@@ -163,8 +176,44 @@ public class CompleteImageUpload {
         return dot < 0 ? null : entryPoint.substring(dot + 1);
     }
 
-    /** The asset id is the prefix, so the keys of two assets cannot collide. */
-    private static ObjectPrefix prefixOf(AssetPlacement placement, AssetId id) {
-        return new ObjectPrefix(placement.homeRegion(), placement.objectBucket(), id.value().toString());
+    /**
+     * Registers one result asset, or reuses an identical row left by an earlier attempt at the same
+     * completion. A row with a different shape is an error: assets are immutable and two executions
+     * must never share an identity.
+     */
+    private void registerResultAsset(AssetPlacement placement, CompletedImageOutput output) {
+        var existing = assetStore.findAsset(output.assetId()).orElse(null);
+        if (existing == null) {
+            assetStore.registerAsset(new NewAsset(
+                    output.assetId(),
+                    placement,
+                    AssetDeliveryProtocol.IMAGE,
+                    output.contentType(),
+                    output.entryPoint(),
+                    extensionOf(output.entryPoint()),
+                    output.objects().size() > 1,
+                    output.bytes(),
+                    output.objects()));
+            assetStore.setImageMetadata(output.assetId(), output.metadata());
+            return;
+        }
+        if (!matchesUploadingAsset(existing, placement, output))
+            throw new IllegalStateException(
+                    "the asset " + output.assetId().value() + " already exists with different content");
+        if (existing.image() == null)
+            assetStore.setImageMetadata(output.assetId(), output.metadata());
+    }
+
+    private static boolean matchesUploadingAsset(
+            Asset asset, AssetPlacement placement, CompletedImageOutput output) {
+        return asset.status() == AssetStatus.UPLOADING
+                && asset.placement().equals(placement)
+                && asset.deliveryProtocol() == AssetDeliveryProtocol.IMAGE
+                && asset.contentType().equals(output.contentType())
+                && asset.entryPoint().equals(output.entryPoint())
+                && Objects.equals(asset.extension(), extensionOf(output.entryPoint()))
+                && asset.directory() == (output.objects().size() > 1)
+                && asset.bytes() == output.bytes()
+                && asset.objects().equals(output.objects());
     }
 }

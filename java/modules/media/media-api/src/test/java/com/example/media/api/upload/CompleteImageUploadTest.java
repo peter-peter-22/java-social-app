@@ -1,12 +1,6 @@
 package com.example.media.api.upload;
 
-import com.example.media.contract.asset.Asset;
-import com.example.media.contract.asset.AssetDeliveryProtocol;
-import com.example.media.contract.asset.AssetId;
-import com.example.media.contract.asset.AssetPlacement;
-import com.example.media.contract.asset.AssetStatus;
-import com.example.media.contract.asset.ImageMetadata;
-import com.example.media.contract.asset.NewAsset;
+import com.example.media.contract.asset.*;
 import com.example.media.contract.object.ObjectLifetime;
 import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
@@ -14,19 +8,8 @@ import com.example.media.contract.port.AssetStore;
 import com.example.media.contract.port.ObjectStore;
 import com.example.media.contract.port.TransformationCatalog;
 import com.example.media.contract.port.UploadRegistry;
-import com.example.media.contract.transformation.ImageEncoding;
-import com.example.media.contract.transformation.ImageTransformationSpec;
-import com.example.media.contract.transformation.NamedTransformation;
-import com.example.media.contract.transformation.NamedTransformationId;
-import com.example.media.contract.transformation.TransformationVersionId;
-import com.example.media.contract.upload.AttemptId;
-import com.example.media.contract.upload.AttemptOutcome;
-import com.example.media.contract.upload.NewUpload;
-import com.example.media.contract.upload.Upload;
-import com.example.media.contract.upload.UploadAttempt;
-import com.example.media.contract.upload.UploadAttemptStatus;
-import com.example.media.contract.upload.UploadId;
-import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.transformation.*;
+import com.example.media.contract.upload.*;
 import com.example.media.contract.variant.NewVariant;
 import com.example.media.contract.variant.VariantId;
 import com.example.media.contract.worker.CompletedImageOutput;
@@ -46,12 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class CompleteImageUploadTest {
 
@@ -82,6 +60,10 @@ class CompleteImageUploadTest {
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
         when(objectStore.exists(any())).thenReturn(true);
+        when(assetStore.findAsset(ORIGINAL_ID)).thenReturn(Optional.of(new Asset(
+                ORIGINAL_ID, PLACEMENT, AssetStatus.UPLOADING, AssetDeliveryProtocol.IMAGE,
+                "image/jpeg", "original.jpg", "jpg", false, 3, List.of("original.jpg"),
+                null, null, Instant.now())));
     }
 
     @Test
@@ -155,6 +137,82 @@ class CompleteImageUploadTest {
         assertThat(refs.getValue()).containsExactlyInAnyOrder(
                 originalAsset.prefix().resolve("original.jpg"),
                 prefix(EAGER_ID).resolve("profile.webp"));
+    }
+
+    @Test
+    void completionIsIdempotentWhenTheAttemptAlreadySucceeded() {
+        when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
+                ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), "optimize",
+                UploadAttemptStatus.SUCCESS, Instant.now(), Instant.now())));
+        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, ORIGINAL_ID, Instant.now());
+        when(uploadRegistry.findUpload(KEY)).thenReturn(Optional.of(upload));
+
+        var done = useCase.complete(ATTEMPT_ID, new ImageTransformResult(ATTEMPT_ID, List.of(), null));
+
+        assertThat(done).isSameAs(upload);
+        verifyNoInteractions(assetStore, objectStore, transformationCatalog);
+    }
+
+    @Test
+    void rejectsCompletionOfAFailedAttempt() {
+        when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
+                ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), "optimize",
+                UploadAttemptStatus.FAILED, Instant.now(), Instant.now())));
+
+        assertThatThrownBy(() -> useCase.complete(
+                ATTEMPT_ID, new ImageTransformResult(ATTEMPT_ID, List.of(), null)))
+                .isInstanceOf(IllegalStateException.class);
+        verifyNoInteractions(assetStore, objectStore, transformationCatalog);
+    }
+
+    @Test
+    void reusesAnIdenticalUploadingAssetWhenTheCompletionIsRetried() {
+        stubRegistry();
+        var incomingOutput = new CompletedImageOutput(
+                INCOMING_ID, prefix(INCOMING_ID), "original.webp", List.of("original.webp"),
+                10, "image/webp", new ImageMetadata(100, 50));
+        var eagerOutput = new CompletedImageOutput(
+                EAGER_ID, prefix(EAGER_ID), "profile.webp", List.of("profile.webp"),
+                20, "image/webp", new ImageMetadata(50, 50));
+        when(assetStore.findAsset(INCOMING_ID)).thenReturn(Optional.of(new Asset(
+                INCOMING_ID, PLACEMENT, AssetStatus.UPLOADING, AssetDeliveryProtocol.IMAGE,
+                "image/webp", "original.webp", "webp", false, 10, List.of("original.webp"),
+                new ImageMetadata(100, 50), null, Instant.now())));
+        when(assetStore.findAsset(EAGER_ID)).thenReturn(Optional.of(new Asset(
+                EAGER_ID, PLACEMENT, AssetStatus.UPLOADING, AssetDeliveryProtocol.IMAGE,
+                "image/webp", "profile.webp", "webp", false, 20, List.of("profile.webp"),
+                new ImageMetadata(50, 50), null, Instant.now())));
+        var result = new ImageTransformResult(ATTEMPT_ID, List.of(incomingOutput, eagerOutput), SOURCE_METADATA);
+        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, INCOMING_ID, Instant.now());
+        when(uploadRegistry.registerUpload(any())).thenReturn(upload);
+
+        useCase.complete(ATTEMPT_ID, result);
+
+        verify(assetStore, never()).registerAsset(any());
+        verify(uploadRegistry).finishAttempt(ATTEMPT_ID, AttemptOutcome.SUCCESS);
+    }
+
+    @Test
+    void rejectsAResultUnderAnUnexpectedPlacement() {
+        when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
+                ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), null,
+                UploadAttemptStatus.PENDING, Instant.now(), null)));
+        when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
+        when(objectStore.homePlacement()).thenReturn(PLACEMENT);
+        var id = AssetId.generate();
+        var output = new CompletedImageOutput(
+                id,
+                new ObjectPrefix("another-region", "uploads", id.value().toString()),
+                "profile.webp",
+                List.of("profile.webp"),
+                20,
+                "image/webp",
+                new ImageMetadata(50, 50));
+        var result = new ImageTransformResult(ATTEMPT_ID, List.of(output), null);
+
+        assertThatThrownBy(() -> useCase.complete(ATTEMPT_ID, result))
+                .isInstanceOf(IllegalStateException.class);
+        verifyNoInteractions(assetStore);
     }
 
     @Test

@@ -57,6 +57,6 @@ public record Asset(
      * The asset id is the prefix, so keys of different assets cannot collide.
      */
     public ObjectPrefix prefix() {
-        return new ObjectPrefix(placement.homeRegion(), placement.objectBucket(), id.value().toString());
+        return placement.prefixOf(id);
     }
 }

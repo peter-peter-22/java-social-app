@@ -1,9 +1,8 @@
 package com.example.media.imageworker.transform;
 
-import com.example.media.contract.asset.AssetId;
+import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.asset.ImageMetadata;
 import com.example.media.contract.object.ObjectLifetime;
-import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.port.ObjectStore;
 import com.example.media.contract.transformation.ImageEncoding;
@@ -12,6 +11,7 @@ import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.PlannedImageOutput;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,10 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * The use case downloads the source, transforms it per planned output, uploads the produced files
@@ -40,6 +37,7 @@ class TransformImageTest {
 
     private static final AttemptId ATTEMPT_ID = new AttemptId(UUID.randomUUID());
     private static final ObjectRef SOURCE = new ObjectRef("eu-west", "uploads", "3f2b/original_jpg");
+    private static final AssetPlacement PLACEMENT = new AssetPlacement("eu-west", "uploads");
     private static final ImageTransformationSpec WEBP_50 =
             new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50));
     private static final ImageTransformationSpec JPEG_80 =
@@ -48,9 +46,9 @@ class TransformImageTest {
     private final AtomicReference<Path> outputDir = new AtomicReference<>();
 
     @Test
-    void downloadsTransformsAndUploadsUnderTheGivenPrefixes() {
-        var incoming = plannedOutput(null, WEBP_50, "a1");
-        var eager = plannedOutput("profile", JPEG_80, "b2");
+    void downloadsTransformsAndUploadsUnderThePlacementWithFreshAssetIds() {
+        var incoming = plannedOutput(null, WEBP_50);
+        var eager = plannedOutput("profile", JPEG_80);
         var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(incoming, eager));
         stubProcessing();
         when(imageProcessor.readMetadata(any())).thenReturn(new ImageMetadata(400, 300));
@@ -64,36 +62,58 @@ class TransformImageTest {
 
         // the outputs are reported in the command's order: the incoming result first
         var incomingResult = result.outputs().getFirst();
-        assertThat(incomingResult.assetId()).isEqualTo(incoming.assetId());
-        assertThat(incomingResult.prefix()).isEqualTo(incoming.prefix());
+        assertThat(incomingResult.assetId()).isNotNull();
+        assertThat(incomingResult.prefix()).isEqualTo(PLACEMENT.prefixOf(incomingResult.assetId()));
         assertThat(incomingResult.entryPoint()).isEqualTo("default.webp");
         assertThat(incomingResult.objects()).containsExactly("default.webp");
         assertThat(incomingResult.bytes()).isEqualTo(3);
         assertThat(incomingResult.contentType()).isEqualTo("image/webp");
         assertThat(incomingResult.metadata()).isEqualTo(new ImageMetadata(10, 10));
         verify(objectStore).put(
-                eq(new ObjectPrefix("eu-west", "uploads", "a1").resolve("default.webp")),
+                eq(incomingResult.prefix().resolve("default.webp")),
                 any(Path.class),
                 eq("image/webp"),
                 eq(ObjectLifetime.TEMPORARY));
 
         var eagerResult = result.outputs().getLast();
-        assertThat(eagerResult.assetId()).isEqualTo(eager.assetId());
-        assertThat(eagerResult.prefix()).isEqualTo(eager.prefix());
+        assertThat(eagerResult.assetId()).isNotNull();
+        assertThat(eagerResult.assetId()).isNotEqualTo(incomingResult.assetId());
+        assertThat(eagerResult.prefix()).isEqualTo(PLACEMENT.prefixOf(eagerResult.assetId()));
         assertThat(eagerResult.entryPoint()).isEqualTo("default.jpg");
         assertThat(eagerResult.objects()).containsExactly("default.jpg");
         assertThat(eagerResult.bytes()).isEqualTo(3);
         assertThat(eagerResult.contentType()).isEqualTo("image/jpeg");
         verify(objectStore).put(
-                eq(new ObjectPrefix("eu-west", "uploads", "b2").resolve("default.jpg")),
+                eq(eagerResult.prefix().resolve("default.jpg")),
                 any(Path.class),
                 eq("image/jpeg"),
                 eq(ObjectLifetime.TEMPORARY));
     }
 
+    /** The overwrite regression: retrying a command must never reuse an object key. */
+    @Test
+    void aRetriedCommandGetsFreshObjectKeys() {
+        var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
+        stubProcessing();
+        when(imageProcessor.readMetadata(any())).thenReturn(new ImageMetadata(400, 300));
+
+        var first = useCase.transform(command);
+        var second = useCase.transform(command);
+
+        assertThat(first.outputs().getFirst().assetId())
+                .isNotEqualTo(second.outputs().getFirst().assetId());
+        assertThat(first.outputs().getFirst().prefix())
+                .isNotEqualTo(second.outputs().getFirst().prefix());
+
+        var refs = ArgumentCaptor.forClass(ObjectRef.class);
+        verify(objectStore, times(2)).put(
+                refs.capture(), any(Path.class), eq("image/webp"), eq(ObjectLifetime.TEMPORARY));
+        assertThat(refs.getAllValues()).doesNotHaveDuplicates();
+    }
+
     @Test
     void deletesTheWorkDirectoryWhenTheRunEnds() {
-        var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50, "a1")));
+        var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
         stubProcessing();
 
         useCase.transform(command);
@@ -104,7 +124,7 @@ class TransformImageTest {
 
     @Test
     void aFailedTransformUploadsNothingAndCleansUp() {
-        var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50, "a1")));
+        var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
         when(imageProcessor.process(any(), any(), any())).thenAnswer(invocation -> {
             outputDir.set(invocation.getArgument(1, Path.class));
             throw new IllegalStateException("boom");
@@ -118,14 +138,9 @@ class TransformImageTest {
 
     private static PlannedImageOutput plannedOutput(
             String transformationName,
-            ImageTransformationSpec spec,
-            String keyPrefix
+            ImageTransformationSpec spec
     ) {
-        return new PlannedImageOutput(
-                AssetId.generate(),
-                new ObjectPrefix("eu-west", "uploads", keyPrefix),
-                transformationName,
-                spec);
+        return new PlannedImageOutput(transformationName, PLACEMENT, spec);
     }
 
     /** Stands in for the libvips processing: writes one encoded file into the output directory. */

@@ -5,21 +5,15 @@ import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.asset.NewAsset;
 import com.example.media.contract.object.ObjectLifetime;
-import com.example.media.contract.object.ObjectPrefix;
-import com.example.media.contract.port.AssetStore;
-import com.example.media.contract.port.ImageTransformer;
-import com.example.media.contract.port.ObjectStore;
-import com.example.media.contract.port.TransformationCatalog;
-import com.example.media.contract.port.UploadRegistry;
+import com.example.media.contract.port.*;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.transformation.NamedTransformation;
-import com.example.media.contract.upload.NewUploadAttempt;
-import com.example.media.contract.upload.Upload;
-import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.*;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.PlannedImageOutput;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -33,6 +27,10 @@ import java.util.List;
  * The start-image-upload use case: validate the request, start an attempt, write the original to
  * the object store, and run the blocking image transform.
  *
+ * <p>The worker adapter retries recoverable failures. Each worker execution allocates fresh result
+ * asset ids, so a retry writes to new object keys. If the worker finally fails, the attempt is
+ * marked {@code FAILED}; the temporary objects of the failed executions expire.</p>
+ *
  * <p>The order of the command's outputs is the wire contract with the worker: the incoming result
  * first (when requested), then the eager results in request order. The worker reports its results
  * in the same order, and {@link CompleteImageUpload} rebuilds the plan from the attempt row the
@@ -44,6 +42,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StartImageUpload {
     private static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
 
@@ -108,7 +107,7 @@ public class StartImageUpload {
         });
 
         // The original starts temporary: an upload that never finalizes expires on its own.
-        var source = prefixOf(placement, originalId).resolve(entryPoint);
+        var source = placement.prefixOf(originalId).resolve(entryPoint);
         objectStore.put(source, content, bytes, resolvedContentType, ObjectLifetime.TEMPORARY);
 
         var outputs = new ArrayList<PlannedImageOutput>();
@@ -118,11 +117,38 @@ public class StartImageUpload {
             outputs.add(plannedOutput(placement, transformation.name(), transformation));
 
         // A request without any transformation keeps the uploaded original as-is.
-        ImageTransformResult result = outputs.isEmpty()
-                ? new ImageTransformResult(attemptId, List.of(), null)
-                : imageTransformer.transform(new ImageTransformCommand(attemptId, source, outputs));
+        ImageTransformResult result;
+        if (outputs.isEmpty()) {
+            result = new ImageTransformResult(attemptId, List.of(), null);
+        } else {
+            try {
+                result = imageTransformer.transform(new ImageTransformCommand(attemptId, source, outputs));
+            } catch (RuntimeException e) {
+                failAttempt(attemptId);
+                throw e;
+            }
+        }
 
         return completeImageUpload.complete(attemptId, result);
+    }
+
+    /**
+     * Marks the attempt failed when the worker finally gave up. The blocking adapter retries the
+     * recoverable failures internally; the objects of its failed executions stay temporary and
+     * expire because their asset identities were never registered.
+     */
+    private void failAttempt(AttemptId attemptId) {
+        try {
+            transactions.execute(status -> {
+                uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
+                return null;
+                // TODO This failed attempt state might be totally unnecessary.
+                //  Investigate this after the periodic cleanup is complete and the most of the media cloud works.
+            });
+        } catch (RuntimeException cleanupFailure) {
+            // Keep the original worker failure as the primary error.
+            log.warn("Could not mark upload attempt {} as failed", attemptId.value(), cleanupFailure);
+        }
     }
 
     /** The client's image upload request as this use case takes it. Nulls and mismatches are 400s. */
@@ -143,23 +169,16 @@ public class StartImageUpload {
         return transformation;
     }
 
-    /** Reserves the output's asset id and its prefix before the worker writes under it. */
+    /** Plans one worker output under the placement. The worker allocates the final asset id. */
     private static PlannedImageOutput plannedOutput(
             AssetPlacement placement,
             @Nullable String transformationName,
             NamedTransformation transformation
     ) {
-        var assetId = AssetId.generate();
         return new PlannedImageOutput(
-                assetId,
-                prefixOf(placement, assetId),
                 transformationName,
+                placement,
                 (ImageTransformationSpec) transformation.spec());
-    }
-
-    /** The asset id is the prefix, so the keys of two assets cannot collide. */
-    private static ObjectPrefix prefixOf(AssetPlacement placement, AssetId id) {
-        return new ObjectPrefix(placement.homeRegion(), placement.objectBucket(), id.value().toString());
     }
 
     private static UploadKey validatedKey(Request request) {

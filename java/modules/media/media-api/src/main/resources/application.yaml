@@ -29,6 +29,12 @@ server:
 media:
   worker:
     base-url: http://localhost:8082
+    # Recoverable transport failures and worker 5xx answers are retried. Fresh result asset ids
+    # make every retry write to new object keys. A 4xx answer is a command error and is not retried.
+    max-retries: 3
+    retry-delay-ms: 200
+    connect-timeout-ms: 2000
+    read-timeout-ms: 30000
 
 minio:
   reconciliation:

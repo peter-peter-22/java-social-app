@@ -11,6 +11,7 @@ The goal of the defined upload lifecycle mechanisms is to ensure that there are 
 - The final upload registration is atomic and cannot overwrite.
 - The upload signatures have a limited retry count.
 - All files and transformations get a unique asset.
+- Every worker execution allocates fresh result asset ids, so a retried transformation never reuses a key.
 - The registered assets are immutable.
 - The failed uploads are periodically cleaned up.
 - The existence of the file is checked after their expiration is removed.
@@ -23,6 +24,15 @@ The scenarios describe the possible problems of the upload workflow and their so
 ### Fail before finalization
 The uploaded files expire because of their initial lifecycle policy. (expiration object tag)
 The registration of the stored asset remains and the periodic cleanup will delete it.
+
+### The worker generates an existing asset id
+The worker does not interact with the database during the asset id generation, so overlapping ids are possible.
+In this case, the forbidden overwrite policy prevents destructive changes.
+The object expiration prevents permanent orphan objects on failure. 
+The finalization checks if the asset ids are actually valid before removing the expiration.
+
+In the worst case, the work fails at the finalization step, meaning that the transformation time and cost is doubled.
+The chance of the overlapping UUIDv4s is excepted to be very small, this probably won't require further optimization.
 
 ### Fail during upload
 The upload can be retried from the nginx proxy that buffers the uploads, or the browser.
@@ -55,13 +65,17 @@ The final write checks for existence, and it's done in a transaction.
 Any duplication or invalid value causes constraint error and transaction rollback.
 
 ### The blocking transformation fails
-The HTTP client retries it.
-TODO When exceeding the retry count the request fails with unrecoverable error.
-TODO Unrecoverable errors in the media worker are not retried by the HTTP client that communicates with it.
+The HTTP client retries transport failures and worker server errors up to a bounded count.
+Every worker execution allocates fresh result asset ids, so a retry writes to new object keys and
+does not collide with the files of a failed execution.
+When the retry count is exceeded, the attempt is marked FAILED and the request fails.
+Unrecoverable errors, such as a 4xx answer from the worker, are not retried.
 
 ### The async transformation fails
-The message queue retries it.
-TODO Exceeding the retry count or reaching an unrecoverable error must mark the upload as failed.
+The message queue retries it. Every delivery is a new worker execution with fresh asset ids, so a
+redelivery after a partial write is safe.
+Exceeding the retry count or reaching an unrecoverable error marks the attempt as FAILED.
+Completion is idempotent on the attempt id.
 
 ### A file expires during finalization
 The existence check after finalization fails.
@@ -94,9 +108,8 @@ Possible fixes:
 - Never delete the asset ids of failed uploads.
 
 ### A transformation task is retried
-If the previous attempts written files to the object storage, the following attempts will fail
-to overwrite them. 
-This might be a problem.
-
-If no file was written, (e.g., connection error or failed early) then 
-the retry will work as intended.
+The worker allocates a fresh asset id and prefix for every output on every execution.
+The files of a failed execution stay under prefixes that are never registered; they are temporary
+and expire.
+The retry writes to new object keys and cannot overwrite anything.
+Only the successful execution's assets are registered and made permanent.

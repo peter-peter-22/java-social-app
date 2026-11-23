@@ -88,15 +88,15 @@ The polymorphic `type` property is the versioning seam: format versions are plan
 Blocking and async use the same bytes path. Only the control message changes.
 
 1. The API validates the request and starts an attempt. It inserts the original asset in an uploading state and writes the file to object storage with the expiration tag. The asset id is the object prefix, so keys cannot collide.
-2. The API resolves named transformations and reserves result asset ids. It sends the worker a command containing the source object location, the reserved prefixes, and the resolved operations. It does not send repository entities.
-3. The worker downloads the source, transforms it, and uploads the results under those prefixes with expiration tags. It returns metadata and the object list. It does not insert rows, change tags to permanent, or finalize the attempt.
+2. The API resolves named transformations and sends the worker a command containing the source object location, the result placement, and the resolved operations. It does not send repository entities and it does not reserve result asset ids.
+3. The worker downloads the source, transforms it, allocates a fresh asset id and prefix for every output on that execution, and uploads the results with expiration tags. It returns metadata and the object list. It does not insert rows, change tags to permanent, or finalize the attempt.
 4. The API removes the expiration tags, checks that the objects exist, and then commits one transaction: assets become ready, the upload and variant rows are inserted, and the attempt becomes successful. If that transaction fails, the objects expire and the existing cleanup rules apply.
 5. Blocking waits for the worker HTTP call, then runs step 4 before responding.
-6. Async publishes the same command after the attempt is marked processing, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Completion is idempotent on `attemptId`.
+6. Async publishes the same command after the attempt is marked processing, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`.
 
 Do not add a broker during the structural move. `ImageTransformer` has `transform` for the blocking adapter. `enqueue` is added later. Async should use a normal broker plus a transactional outbox so the database state and the queued command cannot diverge.
 
-Failure policy, already stated in `upload-lifecycle.md`: retry recoverable worker failures, and mark the attempt failed when retries are exhausted or the error is unrecoverable.
+Failure policy, already stated in `upload-lifecycle.md`: retry recoverable worker failures, and mark the attempt failed when retries are exhausted or the error is unrecoverable. Fresh result asset ids per execution are what make the retry safe for both blocking and async delivery.
 
 
 
@@ -132,9 +132,9 @@ Each step must leave the current end-to-end path runnable. Do not change behavio
 4. Move the registry adapter into `media-registry`. Move the existing repository integration tests with it. The application service, not the repository, owns the finalize transaction boundary.
 5. Hide Minio behind `ObjectStore`. The adapter keeps regions, tags, and reconciliation.
 6. Build the API use cases: start image upload, complete image upload, read original, and read variant. The controller only maps HTTP. A missing upload is 404. Bad input is 400. An unexpected failure is 500.
-7. Slim the worker to download, transform, upload under the given prefixes, and return the result. Remove the database, Liquibase, and `upload-services` dependencies. Keep libvips and the native-access flag inside this deployable.
+7. Slim the worker to download, transform, upload under freshly allocated asset prefixes, and return the result. Remove the database, Liquibase, and `upload-services` dependencies. Keep libvips and the native-access flag inside this deployable.
 8. Point Compose and `EndToEndTest` at the new jars. The API runs Liquibase. The worker does not. Only after this test passes, remove the unused `uploads_v2` modules.
-9. Add the async port without changing the file path. The completion endpoint calls the same finalize use case. Retries must be safe.
+9. Add the async port without changing the file path. The completion endpoint calls the same finalize use case. Retries are safe because every delivery allocates fresh result asset ids; completion is idempotent on the attempt id.
 10. Conventions pass: `buildSrc` conventions instead of copied plugin versions, ArchUnit checks, and no duplicated `application.yaml`. Now that no prototype code shares the Minio adapter, rework its tag types: one non-null tag representation instead of `ObjectTag` and the nullable tag arguments, and pinned replace-or-merge semantics for `setTags`. The expiration tags and the lifecycle rule stay.
 
 Verification for every step is the existing registry and object-storage integration tests, plus `EndToEndTest` once the new API is wired. Do not fold the Compose-backed test into the normal unit-test run.

@@ -8,28 +8,19 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
         <module name="java.cockroach-db.main" />
-        <module name="java.image-transformer.main" />
-        <module name="java.upload-services.test" />
-        <module name="java.uploads-service.testFixtures" />
-        <module name="java.uploads-service.test" />
+        <module name="java.object-storage.test" />
         <module name="java.media-contract.main" />
-        <module name="java.image-transformer.test" />
+        <module name="java.media-json.main" />
         <module name="java.media-api.test" />
-        <module name="java.uploads-service.main" />
+        <module name="java.object-storage.main" />
         <module name="java.media-registry.main" />
         <module name="java.media-contract.test" />
-        <module name="com.example.java.object-storage.test" />
-        <module name="java.upload-api.test" />
         <module name="java.media-api.main" />
-        <module name="java.upload-registry.main" />
+        <module name="java.media-json.test" />
         <module name="java.media-registry.test" />
         <module name="java.cockroach-db.test" />
         <module name="java.image-worker.main" />
-        <module name="java.upload-services.main" />
-        <module name="com.example.java.object-storage.main" />
         <module name="java.image-worker.test" />
-        <module name="java.upload-registry.test" />
-        <module name="java.upload-api.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="25" />
@@ -84,6 +75,7 @@
       <module name="java.image-worker.main" options="-parameters" />
       <module name="java.image-worker.test" options="-parameters" />
       <module name="java.media-api" options="-parameters" />
+      <module name="java.media-api.integrationTest" options="-parameters" />
       <module name="java.media-api.main" options="-parameters" />
       <module name="java.media-api.test" options="-parameters" />
       <module name="java.media-api.testFixtures" options="-parameters -parameters" />

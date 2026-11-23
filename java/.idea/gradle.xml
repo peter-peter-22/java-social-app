@@ -24,13 +24,9 @@
             <option value="$PROJECT_DIR$/modules/media/image-worker" />
             <option value="$PROJECT_DIR$/modules/media/media-api" />
             <option value="$PROJECT_DIR$/modules/media/media-contract" />
+            <option value="$PROJECT_DIR$/modules/media/media-json" />
             <option value="$PROJECT_DIR$/modules/media/media-registry" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/image-transformer" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/object-storage" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/upload-registry" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/upload-services" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/uploads-api" />
-            <option value="$PROJECT_DIR$/modules/uploads_v2/uploads-service" />
+            <option value="$PROJECT_DIR$/modules/media/object-storage" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,8 +1,8 @@
 package com.example.media.imageworker.web;
 
 import com.example.media.contract.asset.AssetId;
+import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.asset.ImageMetadata;
-import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
@@ -53,6 +53,7 @@ class ImageTransformControllerTest {
     TransformImage transformImage;
 
     private static final AttemptId ATTEMPT_ID = new AttemptId(UUID.randomUUID());
+    private static final AssetPlacement PLACEMENT = new AssetPlacement("eu-west", "uploads");
 
     @Test
     void transformsAnImage() throws Exception {
@@ -60,15 +61,15 @@ class ImageTransformControllerTest {
                 ATTEMPT_ID,
                 new ObjectRef("eu-west", "uploads", "3f2b/original_jpg"),
                 List.of(new PlannedImageOutput(
-                        AssetId.generate(),
-                        new ObjectPrefix("eu-west", "uploads", "a1"),
                         null,
+                        PLACEMENT,
                         new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50)))));
+        var outputId = AssetId.generate();
         var result = new ImageTransformResult(
                 ATTEMPT_ID,
                 List.of(new CompletedImageOutput(
-                        command.outputs().getFirst().assetId(),
-                        command.outputs().getFirst().prefix(),
+                        outputId,
+                        PLACEMENT.prefixOf(outputId),
                         "default.webp",
                         List.of("default.webp"),
                         3,
@@ -108,9 +109,8 @@ class ImageTransformControllerTest {
                 ATTEMPT_ID,
                 new ObjectRef("eu-west", "uploads", "3f2b/original_jpg"),
                 List.of(new PlannedImageOutput(
-                        AssetId.generate(),
-                        new ObjectPrefix("eu-west", "uploads", "a1"),
                         null,
+                        PLACEMENT,
                         new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50)))));
         when(transformImage.transform(any())).thenThrow(new RuntimeException("boom"));
 

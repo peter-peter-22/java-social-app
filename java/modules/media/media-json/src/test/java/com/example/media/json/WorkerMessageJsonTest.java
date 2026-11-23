@@ -1,8 +1,8 @@
 package com.example.media.json;
 
 import com.example.media.contract.asset.AssetId;
+import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.asset.ImageMetadata;
-import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
@@ -28,6 +28,7 @@ class WorkerMessageJsonTest {
     ObjectMapper objectMapper = MediaJson.create();
 
     private final AttemptId attemptId = new AttemptId(UUID.randomUUID());
+    private static final AssetPlacement PLACEMENT = new AssetPlacement("eu-west", "uploads");
 
     @Test
     void commandRoundTrip() {
@@ -36,15 +37,13 @@ class WorkerMessageJsonTest {
                 new ObjectRef("eu-west", "uploads", "3f2b/original_jpg"),
                 List.of(
                         new PlannedImageOutput(
-                                AssetId.generate(),
-                                new ObjectPrefix("eu-west", "uploads", "a1"),
                                 null,
+                                PLACEMENT,
                                 new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50))
                         ),
                         new PlannedImageOutput(
-                                AssetId.generate(),
-                                new ObjectPrefix("eu-west", "uploads", "b2"),
                                 "profile",
+                                PLACEMENT,
                                 new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(100))
                         )
                 )
@@ -58,11 +57,12 @@ class WorkerMessageJsonTest {
 
     @Test
     void resultRoundTrip() {
+        var outputId = AssetId.generate();
         var result = new ImageTransformResult(
                 attemptId,
                 List.of(new CompletedImageOutput(
-                        AssetId.generate(),
-                        new ObjectPrefix("eu-west", "uploads", "a1"),
+                        outputId,
+                        PLACEMENT.prefixOf(outputId),
                         "original_webp",
                         List.of("original_webp"),
                         1234,
