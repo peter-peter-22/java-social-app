@@ -15,6 +15,10 @@ services:
     # that SymbolLookup::libraryLookup will be blocked, which breaks vips-ffm.
     command: ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "jar.jar"]
     environment:
+      # The entrypoint drops root before running the command; these are the host
+      # user ids exported by run.bash. The `:?` form fails fast when missing.
+      HOST_UID: "${HOST_UID:?HOST_UID is required}"
+      HOST_GID: "${HOST_GID:?HOST_GID is required}"
       # The image worker has no database and runs no migrations. It only moves objects through Minio.
       MINIO_RECONCILIATION_ENABLED: "false"
       MINIO_HOME_REGION: "test"
@@ -34,6 +38,7 @@ services:
     volumes:
       - ../../media/image-worker/build/libs/image-worker-0.0.1-SNAPSHOT.jar:/workspace/jar.jar
       - ./entrypoint.bash:/entrypoint.bash:ro
+      - gradle-cache:/gradle-home
     depends_on:
       - minio
       - rabbitmq

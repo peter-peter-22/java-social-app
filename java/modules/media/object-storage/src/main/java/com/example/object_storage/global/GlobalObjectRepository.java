@@ -41,8 +41,4 @@ public class GlobalObjectRepository {
     public boolean objectExists(String region, LocalObjectExistsArgs args){
         return regionalObjectRepositories.getByRegion(region).objectExists(args);
     }
-
-    public String getHomeRegion() {
-        return regionalObjectRepositories.getHomeRegion();
-    }
 }

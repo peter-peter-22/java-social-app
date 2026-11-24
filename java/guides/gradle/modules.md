@@ -22,7 +22,8 @@ The artifact names can be found on this site:
 #### Dependency versions
 Defining the versions in buildSrc is prioritized.
 
-The version catalog is used for libraries those are imported in multiple modules.
+The version catalog (`gradle/libs.versions.toml`) is currently empty and unused; the shared
+dependency versions live in the buildSrc conventions.
 
 #### The spring modulith package
 This is for preventing the usage of some spring beans outside a folder. 

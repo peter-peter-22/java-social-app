@@ -46,7 +46,8 @@ public class JpaUploadRegistry implements UploadRegistry {
     @Transactional
     public UploadProcess openOrGetProcess(UploadKey key) {
         uploadProcessCrudRepository.insertIfNotExists(key.value());
-        // TODO this looks weird. maybe it can be simplified
+        // The native insert creates the row when it is missing and never collides with a concurrent
+        // opener; the locked read then returns the row with its references under the caller's lock.
         return uploadProcessCrudRepository.findByUploadKeyForUpdate(key.value())
                 .orElseThrow()
                 .toModel();
