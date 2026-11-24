@@ -1,11 +1,10 @@
-package com.example.object_storage.global;
+package com.example.object_storage;
 
 import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.object.ObjectLifetime;
 import com.example.media.contract.object.ObjectPrefix;
 import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.port.ObjectStore;
-import com.example.object_storage.MinioIntegrationTest;
 import com.example.object_storage.regional.MinioConfig;
 import io.minio.GetObjectTagsArgs;
 import io.minio.errors.ErrorResponseException;
@@ -80,6 +79,7 @@ public class MinioObjectStoreIT extends MinioIntegrationTest {
         var target = tempDir.resolve("downloaded.txt");
 
         objectStore.put(ref, source, CONTENT_TYPE, ObjectLifetime.TEMPORARY);
+        assertThat(objectStore.exists(ref)).isTrue();
         objectStore.download(ref, target);
 
         assertThat(Files.readAllBytes(target)).isEqualTo(content);
