@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * Marks an attempt failed when the async worker gave up: the retries were exhausted or the failure
+ * Marks an attempt failed when the worker gave up: the retries were exhausted or the failure
  * was unrecoverable. Idempotent: an attempt that already finished, or that no longer exists, is left
  * alone, so a duplicate dead-lettered command and a racing completion cannot overwrite a terminal
  * state that matters.
@@ -27,6 +27,8 @@ public class FailImageUpload {
                     || attempt.status() == UploadAttemptStatus.SUCCESS
                     || attempt.status() == UploadAttemptStatus.FAILED)
                 return null;
+            // TODO This failed attempt state might be totally unnecessary.
+            //  Investigate this after the periodic cleanup is complete and the most of the media cloud works.
             uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
             return null;
         });

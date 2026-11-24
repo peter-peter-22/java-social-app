@@ -57,6 +57,7 @@ public class StartImageUpload {
     private final ObjectStore objectStore;
     private final ImageTransformer imageTransformer;
     private final CompleteImageUpload completeImageUpload;
+    private final FailImageUpload failImageUpload;
     private final TransactionTemplate transactions;
 
     /**
@@ -159,12 +160,7 @@ public class StartImageUpload {
      */
     private void failAttempt(AttemptId attemptId) {
         try {
-            transactions.execute(status -> {
-                uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
-                return null;
-                // TODO This failed attempt state might be totally unnecessary.
-                //  Investigate this after the periodic cleanup is complete and the most of the media cloud works.
-            });
+            failImageUpload.fail(attemptId);
         } catch (RuntimeException cleanupFailure) {
             // Keep the original worker failure as the primary error.
             log.warn("Could not mark upload attempt {} as failed", attemptId.value(), cleanupFailure);

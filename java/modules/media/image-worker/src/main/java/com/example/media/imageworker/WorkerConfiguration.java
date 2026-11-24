@@ -1,5 +1,6 @@
 package com.example.media.imageworker;
 
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.imageworker.completion.ApiCompletionClient;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
@@ -10,8 +11,6 @@ import org.springframework.core.retry.RetryPolicy;
 import org.springframework.core.retry.RetryTemplate;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import java.net.http.HttpClient;
@@ -19,8 +18,8 @@ import java.time.Duration;
 
 /**
  * The outbound adapters of the worker. The API completion call is an HTTP adapter wired here to the
- * API's base URL; it uses the same retry policy as the API's blocking worker call, so the
- * recoverability classification is the same.
+ * API's base URL; it retries with the shared {@link FailureClassifier} conditions, the same policy
+ * the API's blocking worker call and the listener use.
  */
 @Configuration
 @NullMarked
@@ -41,7 +40,7 @@ public class WorkerConfiguration {
         requestFactory.setReadTimeout(Duration.ofMillis(readTimeoutMs));
 
         var retryPolicy = RetryPolicy.builder()
-                .includes(ResourceAccessException.class, HttpServerErrorException.class)
+                .predicate(FailureClassifier::isRecoverable)
                 .maxRetries(maxRetries)
                 .delay(Duration.ofMillis(retryDelayMs))
                 .multiplier(2)

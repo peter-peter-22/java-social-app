@@ -1,5 +1,6 @@
 package com.example.media.imageworker.rabbit;
 
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.core.Queue;
@@ -12,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * The worker's queue side: the command queue and the shared JSON message converter. The listener
- * retries only the failures {@link WorkerFailureClassifier} calls recoverable; an unrecoverable
- * failure cancels the retries and the message is rejected to the dead-letter queue, where the API
- * marks the attempt failed.
+ * retries only the failures the shared {@link FailureClassifier} calls recoverable; an
+ * unrecoverable failure cancels the retries and the message is rejected to the dead-letter queue,
+ * where the API marks the attempt failed.
  */
 @Configuration
 @NullMarked
@@ -36,12 +37,7 @@ public class MediaRabbitConfiguration {
     }
 
     @Bean
-    WorkerFailureClassifier workerFailureClassifier() {
-        return new WorkerFailureClassifier();
-    }
-
-    @Bean
-    RabbitListenerRetrySettingsCustomizer workerListenerRetry(WorkerFailureClassifier failureClassifier) {
-        return settings -> settings.setExceptionPredicate(failureClassifier::isRecoverable);
+    RabbitListenerRetrySettingsCustomizer workerListenerRetry() {
+        return settings -> settings.setExceptionPredicate(FailureClassifier::isRecoverable);
     }
 }

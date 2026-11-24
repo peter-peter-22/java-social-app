@@ -2,9 +2,9 @@ package com.example.media.api;
 
 import com.example.media.api.rabbit.MediaQueue;
 import com.example.media.api.worker.HttpImageTransformer;
-import com.example.media.api.worker.HttpWorkerFailureClassifier;
 import com.example.media.api.worker.RabbitImageTransformer;
 import com.example.media.contract.port.ImageTransformer;
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.json.MediaJson;
@@ -43,24 +43,18 @@ public class MediaApiConfiguration {
         return new TransactionTemplate(transactionManager);
     }
 
-    @Bean
-    HttpWorkerFailureClassifier httpWorkerFailureClassifier() {
-        return new HttpWorkerFailureClassifier();
-    }
-
     /**
      * The {@link ImageTransformer} the upload use case calls: the blocking HTTP adapter and the
      * async RabbitMQ adapter behind one port, chosen by the request.
      *
-     * <p>The blocking adapter retries the failures the {@link HttpWorkerFailureClassifier}
-     * classifies as recoverable (transport failures and worker server errors); a 4xx answer is a
-     * command error and is not retried. The worker allocates fresh asset ids on every execution, so
-     * retrying the same command writes to new object keys.</p>
+     * <p>The blocking adapter retries the failures the shared {@link FailureClassifier} calls
+     * recoverable (the adapter marks transport failures and worker server errors); a 4xx answer is
+     * a command error and is not retried. The worker allocates fresh asset ids on every execution,
+     * so retrying the same command writes to new object keys.</p>
      */
     @Bean
     ImageTransformer imageTransformer(
             RabbitTemplate rabbitTemplate,
-            HttpWorkerFailureClassifier failureClassifier,
             @Value("${media.worker.base-url}") String workerBaseUrl,
             @Value("${media.worker.max-retries:3}") long maxRetries,
             @Value("${media.worker.retry-delay-ms:200}") long retryDelayMs,
@@ -74,7 +68,7 @@ public class MediaApiConfiguration {
         requestFactory.setReadTimeout(Duration.ofMillis(readTimeoutMs));
 
         var retryPolicy = RetryPolicy.builder()
-                .predicate(failureClassifier::isRecoverable)
+                .predicate(FailureClassifier::isRecoverable)
                 .maxRetries(maxRetries)
                 .delay(Duration.ofMillis(retryDelayMs))
                 .multiplier(2)

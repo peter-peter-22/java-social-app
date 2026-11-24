@@ -36,6 +36,7 @@ class StartImageUploadTest {
     private final ObjectStore objectStore = mock();
     private final ImageTransformer imageTransformer = mock();
     private final CompleteImageUpload completeImageUpload = mock();
+    private final FailImageUpload failImageUpload = mock();
     private final StartImageUpload useCase = new StartImageUpload(
             uploadRegistry,
             assetStore,
@@ -43,6 +44,7 @@ class StartImageUploadTest {
             objectStore,
             imageTransformer,
             completeImageUpload,
+            failImageUpload,
             new TransactionTemplate(mock(PlatformTransactionManager.class)));
 
     private static final UploadKey KEY = new UploadKey("cover");
@@ -125,7 +127,7 @@ class StartImageUploadTest {
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
                 .isInstanceOf(IllegalStateException.class);
 
-        verify(uploadRegistry).finishAttempt(ATTEMPT_ID, AttemptOutcome.FAILED);
+        verify(failImageUpload).fail(ATTEMPT_ID);
         verify(completeImageUpload, never()).complete(any(), any());
     }
 
@@ -159,7 +161,7 @@ class StartImageUploadTest {
         assertThat(command.getValue().outputs()).hasSize(2);
         // The attempt stays PENDING; no completion and no failure marking happen here.
         verify(completeImageUpload, never()).complete(any(), any());
-        verify(uploadRegistry, never()).finishAttempt(any(), any());
+        verify(failImageUpload, never()).fail(any());
     }
 
     @Test
@@ -174,7 +176,7 @@ class StartImageUploadTest {
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
                 .isInstanceOf(IllegalStateException.class);
 
-        verify(uploadRegistry).finishAttempt(ATTEMPT_ID, AttemptOutcome.FAILED);
+        verify(failImageUpload).fail(ATTEMPT_ID);
         verify(completeImageUpload, never()).complete(any(), any());
     }
 

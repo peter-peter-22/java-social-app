@@ -1,11 +1,15 @@
 package com.example.media.imageworker.completion;
 
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformResult;
+import com.example.media.contract.worker.RecoverableException;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.core.retry.RetryException;
 import org.springframework.core.retry.RetryTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 /**
@@ -13,10 +17,11 @@ import org.springframework.web.client.RestClient;
  * contract's JSON shape to the completion endpoint, which runs the same finalize use case as the
  * blocking path.
  *
- * <p>The call is retried like the API's blocking worker call: transport failures and server errors
- * are retried up to the configured limit, a 4xx answer (the attempt can never accept the result) is
- * not retried. The message is acked only after this call succeeds, so a redelivery re-runs the
- * whole transform with fresh result asset ids.</p>
+ * <p>The call is retried with the shared {@link FailureClassifier} conditions: the adapter marks
+ * its own transient vocabulary (transport failures and server errors) as
+ * {@link RecoverableException} and retries it up to the configured limit, a 4xx answer (the attempt
+ * can never accept the result) is not marked and is not retried. The message is acked only after
+ * this call succeeds, so a redelivery re-runs the whole transform with fresh result asset ids.</p>
  */
 @NullMarked
 public class ApiCompletionClient {
@@ -48,11 +53,16 @@ public class ApiCompletionClient {
     }
 
     private ResponseEntity<Void> post(ImageTransformResult result) {
-        return restClient.post()
-                .uri(COMPLETION_IMAGE_PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(result)
-                .retrieve()
-                .toBodilessEntity();
+        try {
+            return restClient.post()
+                    .uri(COMPLETION_IMAGE_PATH)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(result)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (ResourceAccessException | HttpServerErrorException e) {
+            throw new RecoverableException(
+                    "the completion call failed transiently for attempt " + result.attemptId().value(), e);
+        }
     }
 }

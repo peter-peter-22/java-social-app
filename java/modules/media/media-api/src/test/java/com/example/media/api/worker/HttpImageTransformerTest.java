@@ -8,9 +8,11 @@ import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.worker.CompletedImageOutput;
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.PlannedImageOutput;
+import com.example.media.contract.worker.RecoverableException;
 import com.example.media.json.MediaJson;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.retry.RetryPolicy;
@@ -22,7 +24,6 @@ import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import tools.jackson.databind.ObjectMapper;
 
@@ -39,7 +40,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 /**
  * The blocking worker call travels over HTTP in the contract's JSON shape: the command is posted to
  * the worker's transform endpoint and the result is read from the response. The worker's failures
- * propagate to the caller.
+ * propagate to the caller; the transient ones arrive marked as {@link RecoverableException}, the
+ * shared retry conditions' recoverable vocabulary.
  */
 class HttpImageTransformerTest {
 
@@ -51,7 +53,7 @@ class HttpImageTransformerTest {
                     converters.withJsonConverter(new JacksonJsonHttpMessageConverter(MediaJson.create())));
     private final MockRestServiceServer server = MockRestServiceServer.bindTo(restClientBuilder).build();
     private final RetryTemplate retryTemplate = new RetryTemplate(RetryPolicy.builder()
-            .includes(ResourceAccessException.class, HttpServerErrorException.class)
+            .predicate(FailureClassifier::isRecoverable)
             .maxRetries(2)
             .delay(Duration.ZERO)
             .build());
@@ -164,7 +166,8 @@ class HttpImageTransformerTest {
         }
 
         assertThatThrownBy(() -> adapter.transform(COMMAND))
-                .isInstanceOf(HttpServerErrorException.class);
+                .isInstanceOf(RecoverableException.class)
+                .hasCauseInstanceOf(HttpServerErrorException.class);
         server.verify();
     }
 }

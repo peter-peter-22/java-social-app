@@ -1,7 +1,9 @@
 package com.example.media.imageworker.completion;
 
 import com.example.media.contract.upload.AttemptId;
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformResult;
+import com.example.media.contract.worker.RecoverableException;
 import com.example.media.json.MediaJson;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.retry.RetryPolicy;
@@ -13,7 +15,6 @@ import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import java.io.IOException;
@@ -32,8 +33,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 /**
  * The completion call back to the API travels over HTTP in the contract's JSON shape. The retry
- * policy is the same as the API's blocking worker call: transport failures and server errors are
- * retried, a 4xx answer is not.
+ * policy is the shared one: the adapter marks transport failures and server errors as
+ * {@link RecoverableException} and retries them, a 4xx answer is not marked and is not.
  */
 class ApiCompletionClientTest {
 
@@ -44,7 +45,7 @@ class ApiCompletionClientTest {
                     converters.withJsonConverter(new JacksonJsonHttpMessageConverter(MediaJson.create())));
     private final MockRestServiceServer server = MockRestServiceServer.bindTo(restClientBuilder).build();
     private final RetryTemplate retryTemplate = new RetryTemplate(RetryPolicy.builder()
-            .includes(ResourceAccessException.class, HttpServerErrorException.class)
+            .predicate(FailureClassifier::isRecoverable)
             .maxRetries(2)
             .delay(Duration.ZERO)
             .build());
@@ -112,7 +113,8 @@ class ApiCompletionClientTest {
         }
 
         assertThatThrownBy(() -> client.complete(RESULT))
-                .isInstanceOf(HttpServerErrorException.class);
+                .isInstanceOf(RecoverableException.class)
+                .hasCauseInstanceOf(HttpServerErrorException.class);
         server.verify();
     }
 }
