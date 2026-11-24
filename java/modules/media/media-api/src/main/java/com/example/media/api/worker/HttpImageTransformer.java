@@ -58,11 +58,6 @@ public class HttpImageTransformer implements ImageTransformer {
         }
     }
 
-    @Override
-    public void transformAsync(ImageTransformCommand command) {
-        throw new UnsupportedOperationException("the blocking adapter does not enqueue commands");
-    }
-
     private ImageTransformResult post(ImageTransformCommand command) {
         try {
             var result = restClient.post()

@@ -3,10 +3,9 @@ package com.example.media.api;
 import com.example.media.api.rabbit.MediaQueue;
 import com.example.media.api.worker.HttpImageTransformer;
 import com.example.media.api.worker.RabbitImageTransformer;
+import com.example.media.contract.port.AsyncImageTransformer;
 import com.example.media.contract.port.ImageTransformer;
 import com.example.media.contract.worker.FailureClassifier;
-import com.example.media.contract.worker.ImageTransformCommand;
-import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -29,10 +28,10 @@ import java.time.Duration;
  * the finalize commit must span several port calls while the object-store work stays outside the
  * transaction. The transaction manager comes with the persistence adapters.
  *
- * <p>The worker transports are adapters wired here: the blocking call is HTTP to the worker's
- * transform endpoint, the async call publishes the same command to RabbitMQ. The single
- * {@link ImageTransformer} bean dispatches between them, so the upload use case does not know which
- * transport its request uses.</p>
+ * <p>The worker transports are driven adapters wired here: the blocking call is HTTP to the
+ * worker's transform endpoint ({@link ImageTransformer}), the async call publishes the same command
+ * to RabbitMQ ({@link AsyncImageTransformer}). Each port carries one transport, so the upload use
+ * case depends on the narrow capability it needs and does not know the transport behind it.</p>
  */
 @Configuration
 @NullMarked
@@ -44,17 +43,16 @@ public class MediaApiConfiguration {
     }
 
     /**
-     * The {@link ImageTransformer} the upload use case calls: the blocking HTTP adapter and the
-     * async RabbitMQ adapter behind one port, chosen by the request.
+     * The blocking {@link ImageTransformer} the upload use case calls: the HTTP adapter to the
+     * worker's transform endpoint.
      *
-     * <p>The blocking adapter retries the failures the shared {@link FailureClassifier} calls
-     * recoverable (the adapter marks transport failures and worker server errors); a 4xx answer is
-     * a command error and is not retried. The worker allocates fresh asset ids on every execution,
-     * so retrying the same command writes to new object keys.</p>
+     * <p>The adapter retries the failures the shared {@link FailureClassifier} calls recoverable (it
+     * marks transport failures and worker server errors); a 4xx answer is a command error and is not
+     * retried. The worker allocates fresh asset ids on every execution, so retrying the same command
+     * writes to new object keys.</p>
      */
     @Bean
     ImageTransformer imageTransformer(
-            RabbitTemplate rabbitTemplate,
             @Value("${media.worker.base-url}") String workerBaseUrl,
             @Value("${media.worker.max-retries:3}") long maxRetries,
             @Value("${media.worker.retry-delay-ms:200}") long retryDelayMs,
@@ -83,18 +81,16 @@ public class MediaApiConfiguration {
                         converters.withJsonConverter(new JacksonJsonHttpMessageConverter(MediaJson.create())))
                 .build();
 
-        var blocking = new HttpImageTransformer(restClient, new RetryTemplate(retryPolicy));
-        var async = new RabbitImageTransformer(rabbitTemplate, MediaQueue.EXCHANGE, MediaQueue.COMMAND_ROUTING_KEY);
-        return new ImageTransformer() {
-            @Override
-            public ImageTransformResult transform(ImageTransformCommand command) {
-                return blocking.transform(command);
-            }
+        return new HttpImageTransformer(restClient, new RetryTemplate(retryPolicy));
+    }
 
-            @Override
-            public void transformAsync(ImageTransformCommand command) {
-                async.transformAsync(command);
-            }
-        };
+    /**
+     * The async {@link AsyncImageTransformer} the upload use case calls: the RabbitMQ adapter that
+     * publishes the same command to the worker queue and returns immediately. The worker later calls
+     * the API completion endpoint, which finalizes the attempt.
+     */
+    @Bean
+    AsyncImageTransformer asyncImageTransformer(RabbitTemplate rabbitTemplate) {
+        return new RabbitImageTransformer(rabbitTemplate, MediaQueue.EXCHANGE, MediaQueue.COMMAND_ROUTING_KEY);
     }
 }

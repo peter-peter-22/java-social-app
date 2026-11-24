@@ -35,6 +35,7 @@ class StartImageUploadTest {
     private final TransformationCatalog transformationCatalog = mock();
     private final ObjectStore objectStore = mock();
     private final ImageTransformer imageTransformer = mock();
+    private final AsyncImageTransformer asyncImageTransformer = mock();
     private final CompleteImageUpload completeImageUpload = mock();
     private final FailImageUpload failImageUpload = mock();
     private final StartImageUpload useCase = new StartImageUpload(
@@ -43,6 +44,7 @@ class StartImageUploadTest {
             transformationCatalog,
             objectStore,
             imageTransformer,
+            asyncImageTransformer,
             completeImageUpload,
             failImageUpload,
             new TransactionTemplate(mock(PlatformTransactionManager.class)));
@@ -151,7 +153,7 @@ class StartImageUploadTest {
         assertThat(started.acceptedAt()).isEqualTo(acceptedAt);
 
         var command = ArgumentCaptor.forClass(ImageTransformCommand.class);
-        verify(imageTransformer).transformAsync(command.capture());
+        verify(asyncImageTransformer).transformAsync(command.capture());
         assertThat(command.getValue().attemptId()).isEqualTo(ATTEMPT_ID);
         // the source is the original asset's object, under the id reserved at registration
         var newAsset = ArgumentCaptor.forClass(NewAsset.class);
@@ -169,7 +171,7 @@ class StartImageUploadTest {
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
         when(transformationCatalog.resolve("optimize")).thenReturn(OPTIMIZE);
         when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
-        doThrow(new IllegalStateException("broker down")).when(imageTransformer).transformAsync(any());
+        doThrow(new IllegalStateException("broker down")).when(asyncImageTransformer).transformAsync(any());
 
         assertThatThrownBy(() -> useCase.start(
                 new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize", true),

@@ -13,13 +13,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
  * The async adapter publishes the command to the queue in the contract's JSON shape and returns
- * immediately; the blocking method is unsupported on this adapter.
+ * immediately.
  */
 class RabbitImageTransformerTest {
 
@@ -41,11 +40,5 @@ class RabbitImageTransformerTest {
         adapter.transformAsync(COMMAND);
 
         verify(rabbitTemplate).convertAndSend("media.worker.exchange", "image.transform", COMMAND);
-    }
-
-    @Test
-    void blockingTransformIsUnsupported() {
-        assertThatThrownBy(() -> adapter.transform(COMMAND))
-                .isInstanceOf(UnsupportedOperationException.class);
     }
 }

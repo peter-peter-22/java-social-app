@@ -56,6 +56,7 @@ public class StartImageUpload {
     private final TransformationCatalog transformationCatalog;
     private final ObjectStore objectStore;
     private final ImageTransformer imageTransformer;
+    private final AsyncImageTransformer asyncImageTransformer;
     private final CompleteImageUpload completeImageUpload;
     private final FailImageUpload failImageUpload;
     private final TransactionTemplate transactions;
@@ -130,7 +131,7 @@ public class StartImageUpload {
         var command = new ImageTransformCommand(attemptId, source, outputs);
         if (Boolean.TRUE.equals(request.async())) {
             try {
-                imageTransformer.transformAsync(command);
+                asyncImageTransformer.transformAsync(command);
             } catch (RuntimeException e) {
                 failAttempt(attemptId);
                 throw e;

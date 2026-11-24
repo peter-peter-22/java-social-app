@@ -94,7 +94,7 @@ Blocking and async use the same bytes path. Only the control message changes.
 5. Blocking waits for the worker HTTP call, then runs step 4 before responding.
 6. Async publishes the same command as the blocking transformation, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`, the first writing wins is duplicated work is requested by accident.
 
-`ImageTransformer` has `transform` for the blocking adapter and `transformAsync` for the async adapter,
+`ImageTransformer` has `transform` for the blocking adapter and `AsyncImageTransformer` has `transformAsync` for the async adapter,
 
 Failure policy, already stated in `upload-lifecycle.md`: retry recoverable worker failures, and mark the attempt failed when retries are exhausted or the error is unrecoverable. Fresh result asset ids per execution are what make the retry safe for both blocking and async delivery.
 
