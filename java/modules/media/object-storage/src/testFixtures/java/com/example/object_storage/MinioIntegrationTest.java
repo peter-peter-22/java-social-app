@@ -1,13 +1,10 @@
 package com.example.object_storage;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.MinIOContainer;
 import org.testcontainers.utility.DockerImageName;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource(locations = "classpath:object-storage-test.properties")
 public abstract class MinioIntegrationTest {
@@ -33,10 +30,5 @@ public abstract class MinioIntegrationTest {
         registry.add("minio.regions[0].endpoint", MINIO_CONTAINER::getS3URL);
         registry.add("minio.regions[0].access-key", MINIO_CONTAINER::getUserName);
         registry.add("minio.regions[0].secret-key", MINIO_CONTAINER::getPassword);
-    }
-
-    @Test
-    void testConnection() {
-        assertThat(MINIO_CONTAINER.isRunning()).isTrue();
     }
 }

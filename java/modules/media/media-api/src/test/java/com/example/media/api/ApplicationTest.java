@@ -1,6 +1,7 @@
 package com.example.media.api;
 
 import com.example.cockroach_db.CockroachIntegrationTest;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -11,5 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 class ApplicationTest extends CockroachIntegrationTest {
-    // Inherits contextLoads and testConnection from CockroachIntegrationTest.
+
+    @Test
+    void contextLoads() {
+    }
 }

@@ -8,8 +8,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * The registry persists transformation specs in the jsonb column through the
  * {@link MediaJsonFormatMapper}, which speaks the shared {@code media-json} shape — the same shape
- * the wire format uses. This test locks the persisted shape so a drift is caught without a
- * database.
+ * the wire format uses. These tests check the bridge round-trips; the JSON shape itself is locked
+ * by the tests in {@code media-json}.
  */
 class MediaJsonFormatMapperTest {
 
@@ -26,12 +26,6 @@ class MediaJsonFormatMapperTest {
 
         var json = formatMapper.toString(spec, TransformationSpec.class);
 
-        assertThat(json)
-                .contains("\"type\":\"image\"")
-                .contains("\"type\":\"webp\"")
-                .contains("\"quality\":50")
-                .contains("\"limitWidth\"")
-                .contains("\"aspectRatio\"");
         TransformationSpec roundTripped = formatMapper.fromString(json, TransformationSpec.class);
         assertThat(roundTripped).isEqualTo(spec);
     }

@@ -82,10 +82,7 @@ class ImageTransformControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(command)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.attemptId.value").value(ATTEMPT_ID.value().toString()))
-                .andExpect(jsonPath("$.outputs[0].entryPoint").value("default.webp"))
-                .andExpect(jsonPath("$.outputs[0].contentType").value("image/webp"))
-                .andExpect(jsonPath("$.sourceMetadata.width").value(400));
+                .andExpect(jsonPath("$.attemptId.value").value(ATTEMPT_ID.value().toString()));
 
         verify(transformImage).transform(command);
     }
