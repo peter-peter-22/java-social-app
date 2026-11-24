@@ -1,11 +1,11 @@
 package com.example.media.api;
 
-import com.example.media.api.rabbit.MediaQueue;
 import com.example.media.api.worker.HttpImageTransformer;
 import com.example.media.api.worker.RabbitImageTransformer;
 import com.example.media.contract.port.AsyncImageTransformer;
 import com.example.media.contract.port.ImageTransformer;
 import com.example.media.contract.worker.FailureClassifier;
+import com.example.media.contract.worker.MediaQueue;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

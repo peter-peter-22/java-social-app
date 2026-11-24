@@ -2,6 +2,7 @@ package com.example.media.api.rabbit;
 
 import com.example.media.api.upload.FailImageUpload;
 import com.example.media.contract.worker.ImageTransformCommand;
+import com.example.media.contract.worker.MediaQueue;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

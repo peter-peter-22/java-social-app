@@ -1,5 +1,6 @@
 package com.example.media.api.rabbit;
 
+import com.example.media.contract.worker.MediaQueue;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.core.Binding;

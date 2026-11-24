@@ -18,16 +18,13 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.client.DefaultResponseErrorHandler;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 import tools.jackson.databind.ObjectMapper;
 
 import java.net.http.HttpClient;
@@ -54,7 +51,7 @@ public class EndToEndTest {
     @LocalServerPort
     int port;
 
-    RestTemplate restTemplate;
+    RestClient restClient;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -68,13 +65,11 @@ public class EndToEndTest {
     @BeforeEach
     void keepErrorResponsesForAssertions() {
         // The expected 4xx answers are asserted on the response, not thrown as exceptions.
-        restTemplate = new RestTemplate(new JdkClientHttpRequestFactory(HttpClient.newBuilder().build()));
-        restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
-            @Override
-            public boolean hasError(ClientHttpResponse response) {
-                return false;
-            }
-        });
+        restClient = RestClient.builder()
+                .requestFactory(new JdkClientHttpRequestFactory(HttpClient.newBuilder().build()))
+                .defaultStatusHandler(status -> true, (request, response) -> {
+                })
+                .build();
     }
 
     @Test
@@ -173,22 +168,28 @@ public class EndToEndTest {
         parts.add("body", new HttpEntity<>(objectMapper.writeValueAsBytes(params), jsonHeaders));
         parts.add("file", new HttpEntity<>(new ByteArrayResourceWithFilename(file, "image.jpg"), fileHeaders));
 
-        var headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        return restTemplate.exchange(
-                url("/api/upload/image"), HttpMethod.POST, new HttpEntity<>(parts, headers), String.class);
+        return restClient.post()
+                .uri(url("/api/upload/image"))
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(parts)
+                .retrieve()
+                .toEntity(String.class);
     }
 
     private void readOriginal(String uploadKey) {
-        var response = restTemplate.exchange(
-                url("/api/get/image/%s.jpg".formatted(uploadKey)), HttpMethod.GET, null, byte[].class);
+        var response = restClient.get()
+                .uri(url("/api/get/image/%s.jpg".formatted(uploadKey)))
+                .retrieve()
+                .toEntity(byte[].class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.parseMediaType("image/webp"));
     }
 
     private void readVariant(String uploadKey) {
-        var response = restTemplate.exchange(
-                url("/api/get/image/%s/profile.webp".formatted(uploadKey)), HttpMethod.GET, null, byte[].class);
+        var response = restClient.get()
+                .uri(url("/api/get/image/%s/profile.webp".formatted(uploadKey)))
+                .retrieve()
+                .toEntity(byte[].class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.parseMediaType("image/webp"));
     }

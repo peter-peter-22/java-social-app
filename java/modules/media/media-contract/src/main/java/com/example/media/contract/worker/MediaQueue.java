@@ -1,8 +1,9 @@
-package com.example.media.imageworker.rabbit;
+package com.example.media.contract.worker;
 
 /**
- * The RabbitMQ topology of the media service. The API declares the same names, so the topology
- * cannot drift between the worker and the API.
+ * The RabbitMQ topology names of the media service. The API and the workers share this one
+ * definition, so the topology cannot drift between them. Each deployable declares the topology
+ * entities it uses from these names.
  */
 public final class MediaQueue {
 
@@ -11,8 +12,9 @@ public final class MediaQueue {
     public static final String IMAGE_TRANSFORM = "media.worker.image-transform";
     public static final String COMMAND_ROUTING_KEY = "image.transform";
 
-    /** The given-up attempts are dead-lettered here for the API to mark failed. */
+    /** The attempts a worker gave up on, dead-lettered for the API to mark failed. */
     public static final String DEAD_LETTER_EXCHANGE = "media.worker.dead-letter.exchange";
+    public static final String FAILED = "media.worker.image-transform.failed";
     public static final String FAILED_ROUTING_KEY = "image-transform.failed";
 
     private MediaQueue() {

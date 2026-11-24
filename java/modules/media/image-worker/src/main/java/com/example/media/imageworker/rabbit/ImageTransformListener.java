@@ -1,6 +1,7 @@
 package com.example.media.imageworker.rabbit;
 
 import com.example.media.contract.worker.ImageTransformCommand;
+import com.example.media.contract.worker.MediaQueue;
 import com.example.media.imageworker.completion.ApiCompletionClient;
 import com.example.media.imageworker.transform.TransformImage;
 import lombok.RequiredArgsConstructor;
