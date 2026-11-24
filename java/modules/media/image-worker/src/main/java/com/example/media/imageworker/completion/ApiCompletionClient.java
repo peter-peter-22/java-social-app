@@ -4,7 +4,6 @@ import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.RecoverableException;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.core.retry.RetryException;
 import org.springframework.core.retry.RetryTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,17 +38,9 @@ public class ApiCompletionClient {
 
     /** Reports a successful transform. Throws when the API could not accept the result. */
     public void complete(ImageTransformResult result) {
-        try {
-            retryTemplate.execute(() -> post(result));
-        } catch (RetryException e) {
-            var cause = e.getCause();
-            if (cause instanceof RuntimeException runtimeException)
-                throw runtimeException;
-            if (cause instanceof Error error)
-                throw error;
-            throw new IllegalStateException(
-                    "the completion call failed for attempt " + result.attemptId().value(), cause);
-        }
+        // invoke() rethrows the last failure when the retry policy is exhausted, so the caller
+        // sees the marked exception itself, not a retry wrapper.
+        retryTemplate.invoke(() -> post(result));
     }
 
     private ResponseEntity<Void> post(ImageTransformResult result) {

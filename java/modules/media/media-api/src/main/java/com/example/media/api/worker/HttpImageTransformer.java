@@ -6,7 +6,6 @@ import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.RecoverableException;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.core.retry.RetryException;
 import org.springframework.core.retry.RetryTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.HttpServerErrorException;
@@ -44,18 +43,9 @@ public class HttpImageTransformer implements ImageTransformer {
 
     @Override
     public ImageTransformResult transform(ImageTransformCommand command) {
-        try {
-            return retryTemplate.execute(() -> post(command));
-        } catch (RetryException e) {
-            var cause = e.getCause();
-            if (cause instanceof RuntimeException runtimeException)
-                throw runtimeException;
-            if (cause instanceof Error error)
-                throw error;
-            throw new IllegalStateException(
-                    "the image worker call failed after retries for attempt " + command.attemptId().value(),
-                    cause);
-        }
+        // invoke() rethrows the last failure when the retry policy is exhausted, so the caller
+        // sees the marked exception itself, not a retry wrapper.
+        return retryTemplate.invoke(() -> post(command));
     }
 
     private ImageTransformResult post(ImageTransformCommand command) {
