@@ -3,8 +3,12 @@
 The codes are organized in Gradle modules for easier interpretation and faster builds.
 
 #### Module separation strategy
-A domain of functions that export only business logic 
-and can be effectively tested independently.
+The modules implement the ports of the domain.
+Some other modules define shared but not domain-specific logic.
+So, the module types are:
+- domain (java only)
+- adapter (port implementations and applications)
+- shared infrastructure (no spring modules here)
 
 #### Plugin artifact names
 To define plugins in the build conventions, we must add their artifact id and version to the root build.gradle.
