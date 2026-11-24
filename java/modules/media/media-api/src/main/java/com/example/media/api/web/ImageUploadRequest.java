@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
  * The JSON body part of an image upload request. Unknown fields are ignored, so the client shape
- * can grow the async and permission fields later without breaking this DTO.
+ * can grow the permission fields later without breaking this DTO. {@code async} requests queued
+ * eager and incoming transformations.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ImageUploadRequest(
@@ -16,6 +17,7 @@ public record ImageUploadRequest(
         @Nullable String desiredContentType,
         @Nullable Integer desiredBytes,
         @Nullable List<String> eagerTransformations,
-        @Nullable String incomingTransformation
+        @Nullable String incomingTransformation,
+        @Nullable Boolean async
 ) {
 }

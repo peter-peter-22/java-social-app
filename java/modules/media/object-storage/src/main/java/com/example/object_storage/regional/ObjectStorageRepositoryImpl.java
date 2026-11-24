@@ -1,12 +1,18 @@
 package com.example.object_storage.regional;
 
+import com.example.object_storage.RecoverableObjectStoreException;
 import com.example.object_storage.regional.args.*;
 import com.example.object_storage.tags.ObjectTag;
 import io.minio.*;
 import io.minio.errors.ErrorResponseException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidResponseException;
+import io.minio.errors.ServerException;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -23,7 +29,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                     .object(args.getKey())
                     .build());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to delete object from MinIO", e);
+            throw failure("Failed to delete object from MinIO", e);
         }
     }
 
@@ -37,7 +43,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .build()
             );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read object from MinIO", e);
+            throw failure("Failed to read object from MinIO", e);
         }
     }
 
@@ -55,9 +61,9 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
             if ("NoSuchKey".equals(e.errorResponse().code())) {
                 return false;
             }
-            throw new RuntimeException(e);
+            throw failure(e);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw failure(e);
         }
     }
 
@@ -74,7 +80,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                 builder.extraHeaders(Map.of("If-None-Match", "*"));
             minioClient.putObject(builder.build());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload input stream", e);
+            throw failure("Failed to upload input stream", e);
         }
     }
 
@@ -89,7 +95,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .build()
             );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to download file", e);
+            throw failure("Failed to download file", e);
         }
     }
 
@@ -106,7 +112,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                 builder.extraHeaders(Map.of("If-None-Match", "*"));
             minioClient.uploadObject(builder.build());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload file", e);
+            throw failure("Failed to upload file", e);
         }
     }
 
@@ -124,7 +130,43 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
                             .build()
             );
         } catch (Exception e) {
-            throw new RuntimeException("Failed to set tags for object", e);
+            throw failure("Failed to set tags for object", e);
         }
+    }
+
+    /**
+     * Classifies the Minio failure: transient transport and server failures become
+     * {@link RecoverableObjectStoreException} so a worker can retry them; permanent failures stay a
+     * plain {@link RuntimeException} with the original cause.
+     */
+    private static RuntimeException failure(String message, Exception cause) {
+        return isTransient(cause)
+                ? new RecoverableObjectStoreException(message, cause)
+                : new RuntimeException(message, cause);
+    }
+
+    private static RuntimeException failure(Exception cause) {
+        return isTransient(cause)
+                ? new RecoverableObjectStoreException(cause.toString(), cause)
+                : new RuntimeException(cause);
+    }
+
+    /** Whether the failure is transient enough to retry. */
+    private static boolean isTransient(Throwable failure) {
+        for (Throwable cause = failure; cause != null; cause = cause.getCause()) {
+            if (cause instanceof IOException
+                    || cause instanceof InsufficientDataException
+                    || cause instanceof InvalidResponseException
+                    || cause instanceof InternalException
+                    || cause instanceof ServerException) {
+                return true;
+            }
+            if (cause instanceof ErrorResponseException errorResponse) {
+                var response = errorResponse.response();
+                if (response != null && response.code() >= 500)
+                    return true;
+            }
+        }
+        return false;
     }
 }

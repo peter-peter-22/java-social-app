@@ -2,8 +2,36 @@ spring:
   application:
     name: image-worker
 
+  # The async image transforms arrive here. The worker declares the command queue; the listener
+  # retries recoverable failures in-process and rejects the message to the dead-letter queue when
+  # the retries are exhausted or the failure is unrecoverable.
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 5
+          initial-interval: 1s
+          multiplier: 2
+          max-interval: 30s
+
 server:
   port: 8092
+
+# The completion call back to the API after a successful transform.
+# The retry policy is the same as the API's blocking worker call: transport failures and server
+# errors are retried, a 4xx answer (the attempt can never accept the result) is not.
+media:
+  api:
+    base-url: ${MEDIA_API_BASE_URL:http://localhost:8090}
+    max-retries: 3
+    retry-delay-ms: 200
+    connect-timeout-ms: 2000
+    read-timeout-ms: 30000
 
 # The worker moves files through object storage and nothing else: no database, no migrations.
 minio:

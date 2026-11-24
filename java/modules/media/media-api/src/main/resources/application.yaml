@@ -2,6 +2,14 @@ spring:
   application:
     name: media-api
 
+  # The async image transforms publish commands here and the dead-lettered attempts are consumed
+  # from here. The API declares the topology in MediaRabbitConfiguration.
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
   datasource:
     url: jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable
     username: root

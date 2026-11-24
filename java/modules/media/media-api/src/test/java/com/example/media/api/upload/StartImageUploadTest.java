@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,10 +70,11 @@ class StartImageUploadTest {
         when(completeImageUpload.complete(ATTEMPT_ID, result)).thenReturn(upload);
 
         var started = useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, List.of("profile"), "optimize"),
+                new StartImageUpload.Request("cover", "jpg", null, null, List.of("profile"), "optimize", null),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
 
-        assertThat(started).isSameAs(upload);
+        assertThat(started.async()).isFalse();
+        assertThat(started.upload()).isSameAs(upload);
 
         // the attempt and the original asset are registered in one transaction
         verify(uploadRegistry).openOrGetProcess(KEY);
@@ -119,7 +121,56 @@ class StartImageUploadTest {
         when(imageTransformer.transform(any())).thenThrow(new IllegalStateException("worker down"));
 
         assertThatThrownBy(() -> useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize"),
+                new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize", null),
+                new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
+                .isInstanceOf(IllegalStateException.class);
+
+        verify(uploadRegistry).finishAttempt(ATTEMPT_ID, AttemptOutcome.FAILED);
+        verify(completeImageUpload, never()).complete(any(), any());
+    }
+
+    @Test
+    void queuesTheUploadWhenAsyncAndFinalizesLater() {
+        when(objectStore.homePlacement()).thenReturn(PLACEMENT);
+        when(transformationCatalog.resolve("optimize")).thenReturn(OPTIMIZE);
+        when(transformationCatalog.resolve("profile")).thenReturn(PROFILE);
+        when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
+        var acceptedAt = Instant.now();
+        when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
+                ATTEMPT_ID, KEY, AssetId.generate(), List.of("profile"), "optimize",
+                UploadAttemptStatus.PENDING, acceptedAt, null)));
+
+        var started = useCase.start(
+                new StartImageUpload.Request("cover", "jpg", null, null, List.of("profile"), "optimize", true),
+                new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
+
+        assertThat(started.async()).isTrue();
+        assertThat(started.upload()).isNull();
+        assertThat(started.acceptedAt()).isEqualTo(acceptedAt);
+
+        var command = ArgumentCaptor.forClass(ImageTransformCommand.class);
+        verify(imageTransformer).transformAsync(command.capture());
+        assertThat(command.getValue().attemptId()).isEqualTo(ATTEMPT_ID);
+        // the source is the original asset's object, under the id reserved at registration
+        var newAsset = ArgumentCaptor.forClass(NewAsset.class);
+        verify(assetStore).registerAsset(newAsset.capture());
+        assertThat(command.getValue().source())
+                .isEqualTo(new ObjectRef("eu-west", "uploads", newAsset.getValue().id().value() + "/original_jpg"));
+        assertThat(command.getValue().outputs()).hasSize(2);
+        // The attempt stays PENDING; no completion and no failure marking happen here.
+        verify(completeImageUpload, never()).complete(any(), any());
+        verify(uploadRegistry, never()).finishAttempt(any(), any());
+    }
+
+    @Test
+    void marksTheAttemptFailedWhenTheAsyncPublishFails() {
+        when(objectStore.homePlacement()).thenReturn(PLACEMENT);
+        when(transformationCatalog.resolve("optimize")).thenReturn(OPTIMIZE);
+        when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
+        doThrow(new IllegalStateException("broker down")).when(imageTransformer).transformAsync(any());
+
+        assertThatThrownBy(() -> useCase.start(
+                new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize", true),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
                 .isInstanceOf(IllegalStateException.class);
 
@@ -135,10 +186,11 @@ class StartImageUploadTest {
         when(completeImageUpload.complete(eq(ATTEMPT_ID), any())).thenReturn(upload);
 
         var started = useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, null, null),
+                new StartImageUpload.Request("cover", "jpg", null, null, null, null, null),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
 
-        assertThat(started).isSameAs(upload);
+        assertThat(started.async()).isFalse();
+        assertThat(started.upload()).isSameAs(upload);
         verifyNoInteractions(imageTransformer);
         verify(completeImageUpload).complete(eq(ATTEMPT_ID), any());
         verify(uploadRegistry).createAttempt(any());
@@ -234,6 +286,6 @@ class StartImageUploadTest {
     ) {
         return new StartImageUpload.Request(
                 uploadKey, extension, desiredContentType, desiredBytes,
-                eagerTransformationNames, incomingTransformationName);
+                eagerTransformationNames, incomingTransformationName, null);
     }
 }

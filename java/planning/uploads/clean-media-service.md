@@ -12,7 +12,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Point Compose and `EndToEndTest` at the new jars; the API runs Liquibase, the worker does not. The end-to-end test passes.
 - [x] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
 - [x] Move the JSON shape of the specs and worker messages out of the domain into `media-json`: Jackson mixins and one shared configuration for the web, the registry, and the future queue.
-- [ ] Add async on the same file path.
+- [x] Add async on the same file path.
 - [ ] Conventions pass: names, Gradle, ArchUnit.
 
 ## Decision
@@ -144,4 +144,11 @@ Verification for every step is the existing registry and object-storage integrat
 With step 8, the new modules are ready, all tests pass (including the end-to-end test), and the prototypes were removed.
 Only the refactored uploads_v2 directory was removed, the other uploads directory remains for later recycle.
 
-The next step is step 9, which adds the async port. The architecture and behavior of this mechanism is not certain yet and needs to be planned.
+Step 9 added the async port: the API publishes the same worker command to RabbitMQ and returns
+immediately, the worker consumes it, runs the same transform, and calls the API completion endpoint,
+which runs the same finalize. Retries are safe because every queue delivery allocates fresh result
+asset ids; completion is idempotent on the attempt id. The attempt has no processing status; a
+dead-lettered command marks the attempt failed. The upload response carries an `async` boolean, so
+the client knows whether the upload exists yet.
+
+The remaining step is step 10: the conventions pass (names, Gradle, ArchUnit).

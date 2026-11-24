@@ -5,17 +5,18 @@ package com.example.media.contract.upload;
  * The names are the values stored in the registry's status column; do not rename them.
  */
 public enum UploadAttemptStatus {
-    /** An attempt was created. It is being processed or will fail. Initial status. */
-    PENDING,
     /**
-     * The attempt is handed to a worker. Reserved for the async slice; nothing writes it yet.
+     * An attempt was created and is being processed, or will fail. Initial status.
+     * The async slice does not move the attempt to a processing state: cleanup runs on the
+     * creation dates of the objects and assets, so the attempt stays {@code PENDING} until its
+     * terminal {@code SUCCESS} or {@code FAILED}.
      */
-    PROCESSING,
+    PENDING,
     /** The attempt resulted in the creation of an upload. */
     SUCCESS,
     /**
      * The attempt failed: the worker reported an unrecoverable error, or the retries were
-     * exhausted. Reserved for the failure-policy slice; nothing writes it yet.
+     * exhausted.
      */
     FAILED
 }

@@ -15,6 +15,9 @@ for running the containers with docker compose.
 
 ## Future
 
-The video and async transformations will need to be tested as well when they will be implemented.
+The async transformations are tested by the same end-to-end suite: the queue runs in RabbitMQ, the
+API boots in-process on a real port, and the worker calls the completion endpoint back through the
+host gateway (`host.docker.internal`), so the compose file must map the API's port and add the
+`extra_hosts` entry.
 
 The way these tests are run is not based on known standards, there might be a better way to do it.
