@@ -13,7 +13,7 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
 - [x] Move the JSON shape of the specs and worker messages out of the domain into `media-json`: Jackson mixins and one shared configuration for the web, the registry, and the future queue.
 - [x] Add async on the same file path.
-- [ ] Conventions pass: names, Gradle, ArchUnit.
+- [x] Conventions pass: names, Gradle, ArchUnit.
 
 ## Decision
 
@@ -151,4 +151,13 @@ asset ids; completion is idempotent on the attempt id. The attempt has no proces
 dead-lettered command marks the attempt failed. The upload response carries an `async` boolean, so
 the client knows whether the upload exists yet.
 
-The remaining step is step 10: the conventions pass (names, Gradle, ArchUnit).
+Step 10 finished the conventions pass. The unused build conventions and their plugin pins were
+deleted, the shared dependency versions have one home in buildSrc (the Spring Boot BOM owns the
+test libraries of the Spring modules, the plain Java modules keep the pins, and the mockito agent
+is the mockito-core of the test classpath), the hibernate plugin pin moved into buildSrc, and the
+duplicated `minio:` block of the two `application.yaml` files became one `minio-defaults.yaml` in
+the object-storage adapter that both deployables import; the environment overrides it. ArchUnit
+guards the boundaries: the contract cannot import Spring, JPA, Minio, or Jackson, `media-json`
+cannot import Spring, JPA, or Minio, and neither the worker nor the pure modules can depend on the
+registry. The Minio tag types are one non-null tag representation now, and the replace semantics of
+the tag write are pinned by `MinioObjectStoreIT`. The expiration tags and the lifecycle rule stay.

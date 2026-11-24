@@ -7,6 +7,7 @@ import com.example.media.contract.object.ObjectRef;
 import com.example.media.contract.port.ObjectStore;
 import com.example.object_storage.regional.MinioConfig;
 import io.minio.GetObjectTagsArgs;
+import io.minio.SetObjectTagsArgs;
 import io.minio.errors.ErrorResponseException;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
@@ -112,6 +113,26 @@ public class MinioObjectStoreIT extends MinioIntegrationTest {
 
         assertThat(tagsOf(original)).isEqualTo(Map.of("expires", "disabled"));
         assertThat(tagsOf(variant)).isEqualTo(Map.of("expires", "disabled"));
+    }
+
+    @Test
+    void setLifetimeReplacesTheWholeTagSetOfAnObject() throws Exception {
+        var ref = prefix.resolve("original.jpg");
+        var source = new ClassPathResource("test.txt").getFile().toPath();
+        objectStore.put(ref, source, CONTENT_TYPE, ObjectLifetime.TEMPORARY);
+        // A tag beyond the lifetime tag, written through the Minio client directly.
+        minioConfig.getClient(ref.region()).setObjectTags(SetObjectTagsArgs.builder()
+                .bucket(ref.bucket())
+                .object(ref.key())
+                .tags(Map.of("expires", "enabled", "extra", "tag"))
+                .build());
+        assertThat(tagsOf(ref)).isEqualTo(Map.of("expires", "enabled", "extra", "tag"));
+
+        objectStore.setLifetime(List.of(ref), ObjectLifetime.PERMANENT);
+
+        // Pinned semantics: the Minio tag write replaces the tag set instead of merging into it,
+        // so the extra tag does not survive and the kept object carries exactly the lifetime tag.
+        assertThat(tagsOf(ref)).isEqualTo(Map.of("expires", "disabled"));
     }
 
     @Test

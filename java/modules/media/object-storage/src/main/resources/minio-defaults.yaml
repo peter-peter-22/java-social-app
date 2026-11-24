@@ -1,0 +1,18 @@
+# The Minio defaults of the object-storage adapter: the single home of the minio block that both
+# deployables import instead of duplicating. Every value is a local default; the environment
+# overrides them through the MINIO_* variables by relaxed binding (the compose stack sets them
+# for the worker).
+minio:
+  reconciliation:
+    enabled: false
+
+  uploads-configuration:
+    bucket-name: uploads
+    expiration-days: 1
+
+  home-region: test
+  regions:
+    - name: test
+      endpoint: http://localhost:9000
+      access-key: minioadmin
+      secret-key: minioadmin

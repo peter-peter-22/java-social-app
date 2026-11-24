@@ -1,26 +1,23 @@
 package com.example.object_storage.tags;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Getter
+/**
+ * One object tag: a single non-null key/value pair. This is the only tag representation of the
+ * adapter; the tag names and values stay here and never reach the application services, which only
+ * see {@link com.example.media.contract.object.ObjectLifetime}.
+ */
 @NullMarked
-public enum ObjectTag {
-    // TODO step 10 of clean-media-service.md replaces this enum and the nullable tag arguments
-    //  with a single non-null tag representation.
-    EXPIRES("expires","enabled"),
-    PERMANENT("expires","disabled");
+public record ObjectTag(String key, String value) {
+    /** The tag the uploads bucket lifecycle rule matches on: such objects expire. */
+    public static final ObjectTag EXPIRES = new ObjectTag("expires", "enabled");
+    /** The tag of kept objects: the lifecycle rule ignores them, so they no longer expire. */
+    public static final ObjectTag PERMANENT = new ObjectTag("expires", "disabled");
 
-    private final String key;
-    private final String value;
-
-    public static Map<String, String> toMap(Collection<ObjectTag> tags) {
-        return tags.stream().collect(Collectors.toMap(ObjectTag::getKey, ObjectTag::getValue));
+    /** The Minio SDK takes the tags of a write as a map. */
+    public Map<String, String> asMap() {
+        return Map.of(key, value);
     }
 }

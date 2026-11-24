@@ -22,6 +22,9 @@ dependencies {
 
     // libvips
     implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
+
+    // The architecture guard (clean-media-service.md): the worker cannot import the registry.
+    testImplementation("com.tngtech.archunit:archunit-junit5:${Versions.archunit}")
 }
 
 // libvips loads its native library through the foreign function and memory API. Java 25 blocks

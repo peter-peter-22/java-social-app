@@ -2,6 +2,11 @@ spring:
   application:
     name: media-api
 
+  # The Minio defaults of the object-storage adapter; the environment overrides them through the
+  # MINIO_* variables (the compose stack sets them for the worker).
+  config:
+    import: "classpath:minio-defaults.yaml"
+
   # The async image transforms publish commands here and the dead-lettered attempts are consumed
   # from here. The API declares the topology in MediaRabbitConfiguration.
   rabbitmq:
@@ -11,9 +16,9 @@ spring:
     password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
   datasource:
-    url: jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable
-    username: root
-    password: ""
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-test-query: SELECT 1
@@ -36,25 +41,10 @@ server:
 # The blocking image worker the API calls over HTTP.
 media:
   worker:
-    base-url: http://localhost:8082
+    base-url: ${MEDIA_WORKER_BASE_URL:http://localhost:8082}
     # Recoverable transport failures and worker 5xx answers are retried. Fresh result asset ids
     # make every retry write to new object keys. A 4xx answer is a command error and is not retried.
     max-retries: 3
     retry-delay-ms: 200
     connect-timeout-ms: 2000
     read-timeout-ms: 30000
-
-minio:
-  reconciliation:
-    enabled: false
-
-  uploads-configuration:
-    bucket-name: uploads
-    expiration-days: 1
-
-  home-region: test
-  regions:
-    - name: test
-      endpoint: http://localhost:9000
-      access-key: minioadmin
-      secret-key: minioadmin

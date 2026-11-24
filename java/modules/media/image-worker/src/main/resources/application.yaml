@@ -2,6 +2,12 @@ spring:
   application:
     name: image-worker
 
+  # The Minio defaults of the object-storage adapter; the environment overrides them through the
+  # MINIO_* variables (the compose stack sets them for the worker). The worker moves files through
+  # object storage and nothing else: no database, no migrations.
+  config:
+    import: "classpath:minio-defaults.yaml"
+
   # The async image transforms arrive here. The worker declares the command queue; the listener
   # retries recoverable failures in-process and rejects the message to the dead-letter queue when
   # the retries are exhausted or the failure is unrecoverable.
@@ -32,19 +38,3 @@ media:
     retry-delay-ms: 200
     connect-timeout-ms: 2000
     read-timeout-ms: 30000
-
-# The worker moves files through object storage and nothing else: no database, no migrations.
-minio:
-  reconciliation:
-    enabled: false
-
-  uploads-configuration:
-    bucket-name: uploads
-    expiration-days: 1
-
-  home-region: test
-  regions:
-    - name: test
-      endpoint: http://localhost:9000
-      access-key: minioadmin
-      secret-key: minioadmin

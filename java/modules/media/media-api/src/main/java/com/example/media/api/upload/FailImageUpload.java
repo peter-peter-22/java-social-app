@@ -27,8 +27,6 @@ public class FailImageUpload {
                     || attempt.status() == UploadAttemptStatus.SUCCESS
                     || attempt.status() == UploadAttemptStatus.FAILED)
                 return null;
-            // TODO This failed attempt state might be totally unnecessary.
-            //  Investigate this after the periodic cleanup is complete and the most of the media cloud works.
             uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
             return null;
         });

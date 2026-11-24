@@ -11,10 +11,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-gradle-plugin:4.0.7")
     // spring dependency management
     implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.7")
-    // openapi generator
-    implementation("org.openapi.generator:org.openapi.generator.gradle.plugin:7.22.0")
-    // springdoc
-    implementation("org.springdoc.openapi-gradle-plugin:org.springdoc.openapi-gradle-plugin.gradle.plugin:1.9.0")
+    // hibernate orm (bytecode enhancement of the JPA entities in media-registry)
+    implementation("org.hibernate.orm:hibernate-gradle-plugin:7.2.19.Final")
 }
 
 repositories {

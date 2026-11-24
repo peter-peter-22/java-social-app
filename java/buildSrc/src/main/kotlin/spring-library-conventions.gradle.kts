@@ -4,7 +4,7 @@
 // As a side effect, 2 additional configurations (mavenBom, JavaCompile) must be added manually.
 
 plugins {
-    id("java-library-conventions")
+    `java-library`
     id("java-conventions")
     id("org.springframework.boot") apply false
     id("io.spring.dependency-management")

@@ -17,6 +17,12 @@ public enum UploadAttemptStatus {
     /**
      * The attempt failed: the worker reported an unrecoverable error, or the retries were
      * exhausted.
-     */
+     * <p>
+     * Goal:
+     * This state makes it possible to check if the currently active asynchronous transformation failed.
+     * TODO When the browser client is implemented, there will be an endpoint for checking the status of the queued transformation that will use this status.
+     * TODO When the upload permissions are implemented, the failed state of an attempt should invalidate the upload signature and prevent further attempts. (Unrecoverable errors are not excepted to be fixed by trying again. A few false-positives are okay here.)
+     * </p>
+     * */
     FAILED
 }

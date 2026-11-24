@@ -60,7 +60,7 @@ public class MinioObjectStore implements ObjectStore {
                     .object(ref.key())
                     .stream(data, bytes, -1)
                     .contentType(contentType)
-                    .tags(tagMap(lifetime))
+                    .tags(tagOf(lifetime).asMap())
                     .extraHeaders(Map.of("If-None-Match", "*"))
                     .build());
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class MinioObjectStore implements ObjectStore {
                     .object(ref.key())
                     .filename(source.toString())
                     .contentType(contentType)
-                    .tags(tagMap(lifetime))
+                    .tags(tagOf(lifetime).asMap())
                     .extraHeaders(Map.of("If-None-Match", "*"))
                     .build());
         } catch (Exception e) {
@@ -114,8 +114,8 @@ public class MinioObjectStore implements ObjectStore {
      * the tagging of a missing object with {@code NoSuchKey}, so the finalize fails on an object
      * that expired before it could be made permanent.
      *
-     * <p>TODO step 10 of {@code clean-media-service.md}: pin the replace-or-merge semantics of the
-     * Minio tag write with a behavior test when the tag representation is reworked.</p>
+     * <p>Pinned semantics: the Minio tag write replaces the whole tag set of the object (asserted by
+     * {@code MinioObjectStoreIT}), so a kept object carries exactly the lifetime tag.</p>
      */
     @Override
     public void setLifetime(List<ObjectRef> refs, ObjectLifetime lifetime) {
@@ -124,7 +124,7 @@ public class MinioObjectStore implements ObjectStore {
                 client(ref.region()).setObjectTags(SetObjectTagsArgs.builder()
                         .bucket(ref.bucket())
                         .object(ref.key())
-                        .tags(tagMap(lifetime))
+                        .tags(tagOf(lifetime).asMap())
                         .build());
             } catch (Exception e) {
                 throw failure("Failed to set tags for object", e);
@@ -165,10 +165,6 @@ public class MinioObjectStore implements ObjectStore {
     }
 
     /** The tag names stay in the adapter; the port carries the lifetime only. */
-    private static Map<String, String> tagMap(ObjectLifetime lifetime) {
-        return ObjectTag.toMap(List.of(tagOf(lifetime)));
-    }
-
     private static ObjectTag tagOf(ObjectLifetime lifetime) {
         return switch (lifetime) {
             case TEMPORARY -> ObjectTag.EXPIRES;

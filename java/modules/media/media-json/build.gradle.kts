@@ -12,4 +12,7 @@ dependencies {
     // The version matches the one the Spring Boot 4 BOM resolves for the deployables;
     // media-json stays Spring-free, so it is pinned here instead of imported from the BOM.
     api("tools.jackson.core:jackson-databind:3.1.4")
+
+    // The architecture guard (clean-media-service.md): media-json cannot import Spring, JPA, or Minio.
+    testImplementation("com.tngtech.archunit:archunit-junit5:${Versions.archunit}")
 }
