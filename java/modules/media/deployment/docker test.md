@@ -7,18 +7,18 @@ Gradle root:
 ./gradlew :media-api:integrationTest
 ```
 
-The task builds the image worker's jar and the JDK + libvips dev image (`build.bash`), the test
-boots the compose stack with Testcontainers (local compose, the same `compose.yaml` the development
-workflow uses), and drives the API through the `media-client` module over HTTP only. The containers
-are reaped when the test JVM exits. The compose file publishes fixed host ports, so stop the
-development stack first (`./run.bash down`); the test fails fast with this message when the ports
-are taken.
+The task builds the image worker's jar and the dev images (`build.bash`: the JDK + libvips worker
+image and the nginx edge), the test boots the compose stack with Testcontainers (local compose, the
+same `compose.yaml` the development workflow uses), and drives the API through the `media-client`
+module over HTTP only. The containers are reaped when the test JVM exits. The compose file publishes
+fixed host ports, so stop the development stack first (`./run.bash down`); the test fails fast with
+this message when the ports are taken.
 
 ## Development workflow
 
-`build.bash` builds the dev image, `run.bash` starts the containers, then start the `media-api`
+`build.bash` builds the images, `run.bash` starts the containers, then start the `media-api`
 application (set `MINIO_RECONCILIATION_ENABLED=true` so it provisions the uploads bucket) or run
-the test suite above.
+the test suite above. The `cdn` service exposes the `/cdn/` edge on `localhost:8083`.
 
 ## Transformation tests
 

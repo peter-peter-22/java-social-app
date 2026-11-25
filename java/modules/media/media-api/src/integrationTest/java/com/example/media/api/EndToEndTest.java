@@ -32,22 +32,27 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * The behavior lock of the media API. It boots the API in-process on a real port and drives the
- * complete stack through the Java client only — no in-process ports, no registry internals: the
- * {@link MediaComposeStack} starts the worker, the database, the object storage, and RabbitMQ from
- * the deployment compose file. The journeys: register {@code optimize} and {@code profile} as the
- * admin, mint an upload permission, upload an image with an incoming and an eager transformation
- * and read the results back (decoding the variant to lock its dimensions), the same upload over the
- * queue finalized by the worker, a corrupt source marked failed, the upload-permission enforcement
- * (missing, expired, exhausted, another key, mismatched constraints), and the private-read download
- * tokens (closed without a token, one token opens the original and every variant, and an expired,
- * foreign-key, or stale-version token is rejected). One command runs it:
- * {@code ./gradlew :media-api:integrationTest}.
+ * complete stack over HTTP only — no in-process ports, no registry internals: the
+ * {@link MediaComposeStack} starts the worker, the database, the object storage, RabbitMQ, and the
+ * nginx edge that verifies the download tokens from the deployment compose file. The journeys:
+ * register {@code optimize} and {@code profile} as the admin, mint an upload permission, upload an
+ * image with an incoming and an eager transformation and read the results back (decoding the variant
+ * to lock its dimensions), the same upload over the queue finalized by the worker, a corrupt source
+ * marked failed, the upload-permission enforcement (missing, expired, exhausted, another key,
+ * mismatched constraints), the private-read download tokens (closed without a token, one token opens
+ * the original and every variant, and an expired, foreign-key, or stale-version token is rejected),
+ * and the same reads through the nginx edge (public without a token, private with a valid token, and
+ * a missing, incomplete, expired, tampered, foreign-key, or stale-version token rejected). One
+ * command runs it: {@code ./gradlew :media-api:integrationTest}.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = {
         "minio.reconciliation.enabled=true",
         "media.admin-key=e2e-admin-key",
-        "media.upload-permission.required=true"
+        "media.upload-permission.required=true",
+        // The same signing key the compose stack hands to the nginx edge, so both verify one token.
+        "media.download-token.secret=" + MediaComposeStack.DOWNLOAD_TOKEN_SECRET,
+        "media.download-token.key-id=" + MediaComposeStack.DOWNLOAD_TOKEN_KEY_ID
 })
 public class EndToEndTest {
 
@@ -65,11 +70,15 @@ public class EndToEndTest {
 
     MediaAdminClient adminClient;
 
+    /** The nginx edge of the compose stack; reads through it must pass the token check at the edge. */
+    RestClient cdn;
+
     @BeforeEach
     void createClients() {
         var url = "http://localhost:" + port;
         client = new MediaClient(RestClient.builder(), url);
         adminClient = new MediaAdminClient(RestClient.builder(), url, ADMIN_KEY);
+        cdn = RestClient.builder().baseUrl(MediaComposeStack.cdnBaseUrl()).build();
     }
 
     @Test
@@ -280,11 +289,138 @@ public class EndToEndTest {
         assertForbidden(() -> client.readOriginal(uploadKey, "jpg", "999999999", credential(token)));
     }
 
+    // ---- The nginx edge (download token verification) ----
+
+    /** A public upload is readable through the edge without a token, as the original and its variant. */
+    @Test
+    void theCdnServesAPublicUploadWithoutAToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PUBLIC);
+
+        assertThat(cdnContent("/cdn/%s.jpg".formatted(uploadKey))).isNotEmpty();
+        assertThat(cdnContent("/cdn/%s/profile.jpg".formatted(uploadKey))).isNotEmpty();
+    }
+
+    /** The edge verifies the token and proxies the read; one token opens the original and the variant. */
+    @Test
+    void theCdnServesAPrivateUploadWithAValidToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var upload = uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        var token = downloadToken(uploadKey, 600);
+        assertThat(token.version()).isEqualTo(upload.version());
+        assertThat(cdnContent("/cdn/%s.jpg%s".formatted(uploadKey, cdnQuery(token)))).isNotEmpty();
+        assertThat(cdnContent("/cdn/%s/profile.jpg%s".formatted(uploadKey, cdnQuery(token)))).isNotEmpty();
+    }
+
+    /** The edge passes a token-less request through, and the API (the authority) closes the private read. */
+    @Test
+    void theCdnRejectsAPrivateReadWithoutAToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        assertCdnForbidden("/cdn/%s.jpg".formatted(uploadKey));
+    }
+
+    @Test
+    void theCdnRejectsAnIncompleteToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        // A signature without the other parameters is never a token: the edge rejects it as partial.
+        var token = downloadToken(uploadKey, 600);
+        assertCdnForbidden("/cdn/%s.jpg?s=%s".formatted(uploadKey, token.signature()));
+    }
+
+    @Test
+    void theCdnRejectsAnExpiredToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        // The token lives one second: once it passes, the edge clock rejects it.
+        var token = downloadToken(uploadKey, 1);
+        Thread.sleep(1500);
+
+        assertCdnForbidden("/cdn/%s.jpg%s".formatted(uploadKey, cdnQuery(token)));
+    }
+
+    @Test
+    void theCdnRejectsATamperedSignature() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        var token = downloadToken(uploadKey, 600);
+        var tampered = new MediaAdminClient.IssuedDownloadPermission(
+                token.uploadKey(), token.version(), token.expiresAt(), token.expires(),
+                tamper(token.signature()), token.keyId(), token.pathPrefix());
+        assertCdnForbidden("/cdn/%s.jpg%s".formatted(uploadKey, cdnQuery(tampered)));
+    }
+
+    /** The signature covers the upload key, so a token for key A cannot read key B at the edge. */
+    @Test
+    void theCdnRejectsATokenForAnotherKey() throws Exception {
+        registerTransformations();
+        var keyA = "test" + UUID.randomUUID();
+        var keyB = "test" + UUID.randomUUID();
+        uploadBlocking(keyA, UploadVisibility.PRIVATE);
+        uploadBlocking(keyB, UploadVisibility.PRIVATE);
+
+        var token = downloadToken(keyA, 600);
+        assertCdnForbidden("/cdn/%s.jpg%s".formatted(keyB, cdnQuery(token)));
+    }
+
+    /** The signature covers the version, so a token for one version cannot cover another at the edge. */
+    @Test
+    void theCdnRejectsATokenForAnotherVersion() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
+
+        var token = downloadToken(uploadKey, 600);
+        assertCdnForbidden("/cdn/%s.jpg?v=%s&e=%d&s=%s&k=%s".formatted(
+                uploadKey, "999999999", token.expires(), token.signature(), token.keyId()));
+    }
+
+    /** Reads through the nginx edge and returns the body the API served through it. */
+    private byte[] cdnContent(String path) {
+        return cdn.get().uri(path).retrieve().toEntity(byte[].class).getBody();
+    }
+
+    /** Asserts that the edge (or the API behind it) rejected the CDN read with 403. */
+    private void assertCdnForbidden(String path) {
+        assertThatThrownBy(() -> cdn.get().uri(path).retrieve().toBodilessEntity())
+                .isInstanceOfSatisfying(RestClientResponseException.class,
+                        failure -> assertThat(failure.getStatusCode().value()).isEqualTo(403));
+    }
+
+    /** The {@code v}, {@code e}, {@code s}, {@code k} query string of an issued download token. */
+    private static String cdnQuery(MediaAdminClient.IssuedDownloadPermission token) {
+        return "?v=%s&e=%d&s=%s&k=%s".formatted(
+                token.version(), token.expires(), token.signature(), token.keyId());
+    }
+
+    /** Flips the first base64url character: the signature stays well-formed but no longer matches. */
+    private static String tamper(String signature) {
+        var first = signature.charAt(0) == 'A' ? 'B' : 'A';
+        return first + signature.substring(1);
+    }
+
+    /** Uploads an image blocking and returns its finalized result, which carries the cache version. */
+    private MediaClient.UploadResult uploadBlocking(String uploadKey, UploadVisibility visibility) throws Exception {
+        return client.uploadImage(
+                request(permission(uploadKey, 600, visibility), uploadKey, false),
+                imageBytes(), "image.jpg", "image/jpeg");
+    }
+
     /** Uploads a private image blocking and returns its finalized result, which carries the cache version. */
     private MediaClient.UploadResult uploadPrivateBlocking(String uploadKey) throws Exception {
-        return client.uploadImage(
-                request(permission(uploadKey, 600, UploadVisibility.PRIVATE), uploadKey, false),
-                imageBytes(), "image.jpg", "image/jpeg");
+        return uploadBlocking(uploadKey, UploadVisibility.PRIVATE);
     }
 
     /** Mints a download token for the upload's current version. */

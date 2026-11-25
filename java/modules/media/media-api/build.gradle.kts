@@ -13,12 +13,13 @@ idea {
     }
 }
 
-// The JDK + libvips development image the compose stack runs the image worker in. Building it is
-// cached by docker and cheap when the image exists; one command then covers the whole end-to-end
-// run: ./gradlew :media-api:integrationTest
-val buildMediaDevImage by tasks.registering(Exec::class) {
+// The docker images the compose stack runs: the JDK + libvips development image of the worker and
+// the nginx edge that verifies the download tokens. Building them is cached by docker and cheap
+// when the images exist; one command then covers the whole end-to-end run:
+// ./gradlew :media-api:integrationTest
+val buildComposeImages by tasks.registering(Exec::class) {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Builds the JDK + libvips development image used by the compose stack."
+    description = "Builds the docker images used by the compose stack: the worker's dev image and the nginx edge."
     workingDir = file("../deployment")
     commandLine("bash", "build.bash")
 }
@@ -78,9 +79,9 @@ testing {
                         description = "Runs the end-to-end test: boots the compose stack and drives the API through the media client."
                         group = LifecycleBasePlugin.VERIFICATION_GROUP
                         shouldRunAfter(tasks.test)
-                        // The compose stack runs the worker jar in the dev image; both must exist
-                        // before the stack starts.
-                        dependsOn(":image-worker:bootJar", buildMediaDevImage)
+                        // The compose stack runs the worker jar in the dev image and verifies the
+                        // download tokens in the edge image; all must exist before the stack starts.
+                        dependsOn(":image-worker:bootJar", buildComposeImages)
                     }
                 }
             }

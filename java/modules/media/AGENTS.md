@@ -9,7 +9,7 @@ Two deployables.
 - `media-api` owns the registry and the upload lifecycle. It runs the registry's migrations and finalizes each upload.
 - `image-worker` only transforms files and moves them through object storage. No database and no migrations.
 - `media-registry` implements the registry ports with JPA and Liquibase.
-- `media-client` is the client SDK: two REST facades (`MediaAdminClient`, `MediaClient`) over the shared media JSON shape. The end-to-end test drives the stack through it; the TypeScript browser client in `../typescript` mirrors it.
+- `media-client` is the client SDK: two REST facades (`MediaAdminClient`, `MediaClient`) over the shared media JSON shape. The end-to-end test drives the stack through it. The TypeScript browser client in `../typescript` is deprecated and will be generated from the future OpenAPI definition instead (`../typescript/media-client/AGENTS.md`).
 - Shared code is plain Java in `media-contract` and `media-json`, not a Spring service library. The JSON shape of the contract types is defined by the mixins in `media-json`; the domain carries no serialization framework.
 
 A separate registry service is not the target: it would add a network hop without removing a file
@@ -49,19 +49,40 @@ unrecoverable. Fresh result asset ids per execution are what make retries safe f
 async delivery. Completion is idempotent on `attemptId`. The attempt has no processing status; a
 dead-lettered command marks the attempt failed.
 
+## Reads, visibility, and the CDN edge
+
+An upload is `PUBLIC` or `PRIVATE`; the visibility is chosen by the upload permission and stored on
+the attempt and the finalized upload. Read URLs carry the upload's cache version
+(`upload.createdAt.toEpochMilli()` as a decimal string, `v`): a public read ignores it and serves
+anyone, and a private read requires it together with the signed download token. A replaced upload
+gets a new `createdAt`, so its URLs change and caches miss.
+
+The private-read token is stateless: base64url HMAC-SHA256 over `"m1\nread\n" + keyId + "\n" +
+uploadKey + "\n" + version + "\n" + expires` (`DownloadTokenService` issues and verifies it; the
+admin endpoint is `POST /api/admin/download-permission`). The version is signed, so a token for one
+upload version cannot read another. Media responses stay cacheable — `public, max-age=31536000,
+immutable` for public reads and `private, max-age=300` for private reads — and only the credential
+issuance responses are `Cache-Control: no-store`.
+
+The deployment's minimal nginx edge verifies the same signature at `/cdn/` before proxying, so the
+token contract is exercised at the edge; the API remains authoritative for the visibility, the
+current version, and the expiry (the edge has no database). Details, including the log-redaction
+rule: `deployment/AGENTS.md`.
+
 ## Tests
 
 `EndToEndTest` in `media-api` is the behavior lock of the whole path. It boots the API in-process
 and drives the compose stack of `deployment` through the Java client (`media-client`) over HTTP
 only. One command runs it: `./gradlew :media-api:integrationTest` — the task builds the image
-worker's jar and the dev image, and the test boots the compose file with Testcontainers. Do not
-fold the compose-backed test into the normal unit-test run.
+worker's jar and the dev images, and the test boots the compose file with Testcontainers. The CDN
+journeys use a plain `RestClient` against the edge, because the client speaks the web API and
+`/cdn/` is the edge's URL space. Do not fold the compose-backed test into the normal unit-test run.
 
 The transformation output is locked by `ImageProcessorTest` in the `image-worker`'s
 `integrationTest` suite (real libvips, run through `deployment/test-transformations.bash`).
 
 ## Future work (planned, not built)
 
-Leave room for, but do not build yet: video worker, periodic cleanup, private reads, on-demand
-transformations, and completion webhooks. A video worker is another deployable with the same command
-shape, not another shared Spring module.
+Leave room for, but do not build yet: video worker, periodic cleanup, on-demand transformations,
+completion webhooks, and the full CDN (edge caching and direct Minio proxying). A video worker is
+another deployable with the same command shape, not another shared Spring module.
