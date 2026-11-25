@@ -8,7 +8,7 @@ Some other modules define shared but not domain-specific logic.
 So, the module types are:
 - domain (java only)
 - adapter (port implementations and applications)
-- shared infrastructure (no spring modules here)
+- shared infrastructure (no spring modules here if possible to avoid complex scanning rules (there are exceptions, e.g., the cockroachdb module))
 
 #### Plugin artifact names
 To use plugins in the build conventions, we must add their artifact to `buildSrc/build.gradle.kts` with a version from the version catalog.
