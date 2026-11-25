@@ -741,7 +741,6 @@ Each step is independently executable and verifiable.
 - [ ] **5.4 Add CDN end-to-end journeys**
   - Files:
     - `media-api/src/integrationTest/.../EndToEndTest.java`
-    - `typescript/media-client/e2e/smoke.test.ts`
   - Cases:
     - Public read through `/cdn/` without a token.
     - Private read through `/cdn/` with a valid token.
@@ -759,7 +758,6 @@ Each step is independently executable and verifiable.
   - Files:
     - `modules/media/deployment/AGENTS.md`
     - `modules/media/AGENTS.md`
-    - `typescript/media-client/README.md`
   - Changes:
     - Document the canonical string, URL shape, version field, cache headers, secret variables, and log-redaction rule.
     - Document that nginx is the edge verifier and that the API remains authoritative.
