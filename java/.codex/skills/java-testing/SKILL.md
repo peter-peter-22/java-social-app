@@ -31,6 +31,8 @@ description: Write and maintain Java unit and integration tests using JUnit 5, A
   sufficient.
 - Use MockRestServiceServer to provide deterministic HTTP responses and verify outbound requests. Shut it down reliably and
   avoid depending on external services.
+- The project's tool choices (the one REST client, the one HTTP mocking tool, the shared test stack) are defined in the
+  root `AGENTS.md`, section Conventions. This skill describes how to use them, not which alternatives to pick.
 - Follow the repository's existing package, naming, fixture, and dependency conventions. Use Lombok and JSpecify when
   the project rules require them, including in test helpers and fixtures.
 - Prefer short, focused tests with clear arrange/act/assert structure. Use parameterized tests when multiple inputs

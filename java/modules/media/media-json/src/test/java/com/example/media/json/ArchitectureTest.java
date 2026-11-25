@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 /**
- * The boundary guard of the JSON shape (clean-media-service.md): media-json cannot import Spring,
+ * The boundary guard of the JSON shape (modules/media/AGENTS.md): media-json cannot import Spring,
  * JPA, or Minio, and nothing in it may point back at the registry adapter.
  */
 @AnalyzeClasses(packages = "com.example.media.json")

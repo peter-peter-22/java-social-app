@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 /**
- * The boundary guard of the contract (clean-media-service.md): the domain vocabulary is plain Java
+ * The boundary guard of the contract (modules/media/AGENTS.md): the domain vocabulary is plain Java
  * and cannot import Spring, JPA, Minio, or Jackson, and nothing in it may point back at the
  * registry adapter.
  */

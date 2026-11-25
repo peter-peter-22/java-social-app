@@ -24,10 +24,9 @@ The artifact names can be found on this site:
 * ```./gradlew :spring_boot_app:bootRun``` Run the "spring_boot_app" module with spring boot.
 
 #### Dependency versions
-The version catalog (`gradle/libs.versions.toml`) is the single home of the dependency and plugin versions.
-Libraries whose versions the Spring Boot BOM manages are declared without a version; the catalog pins only what no BOM owns.
+The rule itself ("One version home") is recorded in the root `AGENTS.md`, section Conventions: `gradle/libs.versions.toml` is the single home of the dependency and plugin versions, and the libraries the Spring Boot BOM manages are declared without a version.
 
-`buildSrc` is a separate build and imports the same file (`buildSrc/settings.gradle.kts`), so the conventions and `buildSrc/build.gradle.kts` read from the one catalog.
+Mechanics: `buildSrc` is a separate build and imports the same file (`buildSrc/settings.gradle.kts`), so the conventions and `buildSrc/build.gradle.kts` read from the one catalog.
 The module scripts and `buildSrc/build.gradle.kts` use the type-safe `libs.*` accessors.
 Gradle does not generate those accessors inside precompiled script plugins, so the convention scripts look the entries up by name (`VersionCatalogsExtension`).
 
