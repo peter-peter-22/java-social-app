@@ -1,5 +1,6 @@
 package com.example.media.api.upload;
 
+import com.example.media.api.security.UploadPermissionValidator;
 import com.example.media.contract.asset.AssetDeliveryProtocol;
 import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.asset.AssetPlacement;
@@ -41,9 +42,17 @@ import java.util.List;
  * in the same order, and {@link CompleteImageUpload} rebuilds the plan from the attempt row the
  * same way.</p>
  *
+ * <p>The upload presents an {@link UploadPermissionValidator permission}: its stored constraints
+ * must match the request, one use of it is reserved in the attempt's transaction, and it names the
+ * upload key and visibility. A request that fails the check is denied before anything is written; a
+ * request that passes but fails later spends the use, which bounds abuse. Without a permission the
+ * upload is public, and it is only accepted while the deployment does not require one.</p>
+ *
  * <p>A rejection is an {@link IllegalArgumentException} (or a
  * {@link com.example.media.contract.transformation.TransformationNotFoundException}) and is
- * delivered as 400; anything else is an unexpected failure.</p>
+ * delivered as 400; a denied permission is an
+ * {@link com.example.media.contract.upload.UploadPermissionDeniedException} and is delivered as
+ * 403; anything else is an unexpected failure.</p>
  */
 @Service
 @RequiredArgsConstructor
@@ -59,6 +68,7 @@ public class StartImageUpload {
     private final AsyncImageTransformer asyncImageTransformer;
     private final CompleteImageUpload completeImageUpload;
     private final FailImageUpload failImageUpload;
+    private final UploadPermissionValidator uploadPermissionValidator;
     private final TransactionTemplate transactions;
 
     /**
@@ -70,7 +80,9 @@ public class StartImageUpload {
      * @param contentType the content type the client sent the file with, if any
      */
     public StartResult start(Request request, InputStream content, long bytes, @Nullable String contentType) {
-        var key = validatedKey(request);
+        // A present key is validated before anything else: a permission may supply it, but a
+        // malformed one is a 400 either way.
+        var requestedKey = requestedKey(request);
         var extension = validatedExtension(request);
         var eagerNames = validatedEagerNames(request);
         var incomingName = validatedIncomingName(request);
@@ -94,8 +106,16 @@ public class StartImageUpload {
         var originalId = AssetId.generate();
         var entryPoint = "original." + extension;
 
-        // One transaction keeps the process lock over the attempt registration.
-        var attemptId = transactions.execute(status -> {
+        // One transaction keeps the permission reservation and the process lock together with the
+        // attempt registration: a rejected request spends no use, and a request that rolls back
+        // takes its reservation with it.
+        var reservation = transactions.execute(status -> {
+            var permission = uploadPermissionValidator.consume(
+                    request.permission(),
+                    new UploadPermissionValidator.Constraints(
+                            request.uploadKey(), extension, resolvedContentType, bytes, eagerNames, incomingName));
+            var key = permission == null ? requiredKey(requestedKey) : permission.uploadKey();
+            var visibility = permission == null ? UploadVisibility.PUBLIC : permission.visibility();
             uploadRegistry.openOrGetProcess(key);
             assetStore.registerAsset(new NewAsset(
                     originalId,
@@ -109,10 +129,17 @@ public class StartImageUpload {
                     List.of(entryPoint)));
             var id = uploadRegistry.createAttempt(
                     new NewUploadAttempt(
-                            key, originalId, eagerNames, incomingName, UploadVisibility.PUBLIC, null));
+                            key,
+                            originalId,
+                            eagerNames,
+                            incomingName,
+                            visibility,
+                            permission == null ? null : permission.id()));
             uploadRegistry.activateAttempt(key, id);
-            return id;
+            return new Reservation(key, id);
         });
+        var key = reservation.key();
+        var attemptId = reservation.attemptId();
 
         // The original starts temporary: an upload that never finalizes expires on its own.
         var source = placement.prefixOf(originalId).resolve(entryPoint);
@@ -191,6 +218,7 @@ public class StartImageUpload {
 
     /** The client's image upload request as this use case takes it. Nulls and mismatches are 400s. */
     public record Request(
+            @Nullable String permission,
             @Nullable String uploadKey,
             @Nullable String extension,
             @Nullable String desiredContentType,
@@ -199,6 +227,10 @@ public class StartImageUpload {
             @Nullable String incomingTransformationName,
             @Nullable Boolean async
     ) {
+    }
+
+    /** The resolved identity of the started upload: the key the permission or the client chose. */
+    private record Reservation(UploadKey key, AttemptId attemptId) {
     }
 
     private NamedTransformation resolveImageTransformation(String name) {
@@ -220,10 +252,16 @@ public class StartImageUpload {
                 (ImageTransformationSpec) transformation.spec());
     }
 
-    private static UploadKey validatedKey(Request request) {
+    private static @Nullable UploadKey requestedKey(Request request) {
         if (request.uploadKey() == null)
-            throw new IllegalArgumentException("the upload key is required");
+            return null;
         return new UploadKey(request.uploadKey());
+    }
+
+    private static UploadKey requiredKey(@Nullable UploadKey requestedKey) {
+        if (requestedKey == null)
+            throw new IllegalArgumentException("the upload key is required");
+        return requestedKey;
     }
 
     private static String validatedExtension(Request request) {

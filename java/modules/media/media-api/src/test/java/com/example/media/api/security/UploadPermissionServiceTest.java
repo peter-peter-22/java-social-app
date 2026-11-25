@@ -41,7 +41,7 @@ class UploadPermissionServiceTest {
 
     private final UploadPermissionRegistry registry = mock();
     private final UploadPermissionProperties properties =
-            new UploadPermissionProperties(DEFAULT_TTL, MAX_TTL, 1, 10);
+            new UploadPermissionProperties(true, DEFAULT_TTL, MAX_TTL, 1, 10);
     private final UploadPermissionService service = new UploadPermissionService(
             registry, properties, Clock.fixed(NOW, ZoneOffset.UTC));
 

@@ -6,6 +6,8 @@ import com.example.media.contract.transformation.AspectRatio;
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.upload.UploadAttemptStatus;
+import com.example.media.contract.upload.UploadVisibility;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
@@ -25,21 +28,24 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * The behavior lock of the media API. It boots the API in-process on a real port and drives the
  * complete stack through the Java client only — no in-process ports, no registry internals: the
  * {@link MediaComposeStack} starts the worker, the database, the object storage, and RabbitMQ from
  * the deployment compose file. The journeys: register {@code optimize} and {@code profile} as the
- * admin, upload an image with an incoming and an eager transformation and read the results back
- * (decoding the variant to lock its dimensions), the same upload over the queue finalized by the
- * worker, and a corrupt source marked failed. One command runs it:
+ * admin, mint an upload permission, upload an image with an incoming and an eager transformation
+ * and read the results back (decoding the variant to lock its dimensions), the same upload over the
+ * queue finalized by the worker, a corrupt source marked failed, and the permission enforcement
+ * (missing, expired, exhausted, another key, mismatched constraints). One command runs it:
  * {@code ./gradlew :media-api:integrationTest}.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = {
         "minio.reconciliation.enabled=true",
-        "media.admin-key=e2e-admin-key"
+        "media.admin-key=e2e-admin-key",
+        "media.upload-permission.required=true"
 })
 public class EndToEndTest {
 
@@ -74,7 +80,8 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var result = client.uploadImage(request(uploadKey, false), imageBytes(), "image.jpg", "image/jpeg");
+        var result = client.uploadImage(
+                request(permission(uploadKey, 600), uploadKey, false), imageBytes(), "image.jpg", "image/jpeg");
 
         assertThat(result.uploadKey()).isEqualTo(uploadKey);
         assertThat(result.async()).isFalse();
@@ -89,7 +96,8 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var result = client.uploadImage(request(uploadKey, true), imageBytes(), "image.jpg", "image/jpeg");
+        var result = client.uploadImage(
+                request(permission(uploadKey, 600), uploadKey, true), imageBytes(), "image.jpg", "image/jpeg");
 
         assertThat(result.uploadKey()).isEqualTo(uploadKey);
         assertThat(result.async()).isTrue();
@@ -106,12 +114,91 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var result = client.uploadImage(request(uploadKey, true), new byte[]{1, 2, 3}, "image.jpg", "text/plain");
+        var result = client.uploadImage(
+                request(permission(uploadKey, 600), uploadKey, true), new byte[]{1, 2, 3}, "image.jpg", "text/plain");
 
         assertThat(result.async()).isTrue();
 
         awaitUntil(() -> status(uploadKey) == UploadAttemptStatus.FAILED, Duration.ofSeconds(90),
                 () -> "the corrupt async attempt of " + uploadKey + " ended in " + status(uploadKey));
+    }
+
+    /** The enforcement lock: an upload without a permission is rejected before anything is written. */
+    @Test
+    void uploadingWithoutAPermissionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var content = imageBytes();
+
+        assertForbidden(() -> client.uploadImage(
+                request(null, uploadKey, false), content, "image.jpg", "image/jpeg"));
+    }
+
+    @Test
+    void anExpiredPermissionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var permission = permission(uploadKey, 1);
+        var content = imageBytes();
+
+        // The permission lives one second: once it passes, the server clock rejects the token.
+        Thread.sleep(1500);
+
+        assertForbidden(() -> client.uploadImage(
+                request(permission, uploadKey, false), content, "image.jpg", "image/jpeg"));
+    }
+
+    @Test
+    void anExhaustedPermissionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var permission = permission(uploadKey, 600);
+        var content = imageBytes();
+
+        // The permission allows exactly one use: the first blocking upload spends and finalizes it.
+        var accepted = client.uploadImage(request(permission, uploadKey, false), content, "image.jpg", "image/jpeg");
+        assertThat(accepted.async()).isFalse();
+
+        assertForbidden(() -> client.uploadImage(
+                request(permission, uploadKey, false), content, "image.jpg", "image/jpeg"));
+    }
+
+    @Test
+    void aPermissionForAnotherUploadKeyIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var permission = permission("test" + UUID.randomUUID(), 600);
+        var content = imageBytes();
+
+        assertForbidden(() -> client.uploadImage(
+                request(permission, uploadKey, false), content, "image.jpg", "image/jpeg"));
+    }
+
+    @Test
+    void anUploadThatDoesNotMatchThePermissionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var content = imageBytes();
+        // The permission allows the profile variant only; the request asks for another variant.
+        var permission = permission(uploadKey, 600);
+        var mismatched = new MediaClient.UploadImageRequest(
+                permission, uploadKey, "jpg", null, null, List.of("profile", "optimize"), null, false);
+
+        assertForbidden(() -> client.uploadImage(mismatched, content, "image.jpg", "image/jpeg"));
+    }
+
+    @Test
+    void anUploadLargerThanThePermissionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var content = imageBytes();
+        // One kibibyte is far below the fixture image.
+        var permission = adminClient.createUploadPermission(new MediaAdminClient.NewUploadPermission(
+                uploadKey, "jpg", null, 1024L, List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC, 600L, 1)).permission();
+
+        assertForbidden(() -> client.uploadImage(
+                request(permission, uploadKey, false), content, "image.jpg", "image/jpeg"));
     }
 
     /** The original was replaced by the incoming webp transformation and the profile variant is a square. */
@@ -128,9 +215,27 @@ public class EndToEndTest {
         assertThat(decoded.getWidth()).isEqualTo(decoded.getHeight());
     }
 
-    private MediaClient.UploadImageRequest request(String uploadKey, boolean async) {
+    private MediaClient.UploadImageRequest request(String permission, String uploadKey, boolean async) {
         return new MediaClient.UploadImageRequest(
-                uploadKey, "jpg", null, null, List.of("profile"), "optimize", async);
+                permission, uploadKey, "jpg", null, null, List.of("profile"), "optimize", async);
+    }
+
+    /**
+     * Mints a one-use permission for the uploads of the journeys: the jpg extension, the
+     * {@code profile} variant, and the {@code optimize} incoming transformation. The visibility is
+     * public, because reads are not authorized yet.
+     */
+    private String permission(String uploadKey, long expiresInSeconds) {
+        return adminClient.createUploadPermission(new MediaAdminClient.NewUploadPermission(
+                uploadKey, "jpg", null, null, List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC, expiresInSeconds, 1)).permission();
+    }
+
+    /** Asserts that the permission enforcement rejected the upload with 403. */
+    private static void assertForbidden(ThrowingCallable upload) {
+        assertThatThrownBy(upload)
+                .isInstanceOfSatisfying(RestClientResponseException.class,
+                        failure -> assertThat(failure.getStatusCode().value()).isEqualTo(403));
     }
 
     private void registerTransformations() {

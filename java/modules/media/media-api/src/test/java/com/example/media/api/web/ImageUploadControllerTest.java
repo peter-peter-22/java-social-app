@@ -6,6 +6,9 @@ import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.upload.Upload;
 import com.example.media.contract.upload.UploadId;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadPermissionDeniedException;
+import com.example.media.contract.upload.UploadPermissionExhaustedException;
+import com.example.media.contract.upload.UploadPermissionExpiredException;
 import com.example.media.contract.upload.UploadVisibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * The upload endpoint only maps HTTP: the multipart parts become the use case's request and file,
- * and the use case outcomes become 200, 400, and 500 answers. A missing upload is 404.
+ * and the use case outcomes become 200, 400, 403, and 500 answers. A missing upload is 404.
  */
 @WebMvcTest(ImageUploadController.class)
 class ImageUploadControllerTest {
@@ -53,7 +56,8 @@ class ImageUploadControllerTest {
                 new StartImageUpload.StartResult(new UploadKey("cover"), upload, null));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, List.of("profile"), "optimize", null)))
+                        .file(bodyPart(new ImageUploadRequest(
+                                "up1_token", "cover", "jpg", null, null, List.of("profile"), "optimize", null)))
                         .file(filePart()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uploadKey").value("cover"))
@@ -61,7 +65,8 @@ class ImageUploadControllerTest {
                 .andExpect(jsonPath("$.async").value(false));
 
         verify(startImageUpload).start(
-                org.mockito.ArgumentMatchers.argThat(request -> request.uploadKey().equals("cover")
+                org.mockito.ArgumentMatchers.argThat(request -> request.permission().equals("up1_token")
+                        && request.uploadKey().equals("cover")
                         && request.extension().equals("jpg")
                         && request.eagerTransformationNames().equals(List.of("profile"))
                         && request.incomingTransformationName().equals("optimize")
@@ -77,7 +82,7 @@ class ImageUploadControllerTest {
                 new StartImageUpload.StartResult(new UploadKey("cover"), null, Instant.parse("2026-01-01T00:00:00Z")));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, List.of("profile"), "optimize", true)))
+                        .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, List.of("profile"), "optimize", true)))
                         .file(filePart()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.uploadKey").value("cover"))
@@ -97,7 +102,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new UploadNotFoundException("missing"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("missing", "jpg", null, null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest(null, "missing", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isNotFound());
     }
@@ -108,7 +113,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new IllegalArgumentException("the uploaded file is empty"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isBadRequest());
     }
@@ -116,8 +121,33 @@ class ImageUploadControllerTest {
     @Test
     void missingFilePartIsBadRequest() throws Exception {
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null))))
+                        .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, null, null, null))))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void aDeniedPermissionIsForbidden() throws Exception {
+        when(startImageUpload.start(any(), any(), anyLong(), any()))
+                .thenThrow(new UploadPermissionDeniedException("the upload permission is unknown"));
+
+        mockMvc.perform(multipart("/api/upload/image")
+                        .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, null, null, null)))
+                        .file(filePart()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void anExpiredOrExhaustedPermissionIsForbidden() throws Exception {
+        when(startImageUpload.start(any(), any(), anyLong(), any()))
+                .thenThrow(new UploadPermissionExpiredException("the upload permission expired"))
+                .thenThrow(new UploadPermissionExhaustedException("the upload permission has no remaining uses"));
+
+        for (var attempt = 0; attempt < 2; attempt++) {
+            mockMvc.perform(multipart("/api/upload/image")
+                            .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, null, null, null)))
+                            .file(filePart()))
+                    .andExpect(status().isForbidden());
+        }
     }
 
     @Test
@@ -126,7 +156,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new RuntimeException("boom"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest(null, "cover", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isInternalServerError());
     }

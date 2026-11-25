@@ -46,7 +46,7 @@ test("uploads an image as multipart with a JSON body part", async () => {
     const client = new MediaClient("http://api.test/", fetchImpl);
 
     const result = await client.uploadImage(
-        { uploadKey: "cover", extension: "jpg", eagerTransformations: ["profile"], async: true },
+        { permission: "up1_token", uploadKey: "cover", extension: "jpg", eagerTransformations: ["profile"], async: true },
         new Uint8Array([1, 2, 3]),
         "image.jpg",
         "image/jpeg",
@@ -58,6 +58,7 @@ test("uploads an image as multipart with a JSON body part", async () => {
     assert.ok(captured[0].contentType?.startsWith("multipart/form-data"));
     const bodyPart = captured[0].body?.get("body") as Blob;
     const bodyJson = JSON.parse(await bodyPart.text());
+    assert.equal(bodyJson.permission, "up1_token");
     assert.equal(bodyJson.uploadKey, "cover");
     assert.equal(bodyJson.async, true);
     assert.deepEqual(bodyJson.eagerTransformations, ["profile"]);

@@ -11,10 +11,12 @@ and an unexpected failure is 500. Driven ports: `UploadRegistry`, `AssetStore`,
 `AsyncImageTransformer`). The `/api/admin/**` endpoints are guarded by `AdminKeyFilter` (the
 `media.admin-key` property) until the planned signatures land.
 
-Upload permission issuance lives in the `security` package: the token is `up1_` plus 32 random
-bytes in unpadded base64url, only its SHA-256 hash is stored, and the TTL and use budget are
-clamped to `media.upload-permission.*`. Enforcement (a required permission on upload) is not wired
-into `StartImageUpload` yet.
+Upload permission issuance and enforcement live in the `security` package: the token is `up1_` plus
+32 random bytes in unpadded base64url, only its SHA-256 hash is stored, and the TTL and use budget
+are clamped to `media.upload-permission.*`. `UploadPermissionValidator` runs inside the start-upload
+transaction: it validates the presented token against every stored constraint, reserves one use, and
+names the upload key and visibility. A denial is 403; a request that fails the check spends no use.
+A terminal failure revokes the attempt's remaining uses.
 
 The blocking worker adapter retries recoverable transport and worker 5xx failures. Every worker execution allocates fresh result asset ids, so a retry writes to new object keys; the API registers the reported assets at completion.
 

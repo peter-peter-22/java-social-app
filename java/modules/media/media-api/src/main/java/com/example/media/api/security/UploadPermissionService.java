@@ -10,15 +10,11 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.HashSet;
-import java.util.HexFormat;
 import java.util.List;
 
 /**
@@ -80,7 +76,7 @@ public class UploadPermissionService {
                         visibility,
                         now.plus(ttlOf(request.expiresInSeconds())),
                         maxUsesOf(request.maxUses())),
-                tokenHash(token));
+                UploadTokenHash.of(token));
         return new IssuedPermission(permission, token);
     }
 
@@ -154,17 +150,6 @@ public class UploadPermissionService {
 
     private static String base64Url(byte[] bytes) {
         return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
-    }
-
-    /** The registry's lookup key: the SHA-256 of the raw token as lowercase hex. */
-    private static String tokenHash(String token) {
-        try {
-            var digest = MessageDigest.getInstance("SHA-256")
-                    .digest(token.getBytes(StandardCharsets.UTF_8));
-            return HexFormat.of().formatHex(digest);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("SHA-256 is not available", e);
-        }
     }
 
     /** An issued permission together with its raw token, which is not recoverable later. */

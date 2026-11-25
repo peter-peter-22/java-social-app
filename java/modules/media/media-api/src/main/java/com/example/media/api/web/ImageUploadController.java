@@ -33,6 +33,7 @@ public class ImageUploadController {
     ) throws IOException {
         var result = startImageUpload.start(
                 new StartImageUpload.Request(
+                        body.permission(),
                         body.uploadKey(),
                         body.extension(),
                         body.desiredContentType(),

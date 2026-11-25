@@ -33,6 +33,12 @@ export interface ImageTransformationSpec {
 
 /** The JSON body part of an image upload request. */
 export interface UploadImageRequest {
+    /**
+     * The raw upload token the admin issued for this upload. When it is present, its stored
+     * constraints are authoritative and the request must match them; the upload takes its key and
+     * visibility from them.
+     */
+    permission?: string;
     uploadKey?: string;
     extension?: string;
     desiredContentType?: string;

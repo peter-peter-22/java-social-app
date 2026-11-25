@@ -7,20 +7,22 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import java.time.Duration;
 
 /**
- * The upload permission issuance limits ({@code media.upload-permission}).
+ * The upload permission settings ({@code media.upload-permission}): whether an upload must present a
+ * permission, and the issuance limits.
+ *
+ * <p>{@link #required()} is the enforcement switch: when it is true, a start-image-upload request
+ * without a permission is rejected as denied (403). It defaults to true, so a deployment that
+ * configures nothing fails closed.</p>
  *
  * <p>The issuance clamps a requested TTL and use budget to {@link #maxTtl()} and {@link #maxUses()}.
  * The defaults are the values used when the caller leaves a value out; they are code defaults, so a
  * deployment that overrides nothing still has a bounded budget. The deployment stack overrides them
  * through the environment.</p>
- *
- * <p>Enforcement ({@code media.upload-permission.required}) is not part of issuance: it is read by
- * the upload use case when it starts requiring a permission. Until then this record only carries the
- * issuance limits.</p>
  */
 @ConfigurationProperties(prefix = "media.upload-permission")
 @NullMarked
 public record UploadPermissionProperties(
+        @DefaultValue("true") boolean required,
         @DefaultValue("10m") Duration defaultTtl,
         @DefaultValue("1h") Duration maxTtl,
         @DefaultValue("1") int defaultMaxUses,

@@ -36,6 +36,7 @@ class MediaClientTest {
                 .andExpect(method(HttpMethod.POST))
                 .andExpect(content().string(allOf(
                         containsString("name=\"body\""),
+                        containsString("\"permission\":\"up1_token\""),
                         containsString("\"uploadKey\":\"cover\""),
                         containsString("\"async\":true"),
                         containsString("name=\"file\""),
@@ -46,7 +47,7 @@ class MediaClientTest {
 
         var result = client.uploadImage(
                 new MediaClient.UploadImageRequest(
-                        "cover", "jpg", null, null, List.of("profile"), "optimize", true),
+                        "up1_token", "cover", "jpg", null, null, List.of("profile"), "optimize", true),
                 new byte[]{1, 2, 3}, "image.jpg", "image/jpeg");
 
         assertThat(result.uploadKey()).isEqualTo("cover");

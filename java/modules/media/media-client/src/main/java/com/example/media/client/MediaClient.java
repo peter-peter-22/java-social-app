@@ -32,9 +32,14 @@ import java.util.List;
 @NullMarked
 public final class MediaClient {
 
-    /** The JSON body part of an image upload; the same shape as the server's request DTO. */
+    /**
+     * The JSON body part of an image upload; the same shape as the server's request DTO.
+     * {@code permission} is the raw token the admin issued for this upload: when it is present, its
+     * stored constraints are authoritative and the request must match them.
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record UploadImageRequest(
+            @Nullable String permission,
             @Nullable String uploadKey,
             @Nullable String extension,
             @Nullable String desiredContentType,

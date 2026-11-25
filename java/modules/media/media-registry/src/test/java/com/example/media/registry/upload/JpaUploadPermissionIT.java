@@ -9,6 +9,8 @@ import com.example.media.contract.upload.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -31,6 +33,8 @@ class JpaUploadPermissionIT extends CockroachIntegrationTest {
     private UploadRegistry uploadRegistry;
     @Autowired
     private AssetStore assetStore;
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     @Test
     void createsAndReadsAPermission() {
@@ -145,6 +149,25 @@ class JpaUploadPermissionIT extends CockroachIntegrationTest {
 
         uploadPermissionRegistry.revokeForAttempt(attemptId);
         uploadPermissionRegistry.revokeForAttempt(new AttemptId(UUID.randomUUID()));
+    }
+
+    /**
+     * The reservation joins the caller's transaction, so a failed upload start spends nothing: the
+     * use and the attempt it belongs to commit or roll back together.
+     */
+    @Test
+    void aRolledBackConsumeLeavesTheUsesUnspent() {
+        var hash = tokenHash();
+        uploadPermissionRegistry.create(newPermission(key("rollback"), null), hash);
+
+        assertThatThrownBy(() -> new TransactionTemplate(transactionManager).executeWithoutResult(status -> {
+            uploadPermissionRegistry.consume(hash, NOW);
+            throw new IllegalStateException("the attempt registration failed");
+        })).isInstanceOf(IllegalStateException.class);
+
+        var stored = uploadPermissionRegistry.findByTokenHash(hash).orElseThrow();
+        assertThat(stored.uses()).isZero();
+        assertThat(stored.status()).isEqualTo(UploadPermissionStatus.ACTIVE);
     }
 
     @Test

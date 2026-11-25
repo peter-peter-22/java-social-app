@@ -39,10 +39,27 @@ test("upload and read through the browser client", { skip: !reachable }, async (
     });
     assert.equal(registered.status, 200);
 
+    // The upload itself needs a permission: the admin mints one for exactly this upload, then the
+    // client presents it. Only the admin knows the constraints; the upload must match them.
+    const issued = await fetch(API_URL + "/api/admin/upload-permission", {
+        method: "POST",
+        headers: { "content-type": "application/json", "X-Admin-Key": ADMIN_KEY },
+        body: JSON.stringify({
+            uploadKey,
+            extension: "jpg",
+            eagerTransformations: ["smoke-profile"],
+            visibility: "PUBLIC",
+            maxUses: 1,
+        }),
+    });
+    assert.equal(issued.status, 200);
+    const { permission } = (await issued.json()) as { permission: string };
+
     const fixture = new Uint8Array(
         await readFile(fileURLToPath(new URL("../../e2e/fixtures/image.jpg", import.meta.url))));
     const result = await client.uploadImage(
         {
+            permission,
             uploadKey,
             extension: "jpg",
             eagerTransformations: ["smoke-profile"],

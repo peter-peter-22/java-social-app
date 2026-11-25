@@ -36,7 +36,8 @@ Package root: `com.example.media`. No underscores.
 
 Blocking and async share the same bytes path; only the control message changes.
 
-1. The API validates the request and starts an attempt. It inserts the original asset in an uploading state and writes the file to object storage with the expiration tag. The asset id is the object prefix, so keys cannot collide.
+0. The main application mints an upload permission (`POST /api/admin/upload-permission`) and hands the raw `up1_` token to the client. Only its SHA-256 hash is stored.
+1. The API validates the request and the presented permission, reserves one use of it in the same transaction that starts the attempt, and uses the permission's upload key and visibility. It inserts the original asset in an uploading state and writes the file to object storage with the expiration tag. The asset id is the object prefix, so keys cannot collide. A request without a permission is rejected unless `media.upload-permission.required=false`; a failed attempt revokes what is left of the permission's uses.
 2. The API resolves named transformations and sends the worker a command with the source object location, the result placement, and the resolved operations — no repository entities, and no reserved result asset ids.
 3. The worker downloads the source, transforms it, allocates a fresh asset id and prefix for every output of that execution, and uploads the results with expiration tags. It returns metadata and the object list; it does not insert rows, change tags to permanent, or finalize the attempt.
 4. The API removes the expiration tags (which fails when a kept object is missing), then commits one transaction: assets become ready, the upload and variant rows are inserted, and the attempt becomes successful. If that transaction fails, the objects expire and the existing cleanup rules apply.
@@ -61,6 +62,6 @@ The transformation output is locked by `ImageProcessorTest` in the `image-worker
 
 ## Future work (planned, not built)
 
-Leave room for, but do not build yet: video worker, periodic cleanup, upload permissions, private
-reads, on-demand transformations, and completion webhooks. A video worker is another deployable with
-the same command shape, not another shared Spring module.
+Leave room for, but do not build yet: video worker, periodic cleanup, private reads, on-demand
+transformations, and completion webhooks. A video worker is another deployable with the same command
+shape, not another shared Spring module.

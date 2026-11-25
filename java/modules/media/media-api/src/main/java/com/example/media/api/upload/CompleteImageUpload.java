@@ -151,6 +151,8 @@ public class CompleteImageUpload {
                         eagerOutputs.get(i).assetId()));
             }
             uploadRegistry.registerVariants(variants);
+            // A successful attempt leaves its consumed permission alone: the use is spent, and a
+            // multi-use permission may still serve another attempt.
             uploadRegistry.finishAttempt(attemptId, AttemptOutcome.SUCCESS);
             return upload;
         });

@@ -1,5 +1,6 @@
 package com.example.media.api.upload;
 
+import com.example.media.api.security.UploadPermissionValidator;
 import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.asset.AssetPlacement;
 import com.example.media.contract.asset.NewAsset;
@@ -25,6 +26,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -38,6 +40,7 @@ class StartImageUploadTest {
     private final AsyncImageTransformer asyncImageTransformer = mock();
     private final CompleteImageUpload completeImageUpload = mock();
     private final FailImageUpload failImageUpload = mock();
+    private final UploadPermissionValidator uploadPermissionValidator = mock();
     private final StartImageUpload useCase = new StartImageUpload(
             uploadRegistry,
             assetStore,
@@ -47,6 +50,7 @@ class StartImageUploadTest {
             asyncImageTransformer,
             completeImageUpload,
             failImageUpload,
+            uploadPermissionValidator,
             new TransactionTemplate(mock(PlatformTransactionManager.class)));
 
     private static final UploadKey KEY = new UploadKey("cover");
@@ -61,6 +65,11 @@ class StartImageUploadTest {
             new NamedTransformationId(UUID.randomUUID()), "profile",
             new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(100)),
             new TransformationVersionId(UUID.randomUUID()));
+    private static final UploadPermissionId PERMISSION_ID = new UploadPermissionId(UUID.randomUUID());
+    private static final UploadPermission PERMISSION = new UploadPermission(
+            PERMISSION_ID, "hash", KEY, "jpg", "image/jpeg", 10485760L, List.of("profile"), "optimize",
+            UploadVisibility.PRIVATE, Instant.now().plusSeconds(600), 1, 0,
+            UploadPermissionStatus.ACTIVE, Instant.now());
 
     @Test
     void runsTheBlockingUploadAndFinalizes() {
@@ -75,7 +84,7 @@ class StartImageUploadTest {
         when(completeImageUpload.complete(ATTEMPT_ID, result)).thenReturn(upload);
 
         var started = useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, List.of("profile"), "optimize", null),
+                new StartImageUpload.Request(null, "cover", "jpg", null, null, List.of("profile"), "optimize", null),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
 
         assertThat(started.async()).isFalse();
@@ -127,7 +136,7 @@ class StartImageUploadTest {
         when(imageTransformer.transform(any())).thenThrow(new IllegalStateException("worker down"));
 
         assertThatThrownBy(() -> useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize", null),
+                new StartImageUpload.Request(null, "cover", "jpg", null, null, null, "optimize", null),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
                 .isInstanceOf(IllegalStateException.class);
 
@@ -148,7 +157,7 @@ class StartImageUploadTest {
                 UploadAttemptStatus.PENDING, acceptedAt, null)));
 
         var started = useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, List.of("profile"), "optimize", true),
+                new StartImageUpload.Request(null, "cover", "jpg", null, null, List.of("profile"), "optimize", true),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
 
         assertThat(started.async()).isTrue();
@@ -177,7 +186,7 @@ class StartImageUploadTest {
         doThrow(new IllegalStateException("broker down")).when(asyncImageTransformer).transformAsync(any());
 
         assertThatThrownBy(() -> useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, null, "optimize", true),
+                new StartImageUpload.Request(null, "cover", "jpg", null, null, null, "optimize", true),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
                 .isInstanceOf(IllegalStateException.class);
 
@@ -194,7 +203,7 @@ class StartImageUploadTest {
         when(completeImageUpload.complete(eq(ATTEMPT_ID), any())).thenReturn(upload);
 
         var started = useCase.start(
-                new StartImageUpload.Request("cover", "jpg", null, null, null, null, null),
+                new StartImageUpload.Request(null, "cover", "jpg", null, null, null, null, null),
                 new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
 
         assertThat(started.async()).isFalse();
@@ -202,6 +211,57 @@ class StartImageUploadTest {
         verifyNoInteractions(imageTransformer);
         verify(completeImageUpload).complete(eq(ATTEMPT_ID), any());
         verify(uploadRegistry).createAttempt(any());
+    }
+
+    @Test
+    void usesTheKeyAndVisibilityOfTheConsumedPermission() {
+        when(objectStore.homePlacement()).thenReturn(PLACEMENT);
+        when(transformationCatalog.resolve("optimize")).thenReturn(OPTIMIZE);
+        when(uploadPermissionValidator.consume(eq("up1_token"), any())).thenReturn(PERMISSION);
+        when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
+        var result = new ImageTransformResult(ATTEMPT_ID, List.of(), null);
+        when(imageTransformer.transform(any())).thenReturn(result);
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, AssetId.generate(), UploadVisibility.PRIVATE, Instant.now());
+        when(completeImageUpload.complete(ATTEMPT_ID, result)).thenReturn(upload);
+
+        // The request omits the upload key: the permission names it.
+        var started = useCase.start(
+                new StartImageUpload.Request("up1_token", null, "jpg", null, null, null, "optimize", null),
+                new ByteArrayInputStream(new byte[3]), 3, "image/jpeg");
+
+        assertThat(started.key()).isEqualTo(KEY);
+        verify(uploadRegistry).openOrGetProcess(KEY);
+        var attempt = ArgumentCaptor.forClass(NewUploadAttempt.class);
+        verify(uploadRegistry).createAttempt(attempt.capture());
+        assertThat(attempt.getValue().visibility()).isEqualTo(UploadVisibility.PRIVATE);
+        assertThat(attempt.getValue().uploadPermissionId()).isEqualTo(PERMISSION_ID);
+        verify(uploadRegistry).activateAttempt(KEY, ATTEMPT_ID);
+
+        // The checker sees the validated request values, and the omitted key stays omitted.
+        var constraints = ArgumentCaptor.forClass(UploadPermissionValidator.Constraints.class);
+        verify(uploadPermissionValidator).consume(eq("up1_token"), constraints.capture());
+        assertThat(constraints.getValue().uploadKey()).isNull();
+        assertThat(constraints.getValue().extension()).isEqualTo("jpg");
+        assertThat(constraints.getValue().contentType()).isEqualTo("image/jpeg");
+        assertThat(constraints.getValue().bytes()).isEqualTo(3);
+        assertThat(constraints.getValue().eagerTransformationNames()).isEmpty();
+        assertThat(constraints.getValue().incomingTransformationName()).isEqualTo("optimize");
+    }
+
+    @Test
+    void aDeniedPermissionStopsTheUploadBeforeAnythingIsWritten() {
+        when(objectStore.homePlacement()).thenReturn(PLACEMENT);
+        when(uploadPermissionValidator.consume(any(), any()))
+                .thenThrow(new UploadPermissionExhaustedException("no uses left"));
+
+        assertThatThrownBy(() -> useCase.start(
+                new StartImageUpload.Request("up1_token", "cover", "jpg", null, null, null, null, null),
+                new ByteArrayInputStream(new byte[3]), 3, "image/jpeg"))
+                .isInstanceOf(UploadPermissionExhaustedException.class);
+
+        verifyNoInteractions(uploadRegistry, assetStore, imageTransformer, completeImageUpload);
+        verify(objectStore, never()).put(any(), any(InputStream.class), anyLong(), any(), any());
     }
 
     @Test
@@ -293,7 +353,7 @@ class StartImageUploadTest {
             String incomingTransformationName
     ) {
         return new StartImageUpload.Request(
-                uploadKey, extension, desiredContentType, desiredBytes,
+                null, uploadKey, extension, desiredContentType, desiredBytes,
                 eagerTransformationNames, incomingTransformationName, null);
     }
 }
