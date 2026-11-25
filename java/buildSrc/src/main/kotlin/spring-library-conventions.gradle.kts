@@ -1,12 +1,16 @@
 // Spring boot library
 
-// The build function of the spring boot plugin is disabled because there is no main function in a library.
-// As a side effect, 2 additional configurations (mavenBom, JavaCompile) must be added manually.
-
 plugins {
-    id("java-library-conventions")
+    `java-library`
     id("java-conventions")
-    id("org.springframework.boot") apply false
+    // The Spring Boot plugin is NOT applied to libraries: there is no main function, so the boot
+    // tasks (bootJar, bootRun) must not exist here. The plugin is only on the buildSrc classpath,
+    // for the BOM coordinates referenced below. As a side effect, 2 additional configurations
+    // (mavenBom, JavaCompile) must be added manually.
+    //
+    // Note: never request the plugin here with `apply false` — Gradle still applies the plugin
+    // from a precompiled script's plugins block in that case, which re-adds the boot tasks and
+    // breaks `build` on libraries (bootJar fails on the missing main class).
     id("io.spring.dependency-management")
 }
 

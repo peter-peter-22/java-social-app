@@ -3,11 +3,9 @@ package com.example.object_storage.reconciliation;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NullMarked;
 
-@RequiredArgsConstructor
 @NullMarked
 @Slf4j
 public abstract class MinioReconciliation {
@@ -22,7 +20,7 @@ public abstract class MinioReconciliation {
                     BucketExistsArgs.builder().bucket(name).build()
             );
             if (exists) {
-                log.info("Bucket already '{}' already exists.", name);
+                log.info("Bucket '{}' already exists.", name);
                 return;
             }
             log.info("Creating bucket '{}'.", name);

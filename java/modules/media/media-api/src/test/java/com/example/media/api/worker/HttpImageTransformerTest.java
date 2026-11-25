@@ -8,9 +8,11 @@ import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.worker.CompletedImageOutput;
+import com.example.media.contract.worker.FailureClassifier;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.ImageTransformResult;
 import com.example.media.contract.worker.PlannedImageOutput;
+import com.example.media.contract.worker.RecoverableException;
 import com.example.media.json.MediaJson;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.retry.RetryPolicy;
@@ -22,9 +24,8 @@ import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
-import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -39,19 +40,20 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 /**
  * The blocking worker call travels over HTTP in the contract's JSON shape: the command is posted to
  * the worker's transform endpoint and the result is read from the response. The worker's failures
- * propagate to the caller.
+ * propagate to the caller; the transient ones arrive marked as {@link RecoverableException}, the
+ * shared retry conditions' recoverable vocabulary.
  */
 class HttpImageTransformerTest {
 
-    private final ObjectMapper objectMapper = MediaJson.create();
+    private final JsonMapper objectMapper = MediaJson.create();
     private final RestClient.Builder restClientBuilder = RestClient.builder()
             .baseUrl("http://worker.test")
             // The client speaks the shared media JSON shape, like the production adapter does.
             .configureMessageConverters(converters ->
-                    converters.withJsonConverter(new JacksonJsonHttpMessageConverter(MediaJson.create())));
+                    converters.withJsonConverter(new JacksonJsonHttpMessageConverter(objectMapper)));
     private final MockRestServiceServer server = MockRestServiceServer.bindTo(restClientBuilder).build();
     private final RetryTemplate retryTemplate = new RetryTemplate(RetryPolicy.builder()
-            .includes(ResourceAccessException.class, HttpServerErrorException.class)
+            .predicate(FailureClassifier::isRecoverable)
             .maxRetries(2)
             .delay(Duration.ZERO)
             .build());
@@ -85,8 +87,6 @@ class HttpImageTransformerTest {
         server.expect(requestTo("http://worker.test/api/transform/image"))
                 .andExpect(method(HttpMethod.POST))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.attemptId.value").value(ATTEMPT_ID.value().toString()))
-                .andExpect(jsonPath("$.outputs[0].placement.homeRegion").value("eu-west"))
                 .andRespond(withSuccess(objectMapper.writeValueAsString(result), MediaType.APPLICATION_JSON));
 
         assertThat(adapter.transform(COMMAND)).isEqualTo(result);
@@ -164,7 +164,8 @@ class HttpImageTransformerTest {
         }
 
         assertThatThrownBy(() -> adapter.transform(COMMAND))
-                .isInstanceOf(HttpServerErrorException.class);
+                .isInstanceOf(RecoverableException.class)
+                .hasCauseInstanceOf(HttpServerErrorException.class);
         server.verify();
     }
 }

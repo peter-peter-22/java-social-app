@@ -15,6 +15,10 @@ services:
     # that SymbolLookup::libraryLookup will be blocked, which breaks vips-ffm.
     command: ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "jar.jar"]
     environment:
+      # The entrypoint drops root before running the command; these are the host
+      # user ids exported by run.bash. The `:?` form fails fast when missing.
+      HOST_UID: "${HOST_UID:?HOST_UID is required}"
+      HOST_GID: "${HOST_GID:?HOST_GID is required}"
       # The image worker has no database and runs no migrations. It only moves objects through Minio.
       MINIO_RECONCILIATION_ENABLED: "false"
       MINIO_HOME_REGION: "test"
@@ -24,15 +28,31 @@ services:
       MINIO_REGIONS_0_ACCESS_KEY: "minioadmin"
       MINIO_REGIONS_0_SECRET_KEY: "minioadmin"
       MINIO_REGIONS_0_NAME: "test"
+      # The async image transforms arrive from RabbitMQ.
+      SPRING_RABBITMQ_HOST: "rabbitmq"
+      # The completion call back to the API. In the compose-backed end-to-end test the API runs on
+      # the host, so the worker reaches it through the host gateway.
+      MEDIA_API_BASE_URL: "http://host.docker.internal:8090"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ../../media/image-worker/build/libs/image-worker-0.0.1-SNAPSHOT.jar:/workspace/jar.jar
       - ./entrypoint.bash:/entrypoint.bash:ro
+      - gradle-cache:/gradle-home
     depends_on:
       - minio
+      - rabbitmq
     stdin_open: true
     tty: true
     ports:
       - '8082:8092'
+
+  rabbitmq:
+    container_name: rabbitmq-dev
+    image: rabbitmq:4-management
+    ports:
+      - "5672:5672"
+      - "15672:15672" # management console
 
   db:
     # CLI: cockroach sql --insecure; use defaultdb;

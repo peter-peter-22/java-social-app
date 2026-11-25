@@ -1,7 +1,11 @@
-# Baseline application
-Do a complete refractor, achieve the targeted hexagonal architecture, implement the full refactoring plan.
+# User roadmap
 
-Consider to use database rows instead of encrypted signatures for the upload permissions.
+This roadmap is a high level overview of the planned features or topics.
+The execution of the steps is not ordered, the order is depending on which one is the easiest to implement at the given state.
+
+# Baseline application
+
+Revise the testing architecture and the project structure.
 
 Find a reliable cleanup mechanism.
 
@@ -34,9 +38,11 @@ The tests are excepted to be slow, running them regularly along with the other t
 After confirming what happens, a test should be created that checks if the service still works as intended after a possible replacement or update.
 
 # Prepare clean up
+
 Rebuild the documentation.
 
 # Seek improvements
+
 Validate the seemingly pointless usage of transactions adn flushing on some repositories.
 
 Check the advantages of package scoped constructors.

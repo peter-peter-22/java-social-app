@@ -17,8 +17,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 
+    // The async image transform entry point: the worker consumes commands from RabbitMQ.
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+
     // libvips
-    implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
+    implementation(libs.vips.ffm.core)
+
+    // The architecture guard (clean-media-service.md): the worker cannot import the registry.
+    testImplementation(libs.archunit.junit5)
 }
 
 // libvips loads its native library through the foreign function and memory API. Java 25 blocks

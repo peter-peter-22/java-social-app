@@ -1,6 +1,7 @@
 plugins {
     id("spring-library-conventions")
-    id("org.hibernate.orm") version "7.2.19.Final"
+    // The version is pinned in buildSrc/build.gradle.kts like the other convention plugins.
+    id("org.hibernate.orm")
 }
 
 hibernate {

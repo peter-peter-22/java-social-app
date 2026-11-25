@@ -1,7 +1,6 @@
 package com.example.media.api.read;
 
 import com.example.media.api.upload.UploadNotFoundException;
-import com.example.media.contract.asset.Asset;
 import com.example.media.contract.port.AssetStore;
 import com.example.media.contract.port.ObjectStore;
 import com.example.media.contract.port.UploadRegistry;
@@ -28,13 +27,6 @@ public class ReadOriginal {
         var asset = assetStore.findAsset(upload.assetId())
                 .orElseThrow(() -> new IllegalStateException(
                         "the asset of upload " + key.value() + " is missing"));
-        return open(asset);
-    }
-
-    private StoredFile open(Asset asset) {
-        return new StoredFile(
-                asset.contentType(),
-                asset.entryPoint(),
-                objectStore.get(asset.prefix().resolve(asset.entryPoint())));
+        return StoredFile.open(asset, objectStore);
     }
 }

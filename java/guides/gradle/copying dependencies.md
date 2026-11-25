@@ -2,7 +2,7 @@
 
 Copying all dependencies to a test fixture.
 
-(Implemented in the test-fixtures-conventions gradle convention)
+(Not wired into a build convention; add the block below to the build file of the module that needs the copy.)
 
 ## java-test-fixtures
 

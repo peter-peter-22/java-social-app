@@ -48,19 +48,43 @@ class ImageUploadControllerTest {
     void uploadsAnImage() throws Exception {
         var upload = new Upload(new UploadId(UUID.randomUUID()), new UploadKey("cover"),
                 AssetId.generate(), Instant.parse("2026-01-01T00:00:00Z"));
-        when(startImageUpload.start(any(), any(), anyLong(), any())).thenReturn(upload);
+        when(startImageUpload.start(any(), any(), anyLong(), any())).thenReturn(
+                new StartImageUpload.StartResult(new UploadKey("cover"), upload, null));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, List.of("profile"), "optimize")))
+                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, List.of("profile"), "optimize", null)))
                         .file(filePart()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.uploadKey").value("cover"));
+                .andExpect(jsonPath("$.uploadKey").value("cover"))
+                .andExpect(jsonPath("$.createdAt").value("2026-01-01T00:00:00Z"))
+                .andExpect(jsonPath("$.async").value(false));
 
         verify(startImageUpload).start(
                 org.mockito.ArgumentMatchers.argThat(request -> request.uploadKey().equals("cover")
                         && request.extension().equals("jpg")
                         && request.eagerTransformationNames().equals(List.of("profile"))
-                        && request.incomingTransformationName().equals("optimize")),
+                        && request.incomingTransformationName().equals("optimize")
+                        && request.async() == null),
+                any(),
+                eq(3L),
+                eq("image/jpeg"));
+    }
+
+    @Test
+    void queuesAnAsyncImageUpload() throws Exception {
+        when(startImageUpload.start(any(), any(), anyLong(), any())).thenReturn(
+                new StartImageUpload.StartResult(new UploadKey("cover"), null, Instant.parse("2026-01-01T00:00:00Z")));
+
+        mockMvc.perform(multipart("/api/upload/image")
+                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, List.of("profile"), "optimize", true)))
+                        .file(filePart()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.uploadKey").value("cover"))
+                .andExpect(jsonPath("$.createdAt").value("2026-01-01T00:00:00Z"))
+                .andExpect(jsonPath("$.async").value(true));
+
+        verify(startImageUpload).start(
+                org.mockito.ArgumentMatchers.argThat(request -> Boolean.TRUE.equals(request.async())),
                 any(),
                 eq(3L),
                 eq("image/jpeg"));
@@ -72,7 +96,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new UploadNotFoundException("missing"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("missing", "jpg", null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest("missing", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isNotFound());
     }
@@ -83,7 +107,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new IllegalArgumentException("the uploaded file is empty"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isBadRequest());
     }
@@ -91,7 +115,7 @@ class ImageUploadControllerTest {
     @Test
     void missingFilePartIsBadRequest() throws Exception {
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null))))
+                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null))))
                 .andExpect(status().isBadRequest());
     }
 
@@ -101,7 +125,7 @@ class ImageUploadControllerTest {
                 .thenThrow(new RuntimeException("boom"));
 
         mockMvc.perform(multipart("/api/upload/image")
-                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null)))
+                        .file(bodyPart(new ImageUploadRequest("cover", "jpg", null, null, null, null, null)))
                         .file(filePart()))
                 .andExpect(status().isInternalServerError());
     }

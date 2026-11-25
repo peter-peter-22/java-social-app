@@ -1,6 +1,6 @@
 ---
 name: java-testing
-description: Write and maintain Java unit and integration tests using JUnit 5, AssertJ, Mockito, Spring MockMvc, SpringBootTest, and MockWebServer. Use when creating, updating, or reviewing tests for Java or Spring Boot code, including service tests, controller tests, application-context wiring tests, and HTTP-client tests.
+description: Write and maintain Java unit and integration tests using JUnit 5, AssertJ, Mockito, Spring MockMvc, SpringBootTest, and MockRestServiceServer. Use when creating, updating, or reviewing tests for Java or Spring Boot code, including service tests, controller tests, application-context wiring tests, and HTTP-client tests.
 ---
 
 # Java Testing
@@ -12,7 +12,7 @@ description: Write and maintain Java unit and integration tests using JUnit 5, A
     - Use a JUnit 5 unit test for isolated domain or service logic.
     - Use a Spring `MockMvc` test for web endpoint behavior.
     - Use `@SpringBootTest` when Spring Boot wiring, configuration, or multiple application components must be verified.
-    - Use MockWebServer when testing code that makes HTTP requests to an external service.
+    - Use MockRestServiceServer when testing code that makes HTTP requests to an external service.
 3. Cover observable behavior, including success, validation, failure, and boundary cases relevant to the change.
 4. Keep tests deterministic and independent. Avoid real network calls, sleeps, shared mutable state, and unnecessary
    application-context startup.
@@ -29,7 +29,7 @@ description: Write and maintain Java unit and integration tests using JUnit 5, A
   and meaningful JSON fields.
 - Use `@SpringBootTest` for Spring Boot wiring and integration behavior. Keep the context narrow when a slice test is
   sufficient.
-- Use MockWebServer to provide deterministic HTTP responses and verify outbound requests. Shut it down reliably and
+- Use MockRestServiceServer to provide deterministic HTTP responses and verify outbound requests. Shut it down reliably and
   avoid depending on external services.
 - Follow the repository's existing package, naming, fixture, and dependency conventions. Use Lombok and JSpecify when
   the project rules require them, including in test helpers and fixtures.
@@ -59,5 +59,5 @@ class UserServiceTest {
 ```
 
 For Spring tests, select the least expensive appropriate setup, use `MockMvc` for controller behavior, and reserve
-`@SpringBootTest` for wiring or integration coverage. For HTTP clients, enqueue MockWebServer responses and assert the
+`@SpringBootTest` for wiring or integration coverage. For HTTP clients, enqueue MockRestServiceServer responses and assert the
 recorded request method, path, headers, and body as well as the client result.

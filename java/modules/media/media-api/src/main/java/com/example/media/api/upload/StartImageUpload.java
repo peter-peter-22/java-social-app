@@ -19,17 +19,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  * The start-image-upload use case: validate the request, start an attempt, write the original to
- * the object store, and run the blocking image transform.
+ * the object store, and hand the image transform to a worker.
  *
- * <p>The worker adapter retries recoverable failures. Each worker execution allocates fresh result
- * asset ids, so a retry writes to new object keys. If the worker finally fails, the attempt is
- * marked {@code FAILED}; the temporary objects of the failed executions expire.</p>
+ * <p>The blocking worker adapter retries recoverable failures. Each worker execution allocates fresh
+ * result asset ids, so a retry writes to new object keys. If the worker finally fails, the attempt
+ * is marked {@code FAILED}; the temporary objects of the failed executions expire.</p>
+ *
+ * <p>The async adapter publishes the same command and returns immediately. The attempt stays
+ * {@code PENDING} until the worker calls the completion endpoint, which finalizes it; a dead-letter
+ * marks it {@code FAILED}. The result of an async start is a queued upload, not a finalized one.</p>
  *
  * <p>The order of the command's outputs is the wire contract with the worker: the incoming result
  * first (when requested), then the eager results in request order. The worker reports its results
@@ -51,18 +56,20 @@ public class StartImageUpload {
     private final TransformationCatalog transformationCatalog;
     private final ObjectStore objectStore;
     private final ImageTransformer imageTransformer;
+    private final AsyncImageTransformer asyncImageTransformer;
     private final CompleteImageUpload completeImageUpload;
+    private final FailImageUpload failImageUpload;
     private final TransactionTemplate transactions;
 
     /**
-     * Runs the blocking upload of one image and returns the finalized upload.
+     * Starts the upload of one image and returns how it was accepted.
      *
      * @param request     the client's request, validated here
      * @param content     the uploaded file
      * @param bytes       the size of the uploaded file
      * @param contentType the content type the client sent the file with, if any
      */
-    public Upload start(Request request, InputStream content, long bytes, @Nullable String contentType) {
+    public StartResult start(Request request, InputStream content, long bytes, @Nullable String contentType) {
         var key = validatedKey(request);
         var extension = validatedExtension(request);
         var eagerNames = validatedEagerNames(request);
@@ -117,19 +124,34 @@ public class StartImageUpload {
             outputs.add(plannedOutput(placement, transformation.name(), transformation));
 
         // A request without any transformation keeps the uploaded original as-is.
-        ImageTransformResult result;
-        if (outputs.isEmpty()) {
-            result = new ImageTransformResult(attemptId, List.of(), null);
-        } else {
+        if (outputs.isEmpty())
+            return StartResult.blocking(
+                    key, completeImageUpload.complete(attemptId, new ImageTransformResult(attemptId, List.of(), null)));
+
+        var command = new ImageTransformCommand(attemptId, source, outputs);
+        if (Boolean.TRUE.equals(request.async())) {
             try {
-                result = imageTransformer.transform(new ImageTransformCommand(attemptId, source, outputs));
+                asyncImageTransformer.transformAsync(command);
             } catch (RuntimeException e) {
                 failAttempt(attemptId);
                 throw e;
             }
+            // The attempt stays PENDING; the completion endpoint finalizes it when the worker calls
+            // back. The acceptance time is reported so the client knows when the upload was taken.
+            var attempt = uploadRegistry.findAttempt(attemptId)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "the attempt " + attemptId.value() + " is missing"));
+            return StartResult.queued(key, attempt.createdAt());
         }
 
-        return completeImageUpload.complete(attemptId, result);
+        ImageTransformResult result;
+        try {
+            result = imageTransformer.transform(command);
+        } catch (RuntimeException e) {
+            failAttempt(attemptId);
+            throw e;
+        }
+        return StartResult.blocking(key, completeImageUpload.complete(attemptId, result));
     }
 
     /**
@@ -139,15 +161,30 @@ public class StartImageUpload {
      */
     private void failAttempt(AttemptId attemptId) {
         try {
-            transactions.execute(status -> {
-                uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
-                return null;
-                // TODO This failed attempt state might be totally unnecessary.
-                //  Investigate this after the periodic cleanup is complete and the most of the media cloud works.
-            });
+            failImageUpload.fail(attemptId);
         } catch (RuntimeException cleanupFailure) {
             // Keep the original worker failure as the primary error.
             log.warn("Could not mark upload attempt {} as failed", attemptId.value(), cleanupFailure);
+        }
+    }
+
+    /**
+     * How an upload was accepted: a finalized upload, or a queued upload whose eager and incoming
+     * transformations still run.
+     */
+    public record StartResult(UploadKey key, @Nullable Upload upload, @Nullable Instant acceptedAt) {
+
+        static StartResult blocking(UploadKey key, Upload upload) {
+            return new StartResult(key, upload, null);
+        }
+
+        static StartResult queued(UploadKey key, Instant acceptedAt) {
+            return new StartResult(key, null, acceptedAt);
+        }
+
+        /** Whether the transformations run on the queue; the upload does not exist yet. */
+        public boolean async() {
+            return upload == null;
         }
     }
 
@@ -158,7 +195,8 @@ public class StartImageUpload {
             @Nullable String desiredContentType,
             @Nullable Long desiredBytes,
             @Nullable List<String> eagerTransformationNames,
-            @Nullable String incomingTransformationName
+            @Nullable String incomingTransformationName,
+            @Nullable Boolean async
     ) {
     }
 

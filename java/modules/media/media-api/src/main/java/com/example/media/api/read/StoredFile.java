@@ -1,5 +1,8 @@
 package com.example.media.api.read;
 
+import com.example.media.contract.asset.Asset;
+import com.example.media.contract.port.ObjectStore;
+
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -12,5 +15,13 @@ public record StoredFile(String contentType, String fileName, InputStream conten
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(fileName, "fileName");
         Objects.requireNonNull(content, "content");
+    }
+
+    /** Opens the entry file of a stored asset for delivery. */
+    static StoredFile open(Asset asset, ObjectStore objectStore) {
+        return new StoredFile(
+                asset.contentType(),
+                asset.entryPoint(),
+                objectStore.get(asset.prefix().resolve(asset.entryPoint())));
     }
 }

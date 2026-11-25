@@ -8,9 +8,6 @@ import java.util.Optional;
 
 @NullMarked
 interface UploadProcessCrudRepository extends JpaRepository<UploadProcessEntity, String> {
-    @EntityGraph(attributePaths = {"activeAttempt", "upload"})
-    Optional<UploadProcessEntity> findWithReferencesByUploadKey(String uploadKey);
-
     @Modifying
     @Query(value = """
             INSERT INTO upload_process (upload_key)

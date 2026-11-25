@@ -34,14 +34,17 @@ class Uploads extends MinioReconciliation {
         createBucketIfNotExists(client, bucketName);
 
         // Configure the tag that expires files
-        var expirationTag= ObjectTag.EXPIRES;
+        var expirationTag = ObjectTag.EXPIRES;
         List<LifecycleRule> rules = new ArrayList<>();
         rules.add(
                 new LifecycleRule(
                         Status.ENABLED,
                         new AbortIncompleteMultipartUpload(expirationDays),
-                        new Expiration((ZonedDateTime) null, expirationDays, null), // TODO check the ideal parameters
-                        new RuleFilter(new Tag(expirationTag.getKey(), expirationTag.getValue())),
+                        new Expiration((ZonedDateTime) null, expirationDays, null),
+                // TODO planning/roadmap.md "Verify the behavior of the used services": confirm the
+                //  lifecycle rule parameters against Minio's behavior for multipart uploads and
+                //  existing temporal objects.
+                        new RuleFilter(new Tag(expirationTag.key(), expirationTag.value())),
                         "expiration tag rule",
                         null,
                         null,
@@ -54,6 +57,7 @@ class Uploads extends MinioReconciliation {
         } catch (Exception e) {
             throw  new RuntimeException("Failed to set bucket lifecycle", e);
         }
-        // TODO disable multi region replication for the tagged objects
+        // TODO planning/roadmap.md "Verify the behavior of the used services": how the Minio
+        //  replication works between regions decides how tagged objects must be handled here.
     }
 }

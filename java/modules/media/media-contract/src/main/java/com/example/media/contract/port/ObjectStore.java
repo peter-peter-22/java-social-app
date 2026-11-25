@@ -38,7 +38,8 @@ public interface ObjectStore {
      * Sets the lifetime of every given object. Used at finalize to make the results permanent.
      * The objects must exist: a missing object fails the call, so the finalize relies on this
      * write to prove that nothing expired and does not stat the objects separately. The objects
-     * already processed are not rolled back when a later one fails.
+     * already processed are not rolled back when a later one fails. The tag write replaces the
+     * whole tag set of each object, so a kept object carries exactly the lifetime tag.
      */
     void setLifetime(List<ObjectRef> refs, ObjectLifetime lifetime);
 

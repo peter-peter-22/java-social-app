@@ -12,8 +12,8 @@ The prototype in `modules/uploads_v2` stays until the new path passes the same e
 - [x] Point Compose and `EndToEndTest` at the new jars; the API runs Liquibase, the worker does not. The end-to-end test passes.
 - [x] Remove the unused `uploads_v2` modules (after moving the Minio object store and the docker tests into `modules/media`).
 - [x] Move the JSON shape of the specs and worker messages out of the domain into `media-json`: Jackson mixins and one shared configuration for the web, the registry, and the future queue.
-- [ ] Add async on the same file path.
-- [ ] Conventions pass: names, Gradle, ArchUnit.
+- [x] Add async on the same file path.
+- [x] Conventions pass: names, Gradle, ArchUnit.
 
 ## Decision
 
@@ -92,9 +92,9 @@ Blocking and async use the same bytes path. Only the control message changes.
 3. The worker downloads the source, transforms it, allocates a fresh asset id and prefix for every output on that execution, and uploads the results with expiration tags. It returns metadata and the object list. It does not insert rows, change tags to permanent, or finalize the attempt.
 4. The API removes the expiration tags (which fails when a kept object is missing), and then commits one transaction: assets become ready, the upload and variant rows are inserted, and the attempt becomes successful. If that transaction fails, the objects expire and the existing cleanup rules apply.
 5. Blocking waits for the worker HTTP call, then runs step 4 before responding.
-6. Async publishes the same command after the attempt is marked processing, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`.
+6. Async publishes the same command as the blocking transformation, returns immediately, and runs step 4 when the worker calls the API completion endpoint. Every queue delivery is a new worker execution with fresh result asset ids, so a redelivery is safe. Completion is idempotent on `attemptId`, the first writing wins is duplicated work is requested by accident.
 
-Do not add a broker during the structural move. `ImageTransformer` has `transform` for the blocking adapter. `enqueue` is added later. Async should use a normal broker plus a transactional outbox so the database state and the queued command cannot diverge.
+`ImageTransformer` has `transform` for the blocking adapter and `AsyncImageTransformer` has `transformAsync` for the async adapter,
 
 Failure policy, already stated in `upload-lifecycle.md`: retry recoverable worker failures, and mark the attempt failed when retries are exhausted or the error is unrecoverable. Fresh result asset ids per execution are what make the retry safe for both blocking and async delivery.
 
@@ -144,4 +144,20 @@ Verification for every step is the existing registry and object-storage integrat
 With step 8, the new modules are ready, all tests pass (including the end-to-end test), and the prototypes were removed.
 Only the refactored uploads_v2 directory was removed, the other uploads directory remains for later recycle.
 
-The next step is step 9, which adds the async port. The architecture and behavior of this mechanism is not certain yet and needs to be planned.
+Step 9 added the async port: the API publishes the same worker command to RabbitMQ and returns
+immediately, the worker consumes it, runs the same transform, and calls the API completion endpoint,
+which runs the same finalize. Retries are safe because every queue delivery allocates fresh result
+asset ids; completion is idempotent on the attempt id. The attempt has no processing status; a
+dead-lettered command marks the attempt failed. The upload response carries an `async` boolean, so
+the client knows whether the upload exists yet.
+
+Step 10 finished the conventions pass. The unused build conventions and their plugin pins were
+deleted, the shared dependency versions have one home in buildSrc (the Spring Boot BOM owns the
+test libraries of the Spring modules, the plain Java modules keep the pins, and the mockito agent
+is the mockito-core of the test classpath), the hibernate plugin pin moved into buildSrc, and the
+duplicated `minio:` block of the two `application.yaml` files became one `minio-defaults.yaml` in
+the object-storage adapter that both deployables import; the environment overrides it. ArchUnit
+guards the boundaries: the contract cannot import Spring, JPA, Minio, or Jackson, `media-json`
+cannot import Spring, JPA, or Minio, and neither the worker nor the pure modules can depend on the
+registry. The Minio tag types are one non-null tag representation now, and the replace semantics of
+the tag write are pinned by `MinioObjectStoreIT`. The expiration tags and the lifecycle rule stay.

@@ -10,30 +10,22 @@ repositories {
     mavenCentral()
 }
 
-val mockitoAgent by configurations.creating
+// The version catalog; the entries are looked up by name because Gradle does not generate the
+// type-safe libs.* accessors inside precompiled script plugins. The module scripts and
+// buildSrc/build.gradle.kts use the typed accessors.
+val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
-    // junit
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
     // lombok
-    compileOnly("org.projectlombok:lombok:1.18.46")
-    annotationProcessor("org.projectlombok:lombok:1.18.46")
-    testCompileOnly("org.projectlombok:lombok:1.18.46")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+    compileOnly(catalog.findLibrary("lombok").get())
+    annotationProcessor(catalog.findLibrary("lombok").get())
+    testCompileOnly(catalog.findLibrary("lombok").get())
+    testAnnotationProcessor(catalog.findLibrary("lombok").get())
 
     // jspecify
-    implementation("org.jspecify:jspecify:1.0.0")
+    implementation(catalog.findLibrary("jspecify").get())
 
-    // assertj
-    testImplementation("org.assertj:assertj-core:3.27.7")
-
-    // mockito
-    testImplementation("org.mockito:mockito-core:5.23.0")
-    mockitoAgent("org.mockito:mockito-core:5.23.0") {
-        isTransitive = false
-    }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
@@ -45,6 +37,13 @@ java {
 tasks.withType<Test> {
     useJUnitPlatform()
     doFirst {
-        jvmArgs("-javaagent:${mockitoAgent.singleFile.absolutePath}")
+        // The mockito agent is the mockito-core jar already on this test task's classpath, so the
+        // agent and the mockito core can never be different versions: whatever resolved the core
+        // (the Spring Boot BOM in the Spring modules, the version catalog pins in the plain Java
+        // ones)
+        // resolved the agent with it.
+        val mockitoCore = classpath.files.firstOrNull { it.name.startsWith("mockito-core-") }
+        if (mockitoCore != null)
+            jvmArgs("-javaagent:${mockitoCore.absolutePath}")
     }
 }

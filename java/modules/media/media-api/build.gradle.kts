@@ -26,6 +26,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 
+    // The async image transform port: the API publishes commands to RabbitMQ and consumes the
+    // dead-lettered attempts to mark them failed.
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+
     // The application services own their transaction boundaries. The transaction manager itself
     // arrives with the registry adapters when the API is wired.
     implementation("org.springframework:spring-tx")
