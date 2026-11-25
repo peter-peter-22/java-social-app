@@ -13,6 +13,7 @@ import com.example.media.contract.port.UploadRegistry;
 import com.example.media.contract.upload.Upload;
 import com.example.media.contract.upload.UploadId;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadVisibility;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -45,7 +46,7 @@ class ReadOriginalTest {
     @Test
     void deliversTheMainFileOfTheUpload() {
         when(uploadRegistry.findUpload(KEY)).thenReturn(Optional.of(
-                new Upload(new UploadId(UUID.randomUUID()), KEY, ASSET_ID, Instant.now())));
+                new Upload(new UploadId(UUID.randomUUID()), KEY, ASSET_ID, UploadVisibility.PUBLIC, Instant.now())));
         when(assetStore.findAsset(ASSET_ID)).thenReturn(Optional.of(asset));
         var content = new ByteArrayInputStream(new byte[3]);
         when(objectStore.get(any())).thenReturn(content);

@@ -70,7 +70,8 @@ class StartImageUploadTest {
         when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(), null);
         when(imageTransformer.transform(any())).thenReturn(result);
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, AssetId.generate(), Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, AssetId.generate(), UploadVisibility.PUBLIC, Instant.now());
         when(completeImageUpload.complete(ATTEMPT_ID, result)).thenReturn(upload);
 
         var started = useCase.start(
@@ -89,7 +90,8 @@ class StartImageUploadTest {
         assertThat(newAsset.getValue().contentType()).isEqualTo("image/jpeg");
         assertThat(newAsset.getValue().placement()).isEqualTo(PLACEMENT);
         verify(uploadRegistry).createAttempt(
-                new NewUploadAttempt(KEY, newAsset.getValue().id(), List.of("profile"), "optimize"));
+                new NewUploadAttempt(KEY, newAsset.getValue().id(), List.of("profile"), "optimize",
+                        UploadVisibility.PUBLIC, null));
         verify(uploadRegistry).activateAttempt(KEY, ATTEMPT_ID);
 
         // the original is written temporary, under the reserved prefix
@@ -142,6 +144,7 @@ class StartImageUploadTest {
         var acceptedAt = Instant.now();
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, AssetId.generate(), List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.PENDING, acceptedAt, null)));
 
         var started = useCase.start(
@@ -186,7 +189,8 @@ class StartImageUploadTest {
     void withoutTransformationsSkipsTheWorker() {
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
         when(uploadRegistry.createAttempt(any())).thenReturn(ATTEMPT_ID);
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, AssetId.generate(), Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, AssetId.generate(), UploadVisibility.PUBLIC, Instant.now());
         when(completeImageUpload.complete(eq(ATTEMPT_ID), any())).thenReturn(upload);
 
         var started = useCase.start(

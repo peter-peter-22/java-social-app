@@ -7,6 +7,7 @@ import com.example.media.contract.upload.AttemptOutcome;
 import com.example.media.contract.upload.UploadAttempt;
 import com.example.media.contract.upload.UploadAttemptStatus;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadVisibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -74,6 +75,7 @@ class FailImageUploadTest {
                 AssetId.generate(),
                 List.of(),
                 null,
+                UploadVisibility.PUBLIC,
                 status,
                 Instant.now(),
                 status == UploadAttemptStatus.PENDING ? null : Instant.now());

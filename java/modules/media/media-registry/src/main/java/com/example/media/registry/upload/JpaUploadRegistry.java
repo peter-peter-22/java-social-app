@@ -67,6 +67,11 @@ public class JpaUploadRegistry implements UploadRegistry {
                 .uploadProcess(entityManager.getReference(UploadProcessEntity.class, insert.key().value()))
                 .eagerTransformationNames(List.copyOf(insert.eagerTransformationNames()))
                 .incomingTransformationName(insert.incomingTransformationName())
+                .visibility(insert.visibility())
+                .uploadPermission(insert.uploadPermissionId() == null
+                        ? null
+                        : entityManager.getReference(
+                                UploadPermissionEntity.class, insert.uploadPermissionId().value()))
                 .originalAsset(entityManager.getReference(AssetEntity.class, insert.originalAssetId().value()))
                 .status(UploadAttemptStatus.PENDING)
                 .build());
@@ -127,6 +132,7 @@ public class JpaUploadRegistry implements UploadRegistry {
             upload = uploadCrudRepository.saveAndFlush(UploadEntity.builder()
                     .uploadKey(insert.key().value())
                     .asset(entityManager.getReference(AssetEntity.class, insert.assetId().value()))
+                    .visibility(insert.visibility())
                     .build());
         } catch (DataIntegrityViolationException e) {
             if (isUploadKeyTaken(e)) {

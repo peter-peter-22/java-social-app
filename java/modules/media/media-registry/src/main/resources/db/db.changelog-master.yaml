@@ -13,6 +13,10 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - includeAll:
+      path: changelog/permissions
+      relativeToChangelogFile: true
+
+  - includeAll:
       path: changelog/image_metadata
       relativeToChangelogFile: true
 

@@ -17,6 +17,7 @@ public record UploadAttempt(
         AssetId originalAssetId,
         List<String> eagerTransformationNames,
         @Nullable String incomingTransformationName,
+        UploadVisibility visibility,
         UploadAttemptStatus status,
         Instant createdAt,
         @Nullable Instant finishedAt
@@ -27,6 +28,7 @@ public record UploadAttempt(
         Objects.requireNonNull(originalAssetId, "originalAssetId");
         Objects.requireNonNull(eagerTransformationNames, "eagerTransformationNames");
         eagerTransformationNames = List.copyOf(eagerTransformationNames);
+        Objects.requireNonNull(visibility, "visibility");
         Objects.requireNonNull(status, "status");
         Objects.requireNonNull(createdAt, "createdAt");
     }

@@ -6,6 +6,7 @@ import com.example.media.contract.asset.AssetId;
 import com.example.media.contract.upload.Upload;
 import com.example.media.contract.upload.UploadId;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadVisibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -47,7 +48,7 @@ class ImageUploadControllerTest {
     @Test
     void uploadsAnImage() throws Exception {
         var upload = new Upload(new UploadId(UUID.randomUUID()), new UploadKey("cover"),
-                AssetId.generate(), Instant.parse("2026-01-01T00:00:00Z"));
+                AssetId.generate(), UploadVisibility.PUBLIC, Instant.parse("2026-01-01T00:00:00Z"));
         when(startImageUpload.start(any(), any(), anyLong(), any())).thenReturn(
                 new StartImageUpload.StartResult(new UploadKey("cover"), upload, null));
 

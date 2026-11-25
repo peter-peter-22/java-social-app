@@ -5,6 +5,7 @@ import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.upload.UploadAttempt;
 import com.example.media.contract.upload.UploadAttemptStatus;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadVisibility;
 import com.example.media.registry.asset.AssetEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -47,6 +48,16 @@ public final class UploadAttemptEntity {
     private @Nullable List<String> eagerTransformationNames;
     @Column(length = 50)
     private @Nullable String incomingTransformationName;
+    /** How the resulting upload is read. Recorded here so async completion knows it. */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private UploadVisibility visibility;
+    /**
+     * The permission this attempt consumed, if any. A terminal failure revokes its remaining uses.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "upload_permission_id")
+    private @Nullable UploadPermissionEntity uploadPermission;
     /**
      * The original file from the upload request without incoming transformation.
      */
@@ -70,6 +81,7 @@ public final class UploadAttemptEntity {
                 new AssetId(originalAsset.getId()),
                 eagerTransformationNames == null ? List.of() : List.copyOf(eagerTransformationNames),
                 incomingTransformationName,
+                visibility,
                 status,
                 createdAt,
                 finishedAt

@@ -108,7 +108,8 @@ public class StartImageUpload {
                     bytes,
                     List.of(entryPoint)));
             var id = uploadRegistry.createAttempt(
-                    new NewUploadAttempt(key, originalId, eagerNames, incomingName));
+                    new NewUploadAttempt(
+                            key, originalId, eagerNames, incomingName, UploadVisibility.PUBLIC, null));
             uploadRegistry.activateAttempt(key, id);
             return id;
         });

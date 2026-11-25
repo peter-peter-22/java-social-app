@@ -9,11 +9,18 @@ import java.util.Objects;
  * A finalized upload: the durable result of a successful attempt.
  * References its asset by id instead of embedding it; joins are a query-side concern.
  */
-public record Upload(UploadId id, UploadKey key, AssetId assetId, Instant createdAt) {
+public record Upload(
+        UploadId id,
+        UploadKey key,
+        AssetId assetId,
+        UploadVisibility visibility,
+        Instant createdAt
+) {
     public Upload {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(assetId, "assetId");
+        Objects.requireNonNull(visibility, "visibility");
         Objects.requireNonNull(createdAt, "createdAt");
     }
 }

@@ -141,7 +141,7 @@ public class CompleteImageUpload {
         return transactions.execute(_ -> {
             assetStore.setStatus(keptIds, AssetStatus.READY);
             var upload = uploadRegistry.registerUpload(
-                    new NewUpload(attempt.key(), attemptId, mainAssetId));
+                    new NewUpload(attempt.key(), attemptId, mainAssetId, attempt.visibility()));
             var variants = new ArrayList<NewVariant>();
             for (int i = 0; i < eagerOutputs.size(); i++) {
                 var transformation = eagerTransformations.get(i);

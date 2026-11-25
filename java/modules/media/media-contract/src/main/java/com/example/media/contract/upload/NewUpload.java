@@ -9,10 +9,16 @@ import java.util.Objects;
  * Registration is atomic and cannot overwrite: the key must be free and the attempt must still
  * be the process's active one.
  */
-public record NewUpload(UploadKey key, AttemptId attemptId, AssetId assetId) {
+public record NewUpload(
+        UploadKey key,
+        AttemptId attemptId,
+        AssetId assetId,
+        UploadVisibility visibility
+) {
     public NewUpload {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(attemptId, "attemptId");
         Objects.requireNonNull(assetId, "assetId");
+        Objects.requireNonNull(visibility, "visibility");
     }
 }

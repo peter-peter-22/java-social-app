@@ -8,6 +8,7 @@ import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.upload.Upload;
 import com.example.media.contract.upload.UploadId;
 import com.example.media.contract.upload.UploadKey;
+import com.example.media.contract.upload.UploadVisibility;
 import com.example.media.contract.worker.ImageTransformResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ class WorkerCompletionControllerTest {
     void completesAnAttempt() throws Exception {
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(), null);
         var upload = new Upload(new UploadId(UUID.randomUUID()), new UploadKey("cover"),
-                AssetId.generate(), Instant.now());
+                AssetId.generate(), UploadVisibility.PUBLIC, Instant.now());
         when(completeImageUpload.complete(ATTEMPT_ID, result)).thenReturn(upload);
 
         mockMvc.perform(post("/api/completion/image")

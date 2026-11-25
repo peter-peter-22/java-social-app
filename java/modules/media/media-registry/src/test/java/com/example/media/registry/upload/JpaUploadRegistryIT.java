@@ -59,7 +59,9 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         var original = insertAsset();
 
         var attemptId = uploadRegistry.createAttempt(
-                new NewUploadAttempt(key, original, List.of("thumbnail", "preview"), "incoming"));
+                new NewUploadAttempt(
+                        key, original, List.of("thumbnail", "preview"), "incoming",
+                        UploadVisibility.PRIVATE, null));
 
         var attempt = uploadRegistry.findAttempt(attemptId).orElseThrow();
         assertThat(attempt.id()).isEqualTo(attemptId);
@@ -67,6 +69,7 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         assertThat(attempt.originalAssetId()).isEqualTo(original);
         assertThat(attempt.eagerTransformationNames()).containsExactly("thumbnail", "preview");
         assertThat(attempt.incomingTransformationName()).isEqualTo("incoming");
+        assertThat(attempt.visibility()).isEqualTo(UploadVisibility.PRIVATE);
         assertThat(attempt.status()).isEqualTo(UploadAttemptStatus.PENDING);
         assertThat(attempt.createdAt()).isNotNull();
         assertThat(attempt.finishedAt()).isNull();
@@ -84,6 +87,7 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
 
         var upload = uploadRegistry.findUpload(fixture.key()).orElseThrow();
         assertThat(upload.assetId()).isEqualTo(fixture.originalAssetId());
+        assertThat(upload.visibility()).isEqualTo(fixture.visibility());
         assertThat(uploadRegistry.openOrGetProcess(fixture.key()).uploadId()).isEqualTo(upload.id());
         var attempt = uploadRegistry.findAttempt(fixture.attemptId()).orElseThrow();
         assertThat(attempt.status()).isEqualTo(UploadAttemptStatus.SUCCESS);
@@ -130,7 +134,8 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         assertThatThrownBy(() -> uploadRegistry.activateAttempt(fixture.key(), fixture.attemptId()))
                 .isInstanceOf(UploadAlreadyFinishedException.class);
         assertThatThrownBy(() -> uploadRegistry.registerUpload(
-                new NewUpload(fixture.key(), fixture.attemptId(), fixture.originalAssetId())))
+                new NewUpload(
+                        fixture.key(), fixture.attemptId(), fixture.originalAssetId(), fixture.visibility())))
                 .isInstanceOf(AttemptNotActiveException.class);
     }
 
@@ -139,9 +144,9 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         var key = key("inactive");
         var original = insertAsset();
         uploadRegistry.openOrGetProcess(key);
-        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null));
+        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null, UploadVisibility.PUBLIC, null));
 
-        assertThatThrownBy(() -> uploadRegistry.registerUpload(new NewUpload(key, attemptId, original)))
+        assertThatThrownBy(() -> uploadRegistry.registerUpload(new NewUpload(key, attemptId, original, UploadVisibility.PUBLIC)))
                 .isInstanceOf(AttemptNotActiveException.class);
 
         assertThat(uploadRegistry.findUpload(key)).isEmpty();
@@ -154,15 +159,16 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         var key = key("taken");
         var original = insertAsset();
         uploadRegistry.openOrGetProcess(key);
-        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null));
+        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null, UploadVisibility.PUBLIC, null));
         uploadRegistry.activateAttempt(key, attemptId);
         // A leftover upload row takes the key with another asset and without a linked process.
         uploadCrudRepository.saveAndFlush(UploadEntity.builder()
                 .uploadKey(key.value())
                 .asset(assetCrudRepository.getReferenceById(insertAsset().value()))
+                .visibility(UploadVisibility.PUBLIC)
                 .build());
 
-        assertThatThrownBy(() -> uploadRegistry.registerUpload(new NewUpload(key, attemptId, original)))
+        assertThatThrownBy(() -> uploadRegistry.registerUpload(new NewUpload(key, attemptId, original, UploadVisibility.PUBLIC)))
                 .isInstanceOf(UploadKeyTakenException.class);
         assertThat(uploadRegistry.openOrGetProcess(key).uploadId()).isNull();
     }
@@ -172,7 +178,7 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         var key = key("failed");
         var original = insertAsset();
         uploadRegistry.openOrGetProcess(key);
-        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null));
+        var attemptId = uploadRegistry.createAttempt(new NewUploadAttempt(key, original, List.of(), null, UploadVisibility.PUBLIC, null));
 
         uploadRegistry.finishAttempt(attemptId, AttemptOutcome.FAILED);
 
@@ -194,7 +200,8 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
         assetStore.setStatus(
                 List.of(fixture.originalAssetId(), fixture.variantAssetId()), AssetStatus.READY);
         var upload = uploadRegistry.registerUpload(
-                new NewUpload(fixture.key(), fixture.attemptId(), fixture.originalAssetId()));
+                new NewUpload(
+                        fixture.key(), fixture.attemptId(), fixture.originalAssetId(), fixture.visibility()));
         uploadRegistry.registerVariants(List.of(new NewVariant(
                 new VariantId(upload.id(), fixture.transformation().id()),
                 fixture.transformation().currentVersionId(),
@@ -211,9 +218,12 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
                 new ImageTransformationSpec(null, null, null, new ImageEncoding.Jpeg(80))));
         uploadRegistry.openOrGetProcess(key);
         var attemptId = uploadRegistry.createAttempt(
-                new NewUploadAttempt(key, original, List.of(transformation.name()), null));
+                new NewUploadAttempt(
+                        key, original, List.of(transformation.name()), null,
+                        UploadVisibility.PUBLIC, null));
         uploadRegistry.activateAttempt(key, attemptId);
-        return new FinalizeFixture(key, attemptId, original, variantAsset, transformation);
+        return new FinalizeFixture(
+                key, attemptId, original, variantAsset, transformation, UploadVisibility.PUBLIC);
     }
 
     private record FinalizeFixture(
@@ -221,7 +231,8 @@ class JpaUploadRegistryIT extends CockroachIntegrationTest {
             AttemptId attemptId,
             AssetId originalAssetId,
             AssetId variantAssetId,
-            NamedTransformation transformation
+            NamedTransformation transformation,
+            UploadVisibility visibility
     ) {
     }
 

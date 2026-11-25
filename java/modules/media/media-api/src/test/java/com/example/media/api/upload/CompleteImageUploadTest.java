@@ -56,6 +56,7 @@ class CompleteImageUploadTest {
     private void stubRegistry() {
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.PENDING, Instant.now(), null)));
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
@@ -75,7 +76,8 @@ class CompleteImageUploadTest {
                 EAGER_ID, prefix(EAGER_ID), "profile.webp", List.of("profile.webp"),
                 20, "image/webp", new ImageMetadata(50, 50));
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(incomingOutput, eagerOutput), SOURCE_METADATA);
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, INCOMING_ID, Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, INCOMING_ID, UploadVisibility.PUBLIC, Instant.now());
         when(uploadRegistry.registerUpload(any())).thenReturn(upload);
 
         var done = useCase.complete(ATTEMPT_ID, result);
@@ -99,7 +101,7 @@ class CompleteImageUploadTest {
                 prefix(INCOMING_ID).resolve("original.webp"),
                 prefix(EAGER_ID).resolve("profile.webp"));
         inOrder.verify(assetStore).setStatus(kept, AssetStatus.READY);
-        inOrder.verify(uploadRegistry).registerUpload(new NewUpload(KEY, ATTEMPT_ID, INCOMING_ID));
+        inOrder.verify(uploadRegistry).registerUpload(new NewUpload(KEY, ATTEMPT_ID, INCOMING_ID, UploadVisibility.PUBLIC));
         inOrder.verify(uploadRegistry).registerVariants(List.of(new NewVariant(
                 new VariantId(upload.id(), PROFILE.id()), PROFILE.currentVersionId(), EAGER_ID)));
         inOrder.verify(uploadRegistry).finishAttempt(ATTEMPT_ID, AttemptOutcome.SUCCESS);
@@ -109,6 +111,7 @@ class CompleteImageUploadTest {
     void keepsTheOriginalWithoutAnIncomingResult() {
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), null,
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.PENDING, Instant.now(), null)));
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
@@ -119,7 +122,8 @@ class CompleteImageUploadTest {
                 EAGER_ID, prefix(EAGER_ID), "profile.webp", List.of("profile.webp"),
                 20, "image/webp", new ImageMetadata(50, 50));
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(eagerOutput), null);
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, ORIGINAL_ID, Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, ORIGINAL_ID, UploadVisibility.PUBLIC, Instant.now());
         when(uploadRegistry.registerUpload(any())).thenReturn(upload);
 
         useCase.complete(ATTEMPT_ID, result);
@@ -127,7 +131,7 @@ class CompleteImageUploadTest {
         var kept = List.of(ORIGINAL_ID, EAGER_ID);
         verify(assetStore).setStatus(kept, AssetStatus.FINALIZING);
         verify(assetStore).setStatus(kept, AssetStatus.READY);
-        verify(uploadRegistry).registerUpload(new NewUpload(KEY, ATTEMPT_ID, ORIGINAL_ID));
+        verify(uploadRegistry).registerUpload(new NewUpload(KEY, ATTEMPT_ID, ORIGINAL_ID, UploadVisibility.PUBLIC));
         // the original's registered object becomes permanent along with the variant's
         var refs = ArgumentCaptor.<List<ObjectRef>>captor();
         verify(objectStore).setLifetime(refs.capture(), eq(ObjectLifetime.PERMANENT));
@@ -140,8 +144,10 @@ class CompleteImageUploadTest {
     void completionIsIdempotentWhenTheAttemptAlreadySucceeded() {
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.SUCCESS, Instant.now(), Instant.now())));
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, ORIGINAL_ID, Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, ORIGINAL_ID, UploadVisibility.PUBLIC, Instant.now());
         when(uploadRegistry.findUpload(KEY)).thenReturn(Optional.of(upload));
 
         var done = useCase.complete(ATTEMPT_ID, new ImageTransformResult(ATTEMPT_ID, List.of(), null));
@@ -154,6 +160,7 @@ class CompleteImageUploadTest {
     void rejectsCompletionOfAFailedAttempt() {
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), "optimize",
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.FAILED, Instant.now(), Instant.now())));
 
         assertThatThrownBy(() -> useCase.complete(
@@ -180,7 +187,8 @@ class CompleteImageUploadTest {
                 "image/webp", "profile.webp", "webp", false, 20, List.of("profile.webp"),
                 new ImageMetadata(50, 50), null, Instant.now())));
         var result = new ImageTransformResult(ATTEMPT_ID, List.of(incomingOutput, eagerOutput), SOURCE_METADATA);
-        var upload = new Upload(new UploadId(UUID.randomUUID()), KEY, INCOMING_ID, Instant.now());
+        var upload = new Upload(
+                new UploadId(UUID.randomUUID()), KEY, INCOMING_ID, UploadVisibility.PUBLIC, Instant.now());
         when(uploadRegistry.registerUpload(any())).thenReturn(upload);
 
         useCase.complete(ATTEMPT_ID, result);
@@ -193,6 +201,7 @@ class CompleteImageUploadTest {
     void rejectsAResultUnderAnUnexpectedPlacement() {
         when(uploadRegistry.findAttempt(ATTEMPT_ID)).thenReturn(Optional.of(new UploadAttempt(
                 ATTEMPT_ID, KEY, ORIGINAL_ID, List.of("profile"), null,
+                UploadVisibility.PUBLIC,
                 UploadAttemptStatus.PENDING, Instant.now(), null)));
         when(transformationCatalog.resolveAll(List.of("profile"))).thenReturn(List.of(PROFILE));
         when(objectStore.homePlacement()).thenReturn(PLACEMENT);
