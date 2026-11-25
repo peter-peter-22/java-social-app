@@ -38,6 +38,19 @@ final class MediaComposeStack {
     static final String DOWNLOAD_TOKEN_SECRET = "ZTJlLW1lZGlhLWRvd25sb2FkLXRva2VuLXNlY3JldC0zMg==";
     static final String DOWNLOAD_TOKEN_KEY_ID = "e2e-k1";
 
+    /**
+     * The previous key of the rotation the test stack runs: tokens that name this key must still be
+     * accepted by the API and the edge after the signing key changed to {@link #DOWNLOAD_TOKEN_KEY_ID}.
+     */
+    static final String PREVIOUS_DOWNLOAD_TOKEN_SECRET = "ZTJlLXByZXZpb3VzLWRvd25sb2FkLXRva2VuLXNlY3JldA==";
+    static final String PREVIOUS_DOWNLOAD_TOKEN_KEY_ID = "e2e-k0";
+
+    /**
+     * The clock-skew tolerance of the test stack. Zero keeps the expiry journeys deterministic: a
+     * token is rejected as soon as its expiry passes, without waiting out the default tolerance.
+     */
+    static final long DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS = 0;
+
     private static ComposeContainer compose;
 
     private MediaComposeStack() {
@@ -61,6 +74,9 @@ final class MediaComposeStack {
                 // The edge verifies the tokens with the values the API signs with.
                 .withEnv("MEDIA_DOWNLOAD_TOKEN_SECRET", DOWNLOAD_TOKEN_SECRET)
                 .withEnv("MEDIA_DOWNLOAD_TOKEN_KEY_ID", DOWNLOAD_TOKEN_KEY_ID)
+                .withEnv("MEDIA_DOWNLOAD_TOKEN_PREVIOUS_SECRET", PREVIOUS_DOWNLOAD_TOKEN_SECRET)
+                .withEnv("MEDIA_DOWNLOAD_TOKEN_PREVIOUS_KEY_ID", PREVIOUS_DOWNLOAD_TOKEN_KEY_ID)
+                .withEnv("MEDIA_DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS", String.valueOf(DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS))
                 .withStartupTimeout(STARTUP_TIMEOUT)
                 .withExposedService("db", 26257, Wait.forListeningPort())
                 .withExposedService("minio", 9000, Wait.forListeningPort())

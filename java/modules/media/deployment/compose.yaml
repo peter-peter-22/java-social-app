@@ -63,6 +63,12 @@ services:
       # inject both through the environment.
       MEDIA_DOWNLOAD_TOKEN_SECRET: "${MEDIA_DOWNLOAD_TOKEN_SECRET:-MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}"
       MEDIA_DOWNLOAD_TOKEN_KEY_ID: "${MEDIA_DOWNLOAD_TOKEN_KEY_ID:-k1}"
+      # Key rotation: the previous key still verifies tokens minted before the switch. Empty when no
+      # rotation is in progress; set both or neither, like in the API.
+      MEDIA_DOWNLOAD_TOKEN_PREVIOUS_KEY_ID: "${MEDIA_DOWNLOAD_TOKEN_PREVIOUS_KEY_ID:-}"
+      MEDIA_DOWNLOAD_TOKEN_PREVIOUS_SECRET: "${MEDIA_DOWNLOAD_TOKEN_PREVIOUS_SECRET:-}"
+      # The clock-skew tolerance of the API in seconds; both verifiers must allow the same window.
+      MEDIA_DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS: "${MEDIA_DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS:-5}"
       # The API under the edge. Like the worker's completion callback, the edge reaches the API that
       # runs on the host through the host gateway.
       MEDIA_API_BASE_URL: "http://host.docker.internal:8090"

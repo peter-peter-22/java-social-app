@@ -36,10 +36,14 @@ import java.util.Base64;
  * that version. The claims are public and unencrypted; the signature prevents tampering. Because
  * there is no server-side state, a token is valid until it expires and cannot be revoked earlier.</p>
  *
- * <p>Issuance loads the finalized upload to compute its version and clamps the requested TTL to the
- * configured maximum. Enforcement ({@link #authorizeRead}) serves a {@code PUBLIC} upload to anyone
- * and requires a valid, current-version token for a {@code PRIVATE} one. A denial is a
- * {@link DownloadDeniedException}, which the web layer delivers as 403.</p>
+ * <p>Issuance always signs with the current key id; verification accepts the current key and the
+ * previous one of a rotation, so tokens minted before a key change stay valid until they expire.
+ * Verification also tolerates {@link DownloadTokenProperties#clockSkew()} of clock difference
+ * between this server and the issuer or edge. Issuance loads the finalized upload to compute its
+ * version and clamps the requested TTL to the configured maximum. Enforcement
+ * ({@link #authorizeRead}) serves a {@code PUBLIC} upload to anyone and requires a valid,
+ * current-version token for a {@code PRIVATE} one. A denial is a {@link DownloadDeniedException},
+ * which the web layer delivers as 403.</p>
  */
 @Service
 @RequiredArgsConstructor
@@ -90,35 +94,45 @@ public class DownloadTokenService {
             throw new DownloadDeniedException("the download token is invalid or expired");
     }
 
-    /** Signs the canonical string for the upload key, version, and expiry. */
+    /** Signs the canonical string of the current key: what issuance hands out. */
     String sign(UploadKey key, String version, long expiresEpochSecond) {
-        var canonical = CANONICAL_PREFIX
-                + properties.keyId() + "\n"
-                + key.value() + "\n"
-                + version + "\n"
-                + expiresEpochSecond;
-        return base64Url(hmac(canonical));
+        return signature(properties.keyId(), properties.secret(), key, version, expiresEpochSecond);
     }
 
     /**
-     * Verifies the presented credential's signature and expiry. The signature is compared in
-     * constant time with {@link MessageDigest#isEqual} so a wrong signature leaks no timing hint.
+     * Verifies the presented credential's signature and expiry. The signature is computed with the
+     * key the credential names (the current key or the previous one of a rotation) and compared in
+     * constant time with {@link MessageDigest#isEqual}, so a wrong signature leaks no timing hint. A
+     * token whose expiry passed no longer than the configured clock skew ago is still accepted.
      */
     boolean verify(UploadKey key, String version, DownloadCredential credential) {
-        if (!properties.keyId().equals(credential.keyId()))
+        var secret = properties.secretFor(credential.keyId());
+        if (secret == null)
             return false;
-        var expected = sign(key, version, credential.expires());
+        var expected = signature(credential.keyId(), secret, key, version, credential.expires());
         if (!MessageDigest.isEqual(
                 expected.getBytes(StandardCharsets.UTF_8),
                 credential.signature().getBytes(StandardCharsets.UTF_8)))
             return false;
-        return clock.instant().isBefore(Instant.ofEpochSecond(credential.expires()));
+        return clock.instant().isBefore(
+                Instant.ofEpochSecond(credential.expires()).plus(properties.clockSkew()));
     }
 
-    private byte[] hmac(String canonical) {
+    /** The base64url HMAC-SHA256 of the canonical string under the given key. */
+    private static String signature(
+            String keyId, String secret, UploadKey key, String version, long expiresEpochSecond) {
+        var canonical = CANONICAL_PREFIX
+                + keyId + "\n"
+                + key.value() + "\n"
+                + version + "\n"
+                + expiresEpochSecond;
+        return base64Url(hmac(secret, canonical));
+    }
+
+    private static byte[] hmac(String secret, String canonical) {
         try {
             var mac = Mac.getInstance(HMAC_ALGORITHM);
-            mac.init(new SecretKeySpec(Base64.getDecoder().decode(properties.secret()), HMAC_ALGORITHM));
+            mac.init(new SecretKeySpec(Base64.getDecoder().decode(secret), HMAC_ALGORITHM));
             return mac.doFinal(canonical.getBytes(StandardCharsets.UTF_8));
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException("HMAC-SHA256 is not available", e);

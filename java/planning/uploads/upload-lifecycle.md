@@ -9,7 +9,7 @@ The goal of the defined upload lifecycle mechanisms is to ensure that there are 
 - They are registered to the database before their lifespan becomes permanent.
 - The uploads have a limited max duration.
 - The final upload registration is atomic and cannot overwrite.
-- The upload signatures have a limited retry count.
+- The upload permissions have a limited use budget.
 - All files and transformations get a unique asset.
 - Every worker execution allocates fresh result asset ids, so a retried transformation never reuses a key.
 - The registered assets are immutable.
@@ -47,7 +47,8 @@ Adding another expiration and cleanup for the attempts would add unnecessary com
 All uploaded assets get unique identity, the new attempt won't overlap with the previous ones.
 
 ### Spamming retries
-The upload signature has limited usage attempt, this prevents abuse.
+The upload permission has a limited use budget, this prevents abuse. A failed attempt revokes what
+is left of it, so a retry needs a fresh permission.
 
 ### Fail after finalization
 The finalized permanent files remain registered in the database until they are deleted by the periodic cleanup.

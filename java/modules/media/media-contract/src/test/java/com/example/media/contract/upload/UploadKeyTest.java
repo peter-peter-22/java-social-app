@@ -30,6 +30,22 @@ class UploadKeyTest {
     }
 
     @Test
+    void rejectsAKeyWithAPathSeparatorOrDot() {
+        assertThatThrownBy(() -> new UploadKey("cover/123"))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new UploadKey("cover.123"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void rejectsAKeyOutsideTheUrlSafeCharset() {
+        assertThatThrownBy(() -> new UploadKey("cover 123"))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new UploadKey("cöver"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void rejectsANullKey() {
         assertThatThrownBy(() -> new UploadKey(null))
                 .isInstanceOf(NullPointerException.class);

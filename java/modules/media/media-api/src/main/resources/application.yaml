@@ -59,8 +59,16 @@ media:
   download-token:
     secret: ${MEDIA_DOWNLOAD_TOKEN_SECRET:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
     key-id: ${MEDIA_DOWNLOAD_TOKEN_KEY_ID:k1}
+    # A key rotation is an overlap: new tokens are signed with key-id, and previous-key-id still
+    # verifies the outstanding ones until they expire. Set both or neither; the edge receives the
+    # same pair as MEDIA_DOWNLOAD_TOKEN_PREVIOUS_KEY_ID/_SECRET.
+    previous-key-id: ${MEDIA_DOWNLOAD_TOKEN_PREVIOUS_KEY_ID:}
+    previous-secret: ${MEDIA_DOWNLOAD_TOKEN_PREVIOUS_SECRET:}
     ttl: 15m
     max-ttl: 1h
+    # The tolerated clock difference between this API and the nginx edge. The edge receives the
+    # same window in seconds as MEDIA_DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS.
+    clock-skew: ${MEDIA_DOWNLOAD_TOKEN_CLOCK_SKEW:5s}
   # The Cache-Control of media reads. Media stays cacheable; only credential issuance is no-store.
   read:
     public-cache-control: "public, max-age=31536000, immutable"

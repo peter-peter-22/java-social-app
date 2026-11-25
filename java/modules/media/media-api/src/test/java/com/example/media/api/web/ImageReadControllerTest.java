@@ -55,7 +55,9 @@ class ImageReadControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("image/webp"))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"original.webp\""))
-                .andExpect(header().string("Cache-Control", "public, max-age=31536000, immutable"));
+                .andExpect(header().string("Cache-Control", "public, max-age=31536000, immutable"))
+                // A token-bearing read URL must not leak through a cross-origin referrer.
+                .andExpect(header().string("Referrer-Policy", "no-referrer"));
     }
 
     @Test

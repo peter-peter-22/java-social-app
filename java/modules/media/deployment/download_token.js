@@ -9,6 +9,10 @@
 // database), so a correctly signed token for an old version passes here and the API rejects it.
 // The API therefore stays authoritative for the visibility, the current version, and the expiry.
 //
+// A key rotation is an overlap: the current key signs, and the previous key still verifies tokens
+// minted before the switch. The clock-skew tolerance matches the API's, so a token that is a few
+// seconds past its expiry at the issuer is not rejected by a verifier whose clock runs ahead.
+//
 // A read without any token parameter is passed through: the API serves a public upload and rejects
 // a private one with 403. A partial token (some but not all of v, e, s, k) is always invalid and is
 // rejected here, so the edge and the API cannot disagree about which parameters make up a token.
@@ -49,19 +53,40 @@ function authorize(r) {
         reject(r, 'the expiry of the download token of ' + uploadKey + ' is not epoch seconds');
         return;
     }
-    if (keyId !== r.variables.download_token_key_id) {
+    const secret = secretFor(r, keyId);
+    if (secret === '') {
         reject(r, 'the download token of ' + uploadKey + ' names an unknown key id');
         return;
     }
-    const expected = sign(r.variables.download_token_secret, keyId, uploadKey, version, expires);
+    const expected = sign(secret, keyId, uploadKey, version, expires);
     if (!equal(expected, signature)) {
         reject(r, 'the signature of the download token of ' + uploadKey + ' is invalid');
         return;
     }
-    if (Math.floor(Date.now() / 1000) >= Number(expires)) {
+    if (Math.floor(Date.now() / 1000) >= Number(expires) + clockSkew(r)) {
         reject(r, 'the download token of ' + uploadKey + ' is expired');
         return;
     }
+}
+
+/**
+ * The secret that verifies a token of this key id: the current signing key, or the previous key of
+ * a rotation. An unknown key id yields an empty string, so a token can never be verified with a key
+ * it does not name.
+ */
+function secretFor(r, keyId) {
+    if (keyId === r.variables.download_token_key_id)
+        return r.variables.download_token_secret;
+    const previousKeyId = r.variables.download_token_previous_key_id;
+    if (previousKeyId !== '' && keyId === previousKeyId)
+        return r.variables.download_token_previous_secret;
+    return '';
+}
+
+/** The clock-skew tolerance of the API in seconds; an absent or non-numeric value means none. */
+function clockSkew(r) {
+    const seconds = Number(r.variables.download_token_clock_skew_seconds);
+    return isNaN(seconds) || seconds <= 0 ? 0 : Math.floor(seconds);
 }
 
 /** The signature of a read token, exactly as DownloadTokenService.sign computes it. */

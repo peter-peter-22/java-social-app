@@ -17,11 +17,16 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.BooleanSupplier;
@@ -40,19 +45,25 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * to lock its dimensions), the same upload over the queue finalized by the worker, a corrupt source
  * marked failed, the upload-permission enforcement (missing, expired, exhausted, another key,
  * mismatched constraints), the private-read download tokens (closed without a token, one token opens
- * the original and every variant, and an expired, foreign-key, or stale-version token is rejected),
- * and the same reads through the nginx edge (public without a token, private with a valid token, and
- * a missing, incomplete, expired, tampered, foreign-key, or stale-version token rejected). One
- * command runs it: {@code ./gradlew :media-api:integrationTest}.
+ * the original and every variant, an expired, foreign-key, or stale-version token is rejected, and a
+ * token signed with the previous key of a rotation still opens), and the same reads through the
+ * nginx edge (public without a token, private with a valid token, and a missing, incomplete,
+ * expired, tampered, foreign-key, or stale-version token rejected). One command runs it:
+ * {@code ./gradlew :media-api:integrationTest}.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = {
         "minio.reconciliation.enabled=true",
         "media.admin-key=e2e-admin-key",
         "media.upload-permission.required=true",
-        // The same signing key the compose stack hands to the nginx edge, so both verify one token.
+        // The same signing keys the compose stack hands to the nginx edge, so both verify one token.
+        // The test stack runs a rotation: the current key signs, the previous one still verifies.
         "media.download-token.secret=" + MediaComposeStack.DOWNLOAD_TOKEN_SECRET,
-        "media.download-token.key-id=" + MediaComposeStack.DOWNLOAD_TOKEN_KEY_ID
+        "media.download-token.key-id=" + MediaComposeStack.DOWNLOAD_TOKEN_KEY_ID,
+        "media.download-token.previous-secret=" + MediaComposeStack.PREVIOUS_DOWNLOAD_TOKEN_SECRET,
+        "media.download-token.previous-key-id=" + MediaComposeStack.PREVIOUS_DOWNLOAD_TOKEN_KEY_ID,
+        // Zero keeps the expiry journeys deterministic; the edge receives the same tolerance.
+        "media.download-token.clock-skew=" + MediaComposeStack.DOWNLOAD_TOKEN_CLOCK_SKEW_SECONDS + "s"
 })
 public class EndToEndTest {
 
@@ -289,6 +300,23 @@ public class EndToEndTest {
         assertForbidden(() -> client.readOriginal(uploadKey, "jpg", "999999999", credential(token)));
     }
 
+    /**
+     * The overlap of a key rotation keeps outstanding links alive: a token signed with the previous
+     * key reads the upload through the API and through the edge after the current key changed.
+     */
+    @Test
+    void aDownloadTokenSignedWithThePreviousKeyIsAccepted() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        var upload = uploadPrivateBlocking(uploadKey);
+
+        var token = previousKeyToken(uploadKey, upload.version(), 600);
+
+        assertThat(client.readOriginal(uploadKey, "jpg", token.version(), credential(token)).content())
+                .isNotEmpty();
+        assertThat(cdnContent("/cdn/%s.jpg%s".formatted(uploadKey, cdnQuery(token)))).isNotEmpty();
+    }
+
     // ---- The nginx edge (download token verification) ----
 
     /** A public upload is readable through the edge without a token, as the original and its variant. */
@@ -427,6 +455,37 @@ public class EndToEndTest {
     private MediaAdminClient.IssuedDownloadPermission downloadToken(String uploadKey, long expiresInSeconds) {
         return adminClient.createDownloadPermission(
                 new MediaAdminClient.NewDownloadPermission(uploadKey, expiresInSeconds));
+    }
+
+    /**
+     * A token signed with the previous key of the rotation, as it was issued before the key change:
+     * the API signs only with the current key now, so the test computes the same HMAC itself.
+     */
+    private static MediaAdminClient.IssuedDownloadPermission previousKeyToken(
+            String uploadKey, String version, long expiresInSeconds) {
+        var expires = Instant.now().getEpochSecond() + expiresInSeconds;
+        var canonical = "m1\nread\n" + MediaComposeStack.PREVIOUS_DOWNLOAD_TOKEN_KEY_ID + "\n"
+                + uploadKey + "\n" + version + "\n" + expires;
+        return new MediaAdminClient.IssuedDownloadPermission(
+                uploadKey,
+                version,
+                Instant.ofEpochSecond(expires),
+                expires,
+                hmacBase64Url(MediaComposeStack.PREVIOUS_DOWNLOAD_TOKEN_SECRET, canonical),
+                MediaComposeStack.PREVIOUS_DOWNLOAD_TOKEN_KEY_ID,
+                "/cdn/" + uploadKey);
+    }
+
+    /** The base64url HMAC-SHA256 of the canonical string under a base64 secret. */
+    private static String hmacBase64Url(String base64Secret, String canonical) {
+        try {
+            var mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(Base64.getDecoder().decode(base64Secret), "HmacSHA256"));
+            return Base64.getUrlEncoder().withoutPadding()
+                    .encodeToString(mac.doFinal(canonical.getBytes(StandardCharsets.UTF_8)));
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("HMAC-SHA256 is not available", e);
+        }
     }
 
     /** The read credential of an issued download token. */

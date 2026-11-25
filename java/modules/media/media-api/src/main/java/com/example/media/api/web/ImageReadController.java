@@ -27,13 +27,18 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>The {@code v}, {@code e}, {@code s}, and {@code k} query parameters carry the cache version
  * and the download credential. A public read ignores them and answers with the immutable public
  * cache header; a private read requires a valid credential and answers with the short private cache
- * header. The use case enforces the visibility and version rules.</p>
+ * header. The use case enforces the visibility and version rules. Every media response carries
+ * {@code Referrer-Policy: no-referrer}, so a token-bearing URL never leaks through a cross-origin
+ * referrer.</p>
  */
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @NullMarked
 public class ImageReadController {
+    /** The header that keeps token-bearing read URLs out of cross-origin referrers. */
+    private static final String REFERRER_POLICY = "Referrer-Policy";
+
     private final ReadOriginal readOriginal;
     private final ReadVariant readVariant;
     private final ReadCacheProperties cacheProperties;
@@ -81,6 +86,7 @@ public class ImageReadController {
                 .contentType(MediaType.parseMediaType(file.contentType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"%s\"".formatted(file.fileName()))
                 .header(HttpHeaders.CACHE_CONTROL, cacheProperties.forVisibility(file.visibility()))
+                .header(REFERRER_POLICY, "no-referrer")
                 .body(new InputStreamResource(file.content()));
     }
 }

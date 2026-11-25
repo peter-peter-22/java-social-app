@@ -21,15 +21,17 @@ The execution of the steps is not ordered, the order is depending on which one i
 
 - [ ] Build a minimal client, enough to test the full post and file upload.
 
-- [ ] Implement upload read authentication.
+- [x] Implement upload read authentication.
 
 - [ ] Implement live streams.
 
-- [ ] Re-read and validate the whole code the upload authentication is complete, merge the plans with the documentation.
+- [x] Re-read and merge the completed upload-authorization and testing plans into the documentation.
+
+- [ ] Validate the whole upload code now that the upload authentication is complete.
 
 - [ ] Plan the complete project shape and conventions (API gateway setup, openAPI, user authentication, conventions, observability) after the media service is and a baseline post service is ready.
 
-- [ ] Investigate the HMAC encryption key rotation and the admin client key. 
+- [x] Investigate the HMAC key rotation and the admin client key.
 
 # Verify the behavior of the used services
 

@@ -24,9 +24,8 @@ import java.util.List;
 
 /**
  * The client facade of the media service web API: uploads images, reads originals and variants, and
- * polls the status of queued uploads. This is what the TypeScript browser client mirrors and what
- * the end-to-end test drives the stack with. The wire format is the shared media JSON shape
- * ({@code media-json}).
+ * polls the status of queued uploads. This is what the end-to-end test drives the stack with. The
+ * wire format is the shared media JSON shape ({@code media-json}).
  *
  * <p>Uses the shared Spring {@link RestClient}. Error answers are thrown as
  * {@link org.springframework.web.client.RestClientResponseException} by the standard RestClient

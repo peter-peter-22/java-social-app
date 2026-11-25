@@ -52,22 +52,29 @@ dead-lettered command marks the attempt failed.
 ## Reads, visibility, and the CDN edge
 
 An upload is `PUBLIC` or `PRIVATE`; the visibility is chosen by the upload permission and stored on
-the attempt and the finalized upload. Read URLs carry the upload's cache version
-(`upload.createdAt.toEpochMilli()` as a decimal string, `v`): a public read ignores it and serves
-anyone, and a private read requires it together with the signed download token. A replaced upload
-gets a new `createdAt`, so its URLs change and caches miss.
+the attempt and the finalized upload. The upload key is restricted to `[A-Za-z0-9_-]{1,100}`, so it
+is one unambiguous URL segment and one unambiguous HMAC input. Read URLs carry the upload's cache
+version (`upload.createdAt.toEpochMilli()` as a decimal string, `v`): a public read ignores it and
+serves anyone, and a private read requires it together with the signed download token. A replaced
+upload gets a new `createdAt`, so its URLs change and caches miss; a replace must therefore create a
+new upload row, never mutate the old one in place.
 
 The private-read token is stateless: base64url HMAC-SHA256 over `"m1\nread\n" + keyId + "\n" +
 uploadKey + "\n" + version + "\n" + expires` (`DownloadTokenService` issues and verifies it; the
 admin endpoint is `POST /api/admin/download-permission`). The version is signed, so a token for one
-upload version cannot read another. Media responses stay cacheable — `public, max-age=31536000,
-immutable` for public reads and `private, max-age=300` for private reads — and only the credential
-issuance responses are `Cache-Control: no-store`.
+upload version cannot read another. There is no server-side state, so a token cannot be revoked
+before it expires. A key rotation is an overlap: new tokens are signed with the current key, the
+previous key still verifies, and both the API and the edge tolerate the same small clock skew
+(`deployment/AGENTS.md` has the variables). Media responses stay cacheable — `public,
+max-age=31536000, immutable` for public reads and `private, max-age=300` for private reads — and
+only the credential issuance responses are `Cache-Control: no-store`. Media responses carry
+`Referrer-Policy: no-referrer`.
 
 The deployment's minimal nginx edge verifies the same signature at `/cdn/` before proxying, so the
 token contract is exercised at the edge; the API remains authoritative for the visibility, the
 current version, and the expiry (the edge has no database). Details, including the log-redaction
-rule: `deployment/AGENTS.md`.
+rule: `deployment/AGENTS.md`. Upload permissions and download tokens are bearer credentials: serve
+the service over TLS and keep them out of logs.
 
 ## Tests
 
@@ -84,5 +91,16 @@ The transformation output is locked by `ImageProcessorTest` in the `image-worker
 ## Future work (planned, not built)
 
 Leave room for, but do not build yet: video worker, periodic cleanup, on-demand transformations,
-completion webhooks, and the full CDN (edge caching and direct Minio proxying). A video worker is
-another deployable with the same command shape, not another shared Spring module.
+completion webhooks, and the full CDN. A video worker is another deployable with the same command
+shape, not another shared Spring module.
+
+The full CDN is deferred in two independent steps:
+
+- Edge caching needs authorization before the cache lookup: an `auth_request` (or an always-token
+  private location) answers 204 for public uploads and valid private tokens and 403 otherwise, the
+  cache key is `$uri$arg_v` (never `e`, `s`, or `k`), and a token-less private request must never
+  reach the cache. Until then the edge proxies every read and browser caching works through the API
+  headers.
+- Direct Minio proxying needs an upload-key → asset-prefix/variant resolver at the edge, a credential
+  for Minio or the resolver served through `auth_request`, private-cache isolation, and regional
+  routing and replication. The API would stay authoritative for visibility and the current version.
