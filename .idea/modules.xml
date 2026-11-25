@@ -2,6 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/common/cockroach-db/com.example.java.cockroach-db.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/com.example.java.image-worker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/com.example.java.image-worker.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/com.example.java.image-worker.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/com.example.java.image-worker.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/com.example.java.media-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/com.example.java.media-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/com.example.java.media-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/com.example.java.media-api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/com.example.java.media-contract.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/com.example.java.media-contract.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/com.example.java.media-contract.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/com.example.java.media-contract.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/com.example.java.media-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/com.example.java.media-registry.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/com.example.java.media-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/com.example.java.media-registry.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/com.example.java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/com.example.java.object-storage.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/com.example.java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/com.example.java.object-storage.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java-social-app.iml" filepath="$PROJECT_DIR$/.idea/java-social-app.iml" />
@@ -12,10 +22,16 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/image-worker/java.image-worker.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-api/java.media-api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-client/java.media-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-client/java.media-client.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-client/java.media-client.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-client/java.media-client.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-contract/java.media-contract.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-json/java.media-json.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-json/java.media-json.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-json/java.media-json.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-json/java.media-json.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/media-registry/java.media-registry.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" />
     </modules>
   </component>
 </project>

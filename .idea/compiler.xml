@@ -7,20 +7,22 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="java.cockroach-db.main" />
-        <module name="java.media-contract.main" />
+        <module name="com.example.java.media-api.test" />
+        <module name="com.example.java.media-contract.test" />
+        <module name="java.object-storage.test" />
         <module name="java.media-json.main" />
-        <module name="java.media-api.test" />
-        <module name="java.media-registry.main" />
-        <module name="java.media-contract.test" />
-        <module name="com.example.java.object-storage.test" />
-        <module name="java.media-api.main" />
+        <module name="com.example.java.cockroach-db.main" />
+        <module name="java.media-client.main" />
+        <module name="com.example.java.image-worker.main" />
+        <module name="com.example.java.image-worker.test" />
+        <module name="java.object-storage.main" />
+        <module name="com.example.java.cockroach-db.test" />
+        <module name="java.media-client.test" />
         <module name="java.media-json.test" />
-        <module name="java.media-registry.test" />
-        <module name="java.cockroach-db.test" />
-        <module name="java.image-worker.main" />
-        <module name="com.example.java.object-storage.main" />
-        <module name="java.image-worker.test" />
+        <module name="com.example.java.media-api.main" />
+        <module name="com.example.java.media-contract.main" />
+        <module name="com.example.java.media-registry.main" />
+        <module name="com.example.java.media-registry.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -34,10 +36,6 @@
       <module name="java.image-transformer.main" target="25" />
       <module name="java.image-transformer.test" target="25" />
       <module name="java.image-transformer.testFixtures" target="25" />
-      <module name="java.object-storage" target="25" />
-      <module name="java.object-storage.main" target="25" />
-      <module name="java.object-storage.test" target="25" />
-      <module name="java.object-storage.testFixtures" target="25" />
       <module name="java.transformer-contracts" target="24" />
       <module name="java.transformer-contracts-2" target="24" />
       <module name="java.transformer-contracts-2.main" target="24" />
@@ -79,19 +77,27 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="com.example.java.cockroach-db.main" options="-parameters" />
+      <module name="com.example.java.cockroach-db.test" options="-parameters" />
       <module name="com.example.java.image-transformer" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.integrationTest" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.main" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.test" options="-parameters -parameters" />
       <module name="com.example.java.image-transformer.testFixtures" options="-parameters -parameters" />
+      <module name="com.example.java.image-worker.main" options="-parameters" />
+      <module name="com.example.java.image-worker.test" options="-parameters" />
+      <module name="com.example.java.media-api.main" options="-parameters" />
+      <module name="com.example.java.media-api.test" options="-parameters" />
+      <module name="com.example.java.media-registry.main" options="-parameters" />
+      <module name="com.example.java.media-registry.test" options="-parameters" />
       <module name="com.example.java.object-storage" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.main" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.test" options="-parameters -parameters" />
       <module name="com.example.java.object-storage.testFixtures" options="-parameters -parameters" />
-      <module name="java.cockroach-db" options="-parameters -parameters" />
+      <module name="java.cockroach-db" options="-parameters" />
       <module name="java.cockroach-db.main" options="-parameters -parameters" />
       <module name="java.cockroach-db.test" options="-parameters -parameters" />
-      <module name="java.cockroach-db.testFixtures" options="-parameters -parameters" />
+      <module name="java.cockroach-db.testFixtures" options="-parameters" />
       <module name="java.image-transformer" options="-parameters -parameters" />
       <module name="java.image-transformer-2" options="-parameters -parameters" />
       <module name="java.image-transformer-2.integrationTest" options="-parameters -parameters" />
@@ -103,19 +109,23 @@
       <module name="java.image-transformer.test" options="-parameters -parameters" />
       <module name="java.image-transformer.testFixtures" options="-parameters -parameters" />
       <module name="java.image-worker" options="-parameters" />
+      <module name="java.image-worker.integrationTest" options="-parameters" />
       <module name="java.image-worker.main" options="-parameters" />
       <module name="java.image-worker.test" options="-parameters" />
       <module name="java.media-api" options="-parameters" />
       <module name="java.media-api.integrationTest" options="-parameters" />
       <module name="java.media-api.main" options="-parameters" />
       <module name="java.media-api.test" options="-parameters" />
-      <module name="java.media-registry" options="-parameters -parameters" />
+      <module name="java.media-client" options="-parameters" />
+      <module name="java.media-client.main" options="-parameters" />
+      <module name="java.media-client.test" options="-parameters" />
+      <module name="java.media-registry" options="-parameters" />
       <module name="java.media-registry.main" options="-parameters -parameters" />
       <module name="java.media-registry.test" options="-parameters -parameters" />
-      <module name="java.object-storage" options="-parameters -parameters" />
-      <module name="java.object-storage.main" options="-parameters -parameters" />
-      <module name="java.object-storage.test" options="-parameters -parameters" />
-      <module name="java.object-storage.testFixtures" options="-parameters -parameters" />
+      <module name="java.object-storage" options="-parameters" />
+      <module name="java.object-storage.main" options="-parameters" />
+      <module name="java.object-storage.test" options="-parameters" />
+      <module name="java.object-storage.testFixtures" options="-parameters" />
       <module name="java.posts-persistence" options="-parameters -parameters" />
       <module name="java.posts-persistence.main" options="-parameters -parameters" />
       <module name="java.posts-persistence.test" options="-parameters -parameters" />

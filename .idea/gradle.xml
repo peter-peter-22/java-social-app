@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/java/modules/common/cockroach-db" />
             <option value="$PROJECT_DIR$/java/modules/media/image-worker" />
             <option value="$PROJECT_DIR$/java/modules/media/media-api" />
+            <option value="$PROJECT_DIR$/java/modules/media/media-client" />
             <option value="$PROJECT_DIR$/java/modules/media/media-contract" />
             <option value="$PROJECT_DIR$/java/modules/media/media-json" />
             <option value="$PROJECT_DIR$/java/modules/media/media-registry" />
