@@ -54,6 +54,13 @@ public class JpaUploadRegistry implements UploadRegistry {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<UploadProcess> findProcess(UploadKey key) {
+        return uploadProcessCrudRepository.findByUploadKey(key.value())
+                .map(UploadProcessEntity::toModel);
+    }
+
+    @Override
     @Transactional
     public AttemptId createAttempt(NewUploadAttempt insert) {
         var entity = uploadAttemptCrudRepository.saveAndFlush(UploadAttemptEntity.builder()

@@ -27,13 +27,10 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @Component
 @NullMarked
-public class ImageProcessor {
-
-    /** The encoded result of one transformation: the entry file and the dimensions of the image. */
-    public record ProcessedFile(Path entryPoint, ImageMetadata metadata) {
-    }
+public class ImageProcessor implements ImageProcessing {
 
     /** Reads the dimensions of an image file. */
+    @Override
     public ImageMetadata readMetadata(Path file) {
         var result = new AtomicReference<@Nullable ImageMetadata>();
         Vips.run(arena -> {
@@ -48,6 +45,7 @@ public class ImageProcessor {
      * output directory. The aspect ratio is applied before the resolution limit, the same as in
      * the prototype.
      */
+    @Override
     public ProcessedFile process(Path source, Path outputDir, ImageTransformationSpec spec) {
         var result = new AtomicReference<@Nullable ProcessedFile>();
         Vips.run(arena -> {

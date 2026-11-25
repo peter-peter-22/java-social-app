@@ -1,8 +1,17 @@
 plugins {
     id("spring-project-conventions")
+    `jvm-test-suite`
+    idea
 }
 
 version = "0.0.1-SNAPSHOT"
+
+idea {
+    module {
+        testSources.from(file("src/integrationTest/java"))
+        testResources.from(file("src/integrationTest/resources"))
+    }
+}
 
 dependencies {
     // modules
@@ -36,4 +45,29 @@ tasks.withType<Test>().configureEach {
 
 tasks.named<JavaExec>("bootRun") {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+
+testing {
+    suites {
+        register<JvmTestSuite>("integrationTest") {
+            dependencies {
+                implementation(project())
+                implementation(project(":media-contract"))
+
+                implementation("org.springframework.boot:spring-boot-starter-test")
+
+                runtimeOnly("org.junit.platform:junit-platform-launcher")
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        description = "Runs the libvips transformation output tests. Requires libvips; run through deployment/test-transformations.bash."
+                        group = LifecycleBasePlugin.VERIFICATION_GROUP
+                        shouldRunAfter(tasks.test)
+                    }
+                }
+            }
+        }
+    }
 }

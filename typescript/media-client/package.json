@@ -1,0 +1,18 @@
+{
+  "name": "@social-app/media-client",
+  "version": "0.0.1",
+  "private": true,
+  "description": "TypeScript browser client for the media service web API: upload images, read originals and variants, poll queued upload status. Mirrors the Java media-client module.",
+  "type": "module",
+  "main": "dist/src/client.js",
+  "types": "dist/src/client.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && node --test dist/test",
+    "test:e2e": "tsc && node --test dist/e2e"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0"
+  }
+}

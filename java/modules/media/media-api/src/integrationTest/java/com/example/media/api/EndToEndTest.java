@@ -1,33 +1,22 @@
 package com.example.media.api;
 
-import com.example.media.api.web.ImageUploadRequest;
-import com.example.media.contract.port.TransformationCatalog;
-import com.example.media.contract.port.UploadRegistry;
+import com.example.media.client.MediaAdminClient;
+import com.example.media.client.MediaClient;
 import com.example.media.contract.transformation.AspectRatio;
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
-import com.example.media.contract.transformation.NewNamedTransformation;
 import com.example.media.contract.upload.UploadAttemptStatus;
-import com.example.media.contract.upload.UploadKey;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestClient;
-import tools.jackson.databind.ObjectMapper;
 
-import java.net.http.HttpClient;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -38,38 +27,41 @@ import java.util.function.Supplier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * The behavior lock of the media API. To run it the image worker, the database, the object storage,
- * and RabbitMQ must be running (see the {@code deployment} folder). It boots the API in-process on
- * a real port and drives it over HTTP: register {@code optimize} and {@code profile}, upload an
- * image with an incoming and an eager transformation, then read the original as WebP and the named
- * variant. The same upload over the queue is finalized asynchronously by the worker.
+ * The behavior lock of the media API. It boots the API in-process on a real port and drives the
+ * complete stack through the Java client only — no in-process ports, no registry internals: the
+ * {@link MediaComposeStack} starts the worker, the database, the object storage, and RabbitMQ from
+ * the deployment compose file. The journeys: register {@code optimize} and {@code profile} as the
+ * admin, upload an image with an incoming and an eager transformation and read the results back
+ * (decoding the variant to lock its dimensions), the same upload over the queue finalized by the
+ * worker, and a corrupt source marked failed. One command runs it:
+ * {@code ./gradlew :media-api:integrationTest}.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestPropertySource(properties = {"minio.reconciliation.enabled=true"})
+@TestPropertySource(properties = {
+        "minio.reconciliation.enabled=true",
+        "media.admin-key=e2e-admin-key"
+})
 public class EndToEndTest {
+
+    static {
+        // The stack must be up before the Spring context boots and runs the migrations.
+        MediaComposeStack.start();
+    }
+
+    private static final String ADMIN_KEY = "e2e-admin-key";
 
     @LocalServerPort
     int port;
 
-    RestClient restClient;
+    MediaClient client;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @Autowired
-    TransformationCatalog transformationCatalog;
-
-    @Autowired
-    UploadRegistry uploadRegistry;
+    MediaAdminClient adminClient;
 
     @BeforeEach
-    void keepErrorResponsesForAssertions() {
-        // The expected 4xx answers are asserted on the response, not thrown as exceptions.
-        restClient = RestClient.builder()
-                .requestFactory(new JdkClientHttpRequestFactory(HttpClient.newBuilder().build()))
-                .defaultStatusHandler(status -> true, (request, response) -> {
-                })
-                .build();
+    void createClients() {
+        var url = "http://localhost:" + port;
+        client = new MediaClient(RestClient.builder(), url);
+        adminClient = new MediaAdminClient(RestClient.builder(), url, ADMIN_KEY);
     }
 
     @Test
@@ -82,16 +74,13 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var response = upload(uploadKey, false);
+        var result = client.uploadImage(request(uploadKey, false), imageBytes(), "image.jpg", "image/jpeg");
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        var json = objectMapper.readTree(response.getBody());
-        assertThat(json.get("uploadKey").asText()).isEqualTo(uploadKey);
-        assertThat(json.get("async").asBoolean()).isFalse();
+        assertThat(result.uploadKey()).isEqualTo(uploadKey);
+        assertThat(result.async()).isFalse();
+        assertThat(result.createdAt()).isNotNull();
 
-        readOriginal(uploadKey);
-        readVariant(uploadKey);
+        assertReadable(uploadKey);
     }
 
     /** The same upload over the queue: the API accepts it immediately and the worker finalizes it. */
@@ -100,19 +89,15 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var response = upload(uploadKey, true);
+        var result = client.uploadImage(request(uploadKey, true), imageBytes(), "image.jpg", "image/jpeg");
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
-        assertThat(response.getBody()).isNotNull();
-        var json = objectMapper.readTree(response.getBody());
-        assertThat(json.get("uploadKey").asText()).isEqualTo(uploadKey);
-        assertThat(json.get("async").asBoolean()).isTrue();
+        assertThat(result.uploadKey()).isEqualTo(uploadKey);
+        assertThat(result.async()).isTrue();
 
-        awaitUntil(() -> attemptStatus(uploadKey) == UploadAttemptStatus.SUCCESS, Duration.ofSeconds(60),
-                () -> "the async attempt of " + uploadKey + " ended in " + attemptStatus(uploadKey));
+        awaitUntil(() -> status(uploadKey) == UploadAttemptStatus.SUCCESS, Duration.ofSeconds(60),
+                () -> "the async attempt of " + uploadKey + " ended in " + status(uploadKey));
 
-        readOriginal(uploadKey);
-        readVariant(uploadKey);
+        assertReadable(uploadKey);
     }
 
     /** The failure lock: a non-image source fails in the worker and the attempt is marked failed. */
@@ -121,81 +106,55 @@ public class EndToEndTest {
         registerTransformations();
         var uploadKey = "test" + UUID.randomUUID();
 
-        var response = upload(uploadKey, true, "text/plain", new byte[]{1, 2, 3});
+        var result = client.uploadImage(request(uploadKey, true), new byte[]{1, 2, 3}, "image.jpg", "text/plain");
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
+        assertThat(result.async()).isTrue();
 
-        awaitUntil(() -> attemptStatus(uploadKey) == UploadAttemptStatus.FAILED, Duration.ofSeconds(90),
-                () -> "the corrupt async attempt of " + uploadKey + " ended in " + attemptStatus(uploadKey));
+        awaitUntil(() -> status(uploadKey) == UploadAttemptStatus.FAILED, Duration.ofSeconds(90),
+                () -> "the corrupt async attempt of " + uploadKey + " ended in " + status(uploadKey));
     }
 
-    private UploadAttemptStatus attemptStatus(String uploadKey) {
-        var process = uploadRegistry.openOrGetProcess(new UploadKey(uploadKey));
-        if (process.activeAttemptId() == null)
-            return null;
-        return uploadRegistry.findAttempt(process.activeAttemptId())
-                .map(attempt -> attempt.status())
-                .orElse(null);
+    /** The original was replaced by the incoming webp transformation and the profile variant is a square. */
+    private void assertReadable(String uploadKey) throws IOException {
+        var original = client.readOriginal(uploadKey, "jpg");
+        assertThat(original.contentType()).isEqualTo("image/webp");
+        assertThat(original.content()).isNotEmpty();
+
+        var variant = client.readVariant(uploadKey, "profile", "jpg");
+        assertThat(variant.contentType()).isEqualTo("image/jpeg");
+        var decoded = ImageIO.read(new ByteArrayInputStream(variant.content()));
+        assertThat(decoded).isNotNull();
+        // the profile transformation fills a 1:1 aspect ratio: the variant must be square
+        assertThat(decoded.getWidth()).isEqualTo(decoded.getHeight());
+    }
+
+    private MediaClient.UploadImageRequest request(String uploadKey, boolean async) {
+        return new MediaClient.UploadImageRequest(
+                uploadKey, "jpg", null, null, List.of("profile"), "optimize", async);
     }
 
     private void registerTransformations() {
-        transformationCatalog.register(new NewNamedTransformation(
-                "optimize",
-                new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50))));
-        transformationCatalog.register(new NewNamedTransformation(
-                "profile",
+        adminClient.registerTransformation("optimize",
+                new ImageTransformationSpec(null, null, null, new ImageEncoding.Webp(50)));
+        adminClient.registerTransformation("profile",
                 new ImageTransformationSpec(
                         null,
                         null,
                         new AspectRatio(1, 1, AspectRatio.Mode.FILL),
-                        new ImageEncoding.Webp(80))));
+                        new ImageEncoding.Jpeg(80)));
     }
 
-    private ResponseEntity<String> upload(String uploadKey, boolean async) throws Exception {
-        return upload(uploadKey, async, MediaType.IMAGE_JPEG_VALUE,
-                new ClassPathResource("image.jpg").getContentAsByteArray());
+    private byte[] imageBytes() throws IOException {
+        return new ClassPathResource("image.jpg").getContentAsByteArray();
     }
 
-    private ResponseEntity<String> upload(String uploadKey, boolean async, String contentType, byte[] file) {
-        var params = new ImageUploadRequest(
-                uploadKey, "jpg", null, null, List.of("profile"), "optimize", async);
-
-        var jsonHeaders = new HttpHeaders();
-        jsonHeaders.setContentType(MediaType.APPLICATION_JSON);
-        var fileHeaders = new HttpHeaders();
-        fileHeaders.setContentType(MediaType.parseMediaType(contentType));
-        var parts = new LinkedMultiValueMap<String, Object>();
-        parts.add("body", new HttpEntity<>(objectMapper.writeValueAsBytes(params), jsonHeaders));
-        parts.add("file", new HttpEntity<>(new ByteArrayResourceWithFilename(file, "image.jpg"), fileHeaders));
-
-        return restClient.post()
-                .uri(url("/api/upload/image"))
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(parts)
-                .retrieve()
-                .toEntity(String.class);
-    }
-
-    private void readOriginal(String uploadKey) {
-        var response = restClient.get()
-                .uri(url("/api/get/image/%s.jpg".formatted(uploadKey)))
-                .retrieve()
-                .toEntity(byte[].class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.parseMediaType("image/webp"));
-    }
-
-    private void readVariant(String uploadKey) {
-        var response = restClient.get()
-                .uri(url("/api/get/image/%s/profile.webp".formatted(uploadKey)))
-                .retrieve()
-                .toEntity(byte[].class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.parseMediaType("image/webp"));
-    }
-
-    private String url(String path) {
-        return "http://localhost:" + port + path;
+    /** The status of the key's active attempt; null while the attempt is not visible yet. */
+    private UploadAttemptStatus status(String uploadKey) {
+        try {
+            return client.uploadStatus(uploadKey).status();
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     private static void awaitUntil(BooleanSupplier condition, Duration timeout, Supplier<String> message) {
@@ -212,20 +171,4 @@ public class EndToEndTest {
         }
         throw new AssertionError(message.get());
     }
-
-    /** A byte array that carries a file name for the multipart part. */
-    private static final class ByteArrayResourceWithFilename extends ByteArrayResource {
-        private final String filename;
-
-        ByteArrayResourceWithFilename(byte[] bytes, String filename) {
-            super(bytes);
-            this.filename = filename;
-        }
-
-        @Override
-        public String getFilename() {
-            return filename;
-        }
-    }
-
 }

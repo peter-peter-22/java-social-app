@@ -23,6 +23,9 @@ public interface UploadRegistry {
      */
     UploadProcess openOrGetProcess(UploadKey key);
 
+    /** Returns the process of the key without creating or locking it. */
+    Optional<UploadProcess> findProcess(UploadKey key);
+
     /** Registers a new attempt in status {@code PENDING} and returns its id. */
     AttemptId createAttempt(NewUploadAttempt insert);
 

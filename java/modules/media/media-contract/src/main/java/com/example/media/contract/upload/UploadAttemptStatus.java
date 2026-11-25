@@ -20,7 +20,8 @@ public enum UploadAttemptStatus {
      * <p>
      * Goal:
      * This state makes it possible to check if the currently active asynchronous transformation failed.
-     * TODO When the browser client is implemented, there will be an endpoint for checking the status of the queued transformation that will use this status.
+     * The client-visible check is the upload status endpoint ({@code /api/upload/status/{uploadKey}},
+     * read by the {@code media-client} and the browser client).
      * TODO When the upload permissions are implemented, the failed state of an attempt should invalidate the upload signature and prevent further attempts. (Unrecoverable errors are not excepted to be fixed by trying again. A few false-positives are okay here.)
      * </p>
      * */

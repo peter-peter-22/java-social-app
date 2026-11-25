@@ -13,6 +13,16 @@ idea {
     }
 }
 
+// The JDK + libvips development image the compose stack runs the image worker in. Building it is
+// cached by docker and cheap when the image exists; one command then covers the whole end-to-end
+// run: ./gradlew :media-api:integrationTest
+val buildMediaDevImage by tasks.registering(Exec::class) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Builds the JDK + libvips development image used by the compose stack."
+    workingDir = file("../deployment")
+    commandLine("bash", "build.bash")
+}
+
 dependencies {
     // modules
     implementation(project(":media-contract"))
@@ -49,10 +59,15 @@ testing {
             dependencies {
                 implementation(project())
                 implementation(project(":media-contract"))
+                // The Java client drives the end-to-end test: HTTP only, no in-process ports.
+                implementation(project(":media-client"))
 
                 implementation("org.springframework.boot:spring-boot-starter-test")
                 implementation("org.springframework.boot:spring-boot-starter-webmvc")
                 implementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+
+                // The compose stack the end-to-end test boots (ComposeContainer, local compose mode).
+                implementation("org.testcontainers:testcontainers")
 
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
             }
@@ -60,9 +75,12 @@ testing {
             targets {
                 all {
                     testTask.configure {
-                        description = "Runs the end-to-end test that requires the image worker, the database, and the object storage."
+                        description = "Runs the end-to-end test: boots the compose stack and drives the API through the media client."
                         group = LifecycleBasePlugin.VERIFICATION_GROUP
                         shouldRunAfter(tasks.test)
+                        // The compose stack runs the worker jar in the dev image; both must exist
+                        // before the stack starts.
+                        dependsOn(":image-worker:bootJar", buildMediaDevImage)
                     }
                 }
             }

@@ -10,6 +10,7 @@ include(
     ":media-json",
     ":media-registry",
     ":media-api",
+    ":media-client",
     ":image-worker"
 )
 
@@ -22,4 +23,5 @@ project(":media-contract").projectDir = file("modules/media/media-contract")
 project(":media-json").projectDir = file("modules/media/media-json")
 project(":media-registry").projectDir = file("modules/media/media-registry")
 project(":media-api").projectDir = file("modules/media/media-api")
+project(":media-client").projectDir = file("modules/media/media-client")
 project(":image-worker").projectDir = file("modules/media/image-worker")

@@ -39,7 +39,7 @@ import java.util.List;
 @NullMarked
 public class TransformImage {
     private final ObjectStore objectStore;
-    private final ImageProcessor imageProcessor;
+    private final ImageProcessing imageProcessing;
 
     /** Runs one transform command and reports the produced outputs and the source dimensions. */
     public ImageTransformResult transform(ImageTransformCommand command) {
@@ -47,7 +47,7 @@ public class TransformImage {
         try {
             var source = workDir.resolve("source");
             objectStore.download(command.source(), source);
-            var sourceMetadata = imageProcessor.readMetadata(source);
+            var sourceMetadata = imageProcessing.readMetadata(source);
 
             var outputs = new ArrayList<CompletedImageOutput>();
             for (var planned : command.outputs())
@@ -67,7 +67,7 @@ public class TransformImage {
         var prefix = planned.placement().prefixOf(assetId);
         var outputDir = workDir.resolve(assetId.value().toString());
         createOutputDirectory(outputDir);
-        var processed = imageProcessor.process(source, outputDir, planned.spec());
+        var processed = imageProcessing.process(source, outputDir, planned.spec());
 
         var files = producedFiles(outputDir);
         var objects = files.stream().map(file -> outputDir.relativize(file).toString()).toList();

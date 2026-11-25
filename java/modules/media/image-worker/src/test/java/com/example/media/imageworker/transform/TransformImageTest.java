@@ -13,10 +13,13 @@ import com.example.media.contract.worker.PlannedImageOutput;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,12 +31,14 @@ import static org.mockito.Mockito.*;
 /**
  * The use case downloads the source, transforms it per planned output, uploads the produced files
  * under the given prefixes as temporary objects, and reports them in the command's order.
+ * The processing is the {@link FakeImageProcessing} in-memory fake; the real libvips behavior is
+ * locked by {@code ImageProcessorTest} in the {@code integrationTest} suite.
  */
 class TransformImageTest {
 
     private final ObjectStore objectStore = mock();
-    private final ImageProcessor imageProcessor = mock();
-    private final TransformImage useCase = new TransformImage(objectStore, imageProcessor);
+    private final FakeImageProcessing imageProcessing = new FakeImageProcessing();
+    private final TransformImage useCase = new TransformImage(objectStore, imageProcessing);
 
     private static final AttemptId ATTEMPT_ID = new AttemptId(UUID.randomUUID());
     private static final ObjectRef SOURCE = new ObjectRef("eu-west", "uploads", "3f2b/original_jpg");
@@ -43,15 +48,11 @@ class TransformImageTest {
     private static final ImageTransformationSpec JPEG_80 =
             new ImageTransformationSpec(null, null, null, new ImageEncoding.Jpeg(80));
 
-    private final AtomicReference<Path> outputDir = new AtomicReference<>();
-
     @Test
     void downloadsTransformsAndUploadsUnderThePlacementWithFreshAssetIds() {
         var incoming = plannedOutput(null, WEBP_50);
         var eager = plannedOutput("profile", JPEG_80);
         var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(incoming, eager));
-        stubProcessing();
-        when(imageProcessor.readMetadata(any())).thenReturn(new ImageMetadata(400, 300));
 
         var result = useCase.transform(command);
 
@@ -94,8 +95,6 @@ class TransformImageTest {
     @Test
     void aRetriedCommandGetsFreshObjectKeys() {
         var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
-        stubProcessing();
-        when(imageProcessor.readMetadata(any())).thenReturn(new ImageMetadata(400, 300));
 
         var first = useCase.transform(command);
         var second = useCase.transform(command);
@@ -114,26 +113,22 @@ class TransformImageTest {
     @Test
     void deletesTheWorkDirectoryWhenTheRunEnds() {
         var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
-        stubProcessing();
 
         useCase.transform(command);
 
-        assertThat(outputDir.get()).isNotNull();
-        assertThat(Files.exists(outputDir.get().getParent())).isFalse();
+        assertThat(imageProcessing.lastOutputDir.get()).isNotNull();
+        assertThat(Files.exists(imageProcessing.lastOutputDir.get().getParent())).isFalse();
     }
 
     @Test
     void aFailedTransformUploadsNothingAndCleansUp() {
         var command = new ImageTransformCommand(ATTEMPT_ID, SOURCE, List.of(plannedOutput(null, WEBP_50)));
-        when(imageProcessor.process(any(), any(), any())).thenAnswer(invocation -> {
-            outputDir.set(invocation.getArgument(1, Path.class));
-            throw new IllegalStateException("boom");
-        });
+        imageProcessing.fail.set(true);
 
         assertThatThrownBy(() -> useCase.transform(command)).isInstanceOf(IllegalStateException.class);
 
         verify(objectStore, never()).put(any(), any(), any(), any());
-        assertThat(Files.exists(outputDir.get().getParent())).isFalse();
+        assertThat(Files.exists(imageProcessing.lastOutputDir.get().getParent())).isFalse();
     }
 
     private static PlannedImageOutput plannedOutput(
@@ -143,15 +138,29 @@ class TransformImageTest {
         return new PlannedImageOutput(transformationName, PLACEMENT, spec);
     }
 
-    /** Stands in for the libvips processing: writes one encoded file into the output directory. */
-    private void stubProcessing() {
-        when(imageProcessor.process(any(), any(), any())).thenAnswer(invocation -> {
-            var dir = invocation.getArgument(1, Path.class);
-            outputDir.set(dir);
-            var spec = invocation.getArgument(2, ImageTransformationSpec.class);
-            var entryPoint = dir.resolve(spec.encoding() instanceof ImageEncoding.Jpeg ? "default.jpg" : "default.webp");
-            Files.write(entryPoint, new byte[3]);
-            return new ImageProcessor.ProcessedFile(entryPoint, new ImageMetadata(10, 10));
-        });
+    /** The in-memory stand-in for the libvips processing: writes one encoded file per output. */
+    private static final class FakeImageProcessing implements ImageProcessing {
+        final AtomicReference<Path> lastOutputDir = new AtomicReference<>();
+        final AtomicBoolean fail = new AtomicBoolean(false);
+
+        @Override
+        public ImageMetadata readMetadata(Path file) {
+            return new ImageMetadata(400, 300);
+        }
+
+        @Override
+        public ProcessedFile process(Path source, Path outputDir, ImageTransformationSpec spec) {
+            lastOutputDir.set(outputDir);
+            if (fail.get())
+                throw new IllegalStateException("boom");
+            var entryPoint = outputDir.resolve(
+                    spec.encoding() instanceof ImageEncoding.Jpeg ? "default.jpg" : "default.webp");
+            try {
+                Files.write(entryPoint, new byte[3]);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+            return new ProcessedFile(entryPoint, new ImageMetadata(10, 10));
+        }
     }
 }

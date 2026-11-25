@@ -9,6 +9,7 @@ Two deployables.
 - `media-api` owns the registry and the upload lifecycle. It runs the registry's migrations and finalizes each upload.
 - `image-worker` only transforms files and moves them through object storage. No database and no migrations.
 - `media-registry` implements the registry ports with JPA and Liquibase.
+- `media-client` is the client SDK: two REST facades (`MediaAdminClient`, `MediaClient`) over the shared media JSON shape. The end-to-end test drives the stack through it; the TypeScript browser client in `../typescript` mirrors it.
 - Shared code is plain Java in `media-contract` and `media-json`, not a Spring service library. The JSON shape of the contract types is defined by the mixins in `media-json`; the domain carries no serialization framework.
 
 A separate registry service is not the target: it would add a network hop without removing a file
@@ -25,6 +26,7 @@ response carries an `async` boolean, so the client knows whether the upload exis
 - `media-json` depends on the contract and Jackson 3.
 - `media-registry` and the Minio adapter (`object-storage`) depend on the contract, not on each other. The registry depends on `media-json` for the jsonb shape.
 - `media-api` depends on the contract, `media-json`, the registry, and the Minio adapter.
+- `media-client` depends on the contract and `media-json` (plus the Spring RestClient); it never depends on the registry, the API, the worker, or the Minio adapter (its `ArchitectureTest` guards this).
 - `image-worker` depends on the contract, `media-json`, and the Minio adapter. It must not depend on `media-registry`, `media-api`, or a shared Spring service module.
 - Cockroach and Minio remain infrastructure, not services we write.
 
@@ -48,8 +50,14 @@ dead-lettered command marks the attempt failed.
 
 ## Tests
 
-`EndToEndTest` in `media-api` is the behavior lock of the whole path. It runs against the compose
-stack of `deployment`; do not fold the compose-backed test into the normal unit-test run.
+`EndToEndTest` in `media-api` is the behavior lock of the whole path. It boots the API in-process
+and drives the compose stack of `deployment` through the Java client (`media-client`) over HTTP
+only. One command runs it: `./gradlew :media-api:integrationTest` — the task builds the image
+worker's jar and the dev image, and the test boots the compose file with Testcontainers. Do not
+fold the compose-backed test into the normal unit-test run.
+
+The transformation output is locked by `ImageProcessorTest` in the `image-worker`'s
+`integrationTest` suite (real libvips, run through `deployment/test-transformations.bash`).
 
 ## Future work (planned, not built)
 

@@ -1,17 +1,29 @@
 # Docker end-to-end test
 
-The media service can be tested with docker compose.
-First, the containers must be started, then the `integrationTest` gradle test of the media-api module must be run.
-This task will communicate with the real media workers and other services to test the complete behavior.
+The media service is tested end-to-end with docker compose. One command runs everything from the
+Gradle root:
 
-## How to run
+```bash
+./gradlew :media-api:integrationTest
+```
 
-This directory contains a `build.bash` script for building the required docker image, and a `run.bash` script
-for running the containers with docker compose.
+The task builds the image worker's jar and the JDK + libvips dev image (`build.bash`), the test
+boots the compose stack with Testcontainers (local compose, the same `compose.yaml` the development
+workflow uses), and drives the API through the `media-client` module over HTTP only. The containers
+are reaped when the test JVM exits. The compose file publishes fixed host ports, so stop the
+development stack first (`./run.bash down`); the test fails fast with this message when the ports
+are taken.
 
-- Run `build.bash` to build the docker image (if not built yet)
-- Run `run.bash` to start the containers.
-- Run `./gradlew :media-api:integrationTest` to run the integration tests.
+## Development workflow
+
+`build.bash` builds the dev image, `run.bash` starts the containers, then start the `media-api`
+application (set `MINIO_RECONCILIATION_ENABLED=true` so it provisions the uploads bucket) or run
+the test suite above.
+
+## Transformation tests
+
+`./test-transformations.bash` runs the image transformation output tests in the dev image (they
+need the native libvips library).
 
 ## Async coverage
 
@@ -19,7 +31,3 @@ The async transformations are tested by the same end-to-end suite: the queue run
 API boots in-process on a real port, and the worker calls the completion endpoint back through the
 host gateway (`host.docker.internal`), so the compose file must map the API's port and add the
 `extra_hosts` entry.
-
-## Known limitation
-
-The way these tests are run is not based on known standards, there might be a better way to do it.

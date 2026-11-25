@@ -20,4 +20,8 @@ interface UploadProcessCrudRepository extends JpaRepository<UploadProcessEntity,
     @EntityGraph(attributePaths = {"activeAttempt", "upload"})
     @Query("SELECT p FROM UploadProcessEntity p WHERE p.uploadKey = :uploadKey")
     Optional<UploadProcessEntity> findByUploadKeyForUpdate(String uploadKey);
+
+    @EntityGraph(attributePaths = {"activeAttempt", "upload"})
+    @Query("SELECT p FROM UploadProcessEntity p WHERE p.uploadKey = :uploadKey")
+    Optional<UploadProcessEntity> findByUploadKey(String uploadKey);
 }

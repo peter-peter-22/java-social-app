@@ -5,7 +5,8 @@ services:
     # entrypoint.bash can chown the Gradle volume, then drop to HOST_UID:HOST_GID.
     # Launch with ./run.bash so those ids match the host user (same idea as
     # image-transformer/docker/run.bash). Build files are then writable by the IDE.
-    container_name: image-worker-dev
+    # No `container_name:` — Testcontainers rejects fixed names (the end-to-end test
+    # boots this file), and docker compose addresses services by name anyway.
     image: java-image-test
     working_dir: /workspace
     entrypoint: ["/entrypoint.bash"]
@@ -48,7 +49,6 @@ services:
       - '8082:8092'
 
   rabbitmq:
-    container_name: rabbitmq-dev
     image: rabbitmq:4-management
     ports:
       - "5672:5672"
@@ -59,7 +59,6 @@ services:
     # SHOW DATABASES;
     # SHOW TABLES;
     # SHOW TABLES FROM database;
-    container_name: cockroach-db-dev
     image: cockroachdb/cockroach:v25.3.2
     command: start-single-node --insecure
     ports:
@@ -77,7 +76,6 @@ services:
     #  It will might stop working.
     #  It has its own minio console container.
     image: docker.io/pgsty/silo:RELEASE.2026-11-12T00-00-00Z
-    container_name: minio-object-storage
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: minioadmin
