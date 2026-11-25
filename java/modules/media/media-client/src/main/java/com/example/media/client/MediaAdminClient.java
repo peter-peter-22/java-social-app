@@ -1,17 +1,22 @@
 package com.example.media.client;
 
 import com.example.media.contract.transformation.TransformationSpec;
+import com.example.media.contract.upload.UploadVisibility;
 import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.web.client.RestClient;
 
+import java.time.Instant;
+import java.util.List;
+
 /**
- * The admin facade of the media service client: defines named transformations and (later) creates
- * upload signatures and runs signature-less admin uploads. The wire format is the shared media JSON
- * shape ({@code media-json}), so the specs reach the registry exactly as a browser client sends
- * them. The admin key travels in the {@code X-Admin-Key} header.
+ * The admin facade of the media service client: defines named transformations and issues upload
+ * permissions. The wire format is the shared media JSON shape ({@code media-json}), so the specs
+ * reach the registry exactly as a browser client sends them. The admin key travels in the
+ * {@code X-Admin-Key} header.
  *
  * <p>Uses the shared Spring {@link RestClient}, built from the given builder so tests can bind a
  * {@code MockRestServiceServer} to it. Error answers are thrown as
@@ -27,6 +32,36 @@ public final class MediaAdminClient {
 
     /** The registered named transformation at its current version. */
     public record RegisteredTransformation(String name, TransformationSpec spec) {
+    }
+
+    /**
+     * The body of an upload permission request: the constraints of the upload it authorizes. A
+     * {@code null} upload key, TTL, use budget, or visibility takes the server's default.
+     */
+    public record NewUploadPermission(
+            @Nullable String uploadKey,
+            String extension,
+            @Nullable String contentType,
+            @Nullable Long maxBytes,
+            @Nullable List<String> eagerTransformations,
+            @Nullable String incomingTransformation,
+            @Nullable UploadVisibility visibility,
+            @Nullable Long expiresInSeconds,
+            @Nullable Integer maxUses
+    ) {
+    }
+
+    /**
+     * An issued upload permission. {@code permission} is the raw bearer token; it is returned by the
+     * server exactly once and must be stored by the caller.
+     */
+    public record IssuedUploadPermission(
+            String permissionId,
+            String uploadKey,
+            String permission,
+            Instant expiresAt,
+            int maxUses
+    ) {
     }
 
     private final RestClient restClient;
@@ -52,5 +87,19 @@ public final class MediaAdminClient {
                 .body(new NewTransformation(name, spec))
                 .retrieve()
                 .body(RegisteredTransformation.class);
+    }
+
+    /**
+     * Issues an upload permission: the bearer token a client presents to start the upload whose
+     * constraints the request describes. The token is returned once, in the answer.
+     */
+    public IssuedUploadPermission createUploadPermission(NewUploadPermission request) {
+        return restClient.post()
+                .uri("/api/admin/upload-permission")
+                .header("X-Admin-Key", adminKey)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(request)
+                .retrieve()
+                .body(IssuedUploadPermission.class);
     }
 }

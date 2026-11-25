@@ -3,8 +3,8 @@
 The client SDK of the media service: two Spring `RestClient` facades over the web API, speaking the
 shared media JSON shape (`media-json`).
 
-- `MediaAdminClient` — the admin facade: registers named transformations with the `X-Admin-Key`
-  header (upload signatures and admin uploads come later).
+- `MediaAdminClient` — the admin facade: registers named transformations and issues upload
+  permissions with the `X-Admin-Key` header (upload enforcement and admin uploads come later).
 - `MediaClient` — the browser's operations: multipart image upload, read original and variant,
   poll the queued upload status.
 

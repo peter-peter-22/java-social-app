@@ -2,12 +2,16 @@ package com.example.media.client;
 
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.ImageTransformationSpec;
+import com.example.media.contract.upload.UploadVisibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
+
+import java.time.Instant;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -49,6 +53,35 @@ class MediaAdminClientTest {
 
         assertThat(registered.name()).isEqualTo("optimize");
         assertThat(registered.spec()).isEqualTo(WEBP_50);
+        server.verify();
+    }
+
+    @Test
+    void createsAnUploadPermission() {
+        server.expect(requestTo("http://api.test/api/admin/upload-permission"))
+                .andExpect(method(HttpMethod.POST))
+                .andExpect(header("X-Admin-Key", "test-key"))
+                .andExpect(content().string(allOf(
+                        containsString("\"uploadKey\":\"cover_123\""),
+                        containsString("\"extension\":\"jpg\""),
+                        containsString("\"visibility\":\"PRIVATE\""),
+                        containsString("\"eagerTransformations\":[\"profile\",\"thumb\"]"),
+                        containsString("\"expiresInSeconds\":600"),
+                        containsString("\"maxUses\":1"))))
+                .andRespond(withSuccess(
+                        "{\"permissionId\":\"6c8c5f1e-5d0b-4f6a-9a3e-8b2f7d1a4c11\","
+                                + "\"uploadKey\":\"cover_123\",\"permission\":\"up1_token\","
+                                + "\"expiresAt\":\"2026-11-25T12:10:00Z\",\"maxUses\":1}",
+                        MediaType.APPLICATION_JSON));
+
+        var issued = client.createUploadPermission(new MediaAdminClient.NewUploadPermission(
+                "cover_123", "jpg", "image/jpeg", 10485760L, List.of("profile", "thumb"), "optimize",
+                UploadVisibility.PRIVATE, 600L, 1));
+
+        assertThat(issued.uploadKey()).isEqualTo("cover_123");
+        assertThat(issued.permission()).isEqualTo("up1_token");
+        assertThat(issued.expiresAt()).isEqualTo(Instant.parse("2026-11-25T12:10:00Z"));
+        assertThat(issued.maxUses()).isEqualTo(1);
         server.verify();
     }
 

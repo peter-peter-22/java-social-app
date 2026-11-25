@@ -1,5 +1,6 @@
 package com.example.media.api;
 
+import com.example.media.api.security.UploadPermissionProperties;
 import com.example.media.api.worker.HttpImageTransformer;
 import com.example.media.api.worker.RabbitImageTransformer;
 import com.example.media.contract.port.AsyncImageTransformer;
@@ -10,6 +11,7 @@ import com.example.media.json.MediaJson;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.retry.RetryPolicy;
@@ -21,6 +23,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.client.RestClient;
 
 import java.net.http.HttpClient;
+import java.time.Clock;
 import java.time.Duration;
 
 /**
@@ -32,14 +35,25 @@ import java.time.Duration;
  * worker's transform endpoint ({@link ImageTransformer}), the async call publishes the same command
  * to RabbitMQ ({@link AsyncImageTransformer}). Each port carries one transport, so the upload use
  * case depends on the narrow capability it needs and does not know the transport behind it.</p>
+ *
+ * <p>The security credentials are time-bound, so their services take one injectable {@link Clock}
+ * instead of reading the wall clock: issuance, expiry, and the tests that assert them then share a
+ * single instant source.</p>
  */
 @Configuration
+@EnableConfigurationProperties(UploadPermissionProperties.class)
 @NullMarked
 public class MediaApiConfiguration {
 
     @Bean
     TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
         return new TransactionTemplate(transactionManager);
+    }
+
+    /** The instant source of the credential services. */
+    @Bean
+    Clock clock() {
+        return Clock.systemUTC();
     }
 
     /**

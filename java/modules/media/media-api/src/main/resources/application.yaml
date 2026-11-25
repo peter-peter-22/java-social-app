@@ -43,6 +43,14 @@ media:
   # The static key of the admin endpoints (/api/admin/**), sent as the X-Admin-Key header. The
   # deployment overrides it through MEDIA_ADMIN_KEY; the default is for local development only.
   admin-key: ${MEDIA_ADMIN_KEY:dev-admin-key}
+  # Upload permission issuance (POST /api/admin/upload-permission). A requested TTL or use budget
+  # above the maximum is clamped; an omitted value takes the default. Enforcement on the upload
+  # endpoint is not enabled yet, so there is no required flag here so far.
+  upload-permission:
+    default-ttl: 10m
+    max-ttl: 1h
+    default-max-uses: 1
+    max-uses: 10
   worker:
     base-url: ${MEDIA_WORKER_BASE_URL:http://localhost:8082}
     # Recoverable transport failures and worker 5xx answers are retried. Fresh result asset ids
