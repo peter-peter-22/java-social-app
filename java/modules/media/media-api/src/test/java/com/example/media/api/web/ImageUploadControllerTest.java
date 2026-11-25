@@ -62,7 +62,8 @@ class ImageUploadControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uploadKey").value("cover"))
                 .andExpect(jsonPath("$.createdAt").value("2026-01-01T00:00:00Z"))
-                .andExpect(jsonPath("$.async").value(false));
+                .andExpect(jsonPath("$.async").value(false))
+                .andExpect(jsonPath("$.version").value("1767225600000"));
 
         verify(startImageUpload).start(
                 org.mockito.ArgumentMatchers.argThat(request -> request.permission().equals("up1_token")

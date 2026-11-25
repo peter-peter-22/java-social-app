@@ -89,12 +89,40 @@ class MediaClientTest {
         server.expect(requestTo("http://api.test/api/upload/status/cover"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(
-                        "{\"uploadKey\":\"cover\",\"status\":\"PENDING\"}", MediaType.APPLICATION_JSON));
+                        "{\"uploadKey\":\"cover\",\"status\":\"SUCCESS\",\"version\":\"123\"}",
+                        MediaType.APPLICATION_JSON));
 
         var status = client.uploadStatus("cover");
 
         assertThat(status.uploadKey()).isEqualTo("cover");
-        assertThat(status.status()).isEqualTo(UploadAttemptStatus.PENDING);
+        assertThat(status.status()).isEqualTo(UploadAttemptStatus.SUCCESS);
+        assertThat(status.version()).isEqualTo("123");
+        server.verify();
+    }
+
+    @Test
+    void readsAPrivateOriginalWithAVersionAndCredential() {
+        server.expect(requestTo("http://api.test/api/get/image/cover.jpg?v=123&e=1790000000&s=sig&k=k1"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess(new byte[]{9}, MediaType.parseMediaType("image/webp")));
+
+        var image = client.readOriginal("cover", "jpg", "123",
+                new MediaClient.DownloadCredential(1790000000L, "sig", "k1"));
+
+        assertThat(image.content()).isEqualTo(new byte[]{9});
+        server.verify();
+    }
+
+    @Test
+    void readsAPrivateVariantWithAVersionAndCredential() {
+        server.expect(requestTo("http://api.test/api/get/image/cover/profile.jpg?v=123&e=1790000000&s=sig&k=k1"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess(new byte[]{7}, MediaType.parseMediaType("image/jpeg")));
+
+        var image = client.readVariant("cover", "profile", "jpg", "123",
+                new MediaClient.DownloadCredential(1790000000L, "sig", "k1"));
+
+        assertThat(image.content()).isEqualTo(new byte[]{7});
         server.verify();
     }
 

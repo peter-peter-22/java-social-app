@@ -64,6 +64,31 @@ public final class MediaAdminClient {
     ) {
     }
 
+    /**
+     * The body of a download permission request: the upload to authorize and an optional lifetime.
+     * A {@code null} TTL takes the server's default.
+     */
+    public record NewDownloadPermission(
+            String uploadKey,
+            @Nullable Long expiresInSeconds
+    ) {
+    }
+
+    /**
+     * An issued download permission: the signed token for one private upload version, together with
+     * the {@code v}, {@code e}, {@code s}, and {@code k} query parameters of a read URL.
+     */
+    public record IssuedDownloadPermission(
+            String uploadKey,
+            String version,
+            Instant expiresAt,
+            long expires,
+            String signature,
+            String keyId,
+            String pathPrefix
+    ) {
+    }
+
     private final RestClient restClient;
     private final String adminKey;
 
@@ -101,5 +126,19 @@ public final class MediaAdminClient {
                 .body(request)
                 .retrieve()
                 .body(IssuedUploadPermission.class);
+    }
+
+    /**
+     * Issues a download permission: the signed token a client presents to read one private upload
+     * version. The token is stateless and valid until it expires.
+     */
+    public IssuedDownloadPermission createDownloadPermission(NewDownloadPermission request) {
+        return restClient.post()
+                .uri("/api/admin/download-permission")
+                .header("X-Admin-Key", adminKey)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(request)
+                .retrieve()
+                .body(IssuedDownloadPermission.class);
     }
 }

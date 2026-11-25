@@ -54,6 +54,11 @@ export interface UploadResult {
     uploadKey: string;
     createdAt: string;
     async: boolean;
+    /**
+     * The read cache version of the finalized upload. Null or absent for an async acceptance,
+     * because the upload does not exist yet.
+     */
+    version?: string | null;
 }
 
 /** The state of an upload attempt. */
@@ -63,4 +68,16 @@ export type UploadAttemptStatus = "PENDING" | "SUCCESS" | "FAILED";
 export interface UploadStatus {
     uploadKey: string;
     status: UploadAttemptStatus;
+    /** The read cache version of the finalized upload; set only when `status` is `SUCCESS`. */
+    version?: string | null;
+}
+
+/**
+ * The download credential for a private read: the `e`, `s`, and `k` query parameters. The cache
+ * version travels separately as `v`.
+ */
+export interface DownloadCredential {
+    expires: number;
+    signature: string;
+    keyId: string;
 }

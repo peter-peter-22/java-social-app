@@ -37,8 +37,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * the deployment compose file. The journeys: register {@code optimize} and {@code profile} as the
  * admin, mint an upload permission, upload an image with an incoming and an eager transformation
  * and read the results back (decoding the variant to lock its dimensions), the same upload over the
- * queue finalized by the worker, a corrupt source marked failed, and the permission enforcement
- * (missing, expired, exhausted, another key, mismatched constraints). One command runs it:
+ * queue finalized by the worker, a corrupt source marked failed, the upload-permission enforcement
+ * (missing, expired, exhausted, another key, mismatched constraints), and the private-read download
+ * tokens (closed without a token, one token opens the original and every variant, and an expired,
+ * foreign-key, or stale-version token is rejected). One command runs it:
  * {@code ./gradlew :media-api:integrationTest}.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -86,6 +88,8 @@ public class EndToEndTest {
         assertThat(result.uploadKey()).isEqualTo(uploadKey);
         assertThat(result.async()).isFalse();
         assertThat(result.createdAt()).isNotNull();
+        // A blocking upload is finalized, so the response exposes its read cache version.
+        assertThat(result.version()).isNotNull();
 
         assertReadable(uploadKey);
     }
@@ -101,9 +105,14 @@ public class EndToEndTest {
 
         assertThat(result.uploadKey()).isEqualTo(uploadKey);
         assertThat(result.async()).isTrue();
+        // An async acceptance happens before the upload exists, so it exposes no version yet.
+        assertThat(result.version()).isNull();
 
         awaitUntil(() -> status(uploadKey) == UploadAttemptStatus.SUCCESS, Duration.ofSeconds(60),
                 () -> "the async attempt of " + uploadKey + " ended in " + status(uploadKey));
+
+        // Once the attempt is successful, the status exposes the finalized upload's version.
+        assertThat(client.uploadStatus(uploadKey).version()).isNotNull();
 
         assertReadable(uploadKey);
     }
@@ -201,6 +210,94 @@ public class EndToEndTest {
                 request(permission, uploadKey, false), content, "image.jpg", "image/jpeg"));
     }
 
+    // ---- Private reads and download tokens ----
+
+    /** A private upload is closed without a download token and opens with a valid one. */
+    @Test
+    void privateReadsWithAndWithoutADownloadToken() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadPrivateBlocking(uploadKey);
+
+        // Without a token the private upload is closed.
+        assertForbidden(() -> client.readOriginal(uploadKey, "jpg"));
+
+        // With a valid token the original and the named variant both open.
+        var token = downloadToken(uploadKey, 600);
+        assertThat(client.readOriginal(uploadKey, "jpg", token.version(), credential(token)).content()).isNotEmpty();
+        assertThat(client.readVariant(uploadKey, "profile", "jpg", token.version(), credential(token)).content())
+                .isNotEmpty();
+    }
+
+    /** One download token grants the original and every variant of that upload version. */
+    @Test
+    void oneDownloadTokenReadsTheOriginalAndAllVariants() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadPrivateBlocking(uploadKey);
+
+        var token = downloadToken(uploadKey, 600);
+        assertThat(client.readOriginal(uploadKey, "jpg", token.version(), credential(token)).content()).isNotEmpty();
+        assertThat(client.readVariant(uploadKey, "profile", "jpg", token.version(), credential(token)).content())
+                .isNotEmpty();
+    }
+
+    @Test
+    void anExpiredDownloadTokenIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadPrivateBlocking(uploadKey);
+
+        // The token lives one second: once it passes, the server clock rejects it.
+        var token = downloadToken(uploadKey, 1);
+        Thread.sleep(1500);
+
+        assertForbidden(() -> client.readOriginal(uploadKey, "jpg", token.version(), credential(token)));
+    }
+
+    @Test
+    void aDownloadTokenForAnotherKeyIsForbidden() throws Exception {
+        registerTransformations();
+        var keyA = "test" + UUID.randomUUID();
+        var keyB = "test" + UUID.randomUUID();
+        uploadPrivateBlocking(keyA);
+        var uploadB = uploadPrivateBlocking(keyB);
+
+        // The token is minted for key A; it must not open key B even with B's correct version.
+        var token = downloadToken(keyA, 600);
+        assertForbidden(() -> client.readOriginal(keyB, "jpg", uploadB.version(), credential(token)));
+    }
+
+    /** A token bound to one version cannot read another: the version is part of the signature. */
+    @Test
+    void aDownloadTokenForAnotherVersionIsForbidden() throws Exception {
+        registerTransformations();
+        var uploadKey = "test" + UUID.randomUUID();
+        uploadPrivateBlocking(uploadKey);
+
+        // The token is minted for the current version; presenting a stale version is rejected.
+        var token = downloadToken(uploadKey, 600);
+        assertForbidden(() -> client.readOriginal(uploadKey, "jpg", "999999999", credential(token)));
+    }
+
+    /** Uploads a private image blocking and returns its finalized result, which carries the cache version. */
+    private MediaClient.UploadResult uploadPrivateBlocking(String uploadKey) throws Exception {
+        return client.uploadImage(
+                request(permission(uploadKey, 600, UploadVisibility.PRIVATE), uploadKey, false),
+                imageBytes(), "image.jpg", "image/jpeg");
+    }
+
+    /** Mints a download token for the upload's current version. */
+    private MediaAdminClient.IssuedDownloadPermission downloadToken(String uploadKey, long expiresInSeconds) {
+        return adminClient.createDownloadPermission(
+                new MediaAdminClient.NewDownloadPermission(uploadKey, expiresInSeconds));
+    }
+
+    /** The read credential of an issued download token. */
+    private static MediaClient.DownloadCredential credential(MediaAdminClient.IssuedDownloadPermission token) {
+        return new MediaClient.DownloadCredential(token.expires(), token.signature(), token.keyId());
+    }
+
     /** The original was replaced by the incoming webp transformation and the profile variant is a square. */
     private void assertReadable(String uploadKey) throws IOException {
         var original = client.readOriginal(uploadKey, "jpg");
@@ -223,12 +320,17 @@ public class EndToEndTest {
     /**
      * Mints a one-use permission for the uploads of the journeys: the jpg extension, the
      * {@code profile} variant, and the {@code optimize} incoming transformation. The visibility is
-     * public, because reads are not authorized yet.
+     * chosen by the journey: public reads need no credential, private reads are closed without one.
      */
-    private String permission(String uploadKey, long expiresInSeconds) {
+    private String permission(String uploadKey, long expiresInSeconds, UploadVisibility visibility) {
         return adminClient.createUploadPermission(new MediaAdminClient.NewUploadPermission(
                 uploadKey, "jpg", null, null, List.of("profile"), "optimize",
-                UploadVisibility.PUBLIC, expiresInSeconds, 1)).permission();
+                visibility, expiresInSeconds, 1)).permission();
+    }
+
+    /** A one-use permission for a public upload. */
+    private String permission(String uploadKey, long expiresInSeconds) {
+        return permission(uploadKey, expiresInSeconds, UploadVisibility.PUBLIC);
     }
 
     /** Asserts that the permission enforcement rejected the upload with 403. */

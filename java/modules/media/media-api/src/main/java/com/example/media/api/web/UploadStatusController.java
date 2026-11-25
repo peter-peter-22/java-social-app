@@ -25,6 +25,6 @@ public class UploadStatusController {
     @GetMapping(path = "/upload/status/{uploadKey}")
     ResponseEntity<UploadStatusResponse> status(@PathVariable String uploadKey) {
         var result = readUploadStatus.read(new UploadKey(uploadKey));
-        return ResponseEntity.ok(new UploadStatusResponse(result.key().value(), result.status()));
+        return ResponseEntity.ok(new UploadStatusResponse(result.key().value(), result.status(), result.version()));
     }
 }

@@ -1,5 +1,7 @@
 package com.example.media.api;
 
+import com.example.media.api.read.ReadCacheProperties;
+import com.example.media.api.security.DownloadTokenProperties;
 import com.example.media.api.security.UploadPermissionProperties;
 import com.example.media.api.worker.HttpImageTransformer;
 import com.example.media.api.worker.RabbitImageTransformer;
@@ -41,7 +43,7 @@ import java.time.Duration;
  * single instant source.</p>
  */
 @Configuration
-@EnableConfigurationProperties(UploadPermissionProperties.class)
+@EnableConfigurationProperties({UploadPermissionProperties.class, DownloadTokenProperties.class, ReadCacheProperties.class})
 @NullMarked
 public class MediaApiConfiguration {
 

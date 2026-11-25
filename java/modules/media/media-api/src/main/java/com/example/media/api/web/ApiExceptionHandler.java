@@ -1,6 +1,7 @@
 package com.example.media.api.web;
 
 import com.example.media.api.read.VariantNotFoundException;
+import com.example.media.api.security.DownloadDeniedException;
 import com.example.media.api.upload.UploadNotFoundException;
 import com.example.media.contract.transformation.TransformationNotFoundException;
 import com.example.media.contract.upload.AttemptNotActiveException;
@@ -34,10 +35,11 @@ public class ApiExceptionHandler {
 
     /**
      * A denied permission is 403: the request is well formed but its credential does not authorize
-     * it. Expired and exhausted permissions are subclasses of the denied exception.
+     * it. Expired and exhausted permissions are subclasses of the denied exception. A denied
+     * download credential on a private read is also 403.
      */
-    @ExceptionHandler(UploadPermissionDeniedException.class)
-    ResponseEntity<Void> forbidden(UploadPermissionDeniedException exception) {
+    @ExceptionHandler({UploadPermissionDeniedException.class, DownloadDeniedException.class})
+    ResponseEntity<Void> forbidden(RuntimeException exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 

@@ -10,6 +10,7 @@ import type {
     UploadImageRequest,
     UploadResult,
     UploadStatus,
+    DownloadCredential,
 } from "./types.js";
 
 export type {
@@ -21,6 +22,7 @@ export type {
     UploadResult,
     UploadAttemptStatus,
     UploadStatus,
+    DownloadCredential,
 } from "./types.js";
 
 /** A downloaded file: the content type and the stored bytes. */
@@ -75,14 +77,28 @@ export class MediaClient {
         return (await response.json()) as UploadResult;
     }
 
-    /** Reads the original file of an upload. The extension is cosmetic, like on the server. */
-    readOriginal(uploadKey: string, extension: string): Promise<DownloadedImage> {
-        return this.read(`/api/get/image/${uploadKey}.${extension}`);
+    /**
+     * Reads the original file, optionally with the cache version and download credential a private
+     * upload requires. A public read ignores them; `version` is then only a cache key.
+     */
+    readOriginal(
+        uploadKey: string,
+        extension: string,
+        version?: string,
+        credential?: DownloadCredential,
+    ): Promise<DownloadedImage> {
+        return this.read(`/api/get/image/${uploadKey}.${extension}`, version, credential);
     }
 
-    /** Reads the named variant of an upload. The extension is cosmetic, like on the server. */
-    readVariant(uploadKey: string, transformation: string, extension: string): Promise<DownloadedImage> {
-        return this.read(`/api/get/image/${uploadKey}/${transformation}.${extension}`);
+    /** Reads the named variant, optionally with the cache version and download credential. */
+    readVariant(
+        uploadKey: string,
+        transformation: string,
+        extension: string,
+        version?: string,
+        credential?: DownloadCredential,
+    ): Promise<DownloadedImage> {
+        return this.read(`/api/get/image/${uploadKey}/${transformation}.${extension}`, version, credential);
     }
 
     /** Polls the status of the key's active upload attempt. */
@@ -92,8 +108,12 @@ export class MediaClient {
         return (await response.json()) as UploadStatus;
     }
 
-    private async read(path: string): Promise<DownloadedImage> {
-        const response = await this.fetchImpl(this.baseUrl + path);
+    private async read(
+        path: string,
+        version?: string,
+        credential?: DownloadCredential,
+    ): Promise<DownloadedImage> {
+        const response = await this.fetchImpl(this.baseUrl + path + query(version, credential));
         await ensureOk(response);
         return {
             contentType: response.headers.get("content-type") ?? "application/octet-stream",
@@ -118,4 +138,18 @@ function fileNameOf(contentDisposition: string | null): string {
         return "";
     const end = contentDisposition.indexOf('"', start + marker.length);
     return end < 0 ? "" : contentDisposition.substring(start + marker.length, end);
+}
+
+/** Builds the `v`, `e`, `s`, `k` query string for a read URL, or an empty string. */
+function query(version?: string, credential?: DownloadCredential): string {
+    const params = new URLSearchParams();
+    if (version !== undefined)
+        params.set("v", version);
+    if (credential !== undefined) {
+        params.set("e", String(credential.expires));
+        params.set("s", credential.signature);
+        params.set("k", credential.keyId);
+    }
+    const encoded = params.toString();
+    return encoded ? `?${encoded}` : "";
 }

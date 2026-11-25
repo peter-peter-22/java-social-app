@@ -1,10 +1,12 @@
 package com.example.media.api.upload;
 
 import com.example.media.contract.port.UploadRegistry;
+import com.example.media.contract.upload.Upload;
 import com.example.media.contract.upload.UploadAttemptStatus;
 import com.example.media.contract.upload.UploadKey;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,8 +22,8 @@ import org.springframework.stereotype.Service;
 public class ReadUploadStatus {
     private final UploadRegistry uploadRegistry;
 
-    /** The status of the key's active attempt. */
-    public record Result(UploadKey key, UploadAttemptStatus status) {
+    /** The status of the key's active attempt, with the cache version once the upload is final. */
+    public record Result(UploadKey key, UploadAttemptStatus status, @Nullable String version) {
     }
 
     public Result read(UploadKey key) {
@@ -31,6 +33,11 @@ public class ReadUploadStatus {
             throw new UploadNotFoundException("no upload attempt: " + key.value());
         var attempt = uploadRegistry.findAttempt(process.activeAttemptId())
                 .orElseThrow(() -> new UploadNotFoundException("no upload attempt: " + key.value()));
-        return new Result(key, attempt.status());
+        if (attempt.status() != UploadAttemptStatus.SUCCESS)
+            return new Result(key, attempt.status(), null);
+        // A successful attempt has finalized its upload; expose the cache version so the client can
+        // build versioned read URLs. The upload is loaded only on the terminal success.
+        var version = uploadRegistry.findUpload(key).map(Upload::version).orElse(null);
+        return new Result(key, attempt.status(), version);
     }
 }

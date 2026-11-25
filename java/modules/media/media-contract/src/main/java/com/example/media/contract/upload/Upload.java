@@ -23,4 +23,14 @@ public record Upload(
         Objects.requireNonNull(visibility, "visibility");
         Objects.requireNonNull(createdAt, "createdAt");
     }
+
+    /**
+     * The read cache version of this upload: its creation instant as decimal epoch milliseconds.
+     * A replaced upload is a new row with a new {@code createdAt}, so its version changes and the
+     * old read URLs and download tokens stop matching. The version is part of a download token's
+     * signature, so a token minted for one version cannot read another.
+     */
+    public String version() {
+        return Long.toString(createdAt.toEpochMilli());
+    }
 }

@@ -52,6 +52,19 @@ media:
     max-ttl: 1h
     default-max-uses: 1
     max-uses: 10
+  # Download tokens grant read access to one private upload version (POST
+  # /api/admin/download-permission). The secret is base64 and its decoded bytes are the HMAC-SHA256
+  # signing key (at least 32 bytes); the deployment overrides it through MEDIA_DOWNLOAD_TOKEN_SECRET
+  # and MEDIA_DOWNLOAD_TOKEN_KEY_ID. A requested TTL above max-ttl is clamped.
+  download-token:
+    secret: ${MEDIA_DOWNLOAD_TOKEN_SECRET:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
+    key-id: ${MEDIA_DOWNLOAD_TOKEN_KEY_ID:k1}
+    ttl: 15m
+    max-ttl: 1h
+  # The Cache-Control of media reads. Media stays cacheable; only credential issuance is no-store.
+  read:
+    public-cache-control: "public, max-age=31536000, immutable"
+    private-cache-control: "private, max-age=300"
   worker:
     base-url: ${MEDIA_WORKER_BASE_URL:http://localhost:8082}
     # Recoverable transport failures and worker 5xx answers are retried. Fresh result asset ids

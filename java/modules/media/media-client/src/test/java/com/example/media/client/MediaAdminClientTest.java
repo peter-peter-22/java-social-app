@@ -86,6 +86,32 @@ class MediaAdminClientTest {
     }
 
     @Test
+    void createsADownloadPermission() {
+        server.expect(requestTo("http://api.test/api/admin/download-permission"))
+                .andExpect(method(HttpMethod.POST))
+                .andExpect(header("X-Admin-Key", "test-key"))
+                .andExpect(content().string(allOf(
+                        containsString("\"uploadKey\":\"cover_123\""),
+                        containsString("\"expiresInSeconds\":900"))))
+                .andRespond(withSuccess(
+                        "{\"uploadKey\":\"cover_123\",\"version\":\"1790000000123\","
+                                + "\"expiresAt\":\"2026-11-25T12:15:00Z\",\"expires\":1790000000,"
+                                + "\"signature\":\"sig\",\"keyId\":\"k1\",\"pathPrefix\":\"/cdn/cover_123\"}",
+                        MediaType.APPLICATION_JSON));
+
+        var issued = client.createDownloadPermission(
+                new MediaAdminClient.NewDownloadPermission("cover_123", 900L));
+
+        assertThat(issued.uploadKey()).isEqualTo("cover_123");
+        assertThat(issued.version()).isEqualTo("1790000000123");
+        assertThat(issued.expires()).isEqualTo(1790000000L);
+        assertThat(issued.signature()).isEqualTo("sig");
+        assertThat(issued.keyId()).isEqualTo("k1");
+        assertThat(issued.pathPrefix()).isEqualTo("/cdn/cover_123");
+        server.verify();
+    }
+
+    @Test
     void anErrorAnswerIsThrownToTheCaller() {
         server.expect(requestTo("http://api.test/api/admin/transformation"))
                 .andRespond(withStatus(org.springframework.http.HttpStatus.FORBIDDEN));

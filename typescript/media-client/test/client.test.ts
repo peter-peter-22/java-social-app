@@ -102,14 +102,15 @@ test("reads the variant under its transformation path", async () => {
 });
 
 test("reads the upload status", async () => {
-    const { fetchImpl, captured } = fakeFetch(jsonResponse({ uploadKey: "cover", status: "PENDING" }));
+    const { fetchImpl, captured } = fakeFetch(jsonResponse({ uploadKey: "cover", status: "SUCCESS", version: "123" }));
     const client = new MediaClient("http://api.test", fetchImpl);
 
     const status = await client.uploadStatus("cover");
 
     assert.equal(captured[0].url, "http://api.test/api/upload/status/cover");
     assert.equal(status.uploadKey, "cover");
-    assert.equal(status.status, "PENDING");
+    assert.equal(status.status, "SUCCESS");
+    assert.equal(status.version, "123");
 });
 
 test("an error answer is thrown with its status", async () => {
@@ -120,4 +121,40 @@ test("an error answer is thrown with its status", async () => {
         client.readOriginal("missing", "jpg"),
         (error: unknown) => error instanceof MediaClientError && error.status === 404,
     );
+});
+
+test("reads a private original with a version and download credential", async () => {
+    const { fetchImpl, captured } = fakeFetch(new Response(new Uint8Array([9]), {
+        status: 200,
+        headers: { "content-type": "image/webp" },
+    }));
+    const client = new MediaClient("http://api.test", fetchImpl);
+
+    await client.readOriginal("cover", "jpg", "123", { expires: 1790000000, signature: "sig", keyId: "k1" });
+
+    assert.equal(captured[0].url, "http://api.test/api/get/image/cover.jpg?v=123&e=1790000000&s=sig&k=k1");
+});
+
+test("reads a private variant with a version and download credential", async () => {
+    const { fetchImpl, captured } = fakeFetch(new Response(new Uint8Array([7]), {
+        status: 200,
+        headers: { "content-type": "image/jpeg" },
+    }));
+    const client = new MediaClient("http://api.test", fetchImpl);
+
+    await client.readVariant("cover", "profile", "jpg", "123", { expires: 1790000000, signature: "sig", keyId: "k1" });
+
+    assert.equal(captured[0].url, "http://api.test/api/get/image/cover/profile.jpg?v=123&e=1790000000&s=sig&k=k1");
+});
+
+test("reads a public original without a query string", async () => {
+    const { fetchImpl, captured } = fakeFetch(new Response(new Uint8Array([9]), {
+        status: 200,
+        headers: { "content-type": "image/webp" },
+    }));
+    const client = new MediaClient("http://api.test", fetchImpl);
+
+    await client.readOriginal("cover", "jpg");
+
+    assert.equal(captured[0].url, "http://api.test/api/get/image/cover.jpg");
 });

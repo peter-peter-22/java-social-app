@@ -32,7 +32,7 @@ class UploadStatusControllerTest {
     @Test
     void reportsTheAttemptStatus() throws Exception {
         when(readUploadStatus.read(any()))
-                .thenReturn(new ReadUploadStatus.Result(new UploadKey("cover"), UploadAttemptStatus.PENDING));
+                .thenReturn(new ReadUploadStatus.Result(new UploadKey("cover"), UploadAttemptStatus.PENDING, null));
 
         mockMvc.perform(get("/api/upload/status/cover"))
                 .andExpect(status().isOk())
@@ -43,11 +43,12 @@ class UploadStatusControllerTest {
     @Test
     void reportsTheTerminalStatus() throws Exception {
         when(readUploadStatus.read(any()))
-                .thenReturn(new ReadUploadStatus.Result(new UploadKey("cover"), UploadAttemptStatus.SUCCESS));
+                .thenReturn(new ReadUploadStatus.Result(new UploadKey("cover"), UploadAttemptStatus.SUCCESS, "123"));
 
         mockMvc.perform(get("/api/upload/status/cover"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("SUCCESS"));
+                .andExpect(jsonPath("$.status").value("SUCCESS"))
+                .andExpect(jsonPath("$.version").value("123"));
     }
 
     @Test

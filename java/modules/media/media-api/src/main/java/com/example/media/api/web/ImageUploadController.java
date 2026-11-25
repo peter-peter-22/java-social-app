@@ -46,8 +46,9 @@ public class ImageUploadController {
                 file.getContentType());
         if (result.upload() != null)
             return ResponseEntity.ok(
-                    new ImageUploadResponse(result.key().value(), result.upload().createdAt(), false));
+                    new ImageUploadResponse(result.key().value(), result.upload().createdAt(), false,
+                            result.upload().version()));
         return ResponseEntity.accepted()
-                .body(new ImageUploadResponse(result.key().value(), result.acceptedAt(), true));
+                .body(new ImageUploadResponse(result.key().value(), result.acceptedAt(), true, null));
     }
 }

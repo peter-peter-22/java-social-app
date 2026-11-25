@@ -16,7 +16,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import tools.jackson.databind.json.JsonMapper;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,11 +54,18 @@ public final class MediaClient {
     }
 
     /** The accepted upload: {@code async} is true when the transformations are queued. */
-    public record UploadResult(String uploadKey, Instant createdAt, boolean async) {
+    public record UploadResult(String uploadKey, Instant createdAt, boolean async, @Nullable String version) {
     }
 
     /** The status of the key's active upload attempt. */
-    public record UploadStatus(String uploadKey, UploadAttemptStatus status) {
+    public record UploadStatus(String uploadKey, UploadAttemptStatus status, @Nullable String version) {
+    }
+
+    /**
+     * The download credential for a private read: the {@code e}, {@code s}, and {@code k} query
+     * parameters. The version travels separately as {@code v}.
+     */
+    public record DownloadCredential(long expires, String signature, String keyId) {
     }
 
     /** A downloaded file: the content type and the stored bytes. */
@@ -100,14 +110,38 @@ public final class MediaClient {
                 .body(UploadResult.class);
     }
 
-    /** Reads the original file of an upload. The extension is cosmetic, like on the server. */
+    /** Reads the original file of a public upload. The extension is cosmetic, like on the server. */
     public DownloadedImage readOriginal(String uploadKey, String extension) {
-        return read("/api/get/image/%s.%s".formatted(uploadKey, extension));
+        return readOriginal(uploadKey, extension, null, null);
     }
 
-    /** Reads the named variant of an upload. The extension is cosmetic, like on the server. */
+    /**
+     * Reads the original file, optionally with the cache version and download credential a private
+     * upload requires. A public read ignores them; {@code version} is then only a cache key.
+     */
+    public DownloadedImage readOriginal(
+            String uploadKey,
+            String extension,
+            @Nullable String version,
+            @Nullable DownloadCredential credential
+    ) {
+        return read("/api/get/image/%s.%s".formatted(uploadKey, extension), version, credential);
+    }
+
+    /** Reads the named variant of a public upload. The extension is cosmetic, like on the server. */
     public DownloadedImage readVariant(String uploadKey, String transformation, String extension) {
-        return read("/api/get/image/%s/%s.%s".formatted(uploadKey, transformation, extension));
+        return readVariant(uploadKey, transformation, extension, null, null);
+    }
+
+    /** Reads the named variant, optionally with the cache version and download credential. */
+    public DownloadedImage readVariant(
+            String uploadKey,
+            String transformation,
+            String extension,
+            @Nullable String version,
+            @Nullable DownloadCredential credential
+    ) {
+        return read("/api/get/image/%s/%s.%s".formatted(uploadKey, transformation, extension), version, credential);
     }
 
     /** Polls the status of the key's active upload attempt. */
@@ -118,9 +152,9 @@ public final class MediaClient {
                 .body(UploadStatus.class);
     }
 
-    private DownloadedImage read(String path) {
+    private DownloadedImage read(String path, @Nullable String version, @Nullable DownloadCredential credential) {
         var response = restClient.get()
-                .uri(path)
+                .uri(path + query(version, credential))
                 .retrieve()
                 .toEntity(byte[].class);
         var contentType = response.getHeaders().getContentType();
@@ -129,6 +163,23 @@ public final class MediaClient {
                 contentType == null ? MediaType.APPLICATION_OCTET_STREAM_VALUE : contentType.toString(),
                 fileNameOf(disposition),
                 response.getBody());
+    }
+
+    /** Builds the {@code v}, {@code e}, {@code s}, {@code k} query string, or an empty string. */
+    private static String query(@Nullable String version, @Nullable DownloadCredential credential) {
+        var params = new ArrayList<String>();
+        if (version != null)
+            params.add("v=" + encode(version));
+        if (credential != null) {
+            params.add("e=" + credential.expires());
+            params.add("s=" + encode(credential.signature()));
+            params.add("k=" + encode(credential.keyId()));
+        }
+        return params.isEmpty() ? "" : "?" + String.join("&", params);
+    }
+
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
     /** Parses the file name of a {@code inline; filename="..."} disposition header. */
