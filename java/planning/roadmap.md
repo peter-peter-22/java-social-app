@@ -29,6 +29,8 @@ The execution of the steps is not ordered, the order is depending on which one i
 
 - [ ] Plan the complete project shape and conventions (API gateway setup, openAPI, user authentication, conventions, observability) after the media service is and a baseline post service is ready.
 
+- [ ] Investigate the HMAC encryption key rotation and the admin client key. 
+
 # Verify the behavior of the used services
 
 Some behavior for the used services is assumed and need to be tested.
