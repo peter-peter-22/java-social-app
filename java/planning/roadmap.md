@@ -5,25 +5,25 @@ The execution of the steps is not ordered, the order is depending on which one i
 
 # Baseline application
 
-Revise the testing architecture and the project structure.
+- [x] Revise the testing architecture and the project structure.
 
-Find a reliable cleanup mechanism.
+- [ ] Find a reliable cleanup mechanism.
 
-Add the video and raw uploads.
+- [ ] Add the video and raw uploads.
 
-Build a minimal functioning media cloud.
+- [x] Build a minimal functioning media cloud.
 
-Check if the multi region object storage is used properly.
+- [ ] Test multi region object storage behavior in reproducible integration test.
 
-Build a minimal functioning post creation web API.
+- [ ] Build a minimal functioning post creation web API.
 
-Replace the @NotNull annotations with @Nullmarked. (Beware of the Jakarta validation not null.)
+- [ ] Replace the @NotNull annotations with @Nullmarked. (Beware of the Jakarta validation not null.)
 
-Build a minimal client, enough to test the full post and file upload.
+- [ ] Build a minimal client, enough to test the full post and file upload.
 
-Implement upload read authentication.
+- [ ] Implement upload read authentication.
 
-Implement live streams.
+- [ ] Implement live streams.
 
 # Verify the behavior of the used services
 
