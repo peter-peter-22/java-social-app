@@ -21,10 +21,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-amqp")
 
     // libvips
-    implementation("app.photofox.vips-ffm:vips-ffm-core:1.9.8")
+    implementation(libs.vips.ffm.core)
 
     // The architecture guard (clean-media-service.md): the worker cannot import the registry.
-    testImplementation("com.tngtech.archunit:archunit-junit5:${Versions.archunit}")
+    testImplementation(libs.archunit.junit5)
 }
 
 // libvips loads its native library through the foreign function and memory API. Java 25 blocks

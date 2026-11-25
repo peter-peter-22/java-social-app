@@ -1,14 +1,76 @@
-# Version catalog is a central place for you to declare and version dependencies
+# The single home of the dependency and plugin versions this build pins by hand.
+# Libraries whose versions the Spring Boot BOM manages are declared without a version in the
+# conventions and the module scripts; the pins here are only for libraries no BOM owns: the test
+# stack of the plain Java modules, one-off tools such as ArchUnit, and the plugins of the
+# conventions.
 # https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
 
+# The test stack of the plain Java modules; the Spring modules resolve these from the BOM.
+junit-jupiter = "5.11.3"
+assertj = "3.27.7"
+mockito = "5.23.0"
+
+# Compile-time tooling, used by every module.
+lombok = "1.18.46"
+jspecify = "1.0.0"
+
+# The architecture tests.
+archunit = "1.5.1"
+
+# Jackson 3 databind for the Spring-free media-json module. The version matches the one the
+# Spring Boot 4 BOM resolves for the deployables; media-json stays Spring-free, so it is pinned
+# here instead of imported from the BOM.
+jackson-databind = "3.1.4"
+
+# The Minio client of the object-storage adapter.
+minio = "8.6.0" # PRODUCTION: upgrade
+
+# The libvips bindings of the image worker.
+vips-ffm = "1.9.8"
+
+# The plugins used by the build conventions. They are put on the buildSrc classpath
+# (buildSrc/build.gradle.kts) and applied by id in the convention scripts.
+spring-boot = "4.0.7"
+spring-dependency-management = "1.1.7"
+hibernate-orm = "7.2.19.Final"
 
 [libraries]
 
+# The test stack of the plain Java modules.
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+
+# Compile-time tooling, used by every module.
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+
+# The architecture tests.
+archunit-junit5 = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit" }
+
+# Jackson 3 databind for the Spring-free media-json module.
+jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+
+# The Minio client of the object-storage adapter.
+minio = { module = "io.minio:minio", version.ref = "minio" }
+
+# The libvips bindings of the image worker.
+vips-ffm-core = { module = "app.photofox.vips-ffm:vips-ffm-core", version.ref = "vips-ffm" }
+
+# The plugin artifacts on the buildSrc classpath (buildSrc/build.gradle.kts).
+spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
+spring-dependency-management-gradle-plugin = { module = "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin", version.ref = "spring-dependency-management" }
+hibernate-gradle-plugin = { module = "org.hibernate.orm:hibernate-gradle-plugin", version.ref = "hibernate-orm" }
 
 [bundles]
 
+# The test stack of the plain Java modules, added by java-library-conventions.
+java-test = ["junit-jupiter", "assertj-core", "mockito-core"]
 
 [plugins]
+
+# Empty on purpose: the convention plugins apply their plugins by id, with the versions pinned as
+# buildSrc classpath dependencies above (see buildSrc/build.gradle.kts).

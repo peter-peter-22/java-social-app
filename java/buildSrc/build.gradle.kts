@@ -5,14 +5,15 @@ plugins {
 }
 
 dependencies {
-    // Here we define the versions of the plugins used in the conventions
+    // Here we define the plugins used in the conventions. The versions are pinned in the version
+    // catalog (gradle/libs.versions.toml), which buildSrc/settings.gradle.kts imports.
 
     // spring boot
-    implementation("org.springframework.boot:spring-boot-gradle-plugin:4.0.7")
+    implementation(libs.spring.boot.gradle.plugin)
     // spring dependency management
-    implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.7")
+    implementation(libs.spring.dependency.management.gradle.plugin)
     // hibernate orm (bytecode enhancement of the JPA entities in media-registry)
-    implementation("org.hibernate.orm:hibernate-gradle-plugin:7.2.19.Final")
+    implementation(libs.hibernate.gradle.plugin)
 }
 
 repositories {
