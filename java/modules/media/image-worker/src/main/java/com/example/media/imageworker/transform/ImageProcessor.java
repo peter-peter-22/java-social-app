@@ -26,7 +26,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * {@code default.webp}).
  */
 @Component
-@NullMarked
 public class ImageProcessor implements ImageProcessing {
 
     /** Reads the dimensions of an image file. */

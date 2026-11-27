@@ -32,7 +32,7 @@ dependencies {
     // libvips
     implementation(libs.vips.ffm.core)
 
-    // The architecture guard (clean-media-service.md): the worker cannot import the registry.
+    // The architecture guard: the worker cannot import the registry.
     testImplementation(libs.archunit.junit5)
 }
 

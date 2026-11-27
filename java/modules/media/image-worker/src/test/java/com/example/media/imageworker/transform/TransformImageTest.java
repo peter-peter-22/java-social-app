@@ -10,6 +10,9 @@ import com.example.media.contract.transformation.ImageTransformationSpec;
 import com.example.media.contract.upload.AttemptId;
 import com.example.media.contract.worker.ImageTransformCommand;
 import com.example.media.contract.worker.PlannedImageOutput;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -139,12 +142,13 @@ class TransformImageTest {
     }
 
     /** The in-memory stand-in for the libvips processing: writes one encoded file per output. */
+    @NullMarked
     private static final class FakeImageProcessing implements ImageProcessing {
-        final AtomicReference<Path> lastOutputDir = new AtomicReference<>();
+        final AtomicReference<@Nullable Path> lastOutputDir = new AtomicReference<>();
         final AtomicBoolean fail = new AtomicBoolean(false);
 
         @Override
-        public ImageMetadata readMetadata(Path file) {
+        public ImageMetadata readMetadata( Path file) {
             return new ImageMetadata(400, 300);
         }
 
