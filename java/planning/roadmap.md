@@ -33,6 +33,8 @@ The execution of the steps is not ordered, the order is depending on which one i
 
 - [x] Investigate the HMAC key rotation and the admin client key.
 
+- [ ] Investigate how a realistic modern microservice application works. (How the internal communication works. Edge or cluster deployment? How security and authentication is done?)
+
 # Verify the behavior of the used services
 
 Some behavior for the used services is assumed and need to be tested.
