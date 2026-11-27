@@ -12,9 +12,11 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
  */
 @AnalyzeClasses(packages = "com.example.media.imageworker")
 class ArchitectureTest {
-
+    // TODO the arch unit rules do not cover all illegal states.
+    //  example: importing the media-client from image-worker, importing the image-worker from the media-api
+    //  should this be extended?
     @ArchTest
     static final ArchRule workerDoesNotDependOnTheRegistry = noClasses()
-            .that().resideInAPackage("com.example.media.imageworker..")
+            .that().resideInAnyPackage("com.example.media.imageworker..","com.example.media.video_worker..")
             .should().dependOnClassesThat().resideInAPackage("com.example.media.registry..");
 }
