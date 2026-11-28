@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class VideoProcessorTest {
     private final VideoProcessor processor = new VideoProcessor();
@@ -51,13 +52,38 @@ public class VideoProcessorTest {
 
     @Test
     void encodingPreset() {
-        for(VideoEncoding.VideoEncodingPreset preset : VideoEncoding.VideoEncodingPreset.values()) {
+        for (VideoEncoding.VideoEncodingPreset preset : VideoEncoding.VideoEncodingPreset.values()) {
             processor.process(
                     inputPath,
                     getReportDir("encoding preset/" + preset.name()),
                     new VideoTransformationSpec(VideoEncoding.Mp4.builder().encodingPreset(preset).build())
             );
         }
+    }
+
+    @Test
+    void hlsTracks() {
+        processor.process(
+                inputPath,
+                getReportDir("hls tracks"),
+                new VideoTransformationSpec(
+                        VideoEncoding.Hls.builder()
+                                .tracks(List.of(
+                                        VideoEncoding.Hls.HlsTrack.builder().name("high_quality").constantRateFactor(15).build(),
+                                        VideoEncoding.Hls.HlsTrack.builder().name("low_quality").constantRateFactor(50).build()
+                                ))
+                                .build()
+                )
+        );
+    }
+
+    @Test
+    void hlsEmpty() {
+        processor.process(
+                inputPath,
+                getReportDir("hls empty"),
+                new VideoTransformationSpec(VideoEncoding.Hls.builder().build())
+        );
     }
 
     /**

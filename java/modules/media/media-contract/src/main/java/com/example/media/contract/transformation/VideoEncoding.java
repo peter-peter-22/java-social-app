@@ -3,6 +3,10 @@ package com.example.media.contract.transformation;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * The output encoding of a video transformation.
  * The placeholder variants mirror the prototype's names so the JSON discriminators stay stable.
@@ -85,9 +89,9 @@ public sealed interface VideoEncoding permits VideoEncoding.Mp4, VideoEncoding.H
                 throw new IllegalArgumentException("audioSampleRateHz cannot be negative");
             if (videoFrameRate != null && videoFrameRate < 0)
                 throw new IllegalArgumentException("videoFrameRate cannot be negative");
-            if(videoBitrate != null && videoBitrate < 0)
+            if (videoBitrate != null && videoBitrate < 0)
                 throw new IllegalArgumentException("videoBitrate cannot be negative");
-            if(constantRateFactor != null && constantRateFactor < 0)
+            if (constantRateFactor != null && constantRateFactor < 0)
                 throw new IllegalArgumentException("constantRateFactor cannot be negative");
         }
 
@@ -97,10 +101,39 @@ public sealed interface VideoEncoding permits VideoEncoding.Mp4, VideoEncoding.H
         }
     }
 
-    record Hls() implements VideoEncoding {
+    /**
+     * HLS encoding parameters.
+     *
+     * @param groupOfFrames How many frames are between the i-frames aka. keyframes. Higher number means smaller file size but slower seeking. Has bigger impact on HLS segments.
+     */
+    @Builder
+    record Hls(
+            @Nullable Integer groupOfFrames,
+            @Nullable List<HlsTrack> tracks
+    ) implements VideoEncoding {
         @Override
         public String contentType() {
-            return "";
+            return "application/vnd.apple.mpegurl";
+        }
+
+        @Builder
+        public record HlsTrack(
+                String name,
+                @Nullable Integer constantRateFactor,
+                @Nullable Integer videoBitrate,
+                @Nullable Integer audioBitrate
+        ) {
+            public HlsTrack {
+                Objects.requireNonNull(name, "name cannot be null");
+                if (name.contains(" "))
+                    throw new IllegalArgumentException("name cannot contain spaces");
+                if (constantRateFactor != null && constantRateFactor < 0)
+                    throw new IllegalArgumentException("constantRateFactor cannot be negative");
+                if (videoBitrate != null && videoBitrate < 0)
+                    throw new IllegalArgumentException("videoBitrate cannot be negative");
+                if (audioBitrate != null && audioBitrate < 0)
+                    throw new IllegalArgumentException("audioBitrate cannot be negative");
+            }
         }
     }
 }

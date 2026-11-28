@@ -6,6 +6,7 @@ import com.example.media.contract.transformation.VideoTransformationSpec;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import net.bramp.ffmpeg.builder.HlsVariant;
 import net.bramp.ffmpeg.builder.Strict;
 import net.bramp.ffmpeg.probe.FFmpegFormat;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class VideoProcessor implements VideoProcessing {
@@ -117,7 +119,42 @@ public class VideoProcessor implements VideoProcessing {
                 yield entryPoint;
             }
             case VideoEncoding.Hls hlsEncoding -> {
-                yield Path.of("not implemented");
+                var variantDir = outputDir.resolve("var-%v");
+                var masterPlaylistName = "master.m3u8";
+                var builder = fFmpegBuilder.addHlsOutput(variantDir.resolve("index.m3u8").toAbsolutePath());
+
+                builder = builder.setHlsTime(10, TimeUnit.SECONDS)
+                        .addExtraArgs("-hls_segment_type", "fmp4")
+                        .setHlsPlaylistType("vod")
+                        .setHlsListSize(0) // Max number of the segments per track. 0 means unlimited.
+                        .setHlsSegmentFileName(variantDir.resolve("segment-%d.m4s").toAbsolutePath().toString())
+                        .setMasterPlName(masterPlaylistName)
+                        .setPreset("slow")
+                        .addExtraArgs("-g", "60") // group of pictures, should read from the encoding
+                        .addExtraArgs("-sc_threshold", "0");
+
+                // Map the same input multiple times for different variants
+
+                if (hlsEncoding.tracks() != null) {
+                    for (int i = 0; i < hlsEncoding.tracks().size(); i++) {
+                        var track = hlsEncoding.tracks().get(i);
+
+                        builder.addVariant(new HlsVariant().addVideo(i).addAudio(i).setName(track.name()))
+                                .addExtraArgs("-map", "0:0", "-map", "0:1"); // create the track then set the input
+
+                        if (track.videoBitrate() != null)
+                            builder.addExtraArgs("-b:v:"+i, track.videoBitrate().toString());
+                        if (track.audioBitrate() != null)
+                            builder.addExtraArgs("-b:a:"+i, track.audioBitrate().toString());
+                        if (track.constantRateFactor() != null)
+                            builder.addExtraArgs("-crf:v:"+i, track.constantRateFactor().toString());
+                    }
+                }
+
+                builder.setAudioCodec("copy")
+                        .done();
+
+                yield outputDir.resolve(masterPlaylistName);
             }
         };
     }

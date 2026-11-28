@@ -13,6 +13,8 @@ public record VideoTransformationSpec(VideoEncoding encoding) implements Transfo
     // Unlike in the case of the image transformation, there is nothing between the encoding and decoding.
     //  So there aren't any shared transformation operations.
     //  Everything is decided by the encoding parameters.
+    //
+    // Here, the parameters those are shared between all encodings could be collected, e.g., "encoding preset".
     public VideoTransformationSpec {
         Objects.requireNonNull(encoding, "encoding");
     }
