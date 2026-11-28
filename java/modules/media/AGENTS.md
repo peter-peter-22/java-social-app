@@ -87,6 +87,8 @@ journeys use a plain `RestClient` against the edge, because the client speaks th
 
 The transformation output is locked by `ImageProcessorTest` in the `image-worker`'s
 `integrationTest` suite (real libvips, run through `deployment/test-transformations.bash`).
+The video output is locked the same way by `VideoProcessorTest` in the `video-worker`'s
+`integrationTest` suite (real ffmpeg, run through `deployment/test-video-transformations.bash`).
 
 ## Future work (planned, not built)
 

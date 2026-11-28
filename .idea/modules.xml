@@ -34,6 +34,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/object-storage/java.object-storage.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.integrationTest.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.integrationTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modules/media/video-worker/java.video-worker.test.iml" />
     </modules>
   </component>
 </project>

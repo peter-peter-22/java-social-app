@@ -7,15 +7,19 @@ import java.nio.file.Path;
 
 /**
  * The video processing port of the worker: read the dimensions of a file and apply one resolved
- * transformation to it. The production implementation is the libvips adapter
+ * transformation to it. The production implementation is the ffmpeg adapter ({@link VideoProcessor}).
  */
 public interface VideoProcessing {
 
-    /** The encoded result of one transformation: the entry file and the metadata of the video. */
+    /**
+     * The encoded result of one transformation: the entry file and the metadata of the video.
+     */
     record ProcessedFile(Path entryPoint, VideoMetadata metadata) {
     }
 
-    /** Reads the dimensions of a video file. */
+    /**
+     * Reads the dimensions of a video file.
+     */
     VideoMetadata readMetadata(Path file);
 
     /**

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Runs the video transformation tests in the JDK + ffmpeg development image.
-# The tests need the native ffmpeg library, which the host JDK does not provide;
+# The tests need the ffmpeg/ffprobe binaries, which the host environment may not provide;
 # the image is the same one that runs the video worker in compose.
 # Usage: ./test-video-transformations.bash [extra gradle arguments...]
 

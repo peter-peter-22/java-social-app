@@ -1,7 +1,7 @@
 package com.example.media.json;
 
 import com.example.media.contract.transformation.VideoEncoding;
-import com.example.media.contract.transformation.VideoTransformationSpec;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -20,5 +20,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = VideoEncoding.Mp4.class, name = "mp4"),
         @JsonSubTypes.Type(value = VideoEncoding.Hls.class, name = "hls")
 })
+@JsonInclude(JsonInclude.Include.NON_NULL)
 abstract class VideoEncodingMixin {
 }

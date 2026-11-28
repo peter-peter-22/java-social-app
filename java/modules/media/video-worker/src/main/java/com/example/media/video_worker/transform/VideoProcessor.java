@@ -1,163 +1,150 @@
 package com.example.media.video_worker.transform;
 
 import com.example.media.contract.asset.VideoMetadata;
-import com.example.media.contract.transformation.VideoEncoding;
 import com.example.media.contract.transformation.VideoTransformationSpec;
+import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
-import net.bramp.ffmpeg.builder.HlsVariant;
-import net.bramp.ffmpeg.builder.Strict;
 import net.bramp.ffmpeg.probe.FFmpegFormat;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 import net.bramp.ffmpeg.probe.FFmpegStream;
+import net.bramp.ffmpeg.shared.CodecType;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
+/**
+ * The ffmpeg adapter of the video worker. It probes the source, builds the command with
+ * {@link FfmpegCommandBuilder}, runs it, and reads the metadata of the result.
+ *
+ * <p>HLS produces one playlist per variant plus a master playlist. The metadata of an HLS result
+ * is the largest variant, because the browser uses it to size the video element; the master playlist
+ * probe exposes every variant stream, and {@code readMetadata} selects the largest one.</p>
+ */
 @Component
 public class VideoProcessor implements VideoProcessing {
-    private final FFprobe ffprobe;
 
-    {
-        try {
-            ffprobe = new FFprobe();
-        } catch (IOException e) {
-            throw new RuntimeException("Error while initializing FFmpeg:", e);
-        }
+    private static final int DEFAULT_FRAME_RATE = 30;
+
+    private final FFmpeg ffmpeg;
+    private final FFprobe ffprobe;
+    private final FfmpegCommandBuilder commands = new FfmpegCommandBuilder();
+
+    public VideoProcessor() {
+        this(createFfmpeg(), createFfprobe());
+    }
+
+    VideoProcessor(FFmpeg ffmpeg, FFprobe ffprobe) {
+        this.ffmpeg = Objects.requireNonNull(ffmpeg, "ffmpeg");
+        this.ffprobe = Objects.requireNonNull(ffprobe, "ffprobe");
     }
 
     /**
-     * Read the video metadata with ffprobe.
+     * Reads the video metadata with ffprobe and selects the largest video stream of an HLS result.
      */
     @Override
     public VideoMetadata readMetadata(Path file) {
         try {
-
-            FFmpegProbeResult probeResult = ffprobe.probe(file.toAbsolutePath().toString());
-
-            FFmpegFormat format = probeResult.getFormat();
-            FFmpegStream stream = probeResult.getStreams().getFirst();
-
-            return new VideoMetadata(
-                    stream.getWidth(),
-                    stream.getHeight(),
-                    (long) format.getDuration()
-            );
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to extract video metadata:", e);
+            return metadataOf(ffprobe.probe(file.toAbsolutePath().toString()), file);
+        } catch (IOException e) {
+            throw new VideoProcessingException("Failed to extract video metadata: " + file, e);
         }
     }
 
     /**
-     * Create the output files of a video transformation.
-     * Return the entrypoint and the metadata.
+     * Creates the output files of a video transformation and returns the entrypoint and metadata.
      */
     @Override
     public ProcessedFile process(Path source, Path outputDir, VideoTransformationSpec spec) {
-        // input
-        var builder = new FFmpegBuilder()
-                .overrideOutputFiles(true)
-                .setInput(source.toAbsolutePath())
-                .done();
-
-        // encoding
-        var entryPoint = applyEncoding(builder, outputDir, spec.encoding());
-
-        // process the job
         try {
-            new FFmpegExecutor().createJob(builder).run();
-        } catch (Exception e) {
-            throw new RuntimeException("Error while executing the FFmpeg job:", e);
+            Files.createDirectories(outputDir);
+            var sourceProbe = ffprobe.probe(source.toAbsolutePath().toString());
+            var hasAudio = sourceProbe.getStreams().stream()
+                    .anyMatch(stream -> stream.getCodecType() == CodecType.AUDIO);
+            var command = commands.build(source, outputDir, spec, hasAudio, frameRate(sourceProbe));
+            new FFmpegExecutor(ffmpeg, ffprobe).createJob(command.builder()).run();
+            return new ProcessedFile(command.entryPoint(), readMetadata(command.entryPoint()));
+        } catch (IOException e) {
+            throw new VideoProcessingException("Failed to encode the video: " + source, e);
+        } catch (RuntimeException e) {
+            if (e instanceof VideoProcessingException)
+                throw e;
+            throw new VideoProcessingException("Failed to encode the video: " + source, e);
         }
-
-        // get the output metadata
-        // TODO verify if it the probe can read HLS playlists
-        // TODO HLS has multiple resolutions, so the metadata cannot work.
-        //  The goal of the metadata is to expose the media geometry to the main application that will forward it to the browser client.
-        //  The browser will size the image/video elements based on the metadata.
-        //  Storing the largest resolution in the metadata should solve this issue.
-        var metadata = readMetadata(entryPoint);
-        return new ProcessedFile(entryPoint, metadata);
     }
 
-    private Path applyEncoding(FFmpegBuilder fFmpegBuilder, Path outputDir, VideoEncoding encoding) {
-        return switch (encoding) {
-            case VideoEncoding.Mp4 mp4Encoding -> {
-                var entryPoint = outputDir.resolve("result.mp4");
-                var builder = fFmpegBuilder.addOutput(entryPoint.toAbsolutePath());
+    private static VideoMetadata metadataOf(FFmpegProbeResult probe, Path file) {
+        var videos = probe.getStreams().stream()
+                .filter(stream -> stream.getCodecType() == CodecType.VIDEO)
+                .toList();
+        if (videos.isEmpty())
+            throw new VideoProcessingException("No video stream found in: " + file);
 
-                if (mp4Encoding.targetSizeBytes() != null)
-                    builder.setTargetSize(mp4Encoding.targetSizeBytes());
-                if (mp4Encoding.disableSubtitles() != null)
-                    builder.disableSubtitle();
-                if (mp4Encoding.audioChannels() != null)
-                    builder.setAudioChannels(mp4Encoding.audioChannels());
-                if (mp4Encoding.audioCodec() != null)
-                    builder.setAudioCodec(mp4Encoding.audioCodec().name());
-                if (mp4Encoding.audioSampleRateHz() != null)
-                    builder.setAudioSampleRate(mp4Encoding.audioSampleRateHz());
-                if (mp4Encoding.audioBitrate() != null)
-                    builder.setAudioBitRate(mp4Encoding.audioBitrate());
-                if (mp4Encoding.videoFrameRate() != null)
-                    builder.setVideoFrameRate(mp4Encoding.videoFrameRate(), 1);
-                if (mp4Encoding.limitResolution() != null)
-                    IO.println("not yet implemented"); // TODO: investigate how ffmpeg can limit the resolution while keeping the aspect ratio
-                if (mp4Encoding.allowExperimental() != null)
-                    builder.setStrict(Strict.EXPERIMENTAL);
-                if (mp4Encoding.constantRateFactor() != null)
-                    builder.setConstantRateFactor(mp4Encoding.constantRateFactor());
-                if (mp4Encoding.encodingPreset() != null)
-                    builder.setPreset(mp4Encoding.encodingPreset().name());
-                if (mp4Encoding.videoBitrate() != null)
-                    builder.setVideoBitRate(mp4Encoding.videoBitrate());
-                if (mp4Encoding.disableAudio() != null)
-                    builder.disableAudio();
+        var largest = videos.stream()
+                .max(Comparator.comparingLong(stream -> (long) stream.getWidth() * stream.getHeight()))
+                .orElseThrow();
+        if (largest.getWidth() <= 0 || largest.getHeight() <= 0)
+            throw new VideoProcessingException("The video stream has no dimensions: " + file);
 
-                yield entryPoint;
-            }
-            case VideoEncoding.Hls hlsEncoding -> {
-                var variantDir = outputDir.resolve("var-%v");
-                var masterPlaylistName = "master.m3u8";
-                var builder = fFmpegBuilder.addHlsOutput(variantDir.resolve("index.m3u8").toAbsolutePath());
-
-                builder = builder.setHlsTime(10, TimeUnit.SECONDS)
-                        .addExtraArgs("-hls_segment_type", "fmp4")
-                        .setHlsPlaylistType("vod")
-                        .setHlsListSize(0) // Max number of the segments per track. 0 means unlimited.
-                        .setHlsSegmentFileName(variantDir.resolve("segment-%d.m4s").toAbsolutePath().toString())
-                        .setMasterPlName(masterPlaylistName)
-                        .setPreset("slow")
-                        .addExtraArgs("-g", "60") // group of pictures, should read from the encoding
-                        .addExtraArgs("-sc_threshold", "0");
-
-                // Map the same input multiple times for different variants
-
-                if (hlsEncoding.tracks() != null) {
-                    for (int i = 0; i < hlsEncoding.tracks().size(); i++) {
-                        var track = hlsEncoding.tracks().get(i);
-
-                        builder.addVariant(new HlsVariant().addVideo(i).addAudio(i).setName(track.name()))
-                                .addExtraArgs("-map", "0:0", "-map", "0:1"); // create the track then set the input
-
-                        if (track.videoBitrate() != null)
-                            builder.addExtraArgs("-b:v:"+i, track.videoBitrate().toString());
-                        if (track.audioBitrate() != null)
-                            builder.addExtraArgs("-b:a:"+i, track.audioBitrate().toString());
-                        if (track.constantRateFactor() != null)
-                            builder.addExtraArgs("-crf:v:"+i, track.constantRateFactor().toString());
-                    }
-                }
-
-                builder.setAudioCodec("copy")
-                        .done();
-
-                yield outputDir.resolve(masterPlaylistName);
-            }
-        };
+        var durationSeconds = durationSeconds(probe, videos);
+        if (durationSeconds <= 0)
+            throw new VideoProcessingException("The video duration could not be read: " + file);
+        return new VideoMetadata(
+                largest.getWidth(),
+                largest.getHeight(),
+                Math.max(1, Math.round(durationSeconds * 1000)));
     }
 
+    /**
+     * The format duration is the reliable one; streams are the fallback for some containers.
+     */
+    private static double durationSeconds(FFmpegProbeResult probe, List<FFmpegStream> videos) {
+        FFmpegFormat format = probe.getFormat();
+        if (format != null && format.getDuration() > 0)
+            return format.getDuration();
+        var videoDuration = videos.stream().mapToDouble(FFmpegStream::getDuration).max().orElse(0);
+        if (videoDuration > 0)
+            return videoDuration;
+        return probe.getStreams().stream().mapToDouble(FFmpegStream::getDuration).max().orElse(0);
+    }
 
+    /**
+     * The source frame rate feeds the HLS GOP when the transformation does not set one.
+     */
+    private static int frameRate(FFmpegProbeResult probe) {
+        var video = probe.getStreams().stream()
+                .filter(stream -> stream.getCodecType() == CodecType.VIDEO)
+                .findFirst()
+                .orElse(null);
+        if (video == null)
+            return DEFAULT_FRAME_RATE;
+        var rate = video.getAvgFrameRate();
+        if (rate == null || rate.getNumerator() == 0)
+            rate = video.getRFrameRate();
+        if (rate == null || rate.getNumerator() == 0 || rate.getDenominator() == 0)
+            return DEFAULT_FRAME_RATE;
+        var value = rate.doubleValue();
+        return value > 0 ? Math.max(1, (int) Math.round(value)) : DEFAULT_FRAME_RATE;
+    }
+
+    private static FFmpeg createFfmpeg() {
+        try {
+            return new FFmpeg();
+        } catch (IOException e) {
+            throw new IllegalStateException("ffmpeg is not available", e);
+        }
+    }
+
+    private static FFprobe createFfprobe() {
+        try {
+            return new FFprobe();
+        } catch (IOException e) {
+            throw new IllegalStateException("ffprobe is not available", e);
+        }
+    }
 }

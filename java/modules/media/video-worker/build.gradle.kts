@@ -37,12 +37,8 @@ dependencies {
     // archunit
     testImplementation(libs.archunit.junit5)
 
-    // TODO The package version seems correct but it cannot be found. Apparently the maven repository is not visible from here.
-//    constraints {
-//        implementation("com.google.guava:guava:38.8.0-jre") {
-//            because("The Guava version imported by by net.bramp.ffmpeg has a CVE. Replace it with a newer version.")
-//        }
-//    }
+    // net.bramp.ffmpeg 0.9.2 pins Guava 33.5.0-jre (see its POM). Keep an eye on its transitive
+    // dependencies in the version catalog; do not add a guessed Guava version here.
 }
 
 tasks.withType<Test>().configureEach {
@@ -59,6 +55,9 @@ testing {
             dependencies {
                 implementation(project())
                 implementation(project(":media-contract"))
+
+                // The integration test inspects the produced files with the same probe the worker uses.
+                implementation(libs.bramp.ffmpeg)
 
                 implementation("org.springframework.boot:spring-boot-starter-test")
 

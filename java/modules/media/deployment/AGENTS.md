@@ -4,13 +4,14 @@ This directory contains a docker compose file and some bash scripts for starting
 Starting the media API in addition makes the whole network work together, making the end-to-end test runnable.
 
 ## Usage
-- Build the docker images the stack runs — the JDK + libvips worker image (`media.Dockerfile`) and the nginx edge (`nginx.Dockerfile`) — with `./build.bash` (the end-to-end test and `test-transformations.bash` build them automatically).
+- Build the docker images the stack runs — the JDK + libvips/ffmpeg worker image (`media.Dockerfile`) and the nginx edge (`nginx.Dockerfile`) — with `./build.bash` (the end-to-end test and the transformation test scripts build them automatically).
 - Build the media API and image worker jars and start the compose file with the `run.bash` in this directory.
 - Start the `media-api` application or run the end-to-end integration test in it (`EndToEndTest` in `media-api`).
 
 ## Tests
 - `./gradlew :media-api:integrationTest` (from the Gradle root) runs the end-to-end test: it builds the worker jar and this directory's dev images, boots this compose file with Testcontainers, and drives the API through the `media-client` module. The CDN journeys address the edge directly with a plain `RestClient`: the client speaks the web API, and `/cdn/` is the edge's URL space.
 - `./test-transformations.bash` runs the image transformation output tests in the dev image (the tests need the native libvips library).
+- `./test-video-transformations.bash` runs the video transformation output tests in the dev image (the tests need the ffmpeg/ffprobe binaries).
 - The compose file must not set `container_name:` — Testcontainers rejects fixed names.
 
 ## The CDN edge and the download tokens
