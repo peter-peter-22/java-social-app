@@ -335,7 +335,7 @@ class StartImageUploadTest {
     void rejectsNonImageTransformation() {
         when(transformationCatalog.resolve("clip")).thenReturn(new NamedTransformation(
                 new NamedTransformationId(UUID.randomUUID()), "clip",
-                new VideoTransformationSpec(new VideoTransformationSpec.VideoEncoding.Mp4()),
+                new VideoTransformationSpec(VideoEncoding.Mp4.builder().build()),
                 new TransformationVersionId(UUID.randomUUID())));
 
         assertThatThrownBy(() -> useCase.start(request("cover", "jpg", null, null, List.of("clip"), null),

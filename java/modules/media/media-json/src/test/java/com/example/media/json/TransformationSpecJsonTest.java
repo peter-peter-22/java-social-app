@@ -36,7 +36,7 @@ class TransformationSpecJsonTest {
 
     @Test
     void videoSpecUsesTheVideoDiscriminator() {
-        TransformationSpec spec = new VideoTransformationSpec(new VideoTransformationSpec.VideoEncoding.Mp4());
+        TransformationSpec spec = new VideoTransformationSpec(VideoEncoding.Mp4.builder().build());
 
         var json = objectMapper.writeValueAsString(spec);
 

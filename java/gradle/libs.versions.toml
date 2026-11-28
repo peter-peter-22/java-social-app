@@ -30,6 +30,7 @@ minio = "8.6.0" # PRODUCTION: upgrade
 
 # The libvips bindings of the image worker.
 vips-ffm = "1.9.8"
+bramp-ffmpeg = "0.9.2"
 
 # The plugins used by the build conventions. They are put on the buildSrc classpath
 # (buildSrc/build.gradle.kts) and applied by id in the convention scripts.
@@ -59,6 +60,9 @@ minio = { module = "io.minio:minio", version.ref = "minio" }
 
 # The libvips bindings of the image worker.
 vips-ffm-core = { module = "app.photofox.vips-ffm:vips-ffm-core", version.ref = "vips-ffm" }
+
+# The ffmpeg bindings of the video worker.
+bramp-ffmpeg = { module = "net.bramp.ffmpeg:ffmpeg", version.ref = "bramp-ffmpeg" }
 
 # The plugin artifacts on the buildSrc classpath (buildSrc/build.gradle.kts).
 spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }

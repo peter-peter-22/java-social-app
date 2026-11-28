@@ -29,6 +29,7 @@
             <option value="$PROJECT_DIR$/java/modules/media/media-json" />
             <option value="$PROJECT_DIR$/java/modules/media/media-registry" />
             <option value="$PROJECT_DIR$/java/modules/media/object-storage" />
+            <option value="$PROJECT_DIR$/java/modules/media/video-worker" />
           </set>
         </option>
       </GradleProjectSettings>

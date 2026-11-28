@@ -35,6 +35,18 @@ The execution of the steps is not ordered, the order is depending on which one i
 
 - [ ] Investigate how a realistic modern microservice application works. (How the internal communication works. Edge or cluster deployment? How security and authentication is done?)
 
+- [ ] Add the version number to the media read URL paths, not to the URL query. The cache of the media read URLs should be immutable, so the version must be a part of it. 
+
+- [ ] The image transformation tests are over-complicated. Generating images and checking the colors of the transformations is hard to maintain and extend. A pre-defined image and dimension checks would be more simple.
+
+- [ ] Revise the water-falling database queries and transformations in the media service. 
+
+- [ ] Edit the null safety rule. Nullmarked → package-info
+
+- [ ] In `CompleteImageUpload.registerResultAsset` the delivery protocol is hard-coded. For an image, this works, but a video can use `VIDEO` and `HLS_CMAF`. The delivery protocol should be defined by the encoding of the transformation when registering variants. This must be fixed before the video transformations can work.
+
+- The CDN caching, authentication and other details are deferred until a test build can be deployed on a real server provider and the CDN service is chosen. The current decision about the CDN will might be overwritten. The current nginx HMAC authentication is considered as a proof-of-concept prototype.
+
 # Verify the behavior of the used services
 
 Some behavior for the used services is assumed and need to be tested.
@@ -49,11 +61,14 @@ After confirming what happens, a test should be created that checks if the servi
 
 # Seek improvements
 
-Validate the seemingly pointless usage of transactions adn flushing on some repositories.
+Validate the seemingly pointless usage of transactions and flushing on some repositories.
 
-Check the advantages of package scoped constructors.
+Check the advantages of package scoped constructors. (probably useless)
 
-Seek for improvements in the microservice architecture. (gRPC? [x] Arch unit? JDK 28 value classes?)
+Seek for improvements in the microservice architecture.
+- gRPC? 
+- [x] Arch unit 
+- JDK 28 value classes?
 
 # Explore real deployment and architectures
 

@@ -2,6 +2,7 @@ package com.example.media.json;
 
 import com.example.media.contract.transformation.ImageEncoding;
 import com.example.media.contract.transformation.TransformationSpec;
+import com.example.media.contract.transformation.VideoEncoding;
 import com.example.media.contract.transformation.VideoTransformationSpec;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -24,7 +25,7 @@ public final class MediaJson {
         return builder
                 .addMixIn(TransformationSpec.class, TransformationSpecMixin.class)
                 .addMixIn(ImageEncoding.class, ImageEncodingMixin.class)
-                .addMixIn(VideoTransformationSpec.VideoEncoding.class, VideoEncodingMixin.class);
+                .addMixIn(VideoEncoding.class, VideoEncodingMixin.class);
     }
 
     /** A mapper that speaks the media service's JSON shape. */
