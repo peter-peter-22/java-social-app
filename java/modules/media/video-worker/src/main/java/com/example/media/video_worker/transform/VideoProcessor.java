@@ -64,9 +64,12 @@ public class VideoProcessor implements VideoProcessing {
         try {
             Files.createDirectories(outputDir);
             var sourceProbe = ffprobe.probe(source.toAbsolutePath().toString());
+            var sourceVideo = sourceVideo(sourceProbe);
             var hasAudio = sourceProbe.getStreams().stream()
                     .anyMatch(stream -> stream.getCodecType() == CodecType.AUDIO);
-            var command = commands.build(source, outputDir, spec, hasAudio, frameRate(sourceProbe));
+            var command = commands.build(
+                    source, outputDir, spec, hasAudio,
+                    sourceVideo.getWidth(), sourceVideo.getHeight(), frameRate(sourceVideo));
             new FFmpegExecutor(ffmpeg, ffprobe).createJob(command.builder()).run();
             return new ProcessedFile(command.entryPoint(), readMetadata(command.entryPoint()));
         } catch (IOException e) {
@@ -114,15 +117,22 @@ public class VideoProcessor implements VideoProcessing {
     }
 
     /**
-     * The source frame rate feeds the HLS GOP when the transformation does not set one.
+     * The source video stream supplies the dimensions and the GOP frame rate.
      */
-    private static int frameRate(FFmpegProbeResult probe) {
+    private static FFmpegStream sourceVideo(FFmpegProbeResult probe) {
         var video = probe.getStreams().stream()
                 .filter(stream -> stream.getCodecType() == CodecType.VIDEO)
                 .findFirst()
-                .orElse(null);
-        if (video == null)
-            return DEFAULT_FRAME_RATE;
+                .orElseThrow(() -> new VideoProcessingException("No video stream found in the source"));
+        if (video.getWidth() <= 0 || video.getHeight() <= 0)
+            throw new VideoProcessingException("The source video stream has no dimensions");
+        return video;
+    }
+
+    /**
+     * The source frame rate feeds the HLS GOP when the transformation does not set one.
+     */
+    private static int frameRate(FFmpegStream video) {
         var rate = video.getAvgFrameRate();
         if (rate == null || rate.getNumerator() == 0)
             rate = video.getRFrameRate();

@@ -10,14 +10,18 @@ import net.bramp.ffmpeg.builder.Strict;
 import org.jspecify.annotations.Nullable;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Maps a resolved video transformation to the ffmpeg command line. The class is deliberately free
  * of process execution so the argument shape can be unit tested without an ffmpeg binary; the
- * parser of the last resort is still {@link VideoProcessor}.
+ * process runner is {@link VideoProcessor}.
+ *
+ * <p>The target dimensions of every output are computed from the probed source dimensions and
+ * emitted as a direct output size ({@code -s} for MP4, {@code -s:v:N} for an HLS variant). This
+ * keeps the aspect ratio and the even-dimension requirement in one Java calculation instead of a
+ * set of ffmpeg filter expressions, and it needs no filter graph at all.</p>
  *
  * <p>Per-stream settings are not exposed by {@code net.bramp.ffmpeg}'s builder API, so the HLS
  * variants use output-level extra arguments (stream specifiers such as {@code -b:v:0} and
@@ -36,20 +40,36 @@ final class FfmpegCommandBuilder {
     record BuiltCommand(FFmpegBuilder builder, Path entryPoint) {
     }
 
+    /**
+     * The even, aspect-preserving dimensions of one output.
+     */
+    private record Resolution(int width, int height) {
+    }
+
     BuiltCommand build(
             Path source,
             Path outputDir,
             VideoTransformationSpec spec,
             boolean hasAudio,
+            int sourceWidth,
+            int sourceHeight,
             int sourceFrameRate
     ) {
         return switch (spec.encoding()) {
-            case VideoEncoding.Mp4 mp4 -> mp4(source, outputDir, mp4, hasAudio);
-            case VideoEncoding.Hls hls -> hls(source, outputDir, hls, hasAudio, sourceFrameRate);
+            case VideoEncoding.Mp4 mp4 -> mp4(source, outputDir, mp4, hasAudio, sourceWidth, sourceHeight);
+            case VideoEncoding.Hls hls -> hls(
+                    source, outputDir, hls, hasAudio, sourceWidth, sourceHeight, sourceFrameRate);
         };
     }
 
-    private BuiltCommand mp4(Path source, Path outputDir, VideoEncoding.Mp4 mp4, boolean hasAudio) {
+    private BuiltCommand mp4(
+            Path source,
+            Path outputDir,
+            VideoEncoding.Mp4 mp4,
+            boolean hasAudio,
+            int sourceWidth,
+            int sourceHeight
+    ) {
         var entryPoint = outputDir.resolve(MP4_ENTRY_POINT);
         var output = new FFmpegBuilder()
                 .overrideOutputFiles(true)
@@ -58,9 +78,10 @@ final class FfmpegCommandBuilder {
                 .addOutput(entryPoint);
 
         applyCommonVideo(output, mp4.video(), true);
-        var filter = scaleFilter(mp4.video().limitWidth(), mp4.video().limitHeight());
-        if (filter != null)
-            output.setVideoFilter(filter);
+        var target = targetResolution(
+                sourceWidth, sourceHeight, mp4.video().limitWidth(), mp4.video().limitHeight());
+        if (needsScale(target, sourceWidth, sourceHeight))
+            output.setVideoResolution(target.width(), target.height());
 
         if (hasAudio && !mp4.audio().disabled())
             applyAudio(output, mp4.audio(), true);
@@ -80,6 +101,8 @@ final class FfmpegCommandBuilder {
             Path outputDir,
             VideoEncoding.Hls hls,
             boolean hasAudio,
+            int sourceWidth,
+            int sourceHeight,
             int sourceFrameRate
     ) {
         var entryPoint = outputDir.resolve(HLS_MASTER_PLAYLIST);
@@ -114,11 +137,12 @@ final class FfmpegCommandBuilder {
         else
             output.disableAudio();
 
-        var scaling = hls.tracks().stream().anyMatch(track ->
-                effectiveLimit(track.limitWidth(), hls.video().limitWidth()) != null
-                        || effectiveLimit(track.limitHeight(), hls.video().limitHeight()) != null);
-        if (scaling)
-            output.setComplexFilter(filterGraph(hls));
+        var targets = hls.tracks().stream()
+                .map(track -> targetResolution(
+                        sourceWidth, sourceHeight,
+                        effectiveLimit(track.limitWidth(), hls.video().limitWidth()),
+                        effectiveLimit(track.limitHeight(), hls.video().limitHeight())))
+                .toList();
 
         for (int i = 0; i < hls.tracks().size(); i++) {
             var track = hls.tracks().get(i);
@@ -127,9 +151,15 @@ final class FfmpegCommandBuilder {
                 variant.addAudio(i);
             output.addVariant(variant);
 
-            output.addExtraArgs("-map", scaling ? "[v" + i + "out]" : "0:v:0");
+            output.addExtraArgs("-map", "0:v:0");
             if (hasTrackedAudio)
                 output.addExtraArgs("-map", "0:a:0");
+
+            var target = targets.get(i);
+            if (needsScale(target, sourceWidth, sourceHeight))
+                output.addExtraArgs(
+                        "-s:v:" + i,
+                        target.width() + "x" + target.height());
 
             var videoBitrate = Objects.requireNonNull(
                     track.videoBitrate() != null ? track.videoBitrate() : hls.video().videoBitrate(),
@@ -194,47 +224,25 @@ final class FfmpegCommandBuilder {
     }
 
     /**
-     * The filter graph that scales every HLS variant independently.
+     * Computes the even, aspect-preserving target inside the configured limits. The scale never
+     * exceeds 1, so a limit never upscales. A single-axis limit keeps the other axis proportional.
      */
-    private static String filterGraph(VideoEncoding.Hls hls) {
-        var tracks = hls.tracks();
-        var filters = new ArrayList<String>();
-        if (tracks.size() > 1) {
-            var split = new StringBuilder("[0:v]split=").append(tracks.size());
-            for (int i = 0; i < tracks.size(); i++)
-                split.append("[v").append(i).append("]");
-            filters.add(split.toString());
-        }
-        for (int i = 0; i < tracks.size(); i++) {
-            var track = tracks.get(i);
-            var filter = scaleFilter(
-                    effectiveLimit(track.limitWidth(), hls.video().limitWidth()),
-                    effectiveLimit(track.limitHeight(), hls.video().limitHeight()));
-            var input = tracks.size() > 1 ? "[v" + i + "]" : "[0:v]";
-            filters.add(input + (filter != null ? filter : "null") + "[v" + i + "out]");
-        }
-        return String.join(";", filters);
-    }
-
-    /**
-     * The scale expression keeps the aspect ratio and never upscales. A limit is rounded down to
-     * an even number because H.264 with yuv420p cannot encode odd dimensions; ffmpeg's own
-     * {@code force_divisible_by} does not adjust an explicitly odd width or height.
-     */
-    private static @Nullable String scaleFilter(
+    private static Resolution targetResolution(
+            int sourceWidth,
+            int sourceHeight,
             @Nullable LimitResolution limitWidth,
             @Nullable LimitResolution limitHeight
     ) {
-        var width = limitWidth == null ? null : even(limitWidth.pixels());
-        var height = limitHeight == null ? null : even(limitHeight.pixels());
-        if (width == null && height == null)
-            return null;
-        if (width != null && height != null)
-            return "scale=w=min(iw\\," + width + "):h=min(ih\\," + height
-                    + "):force_original_aspect_ratio=decrease:force_divisible_by=2";
-        if (width != null)
-            return "scale=w=min(iw\\," + width + "):h=-2";
-        return "scale=w=-2:h=min(ih\\," + height + ")";
+        var maxWidth = limitWidth == null ? Integer.MAX_VALUE : even(limitWidth.pixels());
+        var maxHeight = limitHeight == null ? Integer.MAX_VALUE : even(limitHeight.pixels());
+        var scale = Math.min(1.0, Math.min((double) maxWidth / sourceWidth, (double) maxHeight / sourceHeight));
+        return new Resolution(
+                roundEven(sourceWidth * scale),
+                roundEven(sourceHeight * scale));
+    }
+
+    private static boolean needsScale(Resolution resolution, int sourceWidth, int sourceHeight) {
+        return resolution.width() != sourceWidth || resolution.height() != sourceHeight;
     }
 
     private static @Nullable LimitResolution effectiveLimit(
@@ -244,8 +252,18 @@ final class FfmpegCommandBuilder {
         return trackLimit != null ? trackLimit : playlistLimit;
     }
 
+    /**
+     * Rounds a limit down to an even number so a limit is never exceeded.
+     */
     private static int even(int pixels) {
         return Math.max(2, pixels & ~1);
+    }
+
+    /**
+     * Rounds the computed dimension to the nearest even number, with a floor of 2.
+     */
+    private static int roundEven(double pixels) {
+        return Math.max(2, (int) Math.round(pixels / 2.0) * 2);
     }
 
     private static String encoder(VideoEncoding.VideoCodec codec) {

@@ -38,7 +38,7 @@ class FfmpegCommandBuilderTest {
                         .build())
                 .build());
 
-        var command = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 30);
+        var command = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 1920, 1080, 30);
         var args = command.builder().build();
 
         assertThat(command.entryPoint()).isEqualTo(Path.of("out", "result.mp4"));
@@ -49,8 +49,7 @@ class FfmpegCommandBuilderTest {
         assertThat(args).containsSubsequence("-crf", "23");
         assertThat(args).containsSubsequence("-b:v", "2000000");
         assertThat(args).containsSubsequence("-r", "30/1");
-        assertThat(args).containsSubsequence("-vf",
-                "scale=w=min(iw\\,1280):h=min(ih\\,720):force_original_aspect_ratio=decrease:force_divisible_by=2");
+        assertThat(args).containsSubsequence("-s", "1280x720");
         assertThat(args).containsSubsequence("-acodec", "aac");
         assertThat(args).containsSubsequence("-b:a", "128000");
         assertThat(args).containsSubsequence("-ac", "2");
@@ -60,18 +59,18 @@ class FfmpegCommandBuilderTest {
     }
 
     @Test
-    void mp4WithoutLimitsHasNoVideoFilterAndCanDisableAudioAndFastStart() {
+    void mp4WithoutLimitsHasNoOutputSizeAndCanDisableAudioAndFastStart() {
         var spec = new VideoTransformationSpec(VideoEncoding.Mp4.builder()
                 .video(VideoEncoding.VideoSettings.h264())
                 .audio(VideoEncoding.AudioSettings.noAudio())
                 .fastStart(false)
                 .build());
 
-        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 30)
+        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 320, 240, 30)
                 .builder().build();
 
         assertThat(args).doesNotContain("-vf");
-        assertThat(args).doesNotContain("-movflags");
+        assertThat(args).doesNotContain("-s");
         assertThat(args).contains("-an");
         assertThat(args).doesNotContain("-acodec");
     }
@@ -86,17 +85,30 @@ class FfmpegCommandBuilderTest {
                 .audio(VideoEncoding.AudioSettings.aac())
                 .build());
 
-        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 30)
+        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 320, 240, 30)
                 .builder().build();
 
-        assertThat(args).containsSubsequence("-vf", "scale=w=min(iw\\,200):h=-2");
+        assertThat(args).containsSubsequence("-s", "200x150");
+    }
+
+    @Test
+    void mp4NormalizesOddSourceDimensionsEvenWithoutLimits() {
+        var spec = new VideoTransformationSpec(VideoEncoding.Mp4.builder()
+                .video(VideoEncoding.VideoSettings.h264())
+                .audio(VideoEncoding.AudioSettings.aac())
+                .build());
+
+        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 319, 239, 30)
+                .builder().build();
+
+        assertThat(args).containsSubsequence("-s", "320x240");
     }
 
     @Test
     void hlsMapsTheLadderAndThePerTrackOverrides() {
         var spec = hlsSpec();
 
-        var command = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 30);
+        var command = builder.build(Path.of("source.mp4"), Path.of("out"), spec, true, 1920, 1080, 30);
         var args = command.builder().build();
 
         assertThat(command.entryPoint()).isEqualTo(Path.of("out", "master.m3u8"));
@@ -114,9 +126,9 @@ class FfmpegCommandBuilderTest {
         assertThat(args).containsSubsequence("-master_pl_name", "master.m3u8");
         assertThat(args).containsSubsequence("-hls_segment_filename", "out/var-%v/segment-%d.m4s");
         assertThat(args).containsSubsequence("-var_stream_map", "v:0,a:0,name:high v:1,a:1,name:low");
-        assertThat(args).containsSubsequence("-filter_complex",
-                "[0:v]split=2[v0][v1];[v0]scale=w=-2:h=min(ih\\,720)[v0out];[v1]scale=w=-2:h=min(ih\\,360)[v1out]");
-        assertThat(args).containsSubsequence("-map", "[v0out]", "-map", "0:a:0", "-map", "[v1out]", "-map", "0:a:0");
+        assertThat(args).containsSubsequence("-map", "0:v:0", "-map", "0:a:0", "-map", "0:v:0", "-map", "0:a:0");
+        assertThat(args).containsSubsequence("-s:v:0", "1280x720");
+        assertThat(args).containsSubsequence("-s:v:1", "640x360");
         assertThat(args).containsSubsequence("-b:v:0", "2800000");
         assertThat(args).containsSubsequence("-crf:v:0", "20");
         assertThat(args).containsSubsequence("-b:a:0", "128000");
@@ -139,16 +151,18 @@ class FfmpegCommandBuilderTest {
                         .build()))
                 .build());
 
-        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, false, 30)
+        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, false, 320, 240, 30)
                 .builder().build();
 
         assertThat(args).containsSubsequence("-var_stream_map", "v:0,name:single");
         assertThat(args).doesNotContain("-acodec");
         assertThat(args).contains("-an");
+        assertThat(args).doesNotContain("-filter_complex");
+        assertThat(args).containsSubsequence("-map", "0:v:0");
     }
 
     @Test
-    void hlsInheritsThePlaylistLimitAndUsesOneNullFilterForTheUnscaledTrack() {
+    void hlsInheritsThePlaylistLimitForTracksWithoutTheirOwnLimit() {
         var spec = new VideoTransformationSpec(VideoEncoding.Hls.builder()
                 .video(VideoEncoding.VideoSettings.builder()
                         .codec(VideoEncoding.VideoCodec.H264)
@@ -157,15 +171,16 @@ class FfmpegCommandBuilderTest {
                 .audio(VideoEncoding.AudioSettings.noAudio())
                 .segmentSeconds(6)
                 .tracks(List.of(
-                        VideoEncoding.Hls.HlsTrack.builder().name("scaled").videoBitrate(1_000_000).build(),
-                        VideoEncoding.Hls.HlsTrack.builder().name("unscaled").videoBitrate(1_000_000).build()))
+                        VideoEncoding.Hls.HlsTrack.builder().name("first").videoBitrate(1_000_000).build(),
+                        VideoEncoding.Hls.HlsTrack.builder().name("second").videoBitrate(1_000_000).build()))
                 .build());
 
-        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, false, 30)
+        var args = builder.build(Path.of("source.mp4"), Path.of("out"), spec, false, 1920, 1080, 30)
                 .builder().build();
 
-        assertThat(args).containsSubsequence("-filter_complex",
-                "[0:v]split=2[v0][v1];[v0]scale=w=-2:h=min(ih\\,480)[v0out];[v1]scale=w=-2:h=min(ih\\,480)[v1out]");
+        assertThat(args).doesNotContain("-filter_complex");
+        assertThat(args).containsSubsequence("-s:v:0", "854x480");
+        assertThat(args).containsSubsequence("-s:v:1", "854x480");
         assertThat(args).contains("-an");
     }
 
