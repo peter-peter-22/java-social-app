@@ -20,17 +20,19 @@ public sealed interface VideoEncoding permits VideoEncoding.Mp4, VideoEncoding.H
     String contentType();
 
     enum AudioCodec {
+        // TODO there are more codecs
         aac
     }
 
     enum VideoCodec {
+        // TODO there are more codecs
         libx264
     }
 
     /**
      * FFmpeg encoding quality presets.
      * Ranging from fastest and worst compression to slowest and best compression.
-     * TODO The availability and the name of the presets is allegedly varying per hardware. This needs to be verified.
+     * TODO The availability and the name of the presets is allegedly varying per hardware. The tests pass with all presets.
      */
     enum VideoEncodingPreset {
         /**
