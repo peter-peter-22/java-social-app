@@ -8,7 +8,7 @@ package com.example.media.contract.transformation;
  */
 public sealed interface ImageEncoding permits ImageEncoding.Jpeg, ImageEncoding.Webp {
 
-    /** The media type of the encoded file. Derived from the encoding, not stored. */
+    /** The media type of the entry point of the output. Derived from the encoding. */
     String contentType();
 
     record Jpeg(int quality) implements ImageEncoding {
